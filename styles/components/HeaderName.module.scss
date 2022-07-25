@@ -1,0 +1,17 @@
+@import "../mixins";
+@import "../variables";
+.headerName {
+  display: flex;
+  justify-content: space-between;
+
+  & .name {
+    @include Pretendard(1.4, 700, $GY900);
+  }
+  & .arrow {
+    position: relative;
+    top: 25%;
+    -webkit-transform: translateY(25%);
+    -ms-transform: translateY(25%);
+    transform: translateY(25%);
+  }
+}

@@ -1,6 +1,6 @@
 @mixin Pretendard($font: 1.5, $weight: 400, $color: #000) {
   font-family: "Pretendard" !important;
-  font-size: $font + rem !important;
+  font-size: $font * 0.625 + rem !important;
   font-weight: $weight;
   line-height: $font * 1.5 + rem;
   color: $color;

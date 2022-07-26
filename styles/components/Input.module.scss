@@ -1,0 +1,14 @@
+@import "../mixins";
+@import "../variables";
+.inputContainer {
+  & input {
+    padding: 14.5px 15px;
+    border: 1px solid #606374;
+    border-radius: 10px;
+    height: 46px;
+    width: 100%;
+  }
+  & label {
+    @include Pretendard(1.2, 700, $GY700);
+  }
+}

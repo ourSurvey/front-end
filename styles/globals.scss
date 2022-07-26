@@ -24,3 +24,30 @@ a {
     background: black;
   }
 }
+
+@for $i from 0 through 200 {
+  .mt#{$i} {
+    margin-top: 0.1rem * $i !important;
+  }
+  .ml#{$i} {
+    margin-left: 0.1rem * $i !important;
+  }
+  .mr#{$i} {
+    margin-right: 0.1rem * $i !important;
+  }
+  .mb#{$i} {
+    margin-bottom: 0.1rem * $i !important;
+  }
+  .pt#{$i} {
+    padding-top: 0.1rem * $i !important;
+  }
+  .pl#{$i} {
+    padding-left: 0.1rem * $i !important;
+  }
+  .pr#{$i} {
+    padding-right: 0.1rem * $i !important;
+  }
+  .pb#{$i} {
+    padding-bottom: 0.1rem * $i !important;
+  }
+}

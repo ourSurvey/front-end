@@ -1,0 +1,11 @@
+@import "../mixins";
+@import "../variables";
+.formContainer {
+  & .center {
+    text-align: center;
+    margin-top: 16px;
+    & span {
+      @include Pretendard(1.2, 400, $GY700);
+    }
+  }
+}

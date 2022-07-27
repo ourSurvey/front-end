@@ -11,4 +11,7 @@
   & label {
     @include Pretendard(1.2, 700, $GY700);
   }
+  & .errorMessage {
+    @include Pretendard(1.2, 400, $alert500);
+  }
 }

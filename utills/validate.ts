@@ -21,7 +21,7 @@ const pNumValidate = (phoneNumber: string): boolean => {
 
 //비밀번호 정규식
 const passwordValidate = (password: string): boolean => {
-  const regPassword: RegExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+  const regPassword: RegExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*+#?&])[A-Za-z\d@$!%*#+?&]{8,}$/;
   if (regPassword.test(password)) {
     return true;
   } else {
@@ -29,4 +29,28 @@ const passwordValidate = (password: string): boolean => {
   }
 };
 
-export { emailValidate, pNumValidate, passwordValidate };
+//터치 호버 풀었을 때 유효성검사 메시지 출력
+function getFieldError(value: string | undefined, name: string) {
+  if (!value) return "필수 입력 값 입니다!";
+  let check: boolean = false;
+  switch (name) {
+    case "이메일":
+      check = emailValidate(value);
+      if (!check) return "올바른 이메일을 입력해주세요.";
+      break;
+    case "비밀번호":
+      check = passwordValidate(value);
+      if (!check) return "비밀번호는 최소 8자, 하나 이상의 문자, 숫자 및 특수문자 입니다.";
+      break;
+    case "휴대폰 번호":
+      check = pNumValidate(value);
+      if (isNaN(Number(value))) return "숫자만 입력해주세요";
+      if (!check) return "올바른 휴대폰 번호를 입력해주세요";
+      break;
+    default:
+      return null;
+  }
+  return null;
+}
+
+export { emailValidate, pNumValidate, passwordValidate, getFieldError };

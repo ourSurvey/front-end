@@ -1,4 +1,4 @@
-import { emailValidate, pNumValidate, passwordValidate } from "./validate";
+import { emailValidate, pNumValidate, passwordValidate, getFieldError } from "./validate";
 describe("정규식", () => {
   describe("이메일 정규식", () => {
     test("이메일 주소 시작은 숫자나 알파벳으로 시작한다.", () => {
@@ -61,6 +61,21 @@ describe("정규식", () => {
       expect(passwordValidate("asdf1234!")).toBe(true);
       expect(passwordValidate("asdf1412")).toBe(false);
       expect(passwordValidate("tune123@#")).toBe(true);
+    });
+  });
+
+  describe("유효성 검사 함수", () => {
+    test('이메일 정규식이 틀렸을 시에 "올바른 이메일을 입력해주세요." 문구가 출력되어야 한다.', () => {
+      expect(getFieldError("", "이메일")).toBe("필수 입력 값 입니다!");
+      expect(getFieldError("sunpl13naver.com", "이메일")).toBe("올바른 이메일을 입력해주세요.");
+      expect(getFieldError("sunpl13@naver.com", "이메일")).toBe(null);
+    });
+
+    test("비밀번호가 틀렸을 시", () => {
+      expect(getFieldError("", "비밀번호")).toBe("필수 입력 값 입니다!");
+      expect(getFieldError("0102341", "비밀번호")).toBe("비밀번호는 최소 8자, 하나 이상의 문자, 숫자 및 특수문자 입니다.");
+      expect(getFieldError("asdf1234", "비밀번호")).toBe("비밀번호는 최소 8자, 하나 이상의 문자, 숫자 및 특수문자 입니다.");
+      expect(getFieldError("asdf1234+", "비밀번호")).toBe(null);
     });
   });
 });

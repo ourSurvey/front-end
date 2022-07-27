@@ -6,334 +6,75 @@ exports[`Home renders a button 1`] = `
     class="container"
   >
     <div
-      class="headerName"
+      class="formContainer"
     >
       <div
-        class="arrow"
+        class="headerName"
       >
-         
-        <svg
-          fill="currentColor"
-          height="20"
-          stroke="currentColor"
-          stroke-width="0"
-          viewBox="0 0 512 512"
-          width="20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M217.9 256L345 129c9.4-9.4 9.4-24.6 0-33.9-9.4-9.4-24.6-9.3-34 0L167 239c-9.1 9.1-9.3 23.7-.7 33.1L310.9 417c4.7 4.7 10.9 7 17 7s12.3-2.3 17-7c9.4-9.4 9.4-24.6 0-33.9L217.9 256z"
-          />
-        </svg>
-      </div>
-      <span
-        class="name"
-      >
-        회원가입
-      </span>
-      <div
-        class="arrow"
-      >
-         
-        <svg
-          fill="currentColor"
-          height="20"
-          stroke="currentColor"
-          stroke-width="0"
-          viewBox="0 0 512 512"
-          width="20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M294.1 256L167 129c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.3 34 0L345 239c9.1 9.1 9.3 23.7.7 33.1L201.1 417c-4.7 4.7-10.9 7-17 7s-12.3-2.3-17-7c-9.4-9.4-9.4-24.6 0-33.9l127-127.1z"
-          />
-        </svg>
-      </div>
-    </div>
-    <main
-      class="main"
-    >
-      <h1
-        class="title"
-      >
-        Welcome to 
-        <a
-          href="https://nextjs.org"
-        >
-          Next.js!
-        </a>
-      </h1>
-      <p
-        class="description"
-      >
-        Get started by editing 
-        <code
-          class="code"
-        >
-          pages/index.tsx
-        </code>
-      </p>
-      <button
-        style="height: 50px; width: 100%; background-color: rgb(0, 102, 217); color: rgb(255, 255, 255); border-radius: 10px; font-family: Pretendard; font-style: normal; font-weight: 700; font-size: 14px; border: 0px; outline: 0; padding-top: 16.5px; padding-bottom: 16.5px;"
-      >
-        다음
-      </button>
-      <div
-        class="grid"
-      >
-        <a
-          class="card"
-          href="https://nextjs.org/docs"
-        >
-          <h2>
-            Documentation →
-          </h2>
-          <p>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-        <a
-          class="card"
-          href="https://nextjs.org/learn"
-        >
-          <h2>
-            Learn →
-          </h2>
-          <p>
-            Learn about Next.js in an interactive course with quizzes!
-          </p>
-        </a>
-        <a
-          class="card"
-          href="https://github.com/vercel/next.js/tree/canary/examples"
-        >
-          <h2>
-            Examples →
-          </h2>
-          <p>
-            Discover and deploy boilerplate example Next.js projects.
-          </p>
-        </a>
-        <a
-          class="card"
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-        >
-          <h2>
-            Deploy →
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a public URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-    <footer
-      class="footer"
-    >
-      <a
-        href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        Powered by
-         
+        <div
+          class="arrow"
+        />
         <span
-          class="logo"
+          class="name"
+          style="margin-left: 20px; margin-right: 20px;"
         >
-          <span
-            style="box-sizing: border-box; display: inline-block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative; max-width: 100%;"
-          >
-            <span
-              style="box-sizing: border-box; display: block; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; max-width: 100%;"
-            >
-              <img
-                alt=""
-                aria-hidden="true"
-                src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%2772%27%20height=%2716%27/%3e"
-                style="display: block; max-width: 100%; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px;"
-              />
-            </span>
-            <img
-              alt="Vercel Logo"
-              data-nimg="intrinsic"
-              decoding="async"
-              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-              style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
-            />
-            <noscript />
-          </span>
+          로그인
         </span>
-      </a>
-    </footer>
-  </div>
-</div>
-`;
-
-exports[`Home renders a heading 1`] = `
-<div>
-  <div
-    class="container"
-  >
-    <div
-      class="headerName"
-    >
-      <div
-        class="arrow"
-      >
-         
-        <svg
-          fill="currentColor"
-          height="20"
-          stroke="currentColor"
-          stroke-width="0"
-          viewBox="0 0 512 512"
-          width="20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M217.9 256L345 129c9.4-9.4 9.4-24.6 0-33.9-9.4-9.4-24.6-9.3-34 0L167 239c-9.1 9.1-9.3 23.7-.7 33.1L310.9 417c4.7 4.7 10.9 7 17 7s12.3-2.3 17-7c9.4-9.4 9.4-24.6 0-33.9L217.9 256z"
-          />
-        </svg>
+        <div
+          class="arrow"
+        />
       </div>
-      <span
-        class="name"
+      <form
+        novalidate=""
       >
-        회원가입
-      </span>
-      <div
-        class="arrow"
-      >
-         
-        <svg
-          fill="currentColor"
-          height="20"
-          stroke="currentColor"
-          stroke-width="0"
-          viewBox="0 0 512 512"
-          width="20"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="inputContainer"
         >
-          <path
-            d="M294.1 256L167 129c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.3 34 0L345 239c9.1 9.1 9.3 23.7.7 33.1L201.1 417c-4.7 4.7-10.9 7-17 7s-12.3-2.3-17-7c-9.4-9.4-9.4-24.6 0-33.9l127-127.1z"
+          <label
+            for="이메일-input"
+          >
+            이메일
+          </label>
+          <br />
+          <input
+            id="이메일-input"
+            name="이메일"
+            type="text"
           />
-        </svg>
-      </div>
+        </div>
+        <div
+          class="inputContainer mt30"
+        >
+          <label
+            for="비밀번호-input"
+          >
+            비밀번호
+          </label>
+          <br />
+          <input
+            id="비밀번호-input"
+            name="비밀번호"
+            type="text"
+          />
+        </div>
+        <div
+          class="mt30"
+        >
+          <button
+            style="height: 50px; width: 100%; background-color: rgb(0, 102, 217); color: rgb(255, 255, 255); border-radius: 10px; font-family: Pretendard; font-style: normal; font-weight: 700; font-size: 14px; border: 0px; outline: 0; padding-top: 16.5px; padding-bottom: 16.5px;"
+          >
+            로그인
+          </button>
+        </div>
+        <div
+          class="center"
+        >
+          <span>
+            비밀번호 찾기
+          </span>
+        </div>
+      </form>
     </div>
-    <main
-      class="main"
-    >
-      <h1
-        class="title"
-      >
-        Welcome to 
-        <a
-          href="https://nextjs.org"
-        >
-          Next.js!
-        </a>
-      </h1>
-      <p
-        class="description"
-      >
-        Get started by editing 
-        <code
-          class="code"
-        >
-          pages/index.tsx
-        </code>
-      </p>
-      <button
-        style="height: 50px; width: 100%; background-color: rgb(0, 102, 217); color: rgb(255, 255, 255); border-radius: 10px; font-family: Pretendard; font-style: normal; font-weight: 700; font-size: 14px; border: 0px; outline: 0; padding-top: 16.5px; padding-bottom: 16.5px;"
-      >
-        다음
-      </button>
-      <div
-        class="grid"
-      >
-        <a
-          class="card"
-          href="https://nextjs.org/docs"
-        >
-          <h2>
-            Documentation →
-          </h2>
-          <p>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-        <a
-          class="card"
-          href="https://nextjs.org/learn"
-        >
-          <h2>
-            Learn →
-          </h2>
-          <p>
-            Learn about Next.js in an interactive course with quizzes!
-          </p>
-        </a>
-        <a
-          class="card"
-          href="https://github.com/vercel/next.js/tree/canary/examples"
-        >
-          <h2>
-            Examples →
-          </h2>
-          <p>
-            Discover and deploy boilerplate example Next.js projects.
-          </p>
-        </a>
-        <a
-          class="card"
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-        >
-          <h2>
-            Deploy →
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a public URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-    <footer
-      class="footer"
-    >
-      <a
-        href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        Powered by
-         
-        <span
-          class="logo"
-        >
-          <span
-            style="box-sizing: border-box; display: inline-block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative; max-width: 100%;"
-          >
-            <span
-              style="box-sizing: border-box; display: block; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; max-width: 100%;"
-            >
-              <img
-                alt=""
-                aria-hidden="true"
-                src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%2772%27%20height=%2716%27/%3e"
-                style="display: block; max-width: 100%; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px;"
-              />
-            </span>
-            <img
-              alt="Vercel Logo"
-              data-nimg="intrinsic"
-              decoding="async"
-              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-              style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
-            />
-            <noscript />
-          </span>
-        </span>
-      </a>
-    </footer>
   </div>
 </div>
 `;

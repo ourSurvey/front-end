@@ -1,10 +1,12 @@
 import React, { ButtonHTMLAttributes } from "react";
 import CSS from "csstype";
 
-interface IProp extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface IProp {
   color: string;
   btnText: string;
   textColor: string;
+  onClick?: () => void;
+  isDisabled: boolean;
 }
 
 export const Button = (props: IProp) => {
@@ -23,5 +25,9 @@ export const Button = (props: IProp) => {
     paddingTop: "16.5px",
     paddingBottom: "16.5px",
   };
-  return <button style={style}>{props.btnText}</button>;
+  return (
+    <button disabled={props.isDisabled} style={style} onClick={props.onClick}>
+      {props.btnText}
+    </button>
+  );
 };

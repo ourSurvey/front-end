@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes } from "react";
+import React from "react";
 import CSS from "csstype";
 
 interface IProp {
@@ -10,11 +10,12 @@ interface IProp {
 }
 
 export const Button = (props: IProp) => {
+  const { color, textColor, isDisabled, onClick, btnText } = props;
   const style: CSS.Properties = {
     height: "50px",
     width: "100%",
-    backgroundColor: props.color,
-    color: props.textColor,
+    backgroundColor: color,
+    color: textColor,
     borderRadius: "10px",
     fontFamily: "Pretendard",
     fontStyle: "normal",
@@ -26,8 +27,8 @@ export const Button = (props: IProp) => {
     paddingBottom: "16.5px",
   };
   return (
-    <button disabled={props.isDisabled} style={style} onClick={props.onClick}>
-      {props.btnText}
+    <button disabled={isDisabled} style={style} onClick={onClick}>
+      {btnText}
     </button>
   );
 };

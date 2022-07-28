@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "./Button";
 import HeaderName from "./HeaderName";
 import Input from "./Input";
 import LoginFormCss from "styles/components/LoginForm.module.scss";
+import PasswordInput from "./PasswordInput";
 
 const LoginForm = (): JSX.Element => {
-  const [wasSubmitted, setwasSubmitted] = React.useState(false);
-  const [email, setEmail] = React.useState(false);
-  const [pwd, setPwd] = React.useState(false);
+  const [wasSubmitted, setwasSubmitted] = useState(false);
+  const [isVisiblePassword, setisVisiblePassword] = useState(false);
+  const [inputType, setinputType] = useState("text"); //패스워드 버튼 눌렀을 때 변경 토글
+  const [email, setEmail] = useState(false);
+  const [pwd, setPwd] = useState(false);
+
   const Login = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -17,13 +21,32 @@ const LoginForm = (): JSX.Element => {
   };
   const ckBtn = email && pwd;
 
+  useEffect(() => {
+    const changeInputType = (): void => {
+      if (isVisiblePassword) {
+        setinputType("text");
+      } else {
+        setinputType("password");
+      }
+    };
+    changeInputType();
+  }, [isVisiblePassword]);
+
   return (
     <div className={LoginFormCss.formContainer}>
       <HeaderName name="로그인" hasBack={false} hasNext={false} />
 
       <form noValidate onSubmit={Login}>
         <Input setValidate={setEmail} className="" name="이메일" wasSubmitted={wasSubmitted} type="email" />
-        <Input setValidate={setPwd} className=" mt30" name="비밀번호" wasSubmitted={wasSubmitted} type="password" />
+        <PasswordInput
+          name="비밀번호"
+          type={inputType}
+          className=" mt30"
+          wasSubmitted={wasSubmitted}
+          isVisible={isVisiblePassword}
+          setisVisiblePassword={setisVisiblePassword}
+          setValidate={setPwd}
+        />
 
         <div className="mt30">
           <Button isDisabled={!ckBtn} color="#0066d9" btnText="로그인" textColor="#fff" />

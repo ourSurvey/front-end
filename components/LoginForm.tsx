@@ -4,6 +4,7 @@ import HeaderName from "./HeaderName";
 import Input from "./Input";
 import LoginFormCss from "styles/components/LoginForm.module.scss";
 import PasswordInput from "./PasswordInput";
+import OutLineButton from "./OutLineButton";
 
 const LoginForm = (): JSX.Element => {
   const [wasSubmitted, setwasSubmitted] = useState(false);
@@ -34,27 +35,30 @@ const LoginForm = (): JSX.Element => {
 
   return (
     <div className={LoginFormCss.formContainer}>
-      <HeaderName name="로그인" hasBack={false} hasNext={false} />
+      <div>
+        <HeaderName name="로그인" hasBack={false} hasNext={false} />
 
-      <form noValidate onSubmit={Login}>
-        <Input setValidate={setEmail} className="" name="이메일" wasSubmitted={wasSubmitted} type="email" />
-        <PasswordInput
-          name="비밀번호"
-          type={inputType}
-          className=" mt30"
-          wasSubmitted={wasSubmitted}
-          isVisible={isVisiblePassword}
-          setisVisiblePassword={setisVisiblePassword}
-          setValidate={setPwd}
-        />
+        <form noValidate onSubmit={Login}>
+          <Input setValidate={setEmail} className="" name="이메일" wasSubmitted={wasSubmitted} type="email" />
+          <PasswordInput
+            name="비밀번호"
+            type={inputType}
+            className=" mt30"
+            wasSubmitted={wasSubmitted}
+            isVisible={isVisiblePassword}
+            setisVisiblePassword={setisVisiblePassword}
+            setValidate={setPwd}
+          />
 
-        <div className="mt30">
-          <Button isDisabled={!ckBtn} color="#0066d9" btnText="로그인" textColor="#fff" />
+          <div className="mt30">
+            <Button isDisabled={!ckBtn} color="#0066d9" btnText="로그인" textColor="#fff" />
+          </div>
+        </form>
+        <div className={LoginFormCss.center}>
+          <span>비밀번호 찾기</span>
         </div>
-      </form>
-      <div className={LoginFormCss.center}>
-        <span>비밀번호 찾기</span>
       </div>
+      <OutLineButton isDisabled={false} borderColor="#0066d9" btnText="회원가입" textColor="#363841" />
     </div>
   );
 };

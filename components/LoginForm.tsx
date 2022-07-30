@@ -8,8 +8,6 @@ import OutLineButton from "./OutLineButton";
 
 const LoginForm = (): JSX.Element => {
   const [wasSubmitted, setwasSubmitted] = useState(false);
-  const [isVisiblePassword, setisVisiblePassword] = useState(false);
-  const [inputType, setinputType] = useState("text"); //패스워드 버튼 눌렀을 때 변경 토글
   const [email, setEmail] = useState(false);
   const [pwd, setPwd] = useState(false);
 

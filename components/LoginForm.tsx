@@ -22,17 +22,6 @@ const LoginForm = (): JSX.Element => {
   };
   const ckBtn = email && pwd;
 
-  useEffect(() => {
-    const changeInputType = (): void => {
-      if (isVisiblePassword) {
-        setinputType("text");
-      } else {
-        setinputType("password");
-      }
-    };
-    changeInputType();
-  }, [isVisiblePassword]);
-
   return (
     <div className={LoginFormCss.formContainer}>
       <div>
@@ -40,15 +29,7 @@ const LoginForm = (): JSX.Element => {
 
         <form noValidate onSubmit={Login}>
           <Input setValidate={setEmail} className="" name="이메일" wasSubmitted={wasSubmitted} type="email" />
-          <PasswordInput
-            name="비밀번호"
-            type={inputType}
-            className=" mt30"
-            wasSubmitted={wasSubmitted}
-            isVisible={isVisiblePassword}
-            setisVisiblePassword={setisVisiblePassword}
-            setValidate={setPwd}
-          />
+          <PasswordInput name="비밀번호" className=" mt30" wasSubmitted={wasSubmitted} setValidate={setPwd} />
 
           <div className="mt30">
             <Button isDisabled={!ckBtn} color="#0066d9" btnText="로그인" textColor="#fff" />

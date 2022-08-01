@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import UnVisibleEye from "public/images/unVisibleEye.svg";
 import VisibleEye from "public/images/visibleEye.svg";
 import styled from "@emotion/styled";

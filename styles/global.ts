@@ -5,14 +5,12 @@ export const global = css`
   body {
     padding: 0;
     margin: 0;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    overflow: hidden;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif,
       Pretendard;
-  }
-
-  body {
-    width: 100vw;
-    height: 100vh;
-    padding: 21.5px 20px 35px 20px;
   }
 
   a {

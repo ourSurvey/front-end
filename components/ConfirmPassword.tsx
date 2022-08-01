@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import usePasswordValue from "hooks/usePasswordValue";
 import UnVisibleEye from "public/images/unVisibleEye.svg";
 import VisibleEye from "public/images/visibleEye.svg";
-import PasswordInputCss from "styles/components/PasswordInputCss.module.scss";
+import { Common, Pretendard } from "styles/common";
+import styled from "@emotion/styled";
 
 function ConfirmPassword({
   name,
@@ -28,10 +29,10 @@ function ConfirmPassword({
   };
 
   return (
-    <div key={name} className={PasswordInputCss.container + className}>
+    <Container key={name}>
       <label htmlFor={`${name}-input`}>{name}:</label>
       <br />
-      <div className={PasswordInputCss.inputContainer}>
+      <InputContainer>
         <input
           ref={ref}
           id={`${name}-input`}
@@ -47,14 +48,48 @@ function ConfirmPassword({
         ) : (
           <UnVisibleEye onClick={onClickVisibleIcon} width="22" height="22" />
         )}
-      </div>
+      </InputContainer>
       {displayErrorMessage ? (
-        <span role="alert" id={`${name}-error`} className="error-message">
+        <Span role="alert" id={`${name}-error`} className="error-message">
           {errorMessage}
-        </span>
+        </Span>
       ) : null}
-    </div>
+    </Container>
   );
 }
+
+const Span = styled.span`
+  ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.alert500 })}
+`;
+
+const Container = styled.div`
+  & .inputContainer {
+    position: relative;
+    & svg {
+      position: absolute;
+      right: 15px;
+      top: 12px;
+    }
+  }
+
+  & input {
+    padding: 14.5px 15px;
+    border: 1px solid ${Common.colors.GY700};
+    border-radius: 10px;
+    height: 46px;
+    width: 100%;
+  }
+  & label {
+    ${Pretendard({ font: 1.2, weight: 700, color: Common.colors.GY700 })}
+  }
+`;
+const InputContainer = styled.div`
+  position: relative;
+  & svg {
+    position: absolute;
+    right: 15px;
+    top: 12px;
+  }
+`;
 
 export default ConfirmPassword;

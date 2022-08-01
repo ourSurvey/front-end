@@ -63,6 +63,7 @@ const Span = styled.span`
 `;
 
 const Container = styled.div`
+  margin-bottom: 30px;
   & .inputContainer {
     position: relative;
     & svg {

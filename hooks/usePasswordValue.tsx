@@ -9,7 +9,7 @@ function usePasswordValue(ref: React.RefObject<HTMLInputElement>, passwordInputN
 
     const form = node?.closest("form");
     const inputs = form?.getElementsByTagName("input");
-    console.log(inputs);
+
     if (inputs === undefined) {
       throw new Error(`This element must be a decendent of a form`);
     }

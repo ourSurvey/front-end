@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "./Button";
+import { Button } from "./common/Button";
 import HeaderName from "./HeaderName";
-import Input from "./Input";
-import PasswordInput from "./PasswordInput";
-import OutLineButton from "./OutLineButton";
+import Input from "./common/Input";
+import PasswordInput from "./common/PasswordInput";
+import OutLineButton from "./common/OutLineButton";
 import styled from "@emotion/styled";
 import { Common, Pretendard } from "styles/common";
 
@@ -27,7 +27,7 @@ const LoginForm = (): JSX.Element => {
         <HeaderName name="로그인" hasBack={false} hasNext={false} />
 
         <form noValidate onSubmit={Login}>
-          <Input setValidate={setEmail} className="" name="이메일" wasSubmitted={wasSubmitted} type="email" />
+          <Input setValidate={setEmail} name="이메일" wasSubmitted={wasSubmitted} type="email" />
           <PasswordInput name="비밀번호" className=" mt30" wasSubmitted={wasSubmitted} setValidate={setPwd} />
 
           <div className="mt30">

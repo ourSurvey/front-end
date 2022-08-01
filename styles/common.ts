@@ -18,7 +18,7 @@ export const Common = {
     PK100: "#ffe4ef",
     PK50: "#fff0f6",
     BL500: "#0066d9",
-    BL400: "linear-gradient(0deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)), #0066d9",
+    BL400: "#0066d9",
     BL300: "#99c2f0",
     BL100: "#cce0f7",
     BL50: "#e5f0fb",

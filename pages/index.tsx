@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 
-import { Button } from "components/Button";
+import { Button } from "components/common/Button";
 import HeaderName from "components/HeaderName";
 import LoginForm from "components/LoginForm";
 

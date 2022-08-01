@@ -13,10 +13,11 @@ const HeaderName = (props: Props) => {
   const { name, hasBack, hasNext } = props;
 
   const Span = styled.span`
-    ${Pretendard({ font: 1.4, weight: 700, color: Common.colors.GY900 })}
-    margin-left : ${!hasBack ? "20px" : ""}
-  margin-right:${!hasNext ? "20px" : ""}
+    ${Pretendard({ font: 1.4, weight: 700, color: Common.colors.GY900 })};
+    margin-left: ${!hasBack ? "20px" : ""};
+    margin-right: ${!hasNext ? "20px" : ""};
   `;
+
   return (
     <Header>
       <Arrow>
@@ -47,6 +48,7 @@ const HeaderName = (props: Props) => {
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 41px;
 
   & .name {
     @include Pretendard(1.4, 700, $GY900);

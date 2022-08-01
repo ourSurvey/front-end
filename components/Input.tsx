@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
-import InputCss from "styles/components/Input.module.scss";
+import { useState, useEffect } from "react";
 import { getFieldError } from "utills/validate";
+import styled from "@emotion/styled";
+import { Common, Pretendard } from "styles/common";
 
 interface IProps {
   name: string; //폼이 제출되었을 때 form.element에서 필드값을 찾는데 사용
@@ -29,7 +30,7 @@ function Input({ name, wasSubmitted, type, className, setValidate }: IProps) {
   }, [errorMessage]);
 
   return (
-    <div className={InputCss.inputContainer + className}>
+    <Container>
       <label htmlFor={`${name}-input`}>{name}</label>
       <br />
 
@@ -43,12 +44,29 @@ function Input({ name, wasSubmitted, type, className, setValidate }: IProps) {
       />
 
       {displayErrorMessage ? (
-        <span role="alert" id={`${name}-error`} className={InputCss.errorMessage}>
+        <ErrorMessage role="alert" id={`${name}-error`}>
           {errorMessage}
-        </span>
+        </ErrorMessage>
       ) : null}
-    </div>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  & input {
+    padding: 14.5px 15px;
+    border: 1px solid ${Common.colors.GY700};
+    border-radius: 10px;
+    height: 46px;
+    width: 100%;
+  }
+  & label {
+    ${Pretendard({ font: 1.2, weight: 700, color: Common.colors.GY700 })}
+  }
+`;
+
+const ErrorMessage = styled.span`
+  ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.alert500 })}
+`;
 
 export default Input;

@@ -7,11 +7,10 @@ interface IProps {
   name: string; //폼이 제출되었을 때 form.element에서 필드값을 찾는데 사용
   wasSubmitted: boolean; // 필드가 터치되지 않았더라도 에러 메시지를 표시해야 하는지 판단
   type: string; //input의 타입 지정
-  className?: string;
   setValidate: (bool: boolean) => void;
 }
 
-function Input({ name, wasSubmitted, type, className, setValidate }: IProps) {
+function Input({ name, wasSubmitted, type, setValidate }: IProps) {
   const [value, setValue] = useState("");
   const [touched, setTouched] = useState(false);
 

@@ -92,7 +92,7 @@ const Container = styled.div`
 
   & input {
     padding: 14.5px 15px;
-    border: 1px solid #606374;
+    border: 1px solid ${Common.colors.GY700};
     border-radius: 10px;
     height: 46px;
     width: 100%;

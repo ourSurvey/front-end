@@ -1,5 +1,4 @@
-import React from "react";
-import CSS from "csstype";
+import styled from "@emotion/styled";
 
 interface IProp {
   color: string;
@@ -11,24 +10,26 @@ interface IProp {
 
 export const Button = (props: IProp) => {
   const { color, textColor, isDisabled, onClick, btnText } = props;
-  const style: CSS.Properties = {
-    height: "50px",
-    width: "100%",
-    backgroundColor: color,
-    color: textColor,
-    borderRadius: "10px",
-    fontFamily: "Pretendard",
-    fontStyle: "normal",
-    fontWeight: "700",
-    fontSize: "14px",
-    border: "0",
-    outline: "0",
-    paddingTop: "16.5px",
-    paddingBottom: "16.5px",
-  };
+
+  const Button = styled.button`
+    height: 50px;
+    width: 100%;
+    border-radius: 10px;
+    font-family: Pretendard;
+    font-weight: 700;
+    font-size: 14px;
+    font-style: normal;
+    color: ${textColor};
+    outline: 0;
+    border: 0;
+    padding-top: 16.5px;
+    padding-bottom: 16.5px;
+    background-color: ${color};
+  `;
+
   return (
-    <button disabled={isDisabled} style={style} onClick={onClick}>
+    <Button disabled={isDisabled} onClick={onClick}>
       {btnText}
-    </button>
+    </Button>
   );
 };

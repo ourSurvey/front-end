@@ -53,6 +53,7 @@ function Input({ name, wasSubmitted, type, className, setValidate }: IProps) {
 }
 
 const Container = styled.div`
+  margin-bottom: 30px;
   & input {
     padding: 14.5px 15px;
     border: 1px solid ${Common.colors.GY700};

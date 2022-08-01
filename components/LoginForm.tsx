@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Button } from "./Button";
 import HeaderName from "./HeaderName";
 import Input from "./Input";
-import LoginFormCss from "styles/components/LoginForm.module.scss";
 import PasswordInput from "./PasswordInput";
 import OutLineButton from "./OutLineButton";
+import styled from "@emotion/styled";
+import { Common, Pretendard } from "styles/common";
 
 const LoginForm = (): JSX.Element => {
   const [wasSubmitted, setwasSubmitted] = useState(false);
@@ -21,7 +22,7 @@ const LoginForm = (): JSX.Element => {
   const ckBtn = email && pwd;
 
   return (
-    <div className={LoginFormCss.formContainer}>
+    <FormContainer>
       <div>
         <HeaderName name="로그인" hasBack={false} hasNext={false} />
 
@@ -33,13 +34,27 @@ const LoginForm = (): JSX.Element => {
             <Button isDisabled={!ckBtn} color="#0066d9" btnText="로그인" textColor="#fff" />
           </div>
         </form>
-        <div className={LoginFormCss.center}>
+        <Center>
           <span>비밀번호 찾기</span>
-        </div>
+        </Center>
       </div>
       <OutLineButton isDisabled={false} borderColor="#0066d9" btnText="회원가입" textColor="#363841" />
-    </div>
+    </FormContainer>
   );
 };
 
+const FormContainer = styled.div`
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 5px;
+`;
+const Center = styled.div`
+  text-align: center;
+  margin-top: 16px;
+  & span {
+    ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY700 })}
+  }
+`;
 export default LoginForm;

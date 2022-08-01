@@ -1,8 +1,7 @@
-import React from "react";
 import { IconContext } from "react-icons";
-import HeaderNameCss from "styles/components/HeaderName.module.scss";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import CSS from "csstype";
+import styled from "@emotion/styled";
+import { Common, Pretendard } from "styles/common";
 
 type Props = {
   name: string;
@@ -13,15 +12,14 @@ type Props = {
 const HeaderName = (props: Props) => {
   const { name, hasBack, hasNext } = props;
 
-  const leftMargin: string = !hasBack ? "20px" : "";
-  const rignhtMargin: string = !hasNext ? "20px" : "";
-  const inline: CSS.Properties = {
-    marginLeft: leftMargin,
-    marginRight: rignhtMargin,
-  };
+  const Span = styled.span`
+    ${Pretendard({ font: 1.4, weight: 700, color: Common.colors.GY900 })}
+    margin-left : ${!hasBack ? "20px" : ""}
+  margin-right:${!hasNext ? "20px" : ""}
+  `;
   return (
-    <div className={HeaderNameCss.headerName}>
-      <div className={HeaderNameCss.arrow}>
+    <Header>
+      <Arrow>
         {hasBack ? (
           <IconContext.Provider value={{ size: "20" }}>
             {" "}
@@ -30,11 +28,9 @@ const HeaderName = (props: Props) => {
         ) : (
           ""
         )}
-      </div>
-      <span className={HeaderNameCss.name} style={inline}>
-        {name}
-      </span>
-      <div className={HeaderNameCss.arrow}>
+      </Arrow>
+      <Span>{name}</Span>
+      <Arrow>
         {hasNext ? (
           <IconContext.Provider value={{ size: "20" }}>
             {" "}
@@ -43,9 +39,32 @@ const HeaderName = (props: Props) => {
         ) : (
           ""
         )}
-      </div>
-    </div>
+      </Arrow>
+    </Header>
   );
 };
+
+const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+
+  & .name {
+    @include Pretendard(1.4, 700, $GY900);
+  }
+  & .arrow {
+    position: relative;
+    top: 25%;
+    -webkit-transform: translateY(25%);
+    -ms-transform: translateY(25%);
+    transform: translateY(25%);
+  }
+`;
+const Arrow = styled.div`
+  position: relative;
+  top: 25%;
+  -webkit-transform: translateY(25%);
+  -ms-transform: translateY(25%);
+  transform: translateY(25%);
+`;
 
 export default HeaderName;

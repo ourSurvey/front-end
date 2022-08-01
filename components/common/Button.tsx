@@ -4,6 +4,7 @@ interface IProp {
   color: string;
   btnText: string;
   textColor: string;
+
   onClick?: () => void;
   isDisabled: boolean;
 }
@@ -25,6 +26,7 @@ export const Button = (props: IProp) => {
     padding-top: 16.5px;
     padding-bottom: 16.5px;
     background-color: ${color};
+    opacity: ${!isDisabled ? 0.35 : 1};
   `;
 
   return (

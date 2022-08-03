@@ -5,21 +5,19 @@ import VisibleEye from "public/images/visibleEye.svg";
 import { Common, Pretendard } from "styles/common";
 import styled from "@emotion/styled";
 
-function ConfirmPassword({
-  name,
-  passwordInputName,
-  wasSubmitted,
-  className,
-}: {
+interface IProps {
   name: string;
   passwordInputName: string;
   wasSubmitted: boolean;
-  className: string;
-}) {
+  setIsSame: (bool: boolean) => void;
+}
+const ConfirmPassword = (props: IProps) => {
+  const { name, passwordInputName, wasSubmitted, setIsSame } = props;
   const ref = React.useRef<HTMLInputElement>(null);
   const passwordValue = usePasswordValue(ref, passwordInputName);
   const [value, setValue] = React.useState("");
   const [touched, setTouched] = React.useState(false);
+  const [inputType, setinputType] = useState("text"); //패스워드 버튼 눌렀을 때 변경 토글
   const [isVisiblePassword, setisVisiblePassword] = useState(false);
   const errorMessage = passwordValue !== value ? "비밀번호가 일치하지 않습니다." : null;
   const displayErrorMessage = (wasSubmitted || touched) && errorMessage;
@@ -27,6 +25,25 @@ function ConfirmPassword({
   const onClickVisibleIcon = (): void => {
     setisVisiblePassword(!isVisiblePassword);
   };
+
+  React.useEffect(() => {
+    if (errorMessage === null) {
+      setIsSame(true);
+    } else {
+      setIsSame(false);
+    }
+  }, [errorMessage]);
+
+  React.useEffect(() => {
+    const changeInputType = (): void => {
+      if (isVisiblePassword) {
+        setinputType("text");
+      } else {
+        setinputType("password");
+      }
+    };
+    changeInputType();
+  }, [isVisiblePassword]);
 
   return (
     <Container key={name}>
@@ -37,10 +54,9 @@ function ConfirmPassword({
           ref={ref}
           id={`${name}-input`}
           name={name}
-          type="password"
+          type={inputType}
           onChange={(event) => setValue(event.currentTarget.value)}
           onBlur={() => setTouched(true)}
-          required
           aria-describedby={displayErrorMessage ? `${name}-error` : undefined}
         />
         {isVisiblePassword ? (
@@ -50,13 +66,13 @@ function ConfirmPassword({
         )}
       </InputContainer>
       {displayErrorMessage ? (
-        <Span role="alert" id={`${name}-error`} className="error-message">
+        <Span role="alert" id={`${name}-error`} className="pwdCheck-message">
           {errorMessage}
         </Span>
       ) : null}
     </Container>
   );
-}
+};
 
 const Span = styled.span`
   ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.alert500 })}

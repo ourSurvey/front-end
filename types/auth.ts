@@ -14,13 +14,27 @@ export interface ILoginData {
   password: string;
 }
 
-export interface ISignupData extends ILoginData {
-  name: string;
-  phoneNumber: string;
-  agreements: SignupAgreements;
+export interface ISignupData {
+  email: string;
+  pwd: string;
+  nickName: string;
 }
 
 export interface ICookieData {
   access: string;
   refresh: string;
+}
+
+//회원가입
+export interface IEmail {
+  email: string;
+}
+export interface IEmailAuth {
+  email: string;
+  code: string;
+}
+
+export interface IRegisterInfo {
+  email: string;
+  pwd: string;
 }

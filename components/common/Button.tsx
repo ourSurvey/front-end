@@ -4,13 +4,13 @@ interface IProp {
   color: string;
   btnText: string;
   textColor: string;
-
-  onClick?: () => void;
+  type?: "button" | "submit" | "reset" | undefined;
+  onClick?: (e?: any) => void;
   isDisabled: boolean;
 }
 
 export const Button = (props: IProp) => {
-  const { color, textColor, isDisabled, onClick, btnText } = props;
+  const { color, textColor, isDisabled, onClick, btnText, type } = props;
 
   const Button = styled.button`
     height: 50px;
@@ -26,11 +26,11 @@ export const Button = (props: IProp) => {
     padding-top: 16.5px;
     padding-bottom: 16.5px;
     background-color: ${color};
-    opacity: ${!isDisabled ? 0.35 : 1};
+    opacity: ${!isDisabled ? 1 : 0.35};
   `;
 
   return (
-    <Button disabled={isDisabled} onClick={onClick}>
+    <Button type={type} disabled={isDisabled} onClick={onClick}>
       {btnText}
     </Button>
   );

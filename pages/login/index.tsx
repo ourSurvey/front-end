@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { Button } from "components/common/Button";
 import HeaderName from "components/HeaderName";
 import Input from "components/common/Input";
@@ -8,6 +9,7 @@ import styled from "@emotion/styled";
 import { Common, Pretendard } from "styles/common";
 
 const Index = () => {
+  const router = useRouter();
   const [wasSubmitted, setwasSubmitted] = useState(false);
   const [email, setEmail] = useState(false);
   const [pwd, setPwd] = useState(false);
@@ -27,8 +29,8 @@ const Index = () => {
         <HeaderName name="로그인" hasBack={false} hasNext={false} />
 
         <form noValidate onSubmit={Login}>
-          <Input setValidate={setEmail} name="이메일" wasSubmitted={wasSubmitted} type="email" />
-          <PasswordInput name="비밀번호" className=" mt30" wasSubmitted={wasSubmitted} setValidate={setPwd} />
+          <Input setValidate={setEmail} name="이메일" placeHolder="abc@email.com" wasSubmitted={wasSubmitted} type="email" />
+          <PasswordInput name="비밀번호" placeHolder="8자 이상의 영문+특수문자" wasSubmitted={wasSubmitted} setValidate={setPwd} />
 
           <div className="mt30">
             <Button isDisabled={!ckBtn} color="#0066d9" btnText="로그인" textColor="#fff" />
@@ -38,7 +40,8 @@ const Index = () => {
           <span>비밀번호 찾기</span>
         </Center>
       </div>
-      <OutLineButton isDisabled={false} borderColor="#0066d9" btnText="회원가입" textColor="#363841" />
+
+      <OutLineButton isDisabled={false} borderColor="#0066d9" btnText="회원가입" textColor="#363841" onClick={() => router.push("/register")} />
     </FormContainer>
   );
 };

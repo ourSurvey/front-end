@@ -8,12 +8,12 @@ import { Common, Pretendard } from "styles/common";
 interface IProps {
   name: string; //폼이 제출되었을 때 form.element에서 필드값을 찾는데 사용
   wasSubmitted: boolean; // 필드가 터치되지 않았더라도 에러 메시지를 표시해야 하는지 판단
-  className?: string;
+  placeHolder?: string;
   setValidate: (flag: boolean) => void;
 }
 
 const PasswordInput = (props: IProps) => {
-  const { name, wasSubmitted, setValidate, className } = props;
+  const { name, wasSubmitted, setValidate, placeHolder } = props;
   const [value, setValue] = useState("");
   const [touched, setTouched] = useState(false);
   const [inputType, setinputType] = useState("text"); //패스워드 버튼 눌렀을 때 변경 토글
@@ -58,6 +58,7 @@ const PasswordInput = (props: IProps) => {
           onChange={(event) => setValue(event.currentTarget.value)}
           onBlur={() => setTouched(true)}
           aria-describedby={displayErrorMessage ? `${name}-error` : undefined}
+          placeholder={placeHolder !== undefined ? placeHolder : ""}
         />
         {isVisiblePassword ? (
           <VisibleEye onClick={onClickVisibleIcon} width="22" height="22" />
@@ -96,6 +97,9 @@ const Container = styled.div`
     border-radius: 10px;
     height: 46px;
     width: 100%;
+  }
+  & input::placeholder {
+    ${Pretendard({ font: 1.4, weight: 400, color: Common.colors.GY500 })}
   }
   & label {
     ${Pretendard({ font: 1.2, weight: 700, color: Common.colors.GY700 })}

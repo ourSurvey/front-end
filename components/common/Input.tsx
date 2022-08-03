@@ -8,9 +8,10 @@ interface IProps {
   wasSubmitted: boolean; // 필드가 터치되지 않았더라도 에러 메시지를 표시해야 하는지 판단
   type: string; //input의 타입 지정
   setValidate: (bool: boolean) => void;
+  placeHolder?: string;
 }
 
-function Input({ name, wasSubmitted, type, setValidate }: IProps) {
+function Input({ name, wasSubmitted, type, placeHolder, setValidate }: IProps) {
   const [value, setValue] = useState("");
   const [touched, setTouched] = useState(false);
 
@@ -40,6 +41,7 @@ function Input({ name, wasSubmitted, type, setValidate }: IProps) {
         onChange={(event) => setValue(event.currentTarget.value)}
         onBlur={() => setTouched(true)}
         aria-describedby={displayErrorMessage ? `${name}-error` : undefined}
+        placeholder={placeHolder !== undefined ? placeHolder : ""}
       />
 
       {displayErrorMessage ? (
@@ -59,6 +61,9 @@ const Container = styled.div`
     border-radius: 10px;
     height: 46px;
     width: 100%;
+  }
+  & input::placeholder {
+    ${Pretendard({ font: 1.4, weight: 400, color: Common.colors.GY500 })}
   }
   & label {
     ${Pretendard({ font: 1.2, weight: 700, color: Common.colors.GY700 })}

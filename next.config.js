@@ -5,7 +5,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   env: {
-    NEXT_PUBLIC_API: "3.35.216.132",
+    NEXT_PUBLIC_API: "http://3.35.216.132",
   },
   webpack: (config) => {
     // 아래를 추가합니다.

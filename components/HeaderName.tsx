@@ -2,6 +2,7 @@ import { IconContext } from "react-icons";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import styled from "@emotion/styled";
 import { Common, Pretendard } from "styles/common";
+import { useRouter } from "next/router";
 
 type Props = {
   name: string;
@@ -11,7 +12,7 @@ type Props = {
 
 const HeaderName = (props: Props) => {
   const { name, hasBack, hasNext } = props;
-
+  const router = useRouter();
   const Span = styled.span`
     ${Pretendard({ font: 1.4, weight: 700, color: Common.colors.GY900 })};
     margin-left: ${!hasBack ? "20px" : ""};
@@ -24,7 +25,7 @@ const HeaderName = (props: Props) => {
         {hasBack ? (
           <IconContext.Provider value={{ size: "20" }}>
             {" "}
-            <IoIosArrowBack />
+            <IoIosArrowBack onClick={() => router.back()} />
           </IconContext.Provider>
         ) : (
           ""

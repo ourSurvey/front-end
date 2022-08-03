@@ -4,7 +4,7 @@ class ApiClient {
   #instance;
   constructor() {
     this.#instance = axios.create({
-      baseURL: process.env.NEXT_PUBLIC_API,
+      baseURL: `${process.env.NEXT_PUBLIC_API}/api`,
     });
   }
 
@@ -13,11 +13,9 @@ class ApiClient {
   }
 
   post(url: string, data: any, option?: AxiosRequestConfig) {
-    return this.#instance.post(url, data, option);
-  }
+    console.log(url);
 
-  patch(url: string, data: any, option?: AxiosRequestConfig) {
-    return this.#instance.patch(url, data, option);
+    return this.#instance.post(url, data, option);
   }
 
   put(url: string, data: any, option?: AxiosRequestConfig) {

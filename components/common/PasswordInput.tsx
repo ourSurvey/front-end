@@ -61,9 +61,9 @@ const PasswordInput = (props: IProps) => {
           placeholder={placeHolder !== undefined ? placeHolder : ""}
         />
         {isVisiblePassword ? (
-          <VisibleEye onClick={onClickVisibleIcon} width="22" height="22" />
+          <VisibleEye data-testid="visible" onClick={onClickVisibleIcon} width="22" height="22" />
         ) : (
-          <UnVisibleEye onClick={onClickVisibleIcon} width="22" height="22" />
+          <UnVisibleEye data-testid="unvisible" onClick={onClickVisibleIcon} width="22" height="22" />
         )}
       </InputContainer>
 

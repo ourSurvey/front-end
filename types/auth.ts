@@ -17,7 +17,7 @@ export interface ILoginData {
 export interface ISignupData {
   email: string;
   pwd: string;
-  nickName: string;
+  nickname: string;
 }
 
 export interface ICookieData {

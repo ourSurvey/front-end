@@ -73,7 +73,7 @@ const Register = () => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const fieldValues = Object.fromEntries(formData.entries());
-    registerApi.mutate({ email: email, pwd: fieldValues["비밀번호"] as string, nickName: "nickName1" });
+    registerApi.mutate({ email: email, pwd: fieldValues["비밀번호"] as string, nickname: "nickName1" });
   };
 
   return (

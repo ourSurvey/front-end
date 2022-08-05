@@ -5,36 +5,32 @@ import PinkExcalmationMark from "public/images/pinkExclamationMark.svg";
 import { Common, Pretendard } from "styles/common";
 import { toastState } from "states/modal";
 import { useRecoilState } from "recoil";
-type Props = {
-  flag: "error" | "success"; //알럿의 색깔을 표시
-  text: string;
-  visible: boolean;
-};
 
-const Alert = (props: Props) => {
-  const { flag, text, visible } = props;
-
+const Alert = () => {
   const [ToastState, setToastState] = useRecoilState(toastState);
-  // useEffect(() => {
-  //   if (visible) {
-  //     setTimeout(() => {
-  //       setToastState({...ToastState;
-  //         ToastState.visible=false});
-  //     }, 2000);
-  //   }
-  // }, [ToastState.visible]);
+
+  useEffect(() => {
+    if (ToastState.visible) {
+      setTimeout(() => {
+        setToastState({
+          ...ToastState,
+          visible: false,
+        });
+      }, 2000);
+    }
+  }, [ToastState.visible]);
 
   return (
     <>
-      {flag === "error" ? (
+      {ToastState.toastType === "error" ? (
         <Error>
           <PinkExcalmationMark width="18" height="18" />
-          {text}
+          {ToastState.text}
         </Error>
       ) : (
         <Success>
           <GreenCheck width="18" height="18" />
-          {text}
+          {ToastState.text}
         </Success>
       )}
     </>

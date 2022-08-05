@@ -14,13 +14,15 @@
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
     "@tanstack/react-query": "^4.0.10",
+    "@types/recoil": "^0.0.9",
     "axios": "^0.27.2",
     "js-cookie": "^3.0.1",
     "next": "12.2.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
-    "react-query": "^3.39.1"
+    "react-query": "^3.39.1",
+    "recoil": "^0.7.4"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.10.0",

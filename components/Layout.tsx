@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import styled from "@emotion/styled";
 import { css, keyframes } from "@emotion/react";
 import Alert from "./common/Alert";
-import { toastState } from "states/modal";
-import { useRecoilState } from "recoil";
+import { showToastState } from "states/modal";
+import { useRecoilValue } from "recoil";
 type IProps = {
   children: JSX.Element;
 };
@@ -15,7 +15,7 @@ const Layout = ({ children }: IProps) => {
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   };
 
-  const [ToastState] = useRecoilState(toastState);
+  const visible = useRecoilValue(showToastState);
 
   useEffect(() => {
     handleResize();
@@ -35,8 +35,8 @@ const Layout = ({ children }: IProps) => {
   const toast = css`
     position: absolute;
     bottom: 0;
-    visibility: ${ToastState.visible ? `visible` : "hidden"};
-    animation: ${ToastState.visible ? fadein : fadeout} 0.2s ease-out;
+    visibility: ${visible ? `visible` : "hidden"};
+    animation: ${visible ? fadein : fadeout} 0.2s ease-out;
     transition: visibility 0.2s ease-out;
     padding: 21.5px 20px 35px 20px;
     left: 0;
@@ -47,7 +47,7 @@ const Layout = ({ children }: IProps) => {
     <LayoutContainer>
       {children}
       <div css={toast}>
-        <Alert visible={ToastState.visible} setVisible={ToastState.setVisible} flag={ToastState.toastType} text={ToastState.text} />
+        <Alert />
       </div>
     </LayoutContainer>
   );

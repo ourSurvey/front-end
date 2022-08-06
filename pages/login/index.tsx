@@ -6,7 +6,9 @@ import Input from "components/common/Input";
 import PasswordInput from "components/common/PasswordInput";
 import OutLineButton from "components/common/OutLineButton";
 import styled from "@emotion/styled";
+import { useMutation } from "react-query";
 import { Common, Pretendard } from "styles/common";
+import { login } from "services/api/register";
 
 const Index = () => {
   const router = useRouter();
@@ -14,11 +16,23 @@ const Index = () => {
   const [email, setEmail] = useState(false);
   const [pwd, setPwd] = useState(false);
 
+  const loginHandler = useMutation(login, {
+    onSuccess: () => {
+      //성공 시
+      console.log("로그인 성공");
+    },
+    onError: () => {
+      //실패 시
+    },
+  });
+
   const Login = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const fieldValues = Object.fromEntries(formData.entries());
-    console.log(fieldValues);
+    const loginEmail = fieldValues["이메일"] as string;
+    const pwd = fieldValues["비밀번호"] as string;
+    loginHandler.mutate({ email: loginEmail, pwd: pwd });
     setwasSubmitted(true);
   };
   const ckBtn = email && pwd;

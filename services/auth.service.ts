@@ -24,7 +24,7 @@ class AuthService extends ApiClient {
 
   /** 이미 생성된 계정의 토큰을 발급받습니다. */
   async login(loginData: ILoginData) {
-    const { data } = await super.post("/login", loginData);
+    const { data } = await super.post("/auth/login", loginData);
     TokenProvider.set("accessToken", data.access, 1);
     TokenProvider.set("refreshToken", data.refresh, 7);
   }

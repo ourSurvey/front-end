@@ -11,7 +11,7 @@ export type SignupAgreements = {
 
 export interface ILoginData {
   email: string;
-  password: string;
+  pwd: string;
 }
 
 export interface ISignupData {

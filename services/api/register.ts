@@ -1,4 +1,4 @@
-import { IEmail, IEmailAuth, ISignupData } from "types/auth";
+import { IEmail, IEmailAuth, ISignupData, ILoginData } from "types/auth";
 import ApiClient from "services/ApiClient";
 import authService from "services/auth.service";
 const api = new ApiClient();
@@ -10,4 +10,7 @@ const emailAuth = (email: IEmail) => api.post("/auth/take", email);
 const emailAuthCheckNum = (auth: IEmailAuth) => api.post("/auth/certified", auth);
 
 const register = (userInfo: ISignupData) => authService.signup(userInfo);
-export { emailAuth, emailAuthCheckNum, register };
+
+const login = (user: ILoginData) => authService.login(user);
+
+export { emailAuth, emailAuthCheckNum, register, login };

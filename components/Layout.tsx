@@ -46,7 +46,7 @@ const Layout = ({ children }: IProps) => {
   return (
     <LayoutContainer>
       {children}
-      <div css={toast}>
+      <div css={toast} role="alert">
         <Alert />
       </div>
     </LayoutContainer>

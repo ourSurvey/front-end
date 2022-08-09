@@ -1,21 +1,43 @@
+import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { Button } from "components/common/Button";
 import CustomRadio from "components/common/CustomRadio";
 import { Common, Pretendard } from "styles/common";
+import { stepState } from "states/stepProgress";
+import { addtionState } from "states/onBoard";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRouter } from "next/router";
+
 const SelectGengder = (props: any) => {
   const gender = [
     { key: "남자", value: "M" },
     { key: "여자", value: "F" },
     { key: "선택하지 않음", value: "" },
   ];
+  const setStepState = useSetRecoilState(stepState);
+  const [additionState, setAdditionState] = useRecoilState(addtionState);
+  const [genderState, setgenderState] = useState<null | string>(null);
+  const router = useRouter();
+
+  const nextPage = (): void => {
+    setAdditionState({
+      ...additionState,
+      gender: genderState,
+    });
+    router.push("/onBoarding/birth");
+  };
+
+  useEffect(() => {
+    setStepState(1);
+  }, []);
 
   return (
     <div>
       <h1>성별을 선택해주세요.</h1>
       <Description>빠른 설문조사를 위해 인구통계적 정보를 수집하고 있어요!</Description>
-      <CustomRadio items={gender} handleRadio={props.onSelectHandler} />
-      <Button isDisabled={false} btnText="다음" color={Common.colors.BL500} textColor="#fff" />
-      <Pstyle>답변하지 않고 넘어가기</Pstyle>
+      <CustomRadio items={gender} handleRadio={setgenderState} />
+      <Button isDisabled={genderState === null} btnText="다음" onClick={nextPage} color={Common.colors.BL500} textColor="#fff" />
+      <Pstyle onClick={() => router.push("/onBoarding/birth")}>답변하지 않고 넘어가기</Pstyle>
     </div>
   );
 };

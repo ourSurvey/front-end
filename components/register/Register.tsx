@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useMutation } from "react-query";
-import ConfirmPassword from "./common/ConfirmPassword";
-import HeaderName from "./HeaderName";
-import PasswordInput from "./common/PasswordInput";
-import TosContainer from "./register/TosContainer";
+import ConfirmPassword from "components/common/ConfirmPassword";
+import HeaderName from "../HeaderName";
+import PasswordInput from "components/common/PasswordInput";
+import TosContainer from "./TosContainer";
 import styled from "@emotion/styled";
 import { Common, Pretendard } from "styles/common";
 import { getFieldError } from "utills/validate";
-import { Button } from "./common/Button";
-import Timmer from "./common/Timmer";
+import { Button } from "components/common/Button";
+import Timmer from "components/common/Timmer";
 import GreenCheck from "public/images/greenCheck.svg";
 import { emailAuth, emailAuthCheckNum, register } from "services/api/register";
 import { useRouter } from "next/router";
@@ -44,7 +44,6 @@ const Register = () => {
     onSuccess: () => {
       setVisibleAuthInput(false);
       setIsAuthedEmail(true);
-      console.log("여기 왜 안와?");
     },
     onError: (data) => {
       alert("인증번호를 다시 확인해주세요");

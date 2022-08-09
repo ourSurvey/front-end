@@ -29,6 +29,15 @@ const passwordValidate = (password: string): boolean => {
   }
 };
 
+const birthValidate = (bithYear: string): boolean => {
+  const regBirthYear: RegExp = /^(19[0-9][0-9]|20\d{2})$/;
+  if (regBirthYear.test(bithYear)) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 //터치 호버 풀었을 때 유효성검사 메시지 출력
 function getFieldError(value: string | undefined, name: string) {
   if (!value) return "필수 입력 값 입니다!";
@@ -47,10 +56,15 @@ function getFieldError(value: string | undefined, name: string) {
       if (isNaN(Number(value))) return "숫자만 입력해주세요";
       if (!check) return "올바른 휴대폰 번호를 입력해주세요";
       break;
+    case "출생년도":
+      check = birthValidate(value);
+      if (isNaN(Number(value))) return "숫자만 입력해주세요";
+      if (!check) return "올바른 출생년도를 입력해주세요";
+      break;
     default:
       return null;
   }
   return null;
 }
 
-export { emailValidate, pNumValidate, passwordValidate, getFieldError };
+export { emailValidate, pNumValidate, passwordValidate, getFieldError, birthValidate };

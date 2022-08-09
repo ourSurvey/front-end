@@ -1,4 +1,4 @@
-import { emailValidate, pNumValidate, passwordValidate, getFieldError } from "./validate";
+import { emailValidate, pNumValidate, passwordValidate, getFieldError, birthValidate } from "./validate";
 describe("정규식", () => {
   describe("이메일 정규식", () => {
     test("이메일 주소 시작은 숫자나 알파벳으로 시작한다.", () => {
@@ -61,6 +61,25 @@ describe("정규식", () => {
       expect(passwordValidate("asdf1234!")).toBe(true);
       expect(passwordValidate("asdf1412")).toBe(false);
       expect(passwordValidate("tune123@#")).toBe(true);
+    });
+  });
+
+  describe("출생년도 정규식", () => {
+    test("출생년도는 4자리여야한다", () => {
+      expect(birthValidate("1996")).toBe(true);
+      expect(birthValidate("1997")).toBe(true);
+      expect(birthValidate("960718")).toBe(false);
+      expect(birthValidate("960")).toBe(false);
+    });
+
+    test("출생년도는 앞자리가 19또는20년으로 시작해야한다", () => {
+      expect(birthValidate("1996")).toBe(true);
+      expect(birthValidate("1997")).toBe(true);
+      expect(birthValidate("2002")).toBe(true);
+      expect(birthValidate("2000")).toBe(true);
+      expect(birthValidate("2120")).toBe(false);
+      expect(birthValidate("1819")).toBe(false);
+      expect(birthValidate("1719")).toBe(false);
     });
   });
 

@@ -19,14 +19,17 @@ class AuthService extends ApiClient {
   /** 새로운 계정을 생성하고 토큰을 발급받습니다. */
   async signup(signupData: ISignupData) {
     const { data } = await super.post("/auth/join", signupData);
-    TokenProvider.set("accessToken", data.access, 1);
+    TokenProvider.set("accessToken", data.data.access, 1);
   }
 
   /** 이미 생성된 계정의 토큰을 발급받습니다. */
   async login(loginData: ILoginData) {
     const { data } = await super.post("/auth/login", loginData);
-    TokenProvider.set("accessToken", data.access, 1);
-    TokenProvider.set("refreshToken", data.refresh, 7);
+
+    const refreshExpire: number = data.data.refreshExpire / 60 / 60 / 24; //초로 오는 시간 일로 변환
+
+    TokenProvider.set("accessToken", data.data.access, 1);
+    TokenProvider.set("refreshToken", data.data.refresh, refreshExpire);
   }
 
   // 아직 요청 url 을 모름

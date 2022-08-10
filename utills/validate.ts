@@ -21,7 +21,7 @@ const pNumValidate = (phoneNumber: string): boolean => {
 
 //비밀번호 정규식
 const passwordValidate = (password: string): boolean => {
-  const regPassword: RegExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*+#?&])[A-Za-z\d@$!%*#+?&]{8,}$/;
+  const regPassword: RegExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
   if (regPassword.test(password)) {
     return true;
   } else {

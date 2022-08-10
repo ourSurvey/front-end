@@ -9,17 +9,28 @@ import styled from "@emotion/styled";
 import { useMutation } from "react-query";
 import { Common, Pretendard } from "styles/common";
 import { login } from "services/api/register";
+import Link from "next/link";
+import { toastState } from "states/modal";
+import { useRecoilState } from "recoil";
 
 const Index = () => {
   const router = useRouter();
   const [wasSubmitted, setwasSubmitted] = useState(false);
   const [email, setEmail] = useState(false);
   const [pwd, setPwd] = useState(false);
-
+  const [ToastState, setToastState] = useRecoilState(toastState);
   const loginHandler = useMutation(login, {
     onSuccess: () => {
       //성공 시
-      console.log("로그인 성공");
+      setToastState({
+        ...ToastState,
+        visible: true,
+        text: "로그인에 성공했습니다!",
+        toastType: "success",
+      });
+      setTimeout(() => {
+        router.push("/");
+      }, 1000);
     },
     onError: () => {
       //실패 시
@@ -51,7 +62,9 @@ const Index = () => {
           </div>
         </form>
         <Center>
-          <span>비밀번호 찾기</span>
+          <Link href="/findpwd">
+            <span>비밀번호 찾기</span>
+          </Link>
         </Center>
       </div>
 

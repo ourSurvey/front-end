@@ -11,8 +11,8 @@ const register = (userInfo: ISignupData) => authService.signup(userInfo);
 
 const login = (user: ILoginData) => authService.login(user);
 
-const findPwd = (email: IEmail) => api.post("/findpwd", email);
+const findPwd = (email: IEmail) => api.post("/auth/findpwd", email);
 
-const resetPassword = (pwdinfo: IResetPwd) => api.post("/resetpwd", pwdinfo);
+const resetPassword = (pwdinfo: IResetPwd) => api.post("/auth/resetpwd", pwdinfo);
 
 export { emailAuth, emailAuthCheckNum, register, login, findPwd, resetPassword };

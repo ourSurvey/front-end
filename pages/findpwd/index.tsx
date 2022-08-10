@@ -10,7 +10,6 @@ import { emailAuthCheckNum, findPwd } from "services/api/register";
 import { useRouter } from "next/router";
 
 const Index = () => {
-  const [wasSubmitted, setwasSubmitted] = useState(false);
   const [touched, setTouched] = useState(false); //터치에 대한 state
   const [buttonNameState, setbuttonNameState] = useState(false); //이메일 인증 메일 보내고 난 후 버튼 이름 변경 state
   const [authNumber, setAuthNumber] = useState("");
@@ -19,16 +18,16 @@ const Index = () => {
   const [timerMinute, setTimerMinute] = useState(0); //타이머 컴포넌트를 위한 state
   const [email, setemail] = useState("");
   const errorMessage = getFieldError(email, "이메일"); //에러 메시지
-  const displayErrorMessage = (wasSubmitted || touched) && errorMessage;
-  const [isSame, setIsSame] = useState(false);
+  const displayErrorMessage = touched && errorMessage;
+  const [token, setToken] = useState("");
   const router = useRouter();
-  const registerOnButton = isSame && isAuthedEmail; //버튼 활성화 토글
 
   const postEmailAuth = useMutation(findPwd, {
-    onSuccess: () => {
+    onSuccess: (data) => {
       setVisibleAuthInput(true);
       setbuttonNameState(true);
       setTimerMinute(3);
+      setToken(data.data.data.token);
     },
     onError: (data) => {
       console.log(data);
@@ -36,8 +35,11 @@ const Index = () => {
   });
   const emailAuthCheck = useMutation(emailAuthCheckNum, {
     onSuccess: () => {
-      setVisibleAuthInput(false);
       setIsAuthedEmail(true);
+      router.push({
+        pathname: "/findpwd/reset",
+        query: { token: token },
+      });
     },
     onError: (data) => {
       alert("인증번호를 다시 확인해주세요");
@@ -58,7 +60,7 @@ const Index = () => {
   return (
     <div>
       <HeaderName name="비밀번호 찾기" hasBack={true} hasNext={false} />
-      <Title>가입한 이메일 주소를 입력해주세요.</Title>
+      <Title>{!visibleAuthInput ? "가입한 이메일 주소를 입력해주세요." : "인증번호를 입력해주세요."}</Title>
       <form>
         <Label htmlFor={`email-input`}>이메일 주소</Label>
         <br />

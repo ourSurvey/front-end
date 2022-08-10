@@ -22,7 +22,7 @@ const InsertPhoneNumber = (props: any) => {
       ...additionState,
       tel: pNum,
     });
-    router.push("/onBoarding/birth");
+    router.push("/onBoarding/start");
   };
 
   useEffect(() => {
@@ -50,7 +50,7 @@ const InsertPhoneNumber = (props: any) => {
         ) : null}
       </Container>
       <Button onClick={nextPage} isDisabled={Boolean(displayErrorMessage)} btnText="다음" color={Common.colors.BL500} textColor="#fff" />
-      <Pstyle onClick={() => router.push("/")}>답변하지 않고 넘어가기</Pstyle>
+      <Pstyle onClick={() => router.push("/onBoarding/start")}>답변하지 않고 넘어가기</Pstyle>
     </div>
   );
 };

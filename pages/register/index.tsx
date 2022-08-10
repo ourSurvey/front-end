@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import Register from "components/Register";
+import Register from "components/register/Register";
 const Index: NextPage = () => {
   return (
     <div>

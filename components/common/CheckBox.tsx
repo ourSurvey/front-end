@@ -26,7 +26,7 @@ const CheckBox = ({ checkedItemHandler, checkItems, data, children, checked, dis
     } else {
       setIsChecked(false);
     }
-  }, [checkItems]);
+  }, [checkItems, data]);
 
   return (
     <CheckboxWrapper>

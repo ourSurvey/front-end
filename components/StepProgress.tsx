@@ -2,11 +2,11 @@
 import styled from "@emotion/styled";
 import { css, SerializedStyles } from "@emotion/react";
 import { Common } from "styles/common";
-
-interface IProps {
-  onBoardingStep: number;
-}
-const StepProgress = ({ onBoardingStep }: IProps) => {
+import { stepState } from "states/stepProgress";
+import { useRecoilValue } from "recoil";
+import bg from "public/images/whiteCheck.png";
+const StepProgress = () => {
+  const onBoardingStep = useRecoilValue(stepState);
   const liStyle = css`
     border: 3px solid ${Common.colors.GR500} !important;
     z-index: 1;
@@ -15,7 +15,7 @@ const StepProgress = ({ onBoardingStep }: IProps) => {
     color: white;
     position: absolute;
     background-color: ${Common.colors.GR500};
-    background-image: url("images/whiteCheck.png");
+    background-image: url(${bg.src});
     background-position: 50%;
     ${liStyle}
     &:not(#first)::before {

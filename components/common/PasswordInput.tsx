@@ -100,6 +100,7 @@ const Container = styled.div`
   }
   & input::placeholder {
     ${Pretendard({ font: 1.4, weight: 400, color: Common.colors.GY500 })}
+    letter-spacing: -0.03em;
   }
   & label {
     ${Pretendard({ font: 1.2, weight: 700, color: Common.colors.GY700 })}

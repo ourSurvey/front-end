@@ -9,10 +9,11 @@ interface IProps {
   name: string;
   passwordInputName: string;
   wasSubmitted: boolean;
+  placeHolder?: string;
   setIsSame: (bool: boolean) => void;
 }
 const ConfirmPassword = (props: IProps) => {
-  const { name, passwordInputName, wasSubmitted, setIsSame } = props;
+  const { name, passwordInputName, wasSubmitted, setIsSame, placeHolder } = props;
   const ref = React.useRef<HTMLInputElement>(null);
   const passwordValue = usePasswordValue(ref, passwordInputName);
   const [value, setValue] = React.useState("");
@@ -47,7 +48,7 @@ const ConfirmPassword = (props: IProps) => {
 
   return (
     <Container key={name}>
-      <label htmlFor={`${name}-input`}>{name}:</label>
+      <label htmlFor={`${name}-input`}>{name}</label>
       <br />
       <InputContainer>
         <input
@@ -58,6 +59,7 @@ const ConfirmPassword = (props: IProps) => {
           onChange={(event) => setValue(event.currentTarget.value)}
           onBlur={() => setTouched(true)}
           aria-describedby={displayErrorMessage ? `${name}-error` : undefined}
+          placeholder={placeHolder}
         />
         {isVisiblePassword ? (
           <VisibleEye onClick={onClickVisibleIcon} width="22" height="22" />
@@ -95,6 +97,10 @@ const Container = styled.div`
     border-radius: 10px;
     height: 46px;
     width: 100%;
+  }
+  & input::placeholder {
+    ${Pretendard({ font: 1.4, weight: 400, color: Common.colors.GY500 })}
+    letter-spacing: -0.03em;
   }
   & label {
     ${Pretendard({ font: 1.2, weight: 700, color: Common.colors.GY700 })}

@@ -50,7 +50,7 @@ const InsertBitrhYear = () => {
         ) : null}
       </Container>
       <Button onClick={nextPage} isDisabled={Boolean(displayErrorMessage)} btnText="다음" color={Common.colors.BL500} textColor="#fff" />
-      <Pstyle onClick={() => router.push("/onBoarding/birth")}>답변하지 않고 넘어가기</Pstyle>
+      <Pstyle onClick={() => router.push("/onBoarding/phone")}>답변하지 않고 넘어가기</Pstyle>
     </div>
   );
 };

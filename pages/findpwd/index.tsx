@@ -1,21 +1,16 @@
 import React, { useState } from "react";
 import { useMutation } from "react-query";
-import ConfirmPassword from "components/common/ConfirmPassword";
-import HeaderName from "../HeaderName";
-import PasswordInput from "components/common/PasswordInput";
-import TosContainer from "./TosContainer";
+import HeaderName from "components/HeaderName";
 import styled from "@emotion/styled";
 import { Common, Pretendard } from "styles/common";
 import { getFieldError } from "utills/validate";
-import { Button } from "components/common/Button";
 import Timmer from "components/common/Timmer";
 import GreenCheck from "public/images/greenCheck.svg";
-import { emailAuth, emailAuthCheckNum, register } from "services/api/register";
+import { emailAuthCheckNum, findPwd } from "services/api/register";
 import { useRouter } from "next/router";
 
-const Register = () => {
+const Index = () => {
   const [wasSubmitted, setwasSubmitted] = useState(false);
-  const [validatePassword, setvalidatePassword] = useState(false);
   const [touched, setTouched] = useState(false); //터치에 대한 state
   const [buttonNameState, setbuttonNameState] = useState(false); //이메일 인증 메일 보내고 난 후 버튼 이름 변경 state
   const [authNumber, setAuthNumber] = useState("");
@@ -24,13 +19,12 @@ const Register = () => {
   const [timerMinute, setTimerMinute] = useState(0); //타이머 컴포넌트를 위한 state
   const [email, setemail] = useState("");
   const errorMessage = getFieldError(email, "이메일"); //에러 메시지
-  const [isAllCheck, setisAllCheck] = useState(false); //체크 토글
   const displayErrorMessage = (wasSubmitted || touched) && errorMessage;
   const [isSame, setIsSame] = useState(false);
   const router = useRouter();
-  const registerOnButton = isAllCheck && isSame && isAuthedEmail && validatePassword; //버튼 활성화 토글
+  const registerOnButton = isSame && isAuthedEmail; //버튼 활성화 토글
 
-  const postEmailAuth = useMutation(emailAuth, {
+  const postEmailAuth = useMutation(findPwd, {
     onSuccess: () => {
       setVisibleAuthInput(true);
       setbuttonNameState(true);
@@ -51,13 +45,6 @@ const Register = () => {
     },
   });
 
-  const registerApi = useMutation(register, {
-    onSuccess: () => {
-      alert("가입이 완료 되었습니다!");
-      router.push("/login");
-    },
-  });
-
   const emailAuthHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     postEmailAuth.mutate({ email });
@@ -68,18 +55,11 @@ const Register = () => {
     emailAuthCheck.mutate({ email: email, code: authNumber });
   };
 
-  const registerHandler = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const fieldValues = Object.fromEntries(formData.entries());
-    setwasSubmitted(true);
-    registerApi.mutate({ email: email, pwd: fieldValues["비밀번호"] as string, nickname: "nickName1" });
-  };
-
   return (
     <div>
-      <HeaderName name="회원가입" hasBack={true} hasNext={false} />
-      <form onSubmit={registerHandler}>
+      <HeaderName name="비밀번호 찾기" hasBack={true} hasNext={false} />
+      <Title>가입한 이메일 주소를 입력해주세요.</Title>
+      <form>
         <Label htmlFor={`email-input`}>이메일 주소</Label>
         <br />
         <div style={{ marginBottom: "30px" }}>
@@ -127,20 +107,12 @@ const Register = () => {
         ) : (
           ""
         )}
-
-        <div>
-          <PasswordInput name="비밀번호" wasSubmitted={wasSubmitted} setValidate={setvalidatePassword} />
-          <ConfirmPassword setIsSame={setIsSame} name="비밀번호 확인" passwordInputName="비밀번호" wasSubmitted={wasSubmitted} />
-        </div>
-
-        <TosContainer setIsAllCheck={setisAllCheck} />
-        <Button type="submit" color={Common.colors.BL500} btnText="가입하기" textColor="#fff" isDisabled={!registerOnButton} />
       </form>
     </div>
   );
 };
 
-export default Register;
+export default Index;
 
 const CompletedAuth = styled.div`
   width: calc(30% - 10px);
@@ -154,6 +126,12 @@ const CompletedAuth = styled.div`
     margin-right: 2px;
   }
 `;
+
+const Title = styled.h1`
+  ${Pretendard({ font: 1.8, weight: 700, color: Common.colors.GY900 })}
+  margin-bottom:30px;
+`;
+
 const EmailContainer = styled.div`
   display: flex;
   justify-content: space-between;

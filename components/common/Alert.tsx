@@ -18,7 +18,8 @@ const Alert = () => {
         });
       }, 2000);
     }
-  }, [ToastState.visible]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ToastState]);
 
   return (
     <>

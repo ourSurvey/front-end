@@ -27,6 +27,7 @@ const InsertBitrhYear = () => {
 
   useEffect(() => {
     setStepState(2);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

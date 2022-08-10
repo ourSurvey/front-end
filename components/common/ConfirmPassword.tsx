@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import usePasswordValue from "hooks/usePasswordValue";
 import UnVisibleEye from "public/images/unVisibleEye.svg";
 import VisibleEye from "public/images/visibleEye.svg";
@@ -14,10 +14,10 @@ interface IProps {
 }
 const ConfirmPassword = (props: IProps) => {
   const { name, passwordInputName, wasSubmitted, setIsSame, placeHolder } = props;
-  const ref = React.useRef<HTMLInputElement>(null);
+  const ref = useRef<HTMLInputElement>(null);
   const passwordValue = usePasswordValue(ref, passwordInputName);
-  const [value, setValue] = React.useState("");
-  const [touched, setTouched] = React.useState(false);
+  const [value, setValue] = useState("");
+  const [touched, setTouched] = useState(false);
   const [inputType, setinputType] = useState("text"); //패스워드 버튼 눌렀을 때 변경 토글
   const [isVisiblePassword, setisVisiblePassword] = useState(false);
   const errorMessage = passwordValue !== value ? "비밀번호가 일치하지 않습니다." : null;
@@ -27,15 +27,16 @@ const ConfirmPassword = (props: IProps) => {
     setisVisiblePassword(!isVisiblePassword);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (errorMessage === null) {
       setIsSame(true);
     } else {
       setIsSame(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errorMessage]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const changeInputType = (): void => {
       if (isVisiblePassword) {
         setinputType("text");

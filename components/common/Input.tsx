@@ -27,6 +27,7 @@ function Input({ name, wasSubmitted, type, placeHolder, setValidate }: IProps) {
       }
     };
     checkVal();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errorMessage]);
 
   return (

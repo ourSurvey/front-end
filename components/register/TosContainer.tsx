@@ -59,6 +59,7 @@ const TosContainer = ({ setIsAllCheck }: Iprops) => {
     } else {
       setIsAllCheck(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkedItems]);
   return (
     <div

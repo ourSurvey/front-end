@@ -29,6 +29,7 @@ const SelectGengder = (props: any) => {
 
   useEffect(() => {
     setStepState(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

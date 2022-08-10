@@ -27,6 +27,7 @@ const InsertPhoneNumber = (props: any) => {
 
   useEffect(() => {
     setStepState(3);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

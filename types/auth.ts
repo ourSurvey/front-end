@@ -38,3 +38,8 @@ export interface IRegisterInfo {
   email: string;
   pwd: string;
 }
+
+export interface IResetPwd {
+  token: string;
+  pwd: string;
+}

@@ -1,5 +1,5 @@
 <svg width="current" height="current" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="24" height="24" transform="translate(0.25 0.5)" fill="white"/>
+<rect width="24" height="24" transform="translate(0.25 0.5)" fill="none"/>
 <path d="M4.75 5.5C4.75 4.67157 5.42157 4 6.25 4H18.25C19.0784 4 19.75 4.67157 19.75 5.5V19.5C19.75 20.3284 19.0784 21 18.25 21H6.25C5.42157 21 4.75 20.3284 4.75 19.5V5.5Z" stroke="black"/>
 <circle cx="12.25" cy="9.5" r="1.5" stroke="black"/>
 <mask id="path-3-inside-1_383_1953" fill="white">

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import TokenProvider from "services/TokenProvider";
 import Head from "next/head";
 import dynamic from "next/dynamic";
-const StepProgress = dynamic(() => import("components/StepProgress"), { ssr: false });
+import NavBar from "components/common/NavBar";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -18,6 +18,8 @@ const Home: NextPage = () => {
       </Head>
 
       <div>홈 페이지 입니다</div>
+
+      <NavBar />
     </div>
   );
 };

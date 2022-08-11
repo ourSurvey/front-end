@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import { Common, Pretendard } from "styles/common";
 import dynamic from "next/dynamic";

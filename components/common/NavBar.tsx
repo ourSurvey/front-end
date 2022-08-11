@@ -58,7 +58,7 @@ const NavBarContainer = styled.ul`
   display: flex;
   position: fixed;
   width: 100%;
-  bottom: 0;
+  bottom: 30px; //주소창 때문에 임시로 걸어둔 것 추후 0으로 변경할 것!!
   margin: 0 -20px 0 -20px;
   list-style-type: none;
   justify-content: space-between;

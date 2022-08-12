@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import TokenProvider from "services/TokenProvider";
 import Head from "next/head";
-import dynamic from "next/dynamic";
 import NavBar from "components/common/NavBar";
 
 const Home: NextPage = () => {
@@ -18,8 +17,6 @@ const Home: NextPage = () => {
       </Head>
 
       <div>홈 페이지 입니다</div>
-
-      <NavBar />
     </div>
   );
 };

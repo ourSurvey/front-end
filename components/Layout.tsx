@@ -5,6 +5,9 @@ import { css, keyframes } from "@emotion/react";
 import Alert from "./common/Alert";
 import { showToastState } from "states/modal";
 import { useRecoilValue } from "recoil";
+import { useRouter } from "next/router";
+import NavBar from "./common/NavBar";
+import { hasNavbar } from "utills/hasNavbar";
 type IProps = {
   children: JSX.Element;
 };
@@ -16,6 +19,7 @@ const Layout = ({ children }: IProps) => {
   };
 
   const visible = useRecoilValue(showToastState);
+  const router = useRouter();
 
   useEffect(() => {
     handleResize();
@@ -38,6 +42,7 @@ const Layout = ({ children }: IProps) => {
     visibility: ${visible ? `visible` : "hidden"};
     animation: ${visible ? fadein : fadeout} 0.2s ease-out;
     transition: visibility 0.2s ease-out;
+    margin-bottom: ${hasNavbar(router.asPath) ? "27px" : ""}; //nav바가 있다면 알럿 위치 위로 올림
     padding: 21.5px 20px 35px 20px;
     left: 0;
     right: 0;
@@ -49,6 +54,13 @@ const Layout = ({ children }: IProps) => {
       <div css={toast} role="alert">
         <Alert />
       </div>
+      {hasNavbar(router.asPath) ? (
+        <nav>
+          <NavBar />
+        </nav>
+      ) : (
+        ""
+      )}
     </LayoutContainer>
   );
 };

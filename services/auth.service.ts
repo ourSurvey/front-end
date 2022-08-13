@@ -32,6 +32,16 @@ class AuthService extends ApiClient {
     TokenProvider.set("refreshToken", data.data.refresh, refreshExpire);
   }
 
+  async isAuthedUser() {
+    const { data } = await super.get("/auth/validate", {
+      headers: {
+        Authorization: `Bearer ${TokenProvider.get("accessToken")}`,
+      },
+    });
+
+    return { data };
+  }
+
   // 아직 요청 url 을 모름
   async logout() {
     const { data } = await super.post("logoutUrl", null);

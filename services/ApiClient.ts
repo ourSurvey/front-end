@@ -13,8 +13,6 @@ class ApiClient {
   }
 
   post(url: string, data: any, option?: AxiosRequestConfig) {
-    console.log(url);
-
     return this.#instance.post(url, data, option);
   }
 

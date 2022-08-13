@@ -10,7 +10,7 @@ import { getFieldError } from "utills/validate";
 import { Button } from "components/common/Button";
 import Timmer from "components/common/Timmer";
 import GreenCheck from "public/images/greenCheck.svg";
-import { emailAuth, emailAuthCheckNum, register } from "services/api/register";
+import { emailAuth, emailAuthCheckNum, register } from "services/api/auth";
 import { useRouter } from "next/router";
 
 const Register = () => {

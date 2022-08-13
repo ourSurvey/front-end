@@ -8,7 +8,7 @@ import OutLineButton from "components/common/OutLineButton";
 import styled from "@emotion/styled";
 import { useMutation } from "react-query";
 import { Common, Pretendard } from "styles/common";
-import { login } from "services/api/register";
+import { login } from "services/api/auth";
 import Link from "next/link";
 import { toastState } from "states/modal";
 import { useRecoilState } from "recoil";

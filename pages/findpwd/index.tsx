@@ -6,7 +6,7 @@ import { Common, Pretendard } from "styles/common";
 import { getFieldError } from "utills/validate";
 import Timmer from "components/common/Timmer";
 import GreenCheck from "public/images/greenCheck.svg";
-import { emailAuthCheckNum, findPwd } from "services/api/register";
+import { emailAuthCheckNum, findPwd } from "services/api/auth";
 import { useRouter } from "next/router";
 
 const Index = () => {

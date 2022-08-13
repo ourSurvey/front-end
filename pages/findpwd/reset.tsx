@@ -5,7 +5,7 @@ import { Common, Pretendard } from "styles/common";
 import ConfirmPassword from "components/common/ConfirmPassword";
 import { Button } from "components/common/Button";
 import styled from "@emotion/styled";
-import { resetPassword } from "services/api/register";
+import { resetPassword } from "services/api/auth";
 import { useRouter } from "next/router";
 import { useMutation } from "react-query";
 import { toastState } from "states/modal";

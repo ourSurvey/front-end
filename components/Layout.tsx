@@ -54,13 +54,7 @@ const Layout = ({ children }: IProps) => {
       <div css={toast} role="alert">
         <Alert />
       </div>
-      {hasNavbar(router.asPath) ? (
-        <nav>
-          <NavBar />
-        </nav>
-      ) : (
-        ""
-      )}
+      {hasNavbar(router.asPath) ? <NavBar /> : ""}
     </LayoutContainer>
   );
 };

@@ -12,13 +12,15 @@ import { login } from "services/api/auth";
 import Link from "next/link";
 import { toastState } from "states/modal";
 import { useRecoilState } from "recoil";
-
+import useUser from "hooks/useUser";
 const Index = () => {
   const router = useRouter();
   const [wasSubmitted, setwasSubmitted] = useState(false);
   const [email, setEmail] = useState(false);
   const [pwd, setPwd] = useState(false);
   const [ToastState, setToastState] = useRecoilState(toastState);
+  const user = useUser({ redirectTo: "/", redirectIfFound: true });
+
   const loginHandler = useMutation(login, {
     onSuccess: () => {
       //성공 시
@@ -47,6 +49,10 @@ const Index = () => {
     setwasSubmitted(true);
   };
   const ckBtn = email && pwd;
+
+  if (user === undefined) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <FormContainer>

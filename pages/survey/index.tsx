@@ -2,9 +2,20 @@ import styled from "@emotion/styled";
 import SearchHeader from "components/common/SearchHeader";
 import { Common, Pretendard } from "styles/common";
 import SurveyContainer from "components/survey/SurveyContainer";
+import { useEffect, useState } from "react";
 type Props = {};
 
 const Index = (props: Props) => {
+  const [sectionHeight, setSectionHeight] = useState<number | undefined>(0);
+  useEffect(() => {
+    const height = document.getElementById("section1")?.getBoundingClientRect().top;
+    setSectionHeight(height);
+  }, []);
+
+  const Section = styled.section`
+    height: calc(100% - ${sectionHeight}px);
+  `;
+
   return (
     <SurContainer>
       <SearchHeader name="실시간 서베이" hasBack={false} />
@@ -14,7 +25,9 @@ const Index = (props: Props) => {
         <span>N포인트</span> 받아가세요!
       </Title>
 
-      <SurveyContainer />
+      <Section id="section1">
+        <SurveyContainer />
+      </Section>
     </SurContainer>
   );
 };

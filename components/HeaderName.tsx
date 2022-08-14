@@ -1,6 +1,6 @@
+import styled from "@emotion/styled";
 import { IconContext } from "react-icons";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import styled from "@emotion/styled";
 import { Common, Pretendard } from "styles/common";
 import { useRouter } from "next/router";
 
@@ -24,7 +24,6 @@ const HeaderName = (props: Props) => {
       <Arrow>
         {hasBack ? (
           <IconContext.Provider value={{ size: "20" }}>
-            {" "}
             <IoIosArrowBack onClick={() => router.back()} />
           </IconContext.Provider>
         ) : (
@@ -35,7 +34,6 @@ const HeaderName = (props: Props) => {
       <Arrow>
         {hasNext ? (
           <IconContext.Provider value={{ size: "20" }}>
-            {" "}
             <IoIosArrowForward />
           </IconContext.Provider>
         ) : (

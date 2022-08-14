@@ -17,7 +17,7 @@ const SurveyContainer = (props: Props) => {
 export default SurveyContainer;
 
 const Container = styled.div`
-  max-height: 80%;
+  height: 100%;
   padding: 5px 5px 10px 5px;
   overflow-y: scroll;
   &::-webkit-scrollbar {

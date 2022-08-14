@@ -39,7 +39,7 @@ class AuthService extends ApiClient {
       },
     });
 
-    return { data };
+    return data;
   }
 
   // 아직 요청 url 을 모름

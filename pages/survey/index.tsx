@@ -1,12 +1,42 @@
 import styled from "@emotion/styled";
+import gql from "graphql-tag";
 import SearchHeader from "components/common/SearchHeader";
 import { Common, Pretendard } from "styles/common";
 import SurveyContainer from "components/survey/SurveyContainer";
 import { useEffect, useState } from "react";
-type Props = {};
+import { useGQLQuery } from "hooks/useGQLQuery";
 
-const Index = (props: Props) => {
+const GET_SURVEY = gql`
+  query ($page: Int!, $size: Int!) {
+    getSurveyToPage(page: $page, size: $size) {
+      code
+      message
+      data {
+        totalElements
+        totalPages
+        isLast
+        content {
+          subject
+          content
+          openFl
+          minute
+          startDate
+          endDate
+          createdDt
+          hashtagList
+        }
+      }
+    }
+  }
+`;
+
+const Index = () => {
   const [sectionHeight, setSectionHeight] = useState<number | undefined>(0);
+  // const { data, isLoading, error } = useGQLQuery("survey", GET_SURVEY, {
+  //   page: 1,
+  //   size: 2,
+  // });
+
   useEffect(() => {
     const height = document.getElementById("section1")?.getBoundingClientRect().top;
     setSectionHeight(height);

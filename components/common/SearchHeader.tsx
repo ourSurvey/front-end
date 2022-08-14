@@ -1,9 +1,9 @@
-import { IconContext } from "react-icons";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import styled from "@emotion/styled";
+import Prev from "public/icon/prevArrow.svg";
+import Search from "public/icon/search.svg";
 import { Common, Pretendard } from "styles/common";
 import { useRouter } from "next/router";
-import Search from "public/icon/search.svg";
+
 type Props = {
   name: string;
   hasBack: boolean;
@@ -14,20 +14,13 @@ const SearchHeader = (props: Props) => {
   const router = useRouter();
   const Span = styled.span`
     ${Pretendard({ font: 1.4, weight: 700, color: Common.colors.GY900 })};
-    margin-left: ${!hasBack ? "20px" : ""};
+    /* margin-left: ${!hasBack ? "20px" : ""}; */
   `;
 
   return (
     <Header>
       <SvgPosition>
-        {hasBack ? (
-          <IconContext.Provider value={{ size: "20" }}>
-            {" "}
-            <IoIosArrowBack onClick={() => router.back()} />
-          </IconContext.Provider>
-        ) : (
-          ""
-        )}
+        <Prev width="20" height="16"></Prev>
       </SvgPosition>
       <Span>{name}</Span>
       <SvgPosition>

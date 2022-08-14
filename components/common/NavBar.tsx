@@ -1,10 +1,11 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
 import Home from "public/icon/home.svg";
+
 import Survey from "public/icon/survey.svg";
 import NavAdd from "public/icon/nav-add.svg";
 import { Common, Pretendard } from "styles/common";
-type Props = {};
+import { useRouter } from "next/router";
 type ComponentProps = {
   width: number;
   height: number;
@@ -34,23 +35,25 @@ const More: React.FC<ComponentProps> = ({ width, height, selected }) => (
   </svg>
 );
 
-const NavBar = (props: Props) => {
+const NavBar = () => {
+  const router = useRouter();
+
   return (
     <NavBarContainer>
       <li>
-        <Link href="/mmmm">
-          <>
-            <Home width="22" height="27" stroke="#000" />
+        <Link href="/">
+          <a>
+            <Home width="24 " height="27" stroke={router.asPath === "/" ? Common.colors.BL500 : Common.colors.GY900} />
             <Span>홈</Span>
-          </>
+          </a>
         </Link>
       </li>
       <li>
         <Link href="/survey">
-          <>
-            <Survey width="30" height="27" />
+          <a>
+            <Survey width="30" height="27" stroke={router.asPath === "/survey" ? Common.colors.BL500 : Common.colors.GY900} />
             <Span>서베이</Span>
-          </>
+          </a>
         </Link>
       </li>
       <li>
@@ -60,18 +63,19 @@ const NavBar = (props: Props) => {
       </li>
       <li>
         <Link href="/mypage">
-          <>
-            <PhoneSurvey width="30" height="27" />
+          <a>
+            <PhoneSurvey width={25} height={27} selected={router.asPath === "/mypage" ? Common.colors.BL500 : Common.colors.GY900} />
+            {/* <PhoneSurvey width="30" height="27" stroke="blue" /> */}
             <Span>나의 서베이</Span>
-          </>
+          </a>
         </Link>
       </li>
       <li>
         <Link href="/more">
-          <>
-            <More width="28" height="27" />
+          <a>
+            <More width={25} height={27} selected={router.asPath === "/more" ? Common.colors.BL500 : Common.colors.GY900} />
             <Span>더보기</Span>
-          </>
+          </a>
         </Link>
       </li>
     </NavBarContainer>
@@ -83,20 +87,28 @@ export default NavBar;
 const NavBarContainer = styled.ul`
   display: flex;
   position: fixed;
+  background-color: #fff;
   width: 100%;
-  bottom: 30px; //주소창 때문에 임시로 걸어둔 것 추후 0으로 변경할 것!!
+  bottom: 0; //주소창 때문에 임시로 걸어둔 것 추후 0으로 변경할 것!!
   margin: 0 -20px 0 -20px;
   list-style-type: none;
   justify-content: space-between;
   padding: 7.5px 20px;
   /* box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 2 px 0px inset; */
   border-top: 1px solid ${Common.colors.GY100};
-  & li {
+  & nav {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 100%;
     justify-content: space-between;
-    height: 45px;
+  }
+  & li {
+    & a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      height: 45px;
+    }
   }
 `;
 

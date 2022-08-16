@@ -1,26 +1,53 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Common, Pretendard } from "styles/common";
-import { Button } from "components/common/Button";
-type Props = {};
 
-const SurveyItem = (props: Props) => {
+import { IContent } from "types/survey";
+import Lighting from "public/icon/lighting.svg";
+const SurveyItem = (props: IContent) => {
+  const { subject, content, openFl, minute, startDate, endDate, hashtagList } = props;
+
+  const Button = styled.button`
+    height: 36px;
+    width: 100%;
+    border-radius: 5px;
+    font-family: "Pretendard";
+    font-weight: 700;
+    font-size: 0.75rem;
+    font-style: normal;
+    color: #fff;
+    outline: 0;
+    border: 0;
+    letter-spacing: -0.03em;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    background-color: ${Common.colors.BL500};
+    margin-top: 10px;
+    margin-bottom: ${hashtagList && hashtagList.length > 0 ? "10px" : "0"};
+  `;
   return (
     <ItemContainer>
       <UlContainer>
-        <li>예상 시간: 8분</li>
-        <li>설문 결과 공개</li>
+        {minute <= 5 ? (
+          <FastChip>
+            <Lighting width="17" height="19" />
+            예상 시간: {minute}분
+          </FastChip>
+        ) : (
+          <LiStyle>예상 시간: {minute}분</LiStyle>
+        )}
+        {openFl === 1 ? <LiStyle>설문 결과 공개</LiStyle> : null}
       </UlContainer>
-      <h1>편의점 라면 소비 패턴 조사를 위한 설문</h1>
-      <Content>
-        편돌이 편순이의 많은 참여 부탁드립니다! 안녕하세요 저희는안녕asdawdadasdWAafsg하세요 저희는 gs25 대학생
-        홍argahㅁㅈㄱ허ㅗ묻기하ㅓㅗㅜㄷㅁ히ㅏㅓ도규ㅝㅚ보대사 지편순
-      </Content>
+      <h1>{subject}</h1>
+      <Content>{content}</Content>
       <DateContainer>
-        <span>설문 기간 </span>2022.00.00~2022.00.00
+        <>
+          <span>설문 기간 </span>
+          {startDate} ~ {endDate}
+        </>
       </DateContainer>
-      <Button color={Common.colors.BL500} textColor="#fff" btnText="설문 참여하기" isDisabled={false} />
-      <Hashtag>#20대 #30대 #자취생 #편의점 #라면 #컵라면 #gs25 #20대 #30대 #20대 #30대 #20대 #30대</Hashtag>
+      <Button>설문 참여하기</Button>
+      <Hashtag>{hashtagList?.map((item) => `#${item}`)}</Hashtag>
     </ItemContainer>
   );
 };
@@ -41,9 +68,6 @@ const ItemContainer = styled.div`
     line-height: 150%;
     letter-spacing: -0.03em;
   }
-  & button {
-    margin: 10px 0;
-  }
 `;
 
 const UlContainer = styled.ul`
@@ -52,15 +76,21 @@ const UlContainer = styled.ul`
   list-style-type: none;
   margin-top: 0px;
   padding: 0;
-  & li {
-    margin-right: 5px;
-    padding: 2px 4px;
-    background-color: ${Common.colors.GY50};
-    ${Pretendard({ font: 1, weight: 400, color: "#000" })}
-    line-height: 150%;
-    &:last-child {
-      margin-right: 0;
-    }
+`;
+
+const LiStyle = styled.li`
+  margin-right: 5px;
+  padding: 0 4px;
+  display: flex;
+  border-radius: 3px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  background-color: ${Common.colors.GY50};
+  ${Pretendard({ font: 1, weight: 400, color: "#000" })}
+  line-height: 150%;
+  &:last-child {
+    margin-right: 0;
   }
 `;
 
@@ -91,6 +121,18 @@ const Hashtag = styled.span`
   white-space: nowrap;
   overflow: hidden;
   letter-spacing: -0.03em;
+`;
+
+const FastChip = styled.li`
+  display: flex;
+  border-radius: 3px;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px;
+  padding: 0 4px 0 0;
+  background-color: ${Common.colors.GY700} !important;
+  ${Pretendard({ font: 1, weight: 700, color: "#fff" })}
+  line-height: 150%;
 `;
 
 export default SurveyItem;

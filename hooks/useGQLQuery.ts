@@ -45,7 +45,7 @@ export const useInfiniteGQLQuery = (
 
   const graphQLClient = new GraphQLClient(endpoint, headers);
 
-  return useInfiniteQuery(
+  return useInfiniteQuery<any, any, any, QueryKey>(
     key,
     ({ pageParam }) => {
       return graphQLClient.request(query, getVariables({ pageParam }));

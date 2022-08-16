@@ -19,7 +19,7 @@ const Index = () => {
   const [email, setEmail] = useState(false);
   const [pwd, setPwd] = useState(false);
   const [ToastState, setToastState] = useRecoilState(toastState);
-  const user = useUser({ redirectTo: "/", redirectIfFound: true });
+  // const user = useUser({ redirectTo: "/", redirectIfFound: true });
 
   const loginHandler = useMutation(login, {
     onSuccess: () => {
@@ -50,9 +50,9 @@ const Index = () => {
   };
   const ckBtn = email && pwd;
 
-  if (user === undefined) {
-    return <div>Loading...</div>;
-  }
+  // if (user === undefined) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <FormContainer>

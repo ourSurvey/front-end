@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
-import { useRequest } from "./useRequest";
+import { QueryClient, QueryClientProvider } from "react-query";
 import Router from "next/router";
 import { isAuthed } from "services/api/auth";
+import { useQuery } from "react-query";
 
 interface IParams {
   redirectTo?: string;
   redirectIfFound?: boolean;
 }
-
 const useUser = ({ redirectTo, redirectIfFound }: IParams) => {
-  const { data, error } = useRequest("authed", isAuthed);
+  const { data, error } = useQuery(["authed"], isAuthed);
+
   const [calledPush, setCalledPush] = useState(false);
   const user = data?.data;
   const hasUser = user;

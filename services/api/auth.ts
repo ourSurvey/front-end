@@ -1,6 +1,7 @@
 import { IEmail, IEmailAuth, ISignupData, ILoginData, IResetPwd } from "types/auth";
 import ApiClient from "services/ApiClient";
 import authService from "services/auth.service";
+import { AxiosResponse } from "axios";
 const api = new ApiClient();
 //이메일 인증번호 발송
 const emailAuth = (email: IEmail) => api.post("/auth/take", email);
@@ -15,6 +16,6 @@ const findPwd = (email: IEmail) => api.post("/auth/findpwd", email);
 
 const resetPassword = (pwdinfo: IResetPwd) => api.post("/auth/resetpwd", pwdinfo);
 
-const isAuthed = () => authService.isAuthedUser();
+const isAuthed = ():Promise<AxiosResponse> => authService.isAuthedUser();
 
 export { emailAuth, emailAuthCheckNum, register, login, findPwd, resetPassword, isAuthed };

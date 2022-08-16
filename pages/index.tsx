@@ -1,16 +1,10 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import useUser from "hooks/useUser";
 import SearchHeader from "components/common/SearchHeader";
 
 const Home: NextPage = () => {
   const router = useRouter();
-  const user = useUser({ redirectTo: "/login" });
-
-  if (user === undefined || user === false) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div>

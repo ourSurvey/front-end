@@ -1,16 +1,33 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
 import Home from "public/icon/home.svg";
-
+import Plus from "public/icon/plus.svg";
 import Survey from "public/icon/survey.svg";
-import NavAdd from "public/icon/nav-add.svg";
 import { Common, Pretendard } from "styles/common";
 import { useRouter } from "next/router";
+import { forwardRef } from "react";
 type ComponentProps = {
   width: number;
   height: number;
-  selected: string;
+  selected?: string;
 };
+
+const Add: React.FC<ComponentProps> = ({ width, height }) => (
+  <svg width={width} height={height} viewBox="0 0 40 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="10" cy="19.5" r="9.5" transform="rotate(-90 10 19.5)" fill="#F292B7" />
+    <circle cx="20" cy="28.5" r="9.5" fill="#0066D9" />
+    <circle cx="30" cy="19.5" r="9.5" transform="rotate(-90 30 19.5)" fill="#00AC62" />
+    <circle cx="20" cy="9.5" r="9.5" fill="#0066D9" />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M19.4863 18.9864C14.6486 18.7286 10.7714 14.8515 10.5136 10.0137C15.3514 10.2714 19.2286 14.1486 19.4863 18.9864Z"
+      fill="#F292B7"
+    />
+    <rect x="19" y="11" width="3" height="16" rx="1.5" fill="white" />
+    <rect x="12.5" y="20.5" width="3" height="16" rx="1.5" transform="rotate(-90 12.5 20.5)" fill="white" />
+  </svg>
+);
 
 const PhoneSurvey: React.FC<ComponentProps> = ({ width, height, selected }) => (
   <svg width={width} height={height} viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,7 +75,9 @@ const NavBar = () => {
       </li>
       <li>
         <Link href="/add">
-          <NavAdd width="40" height="40" />
+          <a>
+            <Add width={40} height={40} />
+          </a>
         </Link>
       </li>
       <li>

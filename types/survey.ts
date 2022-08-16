@@ -14,13 +14,13 @@ interface ISurvetData {
   content: IContent;
 }
 
-interface IContent {
+export interface IContent {
   subject: string;
   content: string;
-  openFl: number;
+  openFl: 1 | 0;
   minute: number;
   startDate: Date;
   endDate: Date;
-  createdDt: Date;
+  createdDt?: Date;
   hashtagList: null | [];
 }

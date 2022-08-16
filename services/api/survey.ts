@@ -15,6 +15,7 @@ export const GET_SURVEY = gql`
           content
           openFl
           minute
+          id
           startDate
           endDate
           createdDt

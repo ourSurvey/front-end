@@ -6,7 +6,7 @@ import { GET_SURVEY } from "services/api/survey";
 import { IContent } from "types/survey";
 import { useObserver } from "hooks/useObserver";
 import SurveySkeleton from "components/skeleton/SurveySkeleton";
-
+import { ClipLoader } from "react-spinners";
 const Placeholder: React.FC = () => (
   <ItemContainer>
     <UlContainer>
@@ -77,6 +77,7 @@ const SurveyContainer = () => {
             <React.Fragment key={idx}>
               {item.getSurveyToPage.data.content.map((survey: IContent, idx: number) => (
                 <SurveyItem
+                  id={survey.id}
                   key={idx}
                   hashtagList={survey.hashtagList}
                   subject={survey.subject}
@@ -93,7 +94,11 @@ const SurveyContainer = () => {
       )}
       <div ref={bottom} />
 
-      {isFetching && !isFetchingNextPage ? <p>계속 불러오는 중</p> : null}
+      {isFetching && !isFetchingNextPage ? (
+        <div className="spinner">
+          <ClipLoader color="#0066D9" />
+        </div>
+      ) : null}
     </Container>
   );
 };
@@ -106,6 +111,9 @@ const Container = styled.div`
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;
+  }
+  & .spinner {
+    text-align: center;
   }
 `;
 

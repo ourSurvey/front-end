@@ -17,6 +17,7 @@ interface ISurvetData {
 export interface IContent {
   subject: string;
   content: string;
+  id: number;
   openFl: 1 | 0;
   minute: number;
   startDate: Date;

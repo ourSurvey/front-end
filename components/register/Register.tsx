@@ -12,7 +12,7 @@ import Timmer from "components/common/Timmer";
 import GreenCheck from "public/images/greenCheck.svg";
 import { emailAuth, emailAuthCheckNum, register } from "services/api/auth";
 import { useRouter } from "next/router";
-
+import { ClipLoader } from "react-spinners";
 const Register = () => {
   const [wasSubmitted, setwasSubmitted] = useState(false);
   const [validatePassword, setvalidatePassword] = useState(false);
@@ -58,6 +58,18 @@ const Register = () => {
     },
   });
 
+  const btnName = (): string | JSX.Element => {
+    if (postEmailAuth.isLoading) {
+      return <ClipLoader className="spinner" size={25} color={Common.colors.GY900} />;
+    } else {
+      if (!buttonNameState) {
+        return "인증하기";
+      } else {
+        return "재발송";
+      }
+    }
+  };
+
   const emailAuthHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     postEmailAuth.mutate({ email });
@@ -95,7 +107,7 @@ const Register = () => {
             {/* 이메일 인증 완료 표시 */}
             {!isAuthedEmail ? (
               <AuthButton type="button" onClick={(e) => emailAuthHandler(e)} disabled={errorMessage !== null}>
-                {!buttonNameState ? "인증하기" : "재발송"}
+                {btnName()}
               </AuthButton>
             ) : (
               <CompletedAuth>
@@ -201,6 +213,7 @@ const AuthCheckButton = styled.button`
 `;
 
 const AuthButton = styled.button`
+  position: relative;
   width: calc(30% - 10px);
   height: 46px;
   border: 2px solid ${Common.colors.GY700};
@@ -213,5 +226,11 @@ const AuthButton = styled.button`
 
   &:disabled {
     opacity: 0.35;
+  }
+
+  & .spinner {
+    position: absolute;
+    top: 25%;
+    left: calc(50% - 15px);
   }
 `;

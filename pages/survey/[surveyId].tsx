@@ -53,7 +53,7 @@ const SurveyId = ({ dehydratedState }: IProps) => {
 
         <h1>{data.data.data.subject}</h1>
         <CreateInfo>
-          <span>열일하는 거북이</span> <span className="icon">|</span> {returnDate()}
+          <span>{data.data.data.nickname}</span> <span className="icon">|</span> {returnDate()}
         </CreateInfo>
       </header>
       <Line></Line>

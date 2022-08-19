@@ -74,7 +74,7 @@ const NavBar = () => {
         </Link>
       </li>
       <li>
-        <Link href="/add">
+        <Link href="/survey/create">
           <a>
             <Add width={40} height={40} />
           </a>

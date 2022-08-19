@@ -46,6 +46,7 @@ const Layout = ({ children }: IProps) => {
     padding: 21.5px 20px 35px 20px;
     left: 0;
     right: 0;
+    z-index: 300;
   `;
 
   return (

@@ -12,7 +12,7 @@ const Index = () => {
 
       <form>
         <input type="text" placeholder="제목" />
-        <textarea placeholder="설문에 대한 설명을 적어주세요" name="설문개요" id="" cols="30" rows="10"></textarea>
+        <textarea placeholder="설문에 대한 설명을 적어주세요" name="survey-summary" id="" cols={30} rows={10}></textarea>
         <ButtonContainer>
           <OutLineButton isDisabled={false} textColor={Common.colors.GY900} btnText="임시저장" borderColor={Common.colors.GY900} />
           <Button isDisabled={false} textColor="#fff" btnText="다음" color={Common.colors.BL500} />

@@ -22,7 +22,7 @@ const SearchHeader = (props: Props) => {
 
   return (
     <Header>
-      <SvgPosition>{hasBack ? <Prev width="20" height="16" /> : null}</SvgPosition>
+      <SvgPosition onClick={() => router.back()}>{hasBack ? <Prev width="20" height="16" /> : null}</SvgPosition>
       <Span>{name}</Span>
       <SvgPosition>{hasSearch ? <Search /> : null}</SvgPosition>
     </Header>

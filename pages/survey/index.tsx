@@ -18,7 +18,7 @@ const Index = () => {
 
   return (
     <SurContainer>
-      <SearchHeader name="실시간 서베이" hasBack={false} />
+      <SearchHeader name="실시간 서베이" hasBack={false} hasSearch={true} />
       <Title>
         실시간 설문에 참여하고
         <br />

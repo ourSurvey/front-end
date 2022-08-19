@@ -7,25 +7,24 @@ import { useRouter } from "next/router";
 type Props = {
   name: string;
   hasBack: boolean;
+  hasSearch: boolean;
 };
 
 const SearchHeader = (props: Props) => {
-  const { name, hasBack } = props;
+  const { name, hasBack, hasSearch } = props;
   const router = useRouter();
   const Span = styled.span`
     ${Pretendard({ font: 1.4, weight: 700, color: Common.colors.GY900 })};
-    /* margin-left: ${!hasBack ? "20px" : ""}; */
+
+    margin-left: ${!hasBack ? "20px" : ""};
+    margin-right: ${!hasSearch ? "20px" : ""};
   `;
 
   return (
     <Header>
-      <SvgPosition>
-        <Prev width="20" height="16"></Prev>
-      </SvgPosition>
+      <SvgPosition>{hasBack ? <Prev width="20" height="16" /> : null}</SvgPosition>
       <Span>{name}</Span>
-      <SvgPosition>
-        <Search />
-      </SvgPosition>
+      <SvgPosition>{hasSearch ? <Search /> : null}</SvgPosition>
     </Header>
   );
 };

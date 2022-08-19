@@ -1,12 +1,12 @@
 import surveyService from "services/survey.service";
 import { QueryClient, dehydrate, DehydratedState } from "react-query";
-
 import HeaderName from "components/HeaderName";
 import styled from "@emotion/styled";
 import { Pretendard, Common } from "styles/common";
 import OutLineButton from "components/common/OutLineButton";
 import { Button } from "components/common/Button";
 import Share from "components/Share";
+import { useState } from "react";
 
 interface IProps {
   dehydratedState: DehydratedState;
@@ -24,7 +24,7 @@ export const getServerSideProps = async (context: any) => {
 
 const SurveyId = ({ dehydratedState }: IProps) => {
   const data: any = dehydratedState.queries[0].state.data;
-
+  const [showShare, setshowShare] = useState(false);
   const returnDate = (): string => {
     const today = new Date();
     const compareDate = new Date(data.data.data.createdDt);
@@ -66,10 +66,16 @@ const SurveyId = ({ dehydratedState }: IProps) => {
         <Hashtag>{data.data.data.hashtagList?.map((item: string) => `#${item}`)}</Hashtag>
       ) : null}
       <BtnContainer>
-        <OutLineButton isDisabled={false} textColor={Common.colors.GY900} btnText="공유하기" borderColor={Common.colors.GY900} />
+        <OutLineButton
+          onClick={() => setshowShare(true)}
+          isDisabled={false}
+          textColor={Common.colors.GY900}
+          btnText="공유하기"
+          borderColor={Common.colors.GY900}
+        />
         <Button isDisabled={false} textColor="#fff" btnText="설문 참여하기" color={Common.colors.BL500} />
       </BtnContainer>
-      <Share />
+      {showShare ? <Share visibleState={showShare} setVisible={setshowShare} /> : null}
     </Detail>
   );
 };

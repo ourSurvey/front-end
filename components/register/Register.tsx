@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useMutation } from "react-query";
 import ConfirmPassword from "components/common/ConfirmPassword";
-import HeaderName from "../HeaderName";
 import PasswordInput from "components/common/PasswordInput";
 import TosContainer from "./TosContainer";
 import styled from "@emotion/styled";
@@ -13,6 +12,7 @@ import GreenCheck from "public/images/greenCheck.svg";
 import { emailAuth, emailAuthCheckNum, register } from "services/api/auth";
 import { useRouter } from "next/router";
 import { ClipLoader } from "react-spinners";
+import SearchHeader from "components/common/SearchHeader";
 const Register = () => {
   const [wasSubmitted, setwasSubmitted] = useState(false);
   const [validatePassword, setvalidatePassword] = useState(false);
@@ -90,7 +90,7 @@ const Register = () => {
 
   return (
     <div>
-      <HeaderName name="회원가입" hasBack={true} hasNext={false} />
+      <SearchHeader name="회원가입" hasBack={true} hasSearch={false} />
       <form onSubmit={registerHandler}>
         <Label htmlFor={`email-input`}>이메일 주소</Label>
         <br />

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import HeaderName from "components/HeaderName";
 import PasswordInput from "components/common/PasswordInput";
 import { Common, Pretendard } from "styles/common";
 import ConfirmPassword from "components/common/ConfirmPassword";
@@ -10,6 +9,7 @@ import { useRouter } from "next/router";
 import { useMutation } from "react-query";
 import { toastState } from "states/modal";
 import { useRecoilState } from "recoil";
+import SearchHeader from "components/common/SearchHeader";
 
 const Reset = () => {
   const [wasSubmitted, setwasSubmitted] = useState(false);
@@ -51,8 +51,8 @@ const Reset = () => {
   };
 
   return (
-    <div>
-      <HeaderName name="비밀번호 재설정" hasBack={true} hasNext={false} />
+    <>
+      <SearchHeader name="비밀번호 재설정" hasBack={true} hasSearch={false} />
       <Title>새로운 비밀번호를 입력해주세요.</Title>
       <form onSubmit={onSubmit}>
         <PasswordInput name="비밀번호" wasSubmitted={wasSubmitted} setValidate={setvalidatePassword} />
@@ -65,7 +65,7 @@ const Reset = () => {
         />
         <Button type="submit" color={Common.colors.BL500} btnText="재설정 하기" textColor="#fff" isDisabled={!restButtonToggle} />
       </form>
-    </div>
+    </>
   );
 };
 

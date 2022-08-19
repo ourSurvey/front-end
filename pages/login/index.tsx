@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { Button } from "components/common/Button";
-import HeaderName from "components/HeaderName";
 import Input from "components/common/Input";
 import PasswordInput from "components/common/PasswordInput";
 import OutLineButton from "components/common/OutLineButton";
@@ -13,6 +12,7 @@ import Link from "next/link";
 import { toastState } from "states/modal";
 import { useRecoilState } from "recoil";
 import useUser from "hooks/useUser";
+import SearchHeader from "components/common/SearchHeader";
 const Index = () => {
   const router = useRouter();
   const [wasSubmitted, setwasSubmitted] = useState(false);
@@ -57,8 +57,7 @@ const Index = () => {
   return (
     <FormContainer>
       <div>
-        <HeaderName name="로그인" hasBack={false} hasNext={false} />
-
+        <SearchHeader name="로그인" hasBack={false} hasSearch={false} />
         <form noValidate onSubmit={Login}>
           <Input setValidate={setEmail} name="이메일" placeHolder="abc@email.com" wasSubmitted={wasSubmitted} type="email" />
           <PasswordInput name="비밀번호" placeHolder="8자 이상의 영문+특수문자" wasSubmitted={wasSubmitted} setValidate={setPwd} />

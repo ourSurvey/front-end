@@ -1,12 +1,12 @@
 import surveyService from "services/survey.service";
 import { QueryClient, dehydrate, DehydratedState } from "react-query";
-import HeaderName from "components/HeaderName";
 import styled from "@emotion/styled";
 import { Pretendard, Common } from "styles/common";
 import OutLineButton from "components/common/OutLineButton";
 import { Button } from "components/common/Button";
 import Share from "components/Share";
 import { useState } from "react";
+import SearchHeader from "components/common/SearchHeader";
 
 interface IProps {
   dehydratedState: DehydratedState;
@@ -42,7 +42,7 @@ const SurveyId = ({ dehydratedState }: IProps) => {
   return (
     <Detail>
       <header>
-        <HeaderName hasBack={true} hasNext={false} name="" />
+        <SearchHeader hasBack={true} hasSearch={false} name="" />
         <DateContainer>
           {" "}
           <>

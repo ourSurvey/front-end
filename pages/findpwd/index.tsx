@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useMutation } from "react-query";
-import HeaderName from "components/HeaderName";
 import styled from "@emotion/styled";
 import { Common, Pretendard } from "styles/common";
 import { getFieldError } from "utills/validate";
@@ -8,6 +7,7 @@ import Timmer from "components/common/Timmer";
 import GreenCheck from "public/images/greenCheck.svg";
 import { emailAuthCheckNum, findPwd } from "services/api/auth";
 import { useRouter } from "next/router";
+import SearchHeader from "components/common/SearchHeader";
 
 const Index = () => {
   const [touched, setTouched] = useState(false); //터치에 대한 state
@@ -59,7 +59,7 @@ const Index = () => {
 
   return (
     <div>
-      <HeaderName name="비밀번호 찾기" hasBack={true} hasNext={false} />
+      <SearchHeader name="비밀번호 찾기" hasBack={true} hasSearch={false} />
       <Title>{!visibleAuthInput ? "가입한 이메일 주소를 입력해주세요." : "인증번호를 입력해주세요."}</Title>
       <form>
         <Label htmlFor={`email-input`}>이메일 주소</Label>

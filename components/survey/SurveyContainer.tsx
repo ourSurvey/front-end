@@ -75,10 +75,10 @@ const SurveyContainer = () => {
         <>
           {data?.pages.map((item, idx) => (
             <React.Fragment key={idx}>
-              {item.getSurveyToPage.data.content.map((survey: IContent, idx: number) => (
+              {item.getSurveyToPage.data.content.map((survey: IContent) => (
                 <SurveyItem
                   id={survey.id}
-                  key={idx}
+                  key={survey.id}
                   hashtagList={survey.hashtagList}
                   subject={survey.subject}
                   content={survey.content}

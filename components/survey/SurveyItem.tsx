@@ -3,22 +3,12 @@ import { Common, Pretendard } from "styles/common";
 import { IContent } from "types/survey";
 import Lighting from "public/icon/lighting.svg";
 import Link from "next/link";
-import { useRef, useState } from "react";
-import { useObserver } from "hooks/useObserver";
+import { useRef } from "react";
+
 const SurveyItem = (props: IContent) => {
   const { subject, content, openFl, minute, startDate, endDate, hashtagList, id } = props;
 
   const target = useRef(null); // 대상 ref
-  const [visible, setVisible] = useState(false); // DOM을 렌더할 조건
-
-  // isIntersecting의 경우에 DOM을 마운트 한다.
-  const onIntersect = ([entry]: IntersectionObserverEntry[]) => (entry.isIntersecting ? setVisible(true) : setVisible(false));
-
-  useObserver({
-    target,
-    onIntersect,
-    threshold: 0.1, // 화면 양끝에서 10%만 보여져도 onIntersect를 실행한다.
-  });
 
   const Button = styled.a`
     display: block;
@@ -42,33 +32,31 @@ const SurveyItem = (props: IContent) => {
   `;
   return (
     <ItemContainer ref={target}>
-      {visible && (
-        <>
-          <UlContainer>
-            {minute <= 5 ? (
-              <FastChip>
-                <Lighting width="17" height="19" />
-                예상 시간: {minute}분
-              </FastChip>
-            ) : (
-              <LiStyle>예상 시간: {minute}분</LiStyle>
-            )}
-            {openFl === 1 ? <LiStyle>설문 결과 공개</LiStyle> : null}
-          </UlContainer>
-          <h1>{subject}</h1>
-          <Content>{content}</Content>
-          <DateContainer>
-            <>
-              <span>설문 기간 </span>
-              {startDate} ~ {endDate}
-            </>
-          </DateContainer>
-          <Link href={`/survey/${id}`} key={id}>
-            <Button>설문 참여하기</Button>
-          </Link>
-          {hashtagList && hashtagList.length > 0 ? <Hashtag>{hashtagList?.map((item) => `#${item}`)}</Hashtag> : null}
-        </>
-      )}
+      <>
+        <UlContainer>
+          {minute <= 5 ? (
+            <FastChip>
+              <Lighting width="17" height="19" />
+              예상 시간: {minute}분
+            </FastChip>
+          ) : (
+            <LiStyle>예상 시간: {minute}분</LiStyle>
+          )}
+          {openFl === 1 ? <LiStyle>설문 결과 공개</LiStyle> : null}
+        </UlContainer>
+        <h1>{subject}</h1>
+        <Content>{content}</Content>
+        <DateContainer>
+          <>
+            <span>설문 기간 </span>
+            {startDate} ~ {endDate}
+          </>
+        </DateContainer>
+        <Link href={`/survey/${id}`} key={id}>
+          <Button>설문 참여하기</Button>
+        </Link>
+        {hashtagList && hashtagList.length > 0 ? <Hashtag>{hashtagList?.map((item) => `#${item}`)}</Hashtag> : null}
+      </>
     </ItemContainer>
   );
 };

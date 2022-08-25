@@ -2,6 +2,7 @@ import Prev from "public/icon/prevArrow.svg";
 import styled from "@emotion/styled";
 import { Common, Pretendard } from "styles/common";
 import { useRouter } from "next/router";
+import { memo } from "react";
 type Props = {
   step: string;
   name: string;
@@ -32,7 +33,7 @@ const CreateSurveyHeader = ({ step, name }: Props) => {
   );
 };
 
-export default CreateSurveyHeader;
+export default memo(CreateSurveyHeader);
 
 const Header = styled.header`
   display: flex;

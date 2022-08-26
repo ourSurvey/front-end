@@ -99,6 +99,7 @@ const TextAreaContainder = styled.div`
   position: relative;
   border: none;
   height: 100%;
+  width: 100%;
   flex: 1;
   & span {
     position: absolute;
@@ -115,5 +116,6 @@ const TextAreaContainder = styled.div`
     padding: 10px;
     overflow-y: scroll;
     border: none;
+    resize: none;
   }
 `;

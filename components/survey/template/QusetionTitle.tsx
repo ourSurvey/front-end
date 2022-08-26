@@ -37,7 +37,9 @@ const QusetionTitle = ({ hasImageInput }: IProps) => {
 
 export default QusetionTitle;
 
-const TitleAndSubTitle = styled.div``;
+const TitleAndSubTitle = styled.div`
+  margin-top: 12px;
+`;
 
 const InputContainer = styled.div`
   position: relative;
@@ -45,7 +47,7 @@ const InputContainer = styled.div`
 
   & input[type="text"] {
     border: 0;
-    padding-right: 40px;
+    padding: 12.5px 40px 12.5px 0;
     width: 100%;
     height: 46px;
     border-bottom: 1px solid ${Common.colors.GY100};

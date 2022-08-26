@@ -30,7 +30,7 @@ const ToggleSwitch = styled.div`
     line-height: 150%;
     letter-spacing: -0.03em;
   }
-  margin-top: 10px;
+
   #toggle {
     display: none;
     &:checked + div {

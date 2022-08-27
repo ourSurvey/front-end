@@ -6,9 +6,10 @@ import { memo } from "react";
 type Props = {
   step: string;
   name: string;
+  hasUnderLine: boolean;
 };
 
-const CreateSurveyHeader = ({ step, name }: Props) => {
+const CreateSurveyHeader = ({ step, name, hasUnderLine }: Props) => {
   const router = useRouter();
   const Span = styled.p`
     ${Pretendard({ font: 1.4, weight: 700, color: Common.colors.GY900 })};
@@ -20,9 +21,25 @@ const CreateSurveyHeader = ({ step, name }: Props) => {
     vertical-align: middle;
   `;
 
+  const Header = styled.header`
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px 15px 20px;
+    margin-bottom: 28px;
+    border-bottom: ${hasUnderLine ? `1px solid ${Common.colors.GY100}` : "none"};
+    width: calc(100% + 20 * 2);
+
+    margin: 0 -20px 0 -20px;
+    & svg {
+      -webkit-transform: translateY(25%);
+      -ms-transform: translateY(25%);
+      transform: translateY(25%);
+    }
+  `;
+
   return (
     <Header>
-      <Prev width="20" height="16" />
+      <Prev width="20" height="16" onClick={() => router.back()} />
 
       <Span>{name}</Span>
       <StepPosition>
@@ -34,22 +51,6 @@ const CreateSurveyHeader = ({ step, name }: Props) => {
 };
 
 export default memo(CreateSurveyHeader);
-
-const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-  padding: 0 20px 15px 20px;
-  margin-bottom: 28px;
-  border-bottom: 1px solid ${Common.colors.GY100};
-  width: calc(100% + 20 * 2);
-
-  margin: 0 -20px 0 -20px;
-  & svg {
-    -webkit-transform: translateY(25%);
-    -ms-transform: translateY(25%);
-    transform: translateY(25%);
-  }
-`;
 
 const StepPosition = styled.span`
   ${Pretendard({ font: 1, weight: 700, color: Common.colors.GY900 })};

@@ -4,10 +4,13 @@ import { Common, Pretendard } from "styles/common";
 import OutLineButton from "components/common/OutLineButton";
 import { Button } from "components/common/Button";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 const Index = () => {
   const [content, setContent] = useState("");
   const [visibleSpan, setvisibleSpan] = useState(1);
   const [title, setTitle] = useState("");
+  const router = useRouter();
+
   const Title = styled.span`
     opacity: ${visibleSpan};
   `;
@@ -23,7 +26,7 @@ const Index = () => {
   return (
     <Summary>
       <header>
-        <CreateSurveyHeader name="설문의 개요를 작성해주세요." step="01" />
+        <CreateSurveyHeader hasUnderLine={true} name="설문의 개요를 작성해주세요." step="01" />
       </header>
 
       <form>
@@ -38,7 +41,13 @@ const Index = () => {
         </TextAreaContainder>
         <ButtonContainer>
           <OutLineButton isDisabled={false} textColor={Common.colors.GY900} btnText="임시저장" borderColor={Common.colors.GY900} />
-          <Button isDisabled={false} textColor="#fff" btnText="다음" color={Common.colors.BL500} />
+          <Button
+            isDisabled={false}
+            onClick={() => router.push("/survey/create/write")}
+            textColor="#fff"
+            btnText="다음"
+            color={Common.colors.BL500}
+          />
         </ButtonContainer>
       </form>
     </Summary>

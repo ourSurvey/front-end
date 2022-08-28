@@ -8,6 +8,7 @@ import { useRecoilValue } from "recoil";
 import { useRouter } from "next/router";
 import NavBar from "./common/NavBar";
 import { hasNavbar } from "utills/hasNavbar";
+import Portal from "./common/Portal";
 type IProps = {
   children: JSX.Element;
 };
@@ -52,9 +53,11 @@ const Layout = ({ children }: IProps) => {
   return (
     <LayoutContainer>
       {children}
-      <div css={toast} role="alert">
-        <Alert />
-      </div>
+      <Portal selector="#portal">
+        <div css={toast} role="alert">
+          <Alert />
+        </div>
+      </Portal>
       {hasNavbar(router.asPath) ? <NavBar /> : ""}
     </LayoutContainer>
   );

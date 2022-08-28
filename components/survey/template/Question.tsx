@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "@emotion/styled";
 import More from "public/icon/vertical-three-dots.svg";
 import { Common, Pretendard } from "styles/common";
 import Toggle from "components/common/Toggle";
 import QusetionTitle from "./QusetionTitle";
 import SelectOptionContainer from "./SelectOptionContainer";
+import Portal from "components/common/Portal";
+import MoreSideModal from "../MoreSideModal";
 
 const Question = () => {
   const [toggle, settoggle] = useState(false);
-
+  const [visibleMore, setVisibleMore] = useState(false);
   return (
     <Container>
       <Header>
@@ -18,7 +20,7 @@ const Question = () => {
         </Title>
         <div className="right">
           <Toggle name="필수" toggle={toggle} setToggle={settoggle} />
-          <More />
+          <More onClick={() => setVisibleMore(true)} />
         </div>
       </Header>
 
@@ -26,6 +28,7 @@ const Question = () => {
         <QusetionTitle hasImageInput={false} />
       </TitleContainer>
       <SelectOptionContainer />
+      <Portal selector="#portal">{visibleMore ? <MoreSideModal visibleState={visibleMore} setVisible={setVisibleMore} /> : null}</Portal>
     </Container>
   );
 };

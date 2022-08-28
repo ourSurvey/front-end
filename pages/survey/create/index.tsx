@@ -5,6 +5,7 @@ import OutLineButton from "components/common/OutLineButton";
 import { Button } from "components/common/Button";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 const Index = () => {
   const [content, setContent] = useState("");
   const [visibleSpan, setvisibleSpan] = useState(1);
@@ -23,6 +24,9 @@ const Index = () => {
     }
   }, [content]);
 
+  const nextPage = () => {
+    router.push("/write");
+  };
   return (
     <Summary>
       <header>
@@ -41,13 +45,11 @@ const Index = () => {
         </TextAreaContainder>
         <ButtonContainer>
           <OutLineButton isDisabled={false} textColor={Common.colors.GY900} btnText="임시저장" borderColor={Common.colors.GY900} />
-          <Button
-            isDisabled={false}
-            onClick={() => router.push("/survey/create/write")}
-            textColor="#fff"
-            btnText="다음"
-            color={Common.colors.BL500}
-          />
+          <Link href="/write">
+            <a>
+              <Button isDisabled={false} textColor="#fff" btnText="다음" color={Common.colors.BL500} />
+            </a>
+          </Link>
         </ButtonContainer>
       </form>
     </Summary>

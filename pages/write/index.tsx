@@ -5,7 +5,7 @@ import QusetionTitle from "components/survey/template/QusetionTitle";
 import CreateSurveyHeader from "components/survey/CreateSurveyHeader";
 import InvertedTriangle from "public/icon/inverted-triangle.svg";
 import Question from "components/survey/template/Question";
-const Write = () => {
+const Index = () => {
   return (
     <PartContainer>
       <header>
@@ -29,7 +29,7 @@ const Write = () => {
   );
 };
 
-export default Write;
+export default Index;
 
 const PartContainer = styled.section`
   height: 100%;

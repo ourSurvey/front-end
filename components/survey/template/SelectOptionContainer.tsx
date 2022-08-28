@@ -20,7 +20,9 @@ const SelectOptionContainer = () => {
           중복 선택 가능
         </li>
       </SelectOption>
-      <MultipleSelection />
+
+      {isActive === "multiple" ? <MultipleSelection /> : <Input disabled placeholder="이곳에 답변을 입력해주세요." />}
+
       <ButtonContainer>
         <div>
           <Plus /> <span className="first">선택지 추가</span>
@@ -73,6 +75,20 @@ const SelectOption = styled.ul`
     ${Pretendard({ font: 1.2, weight: 700, color: "#fff" })};
     letter-spacing: -0.03em;
     line-height: 150%;
+  }
+`;
+
+const Input = styled.input`
+  padding: 12px 15px;
+  border-radius: 10px;
+  height: 46px;
+  background-color: ${Common.colors.GY50};
+  border: none;
+  width: 100%;
+  &::placeholder {
+    ${Pretendard({ font: 1.4, weight: 400, color: Common.colors.GY500 })};
+    line-height: 17px;
+    letter-spacing: -0.03em;
   }
 `;
 

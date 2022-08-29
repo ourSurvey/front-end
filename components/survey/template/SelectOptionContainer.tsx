@@ -22,15 +22,16 @@ const SelectOptionContainer = () => {
       </SelectOption>
 
       {isActive === "multiple" ? <MultipleSelection /> : <Input disabled placeholder="이곳에 답변을 입력해주세요." />}
-
-      <ButtonContainer>
-        <div>
-          <Plus /> <span className="first">선택지 추가</span>
-        </div>
-        <div>
-          <Plus /> <span className="second">기타 추가</span>
-        </div>
-      </ButtonContainer>
+      {isActive === "multiple" ? (
+        <ButtonContainer>
+          <div>
+            <Plus /> <span className="first">선택지 추가</span>
+          </div>
+          <div>
+            <Plus /> <span className="second">기타 추가</span>
+          </div>
+        </ButtonContainer>
+      ) : null}
     </Container>
   );
 };
@@ -39,6 +40,7 @@ export default SelectOptionContainer;
 
 const Container = styled.div`
   margin-top: 4px;
+  margin-bottom: 28px;
 `;
 const SelectionTitle = styled.span`
   ${Pretendard({ font: 1, weight: 700, color: Common.colors.GY500 })};

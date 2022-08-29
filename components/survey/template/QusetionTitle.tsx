@@ -39,6 +39,7 @@ export default QusetionTitle;
 
 const TitleAndSubTitle = styled.div`
   margin-top: 12px;
+  padding-bottom: 24px;
 `;
 
 const InputContainer = styled.div`

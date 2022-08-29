@@ -38,7 +38,7 @@ const SelectOptionContainer = () => {
 export default SelectOptionContainer;
 
 const Container = styled.div`
-  margin-top: 28px;
+  margin-top: 4px;
 `;
 const SelectionTitle = styled.span`
   ${Pretendard({ font: 1, weight: 700, color: Common.colors.GY500 })};

@@ -1,9 +1,8 @@
 import Dimmer from "components/common/Dimmer";
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import MoreSelectionModal from "./MoreSelectionModal";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
-import { Pretendard, Common } from "styles/common";
 
 interface IProps {
   visibleState: boolean;
@@ -11,7 +10,28 @@ interface IProps {
 }
 
 const MoreSideModal = ({ visibleState, setVisible }: IProps) => {
-  console.log(visibleState);
+  const [modalShow, setModalShow] = useState(visibleState);
+  let touchMoveStartLocation: number;
+  const refs = useRef<any>(null); //모달의 width 크기를 잡기 위한 ref
+
+  const moveEndHandler = (e: React.TouchEvent<HTMLDivElement>) => {
+    //이벤트 종료시 슬라이드 한 거리가 모달의 20%가 넘어가면 모달 종료
+    if (e.changedTouches[0].clientX - touchMoveStartLocation >= refs.current.clientWidth * 0.2) {
+      setModalShow(false);
+    }
+  };
+
+  const moveStartHandler = (e: React.TouchEvent<HTMLDivElement>) => {
+    touchMoveStartLocation = e.targetTouches[0].clientX; //터치 시작 width 잡기
+  };
+
+  useEffect(() => {
+    if (!modalShow) {
+      setTimeout(() => {
+        setVisible(false);
+      }, 130);
+    }
+  }, [modalShow]);
 
   const fadein = keyframes`
   from {right: -40%; opacity: 0;}
@@ -26,7 +46,7 @@ const MoreSideModal = ({ visibleState, setVisible }: IProps) => {
     position: absolute;
     padding-top: 20px;
     display: block;
-    animation: ${visibleState ? fadein : fadeout} 0.2s ease-out;
+    animation: ${modalShow ? fadein : fadeout} 0.2s ease-out;
     height: calc(100% + 46.5px);
     margin: -21.5px 0 -35px 0;
     bottom: 0;
@@ -35,28 +55,16 @@ const MoreSideModal = ({ visibleState, setVisible }: IProps) => {
 
     background-color: #fff;
     z-index: 200;
-
-    & svg {
-      position: absolute;
-      right: 25px;
-    }
-    & span {
-      display: block;
-      ${Pretendard({ font: 1.6, weight: 700, color: Common.colors.GY900 })};
-      line-height: 150%;
-      text-align: center;
-      letter-spacing: -0.03em;
-    }
   `;
 
   return (
     <>
       <Dimmer
         onClick={() => {
-          setVisible(!visibleState);
+          setModalShow(false);
         }}
       />
-      <Modal>
+      <Modal ref={refs} onTouchStart={moveStartHandler} onTouchEnd={moveEndHandler}>
         <MoreSelectionModal />
       </Modal>
     </>

@@ -25,7 +25,7 @@ const Question = () => {
       </Header>
 
       <TitleContainer>
-        <QusetionTitle hasImageInput={false} />
+        <QusetionTitle hasImageInput={true} />
       </TitleContainer>
       <SelectOptionContainer />
       <Portal selector="#portal">{visibleMore ? <MoreSideModal visibleState={visibleMore} setVisible={setVisibleMore} /> : null}</Portal>

@@ -3,25 +3,57 @@ import { Common, Pretendard } from "styles/common";
 import ImageUpLoadSvg from "public/icon/img.svg";
 import React from "react";
 import { css } from "@emotion/react";
+import { ISection, IQuestion } from "types/survey";
 
 interface IProps {
   hasImageInput: boolean;
+  setValue: any;
+  value: ISection | IQuestion;
+  placeHolder: string;
 }
 
-const QusetionTitle = ({ hasImageInput }: IProps) => {
+const QusetionTitle = ({ hasImageInput, setValue, value, placeHolder }: IProps) => {
   const ImageInputState = css`
     display: ${hasImageInput ? "inline" : "none"};
   `;
 
+  const TitleOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if ("title" in value) {
+      setValue({
+        ...value,
+        title: e.currentTarget.value,
+      });
+    } else {
+      setValue({
+        ...value,
+        ask: e.currentTarget.value,
+      });
+    }
+  };
+
+  const ContentChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if ("content" in value) {
+      setValue({
+        ...value,
+        content: e.currentTarget.value,
+      });
+    } else {
+      setValue({
+        ...value,
+        explain: e.currentTarget.value,
+      });
+    }
+  };
+
   return (
     <TitleAndSubTitle>
       <InputContainer>
-        <input type="text" placeholder="질문 제목을 입력해주세요." />
+        <input type="text" placeholder={`${placeHolder} 제목을 입력해주세요.`} onChange={(e) => TitleOnChangeHandler(e)} />
         <div css={ImageInputState}>
           <input
             type="file"
             id="select-file"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => console.log(e.target.files[0])}
+            // onChange={(e: React.ChangeEvent<HTMLInputElement>) => console.log(e.target.files[0])}
             className="input-file"
             accept="image/jpg, image/png, image/jpeg"
           />
@@ -30,7 +62,7 @@ const QusetionTitle = ({ hasImageInput }: IProps) => {
           </label>
         </div>
       </InputContainer>
-      <SubTitle type="text" placeholder="파트설명(선택사항)" name="sub-title" />
+      <SubTitle type="text" placeholder={`${placeHolder}설명(선택사항)`} onChange={(e) => ContentChangeHandler(e)} name="sub-title" />
     </TitleAndSubTitle>
   );
 };

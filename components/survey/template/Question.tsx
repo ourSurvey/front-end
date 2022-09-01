@@ -7,8 +7,13 @@ import QusetionTitle from "./QusetionTitle";
 import SelectOptionContainer from "./SelectOptionContainer";
 import Portal from "components/common/Portal";
 import MoreSideModal from "../MoreSideModal";
-import { IQuestion } from "types/survey";
-const Question = () => {
+import { IQuestion, ISection } from "types/survey";
+
+interface IProps {
+  setPart: (part: ISection) => void;
+}
+
+const Question = ({ setPart }: IProps) => {
   const [toggle, settoggle] = useState(false);
   const [visibleMore, setVisibleMore] = useState(false);
   const [Qusetion, setQusetion] = useState<IQuestion>({
@@ -45,7 +50,8 @@ const Question = () => {
 export default Question;
 
 const Container = styled.div`
-  padding-top: 37px;
+  background-color: #fff;
+  padding: 37px 20px 0 20px;
 `;
 
 const Header = styled.div`

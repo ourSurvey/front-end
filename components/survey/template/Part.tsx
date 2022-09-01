@@ -5,14 +5,34 @@ import InvertedTriangle from "public/icon/inverted-triangle.svg";
 import Question from "./Question";
 import Copy from "public/icon/copy.svg";
 import Plus from "public/icon/plus-two.svg";
-import { IQuestion, ISection } from "types/survey";
+import { IQuestion, ISection, ISurveyData } from "types/survey";
 import { useState } from "react";
 
+const INITIAL_QUESTIONS: IQuestion = { ask: "", explain: "", multiFl: 1, essFl: 0, dupFl: 0, oder: 0, questionItems: [] };
+const INITIAL_PART: ISection = {
+  title: "", //섹션제목,
+  content: "", //설명,
+  nextSection: -1, //*다음섹션(Integer|-1이면 이 섹션이 마지막 섹션, 사실 그냥 index값임 프론트에서도 설문 만들 때 정렬해서 보여줘야하니깐 index값 그대로 넣기),
+  questions: [
+    {
+      ask: "",
+      explain: "",
+      multiFl: 1,
+      essFl: 0,
+      dupFl: 0,
+      oder: 0,
+      questionItems: [],
+    },
+  ],
+};
+
 interface IProps {
-  setPart: any;
+  PartNum: number;
+  surveyData: ISurveyData;
+  setSection: (surveyData: ISurveyData) => void;
 }
 
-const Part = () => {
+const Part = ({ PartNum, setSection, surveyData }: IProps) => {
   const [part, setPart] = useState<ISection>({
     title: "", //섹션제목,
     content: "", //설명,
@@ -34,27 +54,31 @@ const Part = () => {
       <header>
         <SubjectContainer>
           <PartTitle>
-            <h1>PART 1</h1>
-            <span className="total-step">/3</span>
+            <h1>PART {PartNum + 1}</h1>
+            <span className="total-step">/{surveyData.sections.length}</span>
           </PartTitle>
           <QusetionCount>
-            <span>총 {part?.questions.length}개 질문</span>
+            <span>총 {part.questions.length}개 질문</span>
             <InvertedTriangle />
           </QusetionCount>
         </SubjectContainer>
       </header>
-      <QusetionTitle placeHolder="파트" value={part} setValue={setPart} hasImageInput={false} />
-
-      {part.questions.map((question) => {
-        return <Question setPart={setPart} key={question.oder} />;
-      })}
+      <div className="qustion-title">
+        <QusetionTitle placeHolder="파트" value={part} setValue={setPart} hasImageInput={false} />
+      </div>
+      <Line></Line>
+      <QusetionContainer>
+        {part.questions.map((question) => {
+          return <Question setPart={setPart} key={question.oder} />;
+        })}
+      </QusetionContainer>
 
       <PartButtonContainer>
-        <button>
+        <button onClick={() => setSection({ ...surveyData, sections: [...surveyData.sections, INITIAL_PART] })}>
           <Copy stroke="#fff" />
           파트추가
         </button>
-        <button>
+        <button onClick={() => setPart({ ...part, questions: [...part.questions, INITIAL_QUESTIONS] })}>
           <Plus />
           질문 추가
         </button>
@@ -67,14 +91,22 @@ export default Part;
 
 const PartContainer = styled.section`
   width: 100%;
-  padding: 0 20px;
+  /* padding: 0 20px; */
   padding-top: 30px;
   background-color: #fff;
 
   margin-bottom: 10px;
 
-  & .qusetion:not(:last-child) {
+  & header,
+  .qustion-title {
+    padding: 0 20px;
   }
+`;
+
+const Line = styled.div`
+  width: 100%;
+  height: 10px;
+  background-color: ${Common.colors.GY50};
 `;
 
 const SubjectContainer = styled.div`
@@ -103,6 +135,14 @@ const QusetionCount = styled.div`
   }
   & svg {
     margin-left: 6px;
+  }
+`;
+
+const QusetionContainer = styled.div`
+  background-color: ${Common.colors.GY50};
+
+  & .question:not(:last-child) {
+    margin-bottom: 10px;
   }
 `;
 

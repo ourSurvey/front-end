@@ -7,12 +7,21 @@ import QusetionTitle from "./QusetionTitle";
 import SelectOptionContainer from "./SelectOptionContainer";
 import Portal from "components/common/Portal";
 import MoreSideModal from "../MoreSideModal";
-
+import { IQuestion } from "types/survey";
 const Question = () => {
   const [toggle, settoggle] = useState(false);
   const [visibleMore, setVisibleMore] = useState(false);
+  const [Qusetion, setQusetion] = useState<IQuestion>({
+    ask: "",
+    explain: "",
+    multiFl: 1,
+    essFl: 0,
+    dupFl: 0,
+    oder: 0,
+    questionItems: [],
+  });
   return (
-    <Container>
+    <Container className="question">
       <Header>
         <Title>
           <span className="part">PT1</span>
@@ -25,7 +34,7 @@ const Question = () => {
       </Header>
 
       <TitleContainer>
-        <QusetionTitle hasImageInput={true} />
+        <QusetionTitle placeHolder="질문" value={Qusetion} setValue={setQusetion} hasImageInput={true} />
       </TitleContainer>
       <SelectOptionContainer />
       <Portal selector="#portal">{visibleMore ? <MoreSideModal visibleState={visibleMore} setVisible={setVisibleMore} /> : null}</Portal>

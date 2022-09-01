@@ -22,14 +22,13 @@ const CreateSurveyHeader = ({ step, name, hasUnderLine }: Props) => {
   `;
 
   const Header = styled.header`
+    background-color: #fff;
     display: flex;
     justify-content: space-between;
-    padding: 0 20px 15px 20px;
-    margin-bottom: 28px;
-    border-bottom: ${hasUnderLine ? `1px solid ${Common.colors.GY100}` : "none"};
-    width: calc(100% + 20 * 2);
+    padding: 21.5px 20px 15px 34px;
 
-    margin: 0 -20px 0 -20px;
+    border-bottom: ${hasUnderLine ? `1px solid ${Common.colors.GY100}` : "none"};
+
     & svg {
       -webkit-transform: translateY(25%);
       -ms-transform: translateY(25%);

@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import { css, keyframes } from "@emotion/react";
 import Alert from "./common/Alert";
 import { showToastState } from "states/modal";
+
 import { useRecoilValue } from "recoil";
 import { useRouter } from "next/router";
 import NavBar from "./common/NavBar";
@@ -20,6 +21,7 @@ const Layout = ({ children }: IProps) => {
   };
 
   const visible = useRecoilValue(showToastState);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -50,6 +52,12 @@ const Layout = ({ children }: IProps) => {
     z-index: 300;
   `;
 
+  const LayoutContainer = styled.div`
+    position: relative;
+    height: calc(var(--vh) * 100);
+    padding: 21.5px 20px 35px 20px;
+  `;
+
   return (
     <LayoutContainer>
       {children}
@@ -62,11 +70,5 @@ const Layout = ({ children }: IProps) => {
     </LayoutContainer>
   );
 };
-
-const LayoutContainer = styled.div`
-  position: relative;
-  height: calc(var(--vh) * 100);
-  padding: 21.5px 20px 35px 20px;
-`;
 
 export default Layout;

@@ -1,31 +1,64 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { Common, Pretendard } from "styles/common";
 import QusetionTitle from "./QusetionTitle";
-import CreateSurveyHeader from "../CreateSurveyHeader";
 import InvertedTriangle from "public/icon/inverted-triangle.svg";
 import Question from "./Question";
+import Copy from "public/icon/copy.svg";
+import Plus from "public/icon/plus-two.svg";
+import { IQuestion, ISection } from "types/survey";
+import { useState } from "react";
+
+interface IProps {
+  setPart: any;
+}
+
 const Part = () => {
+  const [part, setPart] = useState<ISection>({
+    title: "", //섹션제목,
+    content: "", //설명,
+    nextSection: -1, //*다음섹션(Integer|-1이면 이 섹션이 마지막 섹션, 사실 그냥 index값임 프론트에서도 설문 만들 때 정렬해서 보여줘야하니깐 index값 그대로 넣기),
+    questions: [
+      {
+        ask: "",
+        explain: "",
+        multiFl: 1,
+        essFl: 0,
+        dupFl: 0,
+        oder: 0,
+        questionItems: [],
+      },
+    ],
+  });
   return (
     <PartContainer>
       <header>
-        <CreateSurveyHeader hasUnderLine={false} name="질문을 작성해주세요." step="02" />
         <SubjectContainer>
           <PartTitle>
             <h1>PART 1</h1>
             <span className="total-step">/3</span>
           </PartTitle>
           <QusetionCount>
-            <span>총 NN개 질문</span>
+            <span>총 {part?.questions.length}개 질문</span>
             <InvertedTriangle />
           </QusetionCount>
         </SubjectContainer>
-        <QusetionTitle hasImageInput={false} />
       </header>
+      <QusetionTitle placeHolder="파트" value={part} setValue={setPart} hasImageInput={false} />
 
-      <Line></Line>
+      {part.questions.map((question) => {
+        return <Question setPart={setPart} key={question.oder} />;
+      })}
 
-      <Question />
+      <PartButtonContainer>
+        <button>
+          <Copy stroke="#fff" />
+          파트추가
+        </button>
+        <button>
+          <Plus />
+          질문 추가
+        </button>
+      </PartButtonContainer>
     </PartContainer>
   );
 };
@@ -33,20 +66,20 @@ const Part = () => {
 export default Part;
 
 const PartContainer = styled.section`
-  height: 100%;
+  width: 100%;
+  padding: 0 20px;
+  padding-top: 30px;
+  background-color: #fff;
+
+  margin-bottom: 10px;
+
+  & .qusetion:not(:last-child) {
+  }
 `;
 
 const SubjectContainer = styled.div`
   display: flex;
   justify-content: space-between;
-`;
-
-const Line = styled.div`
-  width: calc(100% + 20 * 2);
-
-  margin: 0 -20px 0 -20px;
-  height: 10px;
-  background-color: ${Common.colors.GY50};
 `;
 
 const PartTitle = styled.div`
@@ -59,7 +92,6 @@ const PartTitle = styled.div`
   & .total-step {
     ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY300 })};
     line-height: 150%;
-    vertical-align: middle;
   }
 `;
 
@@ -71,5 +103,44 @@ const QusetionCount = styled.div`
   }
   & svg {
     margin-left: 6px;
+  }
+`;
+
+const PartButtonContainer = styled.div`
+  bottom: 0;
+
+  display: flex;
+  width: calc(100% + 20 * 2);
+
+  margin: 0 -20px 0 -20px;
+  background-color: ${Common.colors.GY500};
+
+  & button {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 50px;
+    border: none;
+    background-color: ${Common.colors.GY500};
+    ${Pretendard({ font: 1.2, weight: 700, color: "#fff" })};
+    line-height: 150%;
+    letter-spacing: -0.03em;
+
+    & svg {
+      margin-right: 6px;
+    }
+
+    &:first-of-type {
+      &::after {
+        position: absolute;
+        content: "";
+        width: 1px;
+        height: 20px;
+        background-color: #fff;
+        right: 50%;
+      }
+    }
   }
 `;

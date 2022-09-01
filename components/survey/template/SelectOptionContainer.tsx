@@ -4,16 +4,16 @@ import { Common, Pretendard } from "styles/common";
 import MultipleSelection from "./MultipleSelection";
 import Plus from "public/icon/plus.svg";
 const SelectOptionContainer = () => {
-  const [isActive, setIsActive] = useState("multiple");
+  const [isActive, setIsActive] = useState<0 | 1>(1);
   const [isMultipleAnswersPossible, setIsMultipleAnswersPossible] = useState(false);
   return (
     <Container>
       <SelectionTitle>선택지 입력</SelectionTitle>
       <SelectOption>
-        <li onClick={() => setIsActive("multiple")} className={isActive === "multiple" ? "active" : ""}>
+        <li onClick={() => setIsActive(1)} className={isActive === 1 ? "active" : ""}>
           객관식
         </li>
-        <li onClick={() => setIsActive("answer")} className={isActive === "answer" ? "active" : ""}>
+        <li onClick={() => setIsActive(0)} className={isActive === 0 ? "active" : ""}>
           주관식
         </li>
         <li className={isMultipleAnswersPossible ? "active" : ""} onClick={() => setIsMultipleAnswersPossible((prev) => !prev)}>
@@ -21,8 +21,8 @@ const SelectOptionContainer = () => {
         </li>
       </SelectOption>
 
-      {isActive === "multiple" ? <MultipleSelection /> : <Input disabled placeholder="이곳에 답변을 입력해주세요." />}
-      {isActive === "multiple" ? (
+      {isActive ? <MultipleSelection /> : <Input disabled placeholder="이곳에 답변을 입력해주세요." />}
+      {isActive ? (
         <ButtonContainer>
           <div>
             <Plus /> <span className="first">선택지 추가</span>
@@ -40,7 +40,7 @@ export default SelectOptionContainer;
 
 const Container = styled.div`
   margin-top: 4px;
-  margin-bottom: 28px;
+  padding-bottom: 28px;
 `;
 const SelectionTitle = styled.span`
   ${Pretendard({ font: 1, weight: 700, color: Common.colors.GY500 })};

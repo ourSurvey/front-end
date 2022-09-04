@@ -6,15 +6,28 @@ import { Button } from "components/common/Button";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { surveyState } from "states/survey";
+import { useRecoilState } from "recoil";
+
 const Index = () => {
   const [content, setContent] = useState("");
+  const [surVeyData, setSurveyData] = useRecoilState(surveyState);
   const [visibleSpan, setvisibleSpan] = useState(1);
   const [title, setTitle] = useState("");
   const router = useRouter();
+  const btnDisable = content !== "" && title !== "";
 
   const Title = styled.span`
     opacity: ${visibleSpan};
   `;
+
+  const onClickHandler = () => {
+    setSurveyData({
+      ...surVeyData,
+      subject: title,
+      content: content,
+    });
+  };
 
   useEffect(() => {
     if (content !== "") {
@@ -47,7 +60,7 @@ const Index = () => {
           <OutLineButton isDisabled={false} textColor={Common.colors.GY900} btnText="임시저장" borderColor={Common.colors.GY900} />
           <Link href="/write">
             <a>
-              <Button isDisabled={false} textColor="#fff" btnText="다음" color={Common.colors.BL500} />
+              <Button isDisabled={!btnDisable} onClick={onClickHandler} textColor="#fff" btnText="다음" color={Common.colors.BL500} />
             </a>
           </Link>
         </ButtonContainer>
@@ -63,6 +76,10 @@ const Summary = styled.div`
   height: 100%;
   & header {
     margin-bottom: 28px;
+    & header {
+      padding: 0;
+      padding-bottom: 14px;
+    }
   }
   & form {
     display: flex;

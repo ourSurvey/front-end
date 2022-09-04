@@ -5,38 +5,12 @@ import Part from "components/survey/template/Part";
 import React, { useState, useEffect } from "react";
 import SubLayout from "components/SubLayout";
 import { ISurveyData, ISection } from "types/survey";
+import { surveyState } from "states/survey";
+import { useRecoilState } from "recoil";
 
 export default function Index() {
-  const [surveyData, setSurveyData] = useState<ISurveyData>({
-    id: 0,
-    subject: "",
-    content: "",
-    startDate: "",
-    endDate: "",
-    minute: 0,
-    openFl: 1,
-    tempFl: 1,
-    closingComment: "",
-    hashtag: [],
-    sections: [
-      {
-        title: "", //섹션제목,
-        content: "", //설명,
-        nextSection: -1, //*다음섹션(Integer|-1이면 이 섹션이 마지막 섹션, 사실 그냥 index값임 프론트에서도 설문 만들 때 정렬해서 보여줘야하니깐 index값 그대로 넣기),
-        questions: [
-          {
-            ask: "",
-            explain: "",
-            multiFl: 1,
-            essFl: 0,
-            dupFl: 0,
-            oder: 0,
-            questionItems: [{ content: "", oder: 0, nextSection: 0 }],
-          },
-        ],
-      },
-    ],
-  });
+  const [surveyData, setSurveyData] = useRecoilState(surveyState);
+  console.log(surveyData);
 
   const PartSectionContainer = styled.div`
     display: block;
@@ -56,7 +30,7 @@ export default function Index() {
       <CreateSurveyHeader hasUnderLine={false} name="질문을 작성해주세요." step="02" />
       <PartSectionContainer id="section2">
         {surveyData.sections.map((_, index: number) => {
-          return <Part PartNum={index} surveyData={surveyData} key={index} setSection={setSurveyData} />;
+          return <Part PartNum={index} key={index} />;
         })}
       </PartSectionContainer>
     </WriteContainer>

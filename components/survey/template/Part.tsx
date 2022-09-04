@@ -7,6 +7,8 @@ import Copy from "public/icon/copy.svg";
 import Plus from "public/icon/plus-two.svg";
 import { IQuestion, ISection, ISurveyData } from "types/survey";
 import { useState } from "react";
+import { surveyState } from "states/survey";
+import { useRecoilState } from "recoil";
 
 const INITIAL_QUESTIONS: IQuestion = { ask: "", explain: "", multiFl: 1, essFl: 0, dupFl: 0, oder: 0, questionItems: [] };
 const INITIAL_PART: ISection = {
@@ -28,11 +30,10 @@ const INITIAL_PART: ISection = {
 
 interface IProps {
   PartNum: number;
-  surveyData: ISurveyData;
-  setSection: (surveyData: ISurveyData) => void;
 }
 
-const Part = ({ PartNum, setSection, surveyData }: IProps) => {
+const Part = ({ PartNum }: IProps) => {
+  const [surveyData, setSurveyData] = useRecoilState(surveyState);
   const [part, setPart] = useState<ISection>({
     title: "", //섹션제목,
     content: "", //설명,
@@ -49,6 +50,17 @@ const Part = ({ PartNum, setSection, surveyData }: IProps) => {
       },
     ],
   });
+
+  const createPartHandler = () => {
+    setSurveyData({ ...surveyData, sections: [...surveyData.sections, INITIAL_PART] });
+  };
+
+  const createQustionHandler = () => {
+    setPart((prev) => {
+      return { ...prev, questions: [...prev.questions, INITIAL_QUESTIONS] };
+    });
+  };
+
   return (
     <PartContainer>
       <header>
@@ -58,13 +70,13 @@ const Part = ({ PartNum, setSection, surveyData }: IProps) => {
             <span className="total-step">/{surveyData.sections.length}</span>
           </PartTitle>
           <QusetionCount>
-            <span>총 {part.questions.length}개 질문</span>
+            <span>총 {surveyData.sections[PartNum].questions.length}개 질문</span>
             <InvertedTriangle />
           </QusetionCount>
         </SubjectContainer>
       </header>
       <div className="qustion-title">
-        <QusetionTitle placeHolder="파트" value={part} setValue={setPart} hasImageInput={false} />
+        <QusetionTitle index={PartNum} placeHolder="파트" hasImageInput={false} />
       </div>
       <Line></Line>
       <QusetionContainer>
@@ -74,7 +86,7 @@ const Part = ({ PartNum, setSection, surveyData }: IProps) => {
       </QusetionContainer>
 
       <PartButtonContainer>
-        <button onClick={() => setSection({ ...surveyData, sections: [...surveyData.sections, INITIAL_PART] })}>
+        <button onClick={createPartHandler}>
           <Copy stroke="#fff" />
           파트추가
         </button>

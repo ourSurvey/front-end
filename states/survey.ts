@@ -1,5 +1,5 @@
 import { atom, selector } from "recoil";
-import { IQuestion, ISection, ISurveyData } from "types/survey";
+import { ISurveyData } from "types/survey";
 
 export const surveyState = atom<ISurveyData>({
   key: "surveyState",

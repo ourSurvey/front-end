@@ -13,6 +13,7 @@ import { emailAuth, emailAuthCheckNum, register } from "services/api/auth";
 import { useRouter } from "next/router";
 import { ClipLoader } from "react-spinners";
 import SearchHeader from "components/common/SearchHeader";
+import randomNickName from "utills/getRandomNickName";
 const Register = () => {
   const [wasSubmitted, setwasSubmitted] = useState(false);
   const [validatePassword, setvalidatePassword] = useState(false);
@@ -54,7 +55,7 @@ const Register = () => {
   const registerApi = useMutation(register, {
     onSuccess: () => {
       alert("가입이 완료 되었습니다!");
-      router.push("/login");
+      router.push("/onBoarding");
     },
   });
 
@@ -85,7 +86,8 @@ const Register = () => {
     const formData = new FormData(e.currentTarget);
     const fieldValues = Object.fromEntries(formData.entries());
     setwasSubmitted(true);
-    registerApi.mutate({ email: email, pwd: fieldValues["비밀번호"] as string, nickname: "nickName1" });
+    const nickName = randomNickName();
+    registerApi.mutate({ email: email, pwd: fieldValues["비밀번호"] as string, nickname: nickName });
   };
 
   return (

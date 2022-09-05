@@ -14,6 +14,7 @@ const InsertBitrhYear = () => {
   const [additionState, setAdditionState] = useRecoilState(addtionState);
   const errorMessage = getFieldError(birthYear, "출생년도");
   const displayErrorMessage = touched && errorMessage;
+
   const setStepState = useSetRecoilState(stepState);
   const router = useRouter();
 
@@ -50,7 +51,7 @@ const InsertBitrhYear = () => {
           </ErrorMessage>
         ) : null}
       </Container>
-      <Button onClick={nextPage} isDisabled={Boolean(displayErrorMessage)} btnText="다음" color={Common.colors.BL500} textColor="#fff" />
+      <Button onClick={nextPage} isDisabled={errorMessage !== null || birthYear === ""} btnText="다음" color={Common.colors.BL500} textColor="#fff" />
       <Pstyle onClick={() => router.push("/onBoarding/phone")}>답변하지 않고 넘어가기</Pstyle>
     </div>
   );

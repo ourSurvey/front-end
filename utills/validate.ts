@@ -40,6 +40,8 @@ const birthValidate = (bithYear: string): boolean => {
 
 //터치 호버 풀었을 때 유효성검사 메시지 출력
 function getFieldError(value: string | undefined, name: string) {
+  if (!value && name === "휴대폰 번호") return "";
+  if (!value && name === "출생년도") return "";
   if (!value) return "필수 입력 값 입니다!";
   let check: boolean = false;
   switch (name) {
@@ -58,6 +60,7 @@ function getFieldError(value: string | undefined, name: string) {
       break;
     case "출생년도":
       check = birthValidate(value);
+
       if (isNaN(Number(value))) return "숫자만 입력해주세요";
       if (!check) return "올바른 출생년도를 입력해주세요";
       break;

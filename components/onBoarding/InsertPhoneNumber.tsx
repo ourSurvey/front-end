@@ -41,7 +41,7 @@ const InsertPhoneNumber = (props: any) => {
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => setPNum(event.currentTarget.value)}
           onBlur={() => setTouched(true)}
           aria-describedby={displayErrorMessage ? `pNum-error` : undefined}
-          placeholder="숫자만 입력해주세요."
+          placeholder="하이픈('-') 없이 숫자만 입력해주세요."
         />
 
         {displayErrorMessage ? (
@@ -50,7 +50,7 @@ const InsertPhoneNumber = (props: any) => {
           </ErrorMessage>
         ) : null}
       </Container>
-      <Button onClick={nextPage} isDisabled={Boolean(displayErrorMessage)} btnText="다음" color={Common.colors.BL500} textColor="#fff" />
+      <Button onClick={nextPage} isDisabled={errorMessage !== null || pNum === ""} btnText="다음" color={Common.colors.BL500} textColor="#fff" />
       <Pstyle onClick={() => router.push("/onBoarding/start")}>답변하지 않고 넘어가기</Pstyle>
     </div>
   );

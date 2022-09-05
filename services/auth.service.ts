@@ -45,7 +45,7 @@ class AuthService extends ApiClient {
   }
 
   async addtion(additionData: IAddtionData) {
-    const { data } = await super.post("/auth/addtion", additionData, {
+    const { data } = await super.post("/auth/addition", additionData, {
       headers: {
         Authorization: `Bearer ${TokenProvider.get("accessToken")}`,
       },

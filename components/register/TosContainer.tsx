@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import CheckBox from "components/common/CheckBox";
 import TosItem from "./TosItem";
 import styled from "@emotion/styled";
@@ -89,8 +89,9 @@ const TosContainer = ({ setIsAllCheck }: Iprops) => {
   );
 };
 
+export default memo(TosContainer);
+
 const Span = styled.div`
   ${Pretendard({ font: 1.2, weight: 700, color: Common.colors.GY700 })}
   margin-bottom: 8px
 `;
-export default TosContainer;

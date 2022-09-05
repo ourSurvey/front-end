@@ -3,6 +3,7 @@ import Prev from "public/icon/prevArrow.svg";
 import Search from "public/icon/search.svg";
 import { Common, Pretendard } from "styles/common";
 import { useRouter } from "next/router";
+import { memo } from "react";
 
 type Props = {
   name: string;
@@ -53,4 +54,4 @@ const SvgPosition = styled.div`
   transform: translateY(25%);
 `;
 
-export default SearchHeader;
+export default memo(SearchHeader);

@@ -1,4 +1,4 @@
-import { ILoginData, ISignupData } from "../types/auth";
+import { ILoginData, ISignupData, IAddtionData } from "../types/auth";
 import ApiClient from "./ApiClient";
 import TokenProvider from "./TokenProvider";
 
@@ -20,6 +20,8 @@ class AuthService extends ApiClient {
   async signup(signupData: ISignupData) {
     const { data } = await super.post("/auth/join", signupData);
     TokenProvider.set("accessToken", data.data.access, 1);
+
+    return data;
   }
 
   /** 이미 생성된 계정의 토큰을 발급받습니다. */
@@ -34,6 +36,16 @@ class AuthService extends ApiClient {
 
   async isAuthedUser() {
     const { data } = await super.get("/auth/validate", {
+      headers: {
+        Authorization: `Bearer ${TokenProvider.get("accessToken")}`,
+      },
+    });
+
+    return data;
+  }
+
+  async addtion(additionData: IAddtionData) {
+    const { data } = await super.post("/auth/addtion", additionData, {
       headers: {
         Authorization: `Bearer ${TokenProvider.get("accessToken")}`,
       },

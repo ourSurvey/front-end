@@ -110,9 +110,9 @@ const Register = () => {
   };
 
   return (
-    <div>
+    <>
       <SearchHeader name="회원가입" hasBack={true} hasSearch={false} />
-      <form onSubmit={registerHandler}>
+      <Form onSubmit={registerHandler}>
         <Label htmlFor={`email-input`}>이메일 주소</Label>
         <br />
         <div style={{ marginBottom: "30px" }}>
@@ -168,8 +168,8 @@ const Register = () => {
 
         <TosContainer setIsAllCheck={setisAllCheck} />
         <Button type="submit" color={Common.colors.BL500} btnText="가입하기" textColor="#fff" isDisabled={!registerOnButton} />
-      </form>
-    </div>
+      </Form>
+    </>
   );
 };
 
@@ -254,4 +254,9 @@ const AuthButton = styled.button`
     top: 25%;
     left: calc(50% - 15px);
   }
+`;
+
+const Form = styled.form`
+  height: calc(100% - 75px) !important;
+  overflow-y: scroll;
 `;

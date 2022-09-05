@@ -8,15 +8,15 @@ import { addtionState } from "states/onBoard";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useRouter } from "next/router";
 
-const SelectGengder = (props: any) => {
+const SelectGengder = () => {
   const gender = [
     { key: "남자", value: "M" },
     { key: "여자", value: "F" },
-    { key: "선택하지 않음", value: "" },
+    { key: "선택하지 않음", value: null },
   ];
   const setStepState = useSetRecoilState(stepState);
   const [additionState, setAdditionState] = useRecoilState(addtionState);
-  const [genderState, setgenderState] = useState<null | string>(null);
+  const [genderState, setgenderState] = useState<any>(null);
   const router = useRouter();
 
   const nextPage = (): void => {

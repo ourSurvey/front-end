@@ -26,6 +26,14 @@ const InsertBitrhYear = () => {
     router.push("/onBoarding/phone");
   };
 
+  const noAnswerNextPage = (): void => {
+    setAdditionState({
+      ...additionState,
+      age: null,
+    });
+    router.push("/onBoarding/phone");
+  };
+
   useEffect(() => {
     setStepState(2);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -52,7 +60,7 @@ const InsertBitrhYear = () => {
         ) : null}
       </Container>
       <Button onClick={nextPage} isDisabled={errorMessage !== null || birthYear === ""} btnText="다음" color={Common.colors.BL500} textColor="#fff" />
-      <Pstyle onClick={() => router.push("/onBoarding/phone")}>답변하지 않고 넘어가기</Pstyle>
+      <Pstyle onClick={noAnswerNextPage}>답변하지 않고 넘어가기</Pstyle>
     </div>
   );
 };

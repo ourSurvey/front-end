@@ -25,6 +25,14 @@ const InsertPhoneNumber = (props: any) => {
     router.push("/onBoarding/start");
   };
 
+  const noAnswerNextPage = (): void => {
+    setAdditionState({
+      ...additionState,
+      tel: null,
+    });
+    router.push("/onBoarding/start");
+  };
+
   useEffect(() => {
     setStepState(3);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -51,7 +59,7 @@ const InsertPhoneNumber = (props: any) => {
         ) : null}
       </Container>
       <Button onClick={nextPage} isDisabled={errorMessage !== null || pNum === ""} btnText="다음" color={Common.colors.BL500} textColor="#fff" />
-      <Pstyle onClick={() => router.push("/onBoarding/start")}>답변하지 않고 넘어가기</Pstyle>
+      <Pstyle onClick={noAnswerNextPage}>답변하지 않고 넘어가기</Pstyle>
     </div>
   );
 };

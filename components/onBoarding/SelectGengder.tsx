@@ -22,7 +22,15 @@ const SelectGengder = () => {
   const nextPage = (): void => {
     setAdditionState({
       ...additionState,
-      gender: genderState,
+      gender: genderState === "" ? null : genderState,
+    });
+    router.push("/onBoarding/birth");
+  };
+
+  const noAnswerNextPage = (): void => {
+    setAdditionState({
+      ...additionState,
+      gender: null,
     });
     router.push("/onBoarding/birth");
   };
@@ -38,7 +46,7 @@ const SelectGengder = () => {
       <Description>빠른 설문조사를 위해 인구통계적 정보를 수집하고 있어요!</Description>
       <CustomRadio items={gender} handleRadio={setgenderState} />
       <Button isDisabled={genderState === null} btnText="다음" onClick={nextPage} color={Common.colors.BL500} textColor="#fff" />
-      <Pstyle onClick={() => router.push("/onBoarding/birth")}>답변하지 않고 넘어가기</Pstyle>
+      <Pstyle onClick={noAnswerNextPage}>답변하지 않고 넘어가기</Pstyle>
     </div>
   );
 };

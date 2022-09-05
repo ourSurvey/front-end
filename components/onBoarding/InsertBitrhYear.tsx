@@ -22,7 +22,7 @@ const InsertBitrhYear = () => {
       ...additionState,
       age: Number(birthYear),
     });
-    router.push("/onBoarding/birth");
+    router.push("/onBoarding/phone");
   };
 
   useEffect(() => {

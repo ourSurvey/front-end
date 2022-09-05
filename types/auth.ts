@@ -14,6 +14,12 @@ export interface ILoginData {
   pwd: string;
 }
 
+export interface IAddtionData {
+  gender?: "M" | "F" | null;
+  age?: number | null;
+  tel?: string | null;
+}
+
 export interface ISignupData {
   email: string;
   pwd: string;

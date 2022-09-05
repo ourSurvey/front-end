@@ -14,6 +14,8 @@ import { useRouter } from "next/router";
 import { ClipLoader } from "react-spinners";
 import SearchHeader from "components/common/SearchHeader";
 import randomNickName from "utills/getRandomNickName";
+import { useSetRecoilState } from "recoil";
+import { toastState } from "states/modal";
 const Register = () => {
   const [wasSubmitted, setwasSubmitted] = useState(false);
   const [validatePassword, setvalidatePassword] = useState(false);
@@ -29,13 +31,21 @@ const Register = () => {
   const displayErrorMessage = (wasSubmitted || touched) && errorMessage;
   const [isSame, setIsSame] = useState(false);
   const router = useRouter();
+  const setModalState = useSetRecoilState(toastState);
   const registerOnButton = isAllCheck && isSame && isAuthedEmail && validatePassword; //버튼 활성화 토글
 
   const postEmailAuth = useMutation(emailAuth, {
-    onSuccess: () => {
+    onSuccess: (data) => {
       setVisibleAuthInput(true);
       setbuttonNameState(true);
       setTimerMinute(3);
+      if (data.status === 200) {
+        setModalState({
+          text: "입력하신 이메일로 발송된 인증번호를 입력해주세요.",
+          toastType: "error",
+          visible: true,
+        });
+      }
     },
     onError: (data) => {
       console.log(data);
@@ -46,16 +56,25 @@ const Register = () => {
       setVisibleAuthInput(false);
       setIsAuthedEmail(true);
     },
-    onError: (data) => {
-      alert("인증번호를 다시 확인해주세요");
-      console.log(data);
+    onError: () => {
+      setModalState({
+        text: "인증번호를 다시 확인해주세요.",
+        toastType: "error",
+        visible: true,
+      });
     },
   });
 
   const registerApi = useMutation(register, {
-    onSuccess: () => {
-      alert("가입이 완료 되었습니다!");
-      router.push("/onBoarding");
+    onSuccess: (data) => {
+      setModalState({
+        text: "회원가입이 완료되었습니다!",
+        toastType: "success",
+        visible: true,
+      });
+      if (data.code === 200) {
+        router.push("/onBoarding");
+      }
     },
   });
 

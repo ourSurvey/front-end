@@ -1,47 +1,83 @@
-/** @jsxImportSource @emotion/react */
-import Image from "next/image";
-import logo from "public/images/main-logo.png";
 import type { NextPage } from "next";
 import Link from "next/link";
-import { css } from "@emotion/react";
 import { Common, Pretendard } from "styles/common";
+import styled from "@emotion/styled";
+import OurSurveyLogo from "public/icon/our-survey.svg";
+import { useMutation } from "react-query";
+import { postAddition } from "services/api/auth";
+import { useRecoilValue } from "recoil";
+import { nullDeleteAdttionState } from "states/onBoard";
 const Start: NextPage = () => {
-  const btn = css`
-    height: 50px;
-    width: 90%;
-    display: flex;
-    justify-content: center;
-    margin-top: 42px;
-    align-items: center;
-    padding: 10px 15px;
-    background-color: ${Common.colors.BL500};
-    border-radius: 10px;
-    ${Pretendard({ font: 1.4, weight: 700, color: "#fff" })}
-  `;
+  const additionState = useRecoilValue(nullDeleteAdttionState);
+
+  const postEmailAuth = useMutation(postAddition, {
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: (data) => {
+      console.log(data);
+    },
+  });
+
+  const postAddtionDataHandler = () => {
+    postEmailAuth.mutate(additionState);
+  };
 
   return (
-    <div
-      css={css`
-        height: 70%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      `}
-    >
-      <div
-        css={css`
-          width: 90%;
-          position: relative;
-        `}
-      >
-        <Image src={logo} layout="responsive" alt="메인로고" />
-      </div>
+    <StartContainer>
+      <SvgContainer>
+        <OurSurveyLogo />
+        <Subject>
+          <span>설문하는 사람들의</span>
+          <br />
+          <span>품앗이 공간</span>
+        </Subject>
+      </SvgContainer>
       <Link href="/">
-        <p css={btn}>OUR SURVEY 시작하기</p>
+        <Button onClick={postAddtionDataHandler}>OUR SURVEY 시작하기</Button>
       </Link>
-    </div>
+    </StartContainer>
   );
 };
 
 export default Start;
+
+const StartContainer = styled.main`
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const SvgContainer = styled.section`
+  width: 90%;
+  position: relative;
+`;
+
+const Button = styled.button`
+  height: 50px;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  margin-top: 42px;
+  align-items: center;
+  padding: 10px 15px;
+  outline: none;
+  border: none;
+  background-color: ${Common.colors.BL500};
+  border-radius: 10px;
+  ${Pretendard({ font: 1.4, weight: 700, color: "#fff" })}
+`;
+
+const Subject = styled.p`
+  position: absolute;
+  top: 4%;
+  right: 7%;
+  margin: 0;
+  & span {
+    ${Pretendard({ font: 1.4, weight: 700, color: Common.colors.GY900 })}
+    line-height: 150%;
+    letter-spacing: -0.03em;
+  }
+`;

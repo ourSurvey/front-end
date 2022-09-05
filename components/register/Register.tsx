@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import { useMutation } from "react-query";
 import ConfirmPassword from "components/common/ConfirmPassword";
 import PasswordInput from "components/common/PasswordInput";
@@ -173,7 +173,7 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default memo(Register);
 
 const CompletedAuth = styled.div`
   width: calc(30% - 10px);

@@ -12,7 +12,7 @@ const ImageUpload = () => {
         <input
           type="file"
           id="select-file"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => console.log(e.target.files[0])}
+          // onChange={(e: React.ChangeEvent<HTMLInputElement>) => {console.log(e.target.files[0])}}
           className="input-file"
           accept="image/jpg, image/png, image/jpeg"
         />

@@ -75,9 +75,7 @@ const Part = ({ PartNum }: IProps) => {
           </QusetionCount>
         </SubjectContainer>
       </header>
-      <div className="qustion-title">
-        <QusetionTitle index={PartNum} placeHolder="파트" hasImageInput={false} />
-      </div>
+      <div className="qustion-title">{/* <QusetionTitle index={PartNum} placeHolder="파트" hasImageInput={false} /> */}</div>
       <Line></Line>
       <QusetionContainer>
         {part.questions.map((question) => {

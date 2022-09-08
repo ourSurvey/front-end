@@ -6,11 +6,16 @@ interface IProps {
   name?: string;
   toggle: boolean;
   setToggle: (e: boolean) => void;
+  color: string;
 }
 
-const Toggle = ({ name, toggle, setToggle }: IProps) => {
+type ColorProps = {
+  mainColor: string;
+};
+
+const Toggle = ({ name, toggle, setToggle, color }: IProps) => {
   return (
-    <ToggleSwitch>
+    <ToggleSwitch mainColor={color}>
       <span>{name}</span>
       <label htmlFor="toggle" className="toggle-label">
         <input type="checkbox" checked={toggle} onChange={() => setToggle(!toggle)} id="toggle" />
@@ -22,7 +27,7 @@ const Toggle = ({ name, toggle, setToggle }: IProps) => {
 
 export default Toggle;
 
-const ToggleSwitch = styled.div`
+const ToggleSwitch = styled.div<ColorProps>`
   display: flex;
   & span {
     margin-right: 2px;
@@ -34,13 +39,13 @@ const ToggleSwitch = styled.div`
   #toggle {
     display: none;
     &:checked + div {
-      border: 1px solid ${Common.colors.GR500};
+      border: ${(props) => (props.mainColor === "pink" ? `1px solid ${Common.colors.PK500}` : `1px solid ${Common.colors.GR500}`)};
     }
     &:checked + div:after {
       right: calc(100% - 35px);
     }
     &:checked + .toggle-label-handle::after {
-      background-color: ${Common.colors.GR500};
+      background-color: ${(props) => (props.mainColor === "pink" ? Common.colors.PK500 : Common.colors.GR500)};
     }
   }
 

@@ -61,6 +61,19 @@ const Part = ({ PartNum }: IProps) => {
     });
   };
 
+  const PartTitle = styled.div`
+    & h1 {
+      display: inline;
+      ${Pretendard({ font: 1.6, weight: 700, color: (PartNum + 1) % 2 === 0 ? Common.colors.PK500 : Common.colors.GR500 })};
+      line-height: 150%;
+      letter-spacing: -0.03em;
+    }
+    & .total-step {
+      ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY300 })};
+      line-height: 150%;
+    }
+  `;
+
   return (
     <PartContainer>
       <header>
@@ -75,11 +88,13 @@ const Part = ({ PartNum }: IProps) => {
           </QusetionCount>
         </SubjectContainer>
       </header>
-      <div className="qustion-title">{/* <QusetionTitle index={PartNum} placeHolder="파트" hasImageInput={false} /> */}</div>
+      <div className="qustion-title">
+        <QusetionTitle setValue={setPart} value={part} placeHolder="파트" hasImageInput={false} />
+      </div>
       <Line></Line>
       <QusetionContainer>
         {part.questions.map((question) => {
-          return <Question setPart={setPart} key={question.oder} />;
+          return <Question color={(PartNum + 1) % 2 === 0 ? "pink" : "green"} setPart={setPart} key={question.oder} />;
         })}
       </QusetionContainer>
 
@@ -124,19 +139,6 @@ const SubjectContainer = styled.div`
   justify-content: space-between;
 `;
 
-const PartTitle = styled.div`
-  & h1 {
-    display: inline;
-    ${Pretendard({ font: 1.6, weight: 700, color: Common.colors.GR500 })};
-    line-height: 150%;
-    letter-spacing: -0.03em;
-  }
-  & .total-step {
-    ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY300 })};
-    line-height: 150%;
-  }
-`;
-
 const QusetionCount = styled.div`
   & span {
     ${Pretendard({ font: 1, weight: 700, color: Common.colors.GY700 })};
@@ -158,7 +160,7 @@ const QusetionContainer = styled.div`
 
 const PartButtonContainer = styled.div`
   bottom: 0;
-
+  position: relative;
   display: flex;
   width: calc(100% + 20 * 2);
 

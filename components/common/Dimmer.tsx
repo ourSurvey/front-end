@@ -1,17 +1,22 @@
 import styled from "@emotion/styled";
 import { Common } from "styles/common";
 
-type Props = {
-  onClick: () => void;
+type IStyle = {
+  zIndex: number;
 };
 
-const Dimmer = (props: Props) => {
-  return <DimmerContainer onClick={props.onClick}></DimmerContainer>;
+type Props = {
+  onClick: () => void;
+  zIndex?: number;
+};
+
+const Dimmer = ({ onClick, zIndex = 100 }: Props) => {
+  return <DimmerContainer zIndex={zIndex} onClick={onClick}></DimmerContainer>;
 };
 
 export default Dimmer;
 
-const DimmerContainer = styled.div`
+const DimmerContainer = styled.div<IStyle>`
   position: absolute;
   width: calc(100% + 20 * 2);
   height: calc(100% + 56.5);
@@ -22,5 +27,5 @@ const DimmerContainer = styled.div`
   left: 0;
   opacity: 40%;
   background-color: ${Common.colors.GY500};
-  z-index: 100;
+  z-index: ${(props) => props.zIndex};
 `;

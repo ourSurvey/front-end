@@ -3,9 +3,47 @@ import styled from "@emotion/styled";
 import { Common, Pretendard } from "styles/common";
 import MultipleSelection from "./MultipleSelection";
 import Plus from "public/icon/plus.svg";
-const SelectOptionContainer = () => {
+
+interface IProps {
+  color: string;
+}
+
+const SelectOptionContainer = ({ color }: IProps) => {
   const [isActive, setIsActive] = useState<0 | 1>(1);
   const [isMultipleAnswersPossible, setIsMultipleAnswersPossible] = useState(false);
+
+  const SelectOption = styled.ul`
+    display: flex;
+    list-style-type: none;
+    position: relative;
+    padding-left: 0;
+    margin: 0;
+    margin-top: 8px;
+    margin-bottom: 18px;
+    & li:not(:last-child) {
+      margin-right: 5px;
+    }
+
+    & li {
+      padding: 4px 8px;
+      height: 26px;
+      border-radius: 90px;
+      ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY700 })};
+      border: 1px solid ${Common.colors.GY100};
+      line-height: 150%;
+      text-align: center;
+      letter-spacing: -0.03em;
+      transition: 0.5s;
+    }
+
+    & .active {
+      background-color: ${color === "pink" ? Common.colors.PK500 : Common.colors.GR500};
+      ${Pretendard({ font: 1.2, weight: 700, color: "#fff" })};
+      letter-spacing: -0.03em;
+      line-height: 150%;
+    }
+  `;
+
   return (
     <Container>
       <SelectionTitle>선택지 입력</SelectionTitle>
@@ -46,38 +84,6 @@ const SelectionTitle = styled.span`
   ${Pretendard({ font: 1, weight: 700, color: Common.colors.GY500 })};
   line-height: 150%;
   letter-spacing: -0.03em;
-`;
-
-const SelectOption = styled.ul`
-  display: flex;
-  list-style-type: none;
-  position: relative;
-  padding-left: 0;
-  margin: 0;
-  margin-top: 8px;
-  margin-bottom: 18px;
-  & li:not(:last-child) {
-    margin-right: 5px;
-  }
-
-  & li {
-    padding: 4px 8px;
-    height: 26px;
-    border-radius: 90px;
-    ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY700 })};
-    border: 1px solid ${Common.colors.GY100};
-    line-height: 150%;
-    text-align: center;
-    letter-spacing: -0.03em;
-    transition: 0.5s;
-  }
-
-  & .active {
-    background-color: ${Common.colors.GR500};
-    ${Pretendard({ font: 1.2, weight: 700, color: "#fff" })};
-    letter-spacing: -0.03em;
-    line-height: 150%;
-  }
 `;
 
 const Input = styled.input`

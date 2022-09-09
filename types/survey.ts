@@ -49,7 +49,7 @@ export interface ISection {
 
 export interface IQuestion {
   ask: string; //*질문,
-  explain: string; //설명,
+  descrip: string; //설명,
   multiFl: 0 | 1; //*(Integer|0:주관식,1:객관식),
   essFl: 0 | 1; //*필수질문여부(Integer|0:필수X,1:필수),
   dupFl: 0 | 1; //*질문이 객관식일 때 중복선택 가능여부(Integer|0:중복X,1:중복가능|주관식이면 무조건 0),
@@ -57,7 +57,8 @@ export interface IQuestion {
   questionItems: IQuestionItem[];
 }
 
-interface IQuestionItem {
+export interface IQuestionItem {
+  id: number;
   content: string; //*선택지,
   oder: number; //*위 oder랑 동일함,
   nextSection: number; //다음섹션(답변을 기준으로 파트이동일 때 - Integer|-1이면 설문제출, 답변 기준 파트이동이 아니라면 0으로)

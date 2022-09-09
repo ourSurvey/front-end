@@ -2,10 +2,19 @@ import React, { useRef, useState } from "react";
 import MultipleSelectionInput from "./MultipleSelectionInput";
 import styled from "@emotion/styled";
 import { Common, Pretendard } from "styles/common";
-const MultipleSelection = () => {
+import { useRecoilValue } from "recoil";
+import { qusetionItemIdListAtom } from "states/survey";
+interface IProps {
+  questionIndex: number;
+  partIndex: number;
+}
+
+const MultipleSelection = ({ questionIndex, partIndex }: IProps) => {
   const [items, setItems] = useState([""]);
   const dragItem = useRef<any>(null);
   const dragOverItem = useRef<any>(null);
+
+  const questionItemIdList = useRecoilValue(qusetionItemIdListAtom(partIndex * 10 + questionIndex));
 
   const handleSort = (e: React.TouchEvent<HTMLLIElement>) => {
     console.log(e.targetTouches[0]);
@@ -25,19 +34,8 @@ const MultipleSelection = () => {
 
   return (
     <Option>
-      {items.map((item: string, index: number) => {
-        return (
-          <MultipleSelectionInput
-            hasDeleteBtn={item.length > 1}
-            setItems={setItems}
-            dragOverItem={dragOverItem}
-            dragItem={dragItem}
-            id={index}
-            name={item}
-            key={item}
-            onDragEnd={handleSort}
-          />
-        );
+      {questionItemIdList.map((id, _, arr) => {
+        return <MultipleSelectionInput key={id} hasDeleteBtn={arr.length > 1} id={id} onDragEnd={handleSort} />;
       })}
     </Option>
   );

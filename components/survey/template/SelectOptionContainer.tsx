@@ -3,14 +3,23 @@ import styled from "@emotion/styled";
 import { Common, Pretendard } from "styles/common";
 import MultipleSelection from "./MultipleSelection";
 import Plus from "public/icon/plus.svg";
-
+import { useRecoilCallback } from "recoil";
+import { qusetionItemIdListAtom } from "states/survey";
 interface IProps {
   color: string;
+  questionIndex: number;
+  partIndex: number;
 }
 
-const SelectOptionContainer = ({ color }: IProps) => {
+const SelectOptionContainer = ({ color, questionIndex, partIndex }: IProps) => {
   const [isActive, setIsActive] = useState<0 | 1>(1);
   const [isMultipleAnswersPossible, setIsMultipleAnswersPossible] = useState(false);
+
+  const addQuestionItem = useRecoilCallback(({ snapshot, set }) => () => {
+    const setIndex = partIndex * 10 + (questionIndex + 1);
+    const questionItemIds = snapshot.getLoadable(qusetionItemIdListAtom(setIndex)).getValue();
+    set(qusetionItemIdListAtom(setIndex), [...questionItemIds, setIndex]);
+  });
 
   const SelectOption = styled.ul`
     display: flex;
@@ -59,10 +68,14 @@ const SelectOptionContainer = ({ color }: IProps) => {
         </li>
       </SelectOption>
 
-      {isActive ? <MultipleSelection /> : <Input disabled placeholder="이곳에 답변을 입력해주세요." />}
+      {isActive ? (
+        <MultipleSelection partIndex={partIndex} questionIndex={questionIndex} />
+      ) : (
+        <Input disabled placeholder="이곳에 답변을 입력해주세요." />
+      )}
       {isActive ? (
         <ButtonContainer>
-          <div>
+          <div onClick={addQuestionItem}>
             <Plus /> <span className="first">선택지 추가</span>
           </div>
           <div>

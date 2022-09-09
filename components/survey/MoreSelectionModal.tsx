@@ -1,9 +1,13 @@
-import React from "react";
+import { useState } from "react";
+
 import { Common, Pretendard } from "styles/common";
 import styled from "@emotion/styled";
+import DeleteConfirm from "./DeleteConfirm";
+import Portal from "components/common/Portal";
 type Props = {};
 
-const MoreSelectionModal = (props: Props) => {
+const MoreSelectionModal = () => {
+  const [deleteModal, setdeleteModal] = useState(false);
   return (
     <MoreOption>
       <Title>
@@ -14,14 +18,14 @@ const MoreSelectionModal = (props: Props) => {
       <div>
         <Container>
           <h6>선택지 옵션</h6>
-          <span>선택지 순서 무작위로 섞기</span>
-          <span>답변을 기준으로 파트 이동</span>
+          <SelectableSpan>선택지 순서 무작위로 섞기</SelectableSpan>
+          <SelectableSpan>답변을 기준으로 파트 이동</SelectableSpan>
         </Container>
         <Line></Line>
         <Container>
           <h6>질문 설정</h6>
           <span>이 질문 복사</span>
-          <span>삭제</span>
+          <span onClick={() => setdeleteModal(true)}>삭제</span>
         </Container>
         <Line></Line>
         <Container>
@@ -32,6 +36,11 @@ const MoreSelectionModal = (props: Props) => {
           <span>이메일 질문</span>
         </Container>
       </div>
+      {deleteModal && (
+        <Portal selector="#portal">
+          <DeleteConfirm visibleState={deleteModal} setVisible={setdeleteModal} />
+        </Portal>
+      )}
     </MoreOption>
   );
 };
@@ -93,5 +102,23 @@ const Container = styled.div`
     &:last-child {
       margin-bottom: 0;
     }
+  }
+`;
+
+const SelectableSpan = styled.span`
+  display: block;
+  ${Pretendard({ font: 1.3, weight: 400, color: Common.colors.GY900 })};
+  line-height: 150%;
+  letter-spacing: -0.03em;
+  margin-bottom: 14px;
+  text-align: left;
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &::before {
+    content: url("images/checkedCheck.svg");
+
+    width: 10px;
   }
 `;

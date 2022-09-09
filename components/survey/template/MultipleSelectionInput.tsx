@@ -1,25 +1,28 @@
-import React, { useState } from "react";
+import React, { useCallback } from "react";
 import SlideArrow from "public/icon/slide-arrow.svg";
 import CloseCircle from "public/icon/close-circle.svg";
 import styled from "@emotion/styled";
 import { Common, Pretendard } from "styles/common";
-
+import { useRecoilState } from "recoil";
+import { qusetionItemListAtomFamily } from "states/survey";
 interface IProps {
   id: number;
-  setItems: any;
   onDragEnd: (e: React.TouchEvent<HTMLLIElement>) => void;
-  name: string;
-  dragOverItem: React.RefObject<any>;
-  dragItem: React.RefObject<any>;
   hasDeleteBtn: boolean;
 }
 
-const MultipleSelectionInput = ({ name, dragItem, dragOverItem, hasDeleteBtn, onDragEnd, id, setItems }: IProps) => {
-  const [inputContent, setInputContent] = useState("");
+const MultipleSelectionInput = ({ hasDeleteBtn, onDragEnd, id }: IProps) => {
+  const [inputContent, setInputContent] = useRecoilState(qusetionItemListAtomFamily(id));
 
-  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputContent(e.target.value);
-  };
+  const onChangeHandler = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setInputContent({
+        ...inputContent,
+        content: e.target.value,
+      });
+    },
+    [inputContent]
+  );
   return (
     <MultipleSelectionLi draggable onTouchMove={(e) => onDragEnd(e)} onDragOver={(e) => e.preventDefault()}>
       <SlideArrow />

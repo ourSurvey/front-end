@@ -1,5 +1,10 @@
-import { atom, selector } from "recoil";
-import { ISurveyData } from "types/survey";
+import { atom, selector, atomFamily, selectorFamily, DefaultValue } from "recoil";
+import { ISurveyData, IQuestionItem, IQuestion, ISection } from "types/survey";
+
+interface QuectionAtomFamilytype {
+  partId: number;
+  qusetionid: number;
+}
 
 export const surveyState = atom<ISurveyData>({
   key: "surveyState",
@@ -22,12 +27,12 @@ export const surveyState = atom<ISurveyData>({
         questions: [
           {
             ask: "",
-            explain: "",
+            descrip: "",
             multiFl: 1,
             essFl: 0,
             dupFl: 0,
             oder: 0,
-            questionItems: [{ content: "", oder: 0, nextSection: 0 }],
+            questionItems: [{ id: 0, content: "", oder: 0, nextSection: 0 }],
           },
         ],
       },
@@ -41,4 +46,60 @@ export const partCountState = selector({
     const survey = get(surveyState);
     return survey.sections.length;
   },
+});
+
+export const qusetionItemListAtomFamily = atomFamily<IQuestionItem, number>({
+  key: "qusetionItemListAtomFamily",
+  default: (id) => {
+    return {
+      id,
+      content: "",
+      oder: 0,
+      nextSection: 0,
+    };
+  },
+});
+
+export const qusetionItemIdListAtom = atomFamily<number[], number>({
+  key: "qusetionItemIdListAtom",
+  default: (id) => [11],
+});
+
+export const qusetionListAtomFamily = atomFamily<IQuestion, number>({
+  key: "qusetionListAtomFamily",
+  default: (id) => {
+    return {
+      id,
+      ask: "",
+      descrip: "",
+      multiFl: 1,
+      essFl: 1,
+      dupFl: 0,
+      oder: 0,
+      questionItems: [],
+    };
+  },
+});
+
+export const qusetionIdListAtom = atomFamily<number[], number>({
+  key: "qusetionIdListAtom",
+  default: (id) => [0],
+});
+
+export const sectionListAtomFamily = atomFamily<ISection, number>({
+  key: "sectionListAtomFamily",
+  default: (id) => {
+    return {
+      id,
+      title: "",
+      content: "",
+      nextSection: -1,
+      questions: [],
+    };
+  },
+});
+
+export const sectionIdListAtom = atom<number[]>({
+  key: "sectionIdListAtom",
+  default: [0],
 });

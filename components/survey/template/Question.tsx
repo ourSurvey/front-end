@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import styled from "@emotion/styled";
 import More from "public/icon/vertical-three-dots.svg";
 import { Common, Pretendard } from "styles/common";
@@ -8,24 +8,19 @@ import SelectOptionContainer from "./SelectOptionContainer";
 import Portal from "components/common/Portal";
 import MoreSideModal from "../MoreSideModal";
 import { IQuestion, ISection } from "types/survey";
+import { qusetionListAtomFamily } from "states/survey";
+import { useRecoilState } from "recoil";
 
 interface IProps {
-  setPart: (part: ISection) => void;
+  questionId: number;
   color: string;
+  partNumber: number;
 }
 
-const Question = ({ setPart, color }: IProps) => {
+const Question = ({ color, questionId, partNumber }: IProps) => {
   const [toggle, settoggle] = useState(false);
   const [visibleMore, setVisibleMore] = useState(false);
-  const [Qusetion, setQusetion] = useState<IQuestion>({
-    ask: "",
-    explain: "",
-    multiFl: 1,
-    essFl: 0,
-    dupFl: 0,
-    oder: 0,
-    questionItems: [],
-  });
+  const [question, setQusetion] = useRecoilState(qusetionListAtomFamily(questionId));
 
   const Title = styled.div`
     & .part {
@@ -49,8 +44,8 @@ const Question = ({ setPart, color }: IProps) => {
     <Container className="question">
       <Header>
         <Title>
-          <span className="part">PT1</span>
-          <span className="question-num">질문 1.</span>
+          <span className="part">PT{partNumber}</span>
+          <span className="question-num">질문 {questionId + 1}.</span>
         </Title>
         <div className="right">
           <Toggle color={color} name="필수" toggle={toggle} setToggle={settoggle} />
@@ -59,15 +54,15 @@ const Question = ({ setPart, color }: IProps) => {
       </Header>
 
       <TitleContainer>
-        <QusetionTitle placeHolder="질문" value={Qusetion} setValue={setQusetion} hasImageInput={true} />
+        <QusetionTitle placeHolder="질문" value={question} setValue={setQusetion} hasImageInput={true} />
       </TitleContainer>
-      <SelectOptionContainer color={color} />
+      <SelectOptionContainer partIndex={partNumber} questionIndex={questionId} color={color} />
       <Portal selector="#portal">{visibleMore ? <MoreSideModal visibleState={visibleMore} setVisible={setVisibleMore} /> : null}</Portal>
     </Container>
   );
 };
 
-export default Question;
+export default memo(Question);
 
 const Container = styled.div`
   background-color: #fff;

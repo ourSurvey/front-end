@@ -3,63 +3,30 @@ import { Common, Pretendard } from "styles/common";
 import QusetionTitle from "./QusetionTitle";
 import InvertedTriangle from "public/icon/inverted-triangle.svg";
 import Question from "./Question";
+import { memo } from "react";
 import Copy from "public/icon/copy.svg";
 import Plus from "public/icon/plus-two.svg";
-import { IQuestion, ISection, ISurveyData } from "types/survey";
-import { useState } from "react";
-import { surveyState } from "states/survey";
-import { useRecoilState } from "recoil";
-
-const INITIAL_QUESTIONS: IQuestion = { ask: "", explain: "", multiFl: 1, essFl: 0, dupFl: 0, oder: 0, questionItems: [] };
-const INITIAL_PART: ISection = {
-  title: "", //섹션제목,
-  content: "", //설명,
-  nextSection: -1, //*다음섹션(Integer|-1이면 이 섹션이 마지막 섹션, 사실 그냥 index값임 프론트에서도 설문 만들 때 정렬해서 보여줘야하니깐 index값 그대로 넣기),
-  questions: [
-    {
-      ask: "",
-      explain: "",
-      multiFl: 1,
-      essFl: 0,
-      dupFl: 0,
-      oder: 0,
-      questionItems: [],
-    },
-  ],
-};
+import { sectionListAtomFamily, sectionIdListAtom, qusetionIdListAtom } from "states/survey";
+import { useRecoilCallback, useRecoilState, useRecoilValue } from "recoil";
 
 interface IProps {
   PartNum: number;
+  ListLength: number;
 }
 
-const Part = ({ PartNum }: IProps) => {
-  const [surveyData, setSurveyData] = useRecoilState(surveyState);
-  const [part, setPart] = useState<ISection>({
-    title: "", //섹션제목,
-    content: "", //설명,
-    nextSection: -1, //*다음섹션(Integer|-1이면 이 섹션이 마지막 섹션, 사실 그냥 index값임 프론트에서도 설문 만들 때 정렬해서 보여줘야하니깐 index값 그대로 넣기),
-    questions: [
-      {
-        ask: "",
-        explain: "",
-        multiFl: 1,
-        essFl: 0,
-        dupFl: 0,
-        oder: 0,
-        questionItems: [],
-      },
-    ],
+const Part = ({ PartNum, ListLength }: IProps) => {
+  const [partData, setPartData] = useRecoilState(sectionListAtomFamily(PartNum));
+  const questionIdList = useRecoilValue(qusetionIdListAtom(PartNum));
+
+  const addPart = useRecoilCallback(({ snapshot, set }) => () => {
+    const partIds = snapshot.getLoadable(sectionIdListAtom).getValue();
+    set(sectionIdListAtom, [...partIds, partIds.length]);
   });
 
-  const createPartHandler = () => {
-    setSurveyData({ ...surveyData, sections: [...surveyData.sections, INITIAL_PART] });
-  };
-
-  const createQustionHandler = () => {
-    setPart((prev) => {
-      return { ...prev, questions: [...prev.questions, INITIAL_QUESTIONS] };
-    });
-  };
+  const addQuestion = useRecoilCallback(({ snapshot, set }) => () => {
+    const questionIds = snapshot.getLoadable(qusetionIdListAtom(PartNum)).getValue();
+    set(qusetionIdListAtom(PartNum), [...questionIds, questionIds.length]);
+  });
 
   const PartTitle = styled.div`
     & h1 {
@@ -80,30 +47,30 @@ const Part = ({ PartNum }: IProps) => {
         <SubjectContainer>
           <PartTitle>
             <h1>PART {PartNum + 1}</h1>
-            <span className="total-step">/{surveyData.sections.length}</span>
+            <span className="total-step">/{ListLength}</span>
           </PartTitle>
           <QusetionCount>
-            <span>총 {surveyData.sections[PartNum].questions.length}개 질문</span>
+            <span>총 {questionIdList.length}개 질문</span>
             <InvertedTriangle />
           </QusetionCount>
         </SubjectContainer>
       </header>
       <div className="qustion-title">
-        <QusetionTitle setValue={setPart} value={part} placeHolder="파트" hasImageInput={false} />
+        <QusetionTitle setValue={setPartData} value={partData} placeHolder="파트" hasImageInput={false} />
       </div>
       <Line></Line>
       <QusetionContainer>
-        {part.questions.map((question) => {
-          return <Question color={(PartNum + 1) % 2 === 0 ? "pink" : "green"} setPart={setPart} key={question.oder} />;
+        {questionIdList.map((id) => {
+          return <Question partNumber={PartNum + 1} questionId={id} color={(PartNum + 1) % 2 === 0 ? "pink" : "green"} key={id} />;
         })}
       </QusetionContainer>
 
       <PartButtonContainer>
-        <button onClick={createPartHandler}>
+        <button onClick={addPart}>
           <Copy stroke="#fff" />
           파트추가
         </button>
-        <button onClick={() => setPart({ ...part, questions: [...part.questions, INITIAL_QUESTIONS] })}>
+        <button onClick={addQuestion}>
           <Plus />
           질문 추가
         </button>
@@ -112,7 +79,7 @@ const Part = ({ PartNum }: IProps) => {
   );
 };
 
-export default Part;
+export default memo(Part);
 
 const PartContainer = styled.section`
   width: 100%;

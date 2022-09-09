@@ -5,12 +5,11 @@ import Part from "components/survey/template/Part";
 import React, { useState, useEffect } from "react";
 import SubLayout from "components/SubLayout";
 import { ISurveyData, ISection } from "types/survey";
-import { surveyState } from "states/survey";
-import { useRecoilState } from "recoil";
+import { sectionIdListAtom } from "states/survey";
+import { useRecoilValue } from "recoil";
 
 export default function Index() {
-  const [surveyData, setSurveyData] = useRecoilState(surveyState);
-  console.log(surveyData);
+  const partIdList = useRecoilValue(sectionIdListAtom);
 
   const PartSectionContainer = styled.div`
     display: block;
@@ -29,8 +28,8 @@ export default function Index() {
     <WriteContainer>
       <CreateSurveyHeader hasUnderLine={false} name="질문을 작성해주세요." step="02" />
       <PartSectionContainer id="section2">
-        {surveyData.sections.map((_, index: number) => {
-          return <Part PartNum={index} key={index} />;
+        {partIdList.map((id) => {
+          return <Part ListLength={partIdList.length} PartNum={id} key={id} />;
         })}
       </PartSectionContainer>
     </WriteContainer>

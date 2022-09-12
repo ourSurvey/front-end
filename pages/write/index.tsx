@@ -7,6 +7,7 @@ import SubLayout from "components/SubLayout";
 import { ISurveyData, ISection } from "types/survey";
 import { sectionIdListAtom } from "states/survey";
 import { useRecoilValue } from "recoil";
+import Link from "next/link";
 
 export default function Index() {
   const partIdList = useRecoilValue(sectionIdListAtom);
@@ -14,6 +15,7 @@ export default function Index() {
   const PartSectionContainer = styled.div`
     display: block;
     height: calc(100% - 54px) !important;
+    padding-bottom: 84px;
 
     overflow-y: scroll;
     &::-webkit-scrollbar {
@@ -46,10 +48,15 @@ Index.getLayout = function getLayout(page: React.ReactElement) {
 };
 
 const WriteContainer = styled.main`
+  position: relative;
   width: 100%;
   height: 100%;
   background-clip: padding-box;
   background-color: ${Common.colors.GY50};
+
+  & .nav-up {
+    top: -60.5px;
+  }
 `;
 
 const BtnContainer = styled.div`

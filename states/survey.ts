@@ -65,7 +65,7 @@ export const qusetionItemIdListAtom = atomFamily<number[], number>({
   default: (id) => [11],
 });
 
-export const qusetionListAtomFamily = atomFamily<IQuestion, number>({
+export const qusetionListAtomFamily = atomFamily<IQuestion, QuestionID>({
   key: "qusetionListAtomFamily",
   default: (id) => {
     return {
@@ -74,6 +74,7 @@ export const qusetionListAtomFamily = atomFamily<IQuestion, number>({
       descrip: "",
       multiFl: 1,
       essFl: 1,
+      randomShowFl: 0,
       dupFl: 0,
       oder: 0,
       questionItems: [],
@@ -81,9 +82,10 @@ export const qusetionListAtomFamily = atomFamily<IQuestion, number>({
   },
 });
 
-export const qusetionIdListAtom = atomFamily<number[], number>({
+//질문의 Item ID만 관리하는 atom
+export const qusetionIdListAtom = atomFamily<QuestionListID[], QuestionListID>({
   key: "qusetionIdListAtom",
-  default: (id) => [0],
+  default: (id) => [id],
 });
 
 export const sectionListAtomFamily = atomFamily<ISection, SectionID>({

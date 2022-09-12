@@ -29,8 +29,9 @@ const Part = ({ PartNum, ListLength }: IProps) => {
   });
 
   const addQuestion = useRecoilCallback(({ snapshot, set }) => () => {
-    const questionIds = snapshot.getLoadable(qusetionIdListAtom(PartNum)).getValue();
-    set(qusetionIdListAtom(PartNum), [...questionIds, questionIds.length]);
+    const questionIds = snapshot.getLoadable(qusetionIdListAtom(SyscodeFormat)).getValue();
+    const lastNumber = questionIds[questionIds.length - 1].slice(-1);
+    set(qusetionIdListAtom(SyscodeFormat), [...questionIds, QuestionListIDFormat(Number(lastNumber) + 1)] as QuestionListID[]);
   });
 
   const PartTitle = styled.div`
@@ -65,8 +66,8 @@ const Part = ({ PartNum, ListLength }: IProps) => {
       </div>
       <Line></Line>
       <QusetionContainer>
-        {questionIdList.map((id) => {
-          return <Question partNumber={PartNum + 1} questionId={id} color={(PartNum + 1) % 2 === 0 ? "pink" : "green"} key={id} />;
+        {questionIdList.map((id, idx) => {
+          return <Question partNumber={PartNum + 1} questionId={idx} color={(PartNum + 1) % 2 === 0 ? "pink" : "green"} key={id} />;
         })}
       </QusetionContainer>
 

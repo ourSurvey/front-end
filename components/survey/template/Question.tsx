@@ -7,10 +7,9 @@ import QusetionTitle from "./QusetionTitle";
 import SelectOptionContainer from "./SelectOptionContainer";
 import Portal from "components/common/Portal";
 import MoreSideModal from "../MoreSideModal";
-import { IQuestion, ISection } from "types/survey";
 import { qusetionListAtomFamily } from "states/survey";
 import { useRecoilState } from "recoil";
-
+import { QuestionIDFormat } from "utills/getDateSixth";
 interface IProps {
   questionId: number;
   color: string;
@@ -20,7 +19,7 @@ interface IProps {
 const Question = ({ color, questionId, partNumber }: IProps) => {
   const [toggle, settoggle] = useState(false);
   const [visibleMore, setVisibleMore] = useState(false);
-  const [question, setQusetion] = useRecoilState(qusetionListAtomFamily(questionId));
+  const [question, setQusetion] = useRecoilState(qusetionListAtomFamily(QuestionIDFormat(questionId + 1)));
 
   const Title = styled.div`
     & .part {

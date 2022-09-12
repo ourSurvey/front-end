@@ -84,7 +84,7 @@ const ShareBody = ({ setVisible }: Props) => {
 
   return (
     <>
-      <Close onClick={() => setVisible(false)} />
+      <Close width="14" height="14" fill={Common.colors.GY900} onClick={() => setVisible(false)} />
       <span>공유하기</span>
       <IconContainer>
         <div className="center">

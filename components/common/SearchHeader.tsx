@@ -36,7 +36,7 @@ const Header = styled.header`
   margin-bottom: 41px;
 
   & .name {
-    @include Pretendard(1.4, 700, $GY900);
+    ${Pretendard({ font: 1.4, weight: 700, color: Common.colors.GY900 })}
   }
   & .arrow {
     position: relative;

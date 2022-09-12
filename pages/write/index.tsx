@@ -15,9 +15,6 @@ export default function Index() {
     display: block;
     height: calc(100% - 54px) !important;
 
-    & section:not(:last-child) {
-    }
-
     overflow-y: scroll;
     &::-webkit-scrollbar {
       display: none;

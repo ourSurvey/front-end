@@ -115,10 +115,4 @@ const SelectableSpan = styled.span`
   &:last-child {
     margin-bottom: 0;
   }
-
-  &::before {
-    content: url("images/checkedCheck.svg");
-
-    width: 10px;
-  }
 `;

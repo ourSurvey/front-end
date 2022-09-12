@@ -25,6 +25,7 @@ const Period = styled.section`
   background-color: #fff;
   padding: 0 20px;
   padding-top: 24px;
+  padding-bottom: 32px;
   & .date-container {
     display: flex;
     justify-content: space-between;

@@ -42,6 +42,7 @@ export default TImeTaken;
 const TimeSet = styled.section`
   background-color: #fff;
   padding: 0 20px;
+  padding-bottom: 32px;
 
   & h1 {
     padding-top: 32px;

@@ -4,17 +4,23 @@ import styled from "@emotion/styled";
 import { Common, Pretendard } from "styles/common";
 import { useRecoilValue } from "recoil";
 import { qusetionItemIdListAtom } from "states/survey";
+import { QuestionItemListID } from "types/survey";
+import { PartIDFormat, QuestionIDFormat } from "utills/getDateSixth";
 interface IProps {
   questionIndex: number;
   partIndex: number;
 }
 
 const MultipleSelection = ({ questionIndex, partIndex }: IProps) => {
+  const PartFormat = PartIDFormat(partIndex);
+  const QuestionFormat = QuestionIDFormat(questionIndex + 1);
+  const SyscodeFormat = `${PartFormat}${QuestionFormat}` as QuestionItemListID;
   const [items, setItems] = useState([""]);
   const dragItem = useRef<any>(null);
   const dragOverItem = useRef<any>(null);
 
-  const questionItemIdList = useRecoilValue(qusetionItemIdListAtom(partIndex * 10 + questionIndex));
+  const questionItemIdList = useRecoilValue(qusetionItemIdListAtom(SyscodeFormat));
+  console.log(`questionIndex: ${questionIndex}, partIndex:${partIndex}`, questionItemIdList);
 
   const handleSort = (e: React.TouchEvent<HTMLLIElement>) => {
     console.log(e.targetTouches[0]);
@@ -34,8 +40,8 @@ const MultipleSelection = ({ questionIndex, partIndex }: IProps) => {
 
   return (
     <Option>
-      {questionItemIdList.map((id, _, arr) => {
-        return <MultipleSelectionInput key={id} hasDeleteBtn={arr.length > 1} id={id} onDragEnd={handleSort} />;
+      {questionItemIdList.map((id, idx, arr) => {
+        return <MultipleSelectionInput key={id} hasDeleteBtn={arr.length > 1} id={idx} onDragEnd={handleSort} />;
       })}
     </Option>
   );

@@ -5,6 +5,8 @@ import MultipleSelection from "./MultipleSelection";
 import Plus from "public/icon/plus.svg";
 import { useRecoilCallback } from "recoil";
 import { qusetionItemIdListAtom } from "states/survey";
+import { QuestionItemListID } from "types/survey";
+import { getDateSixDigitsFormatToday, numberSet } from "utills/getDateSixth";
 interface IProps {
   color: string;
   questionIndex: number;
@@ -12,13 +14,21 @@ interface IProps {
 }
 
 const SelectOptionContainer = ({ color, questionIndex, partIndex }: IProps) => {
+  const PartFormat = `SCTN${getDateSixDigitsFormatToday()}${numberSet(partIndex)}`;
+  const QuestionFormat = `QSTN${getDateSixDigitsFormatToday()}${numberSet(questionIndex + 1)}`;
+  const SyscodeFormat = `${PartFormat}${QuestionFormat}` as QuestionItemListID;
   const [isActive, setIsActive] = useState<0 | 1>(1);
   const [isMultipleAnswersPossible, setIsMultipleAnswersPossible] = useState(false);
 
   const addQuestionItem = useRecoilCallback(({ snapshot, set }) => () => {
-    const setIndex = partIndex * 10 + (questionIndex + 1);
-    const questionItemIds = snapshot.getLoadable(qusetionItemIdListAtom(setIndex)).getValue();
-    set(qusetionItemIdListAtom(setIndex), [...questionItemIds, setIndex]);
+    const questionItemIds = snapshot.getLoadable(qusetionItemIdListAtom(SyscodeFormat)).getValue();
+    const lastNumber = questionItemIds[questionItemIds.length - 1].slice(-1);
+    const PartFormatInLastNumber = `SCTN${getDateSixDigitsFormatToday()}${numberSet(Number(lastNumber) + 1)}`;
+    const QuestionFormatInLastNumber = `QSTN${getDateSixDigitsFormatToday()}${numberSet(Number(lastNumber) + 1)}`;
+    set(qusetionItemIdListAtom(SyscodeFormat), [
+      ...questionItemIds,
+      `${PartFormatInLastNumber}${QuestionFormatInLastNumber}`,
+    ] as QuestionItemListID[]);
   });
 
   const SelectOption = styled.ul`

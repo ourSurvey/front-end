@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 import { Common, Pretendard } from "styles/common";
 import { useRecoilState } from "recoil";
 import { qusetionItemListAtomFamily } from "states/survey";
+import { QuestionItemIDFormat } from "utills/getDateSixth";
 interface IProps {
   id: number;
   onDragEnd: (e: React.TouchEvent<HTMLLIElement>) => void;
@@ -12,7 +13,7 @@ interface IProps {
 }
 
 const MultipleSelectionInput = ({ hasDeleteBtn, onDragEnd, id }: IProps) => {
-  const [inputContent, setInputContent] = useRecoilState(qusetionItemListAtomFamily(id));
+  const [inputContent, setInputContent] = useRecoilState(qusetionItemListAtomFamily(QuestionItemIDFormat(id + 1)));
 
   const onChangeHandler = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {

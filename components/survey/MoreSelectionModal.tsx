@@ -8,6 +8,8 @@ type Props = {};
 
 const MoreSelectionModal = () => {
   const [deleteModal, setdeleteModal] = useState(false);
+  const [random, setRandom] = useState(false);
+  const [movePartByAnswer, setMovePartByAnswer] = useState(false);
   return (
     <MoreOption>
       <Title>
@@ -18,8 +20,12 @@ const MoreSelectionModal = () => {
       <div>
         <Container>
           <h6>선택지 옵션</h6>
-          <SelectableSpan>선택지 순서 무작위로 섞기</SelectableSpan>
-          <SelectableSpan>답변을 기준으로 파트 이동</SelectableSpan>
+          <SelectableSpan className={random ? "active" : ""} onClick={() => setRandom((prev) => !prev)}>
+            선택지 순서 무작위로 섞기
+          </SelectableSpan>
+          <SelectableSpan className={movePartByAnswer ? "active" : ""} onClick={() => setMovePartByAnswer((prev) => !prev)}>
+            답변을 기준으로 파트 이동
+          </SelectableSpan>
         </Container>
         <Line></Line>
         <Container>
@@ -50,6 +56,15 @@ export default MoreSelectionModal;
 const MoreOption = styled.aside`
   width: 100%;
   margin: 21.5px 0 35px 0;
+
+  & .active {
+    font-weight: 700 !important;
+    &::before {
+      content: url("images/checkedCheck.svg");
+      margin-right: 4px;
+      width: 10px;
+    }
+  }
 `;
 
 const Title = styled.div`

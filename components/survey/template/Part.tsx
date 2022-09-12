@@ -8,6 +8,8 @@ import Copy from "public/icon/copy.svg";
 import Plus from "public/icon/plus-two.svg";
 import { sectionListAtomFamily, sectionIdListAtom, qusetionIdListAtom } from "states/survey";
 import { useRecoilCallback, useRecoilState, useRecoilValue } from "recoil";
+import { QuestionListID } from "types/survey";
+import { PartIDFormat, QuestionListIDFormat } from "utills/getDateSixth";
 
 interface IProps {
   PartNum: number;
@@ -15,12 +17,15 @@ interface IProps {
 }
 
 const Part = ({ PartNum, ListLength }: IProps) => {
-  const [partData, setPartData] = useRecoilState(sectionListAtomFamily(PartNum));
-  const questionIdList = useRecoilValue(qusetionIdListAtom(PartNum));
+  const SyscodeFormat: QuestionListID = QuestionListIDFormat(PartNum + 1);
+  const [partData, setPartData] = useRecoilState(sectionListAtomFamily(PartIDFormat(PartNum + 1)));
+  const questionIdList = useRecoilValue(qusetionIdListAtom(SyscodeFormat)); //질문들의 IDList
 
   const addPart = useRecoilCallback(({ snapshot, set }) => () => {
     const partIds = snapshot.getLoadable(sectionIdListAtom).getValue();
-    set(sectionIdListAtom, [...partIds, partIds.length]);
+    //Syscode에서 마지막 숫자 가져오기
+    const lastNumber = partIds[partIds.length - 1].slice(-1);
+    set(sectionIdListAtom, [...partIds, PartIDFormat(Number(lastNumber) + 1)]);
   });
 
   const addQuestion = useRecoilCallback(({ snapshot, set }) => () => {

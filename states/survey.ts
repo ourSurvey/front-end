@@ -86,7 +86,7 @@ export const qusetionIdListAtom = atomFamily<number[], number>({
   default: (id) => [0],
 });
 
-export const sectionListAtomFamily = atomFamily<ISection, number>({
+export const sectionListAtomFamily = atomFamily<ISection, SectionID>({
   key: "sectionListAtomFamily",
   default: (id) => {
     return {
@@ -99,7 +99,7 @@ export const sectionListAtomFamily = atomFamily<ISection, number>({
   },
 });
 
-export const sectionIdListAtom = atom<number[]>({
+export const sectionIdListAtom = atom<SectionID[]>({
   key: "sectionIdListAtom",
-  default: [0],
+  default: [`SCTN${getDateSixDigitsFormatToday()}A001`],
 });

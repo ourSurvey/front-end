@@ -23,10 +23,12 @@ export default function Index() {
 
   return (
     <WriteContainer>
-      <CreateSurveyHeader hasUnderLine={false} name="질문을 작성해주세요." step="02" />
+      <div>
+        <CreateSurveyHeader hasUnderLine={false} name="질문을 작성해주세요." step="02" />
+      </div>
       <PartSectionContainer id="section2">
-        {partIdList.map((id) => {
-          return <Part ListLength={partIdList.length} PartNum={id} key={id} />;
+        {partIdList.map((id, idx) => {
+          return <Part ListLength={partIdList.length} PartNum={idx} key={id} />;
         })}
       </PartSectionContainer>
       <BtnContainer>

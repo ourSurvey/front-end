@@ -33,7 +33,7 @@ const SurveyId = ({ dehydratedState }: IProps) => {
     const hour = diffDate / (1000 * 60 * 60);
 
     if (day < 1) {
-      return `${hour}시간 전`;
+      return `${Math.floor(hour)}시간 전`;
     }
 
     return `${Math.floor(day)}일 전`;

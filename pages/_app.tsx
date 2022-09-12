@@ -7,6 +7,7 @@ import type { AppProps } from "next/app";
 import Layout from "components/Layout";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { NextPage } from "next";
+import DebugObserver from "components/common/DebugObserver";
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -25,6 +26,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
         <RecoilRoot>
+          <DebugObserver/>
           <Global styles={global} />
           {getLayout(<Component {...pageProps} />)}
         </RecoilRoot>

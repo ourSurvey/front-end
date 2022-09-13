@@ -39,3 +39,14 @@ export const Pretendard = (props: IPretendard) => css`
   line-height: ${props.font * 1.5}rem;
   color: ${props.color};
 `;
+
+export const AlignCenter = () => css`
+  display: flex;
+  align-items:center;
+`
+
+export const AlignAndJustifyCenter = () => css`
+  display:flex;
+  justify-content : center;
+  align-items : center;
+`

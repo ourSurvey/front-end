@@ -23,7 +23,7 @@ const SurveyItem = (props: IContent) => {
     color: #fff;
     outline: 0;
     border: 0;
-    letter-spacing: -0.03em;
+
     padding-top: 9px;
     padding-bottom: 9px;
     background-color: ${Common.colors.BL500};
@@ -75,7 +75,6 @@ const ItemContainer = styled.div`
   & h1 {
     ${Pretendard({ font: 1.6, weight: 700, color: Common.colors.GY900 })}
     line-height: 150%;
-    letter-spacing: -0.03em;
   }
 `;
 
@@ -106,7 +105,7 @@ const LiStyle = styled.li`
 const Content = styled.p`
   ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY700 })}
   line-height: 150%;
-  letter-spacing: -0.03em;
+
   text-overflow: ellipsis;
   overflow: hidden;
   -webkit-line-clamp: 2;
@@ -129,7 +128,6 @@ const Hashtag = styled.span`
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  letter-spacing: -0.03em;
 `;
 
 const FastChip = styled.li`

@@ -78,6 +78,5 @@ const Subject = styled.p`
   & span {
     ${Pretendard({ font: 1.4, weight: 700, color: Common.colors.GY900 })}
     line-height: 150%;
-    letter-spacing: -0.03em;
   }
 `;

@@ -98,8 +98,6 @@ const Detail = styled.main`
     margin: 0;
     ${Pretendard({ font: 1.6, weight: 700, color: Common.colors.GY900 })}
     line-height: 150%;
-
-    letter-spacing: -0.03em;
   }
 `;
 
@@ -138,7 +136,6 @@ const Hashtag = styled.span`
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  letter-spacing: -0.03em;
 `;
 
 const BtnContainer = styled.div`

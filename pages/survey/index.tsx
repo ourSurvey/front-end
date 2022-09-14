@@ -40,7 +40,6 @@ const Title = styled.p`
   margin-top: 0;
   ${Pretendard({ font: 2, weight: 700, color: Common.colors.GY900 })}
   line-height: 24px;
-  letter-spacing: -0.03em;
   & span {
     ${Pretendard({ font: 2, weight: 700, color: Common.colors.PK500 })}
   }

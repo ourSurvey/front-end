@@ -77,13 +77,11 @@ const Title = styled.div`
     border-radius: 4px;
     padding: 1px 4px;
     margin-right: 4px;
-    letter-spacing: -0.03em;
   }
 
   & .question-num {
     ${Pretendard({ font: 1, weight: 700, color: Common.colors.GY700 })};
     line-height: 150%;
-    letter-spacing: -0.03em;
   }
 `;
 
@@ -103,7 +101,7 @@ const Container = styled.div`
     margin: 0;
     ${Pretendard({ font: 1, weight: 700, color: Common.colors.GY500 })};
     line-height: 150%;
-    letter-spacing: -0.03em;
+
     margin-bottom: 14px;
   }
 
@@ -111,7 +109,7 @@ const Container = styled.div`
     display: block;
     ${Pretendard({ font: 1.3, weight: 400, color: Common.colors.GY900 })};
     line-height: 150%;
-    letter-spacing: -0.03em;
+
     margin-bottom: 14px;
     text-align: left;
     &:last-child {
@@ -124,7 +122,7 @@ const SelectableSpan = styled.span`
   display: block;
   ${Pretendard({ font: 1.3, weight: 400, color: Common.colors.GY900 })};
   line-height: 150%;
-  letter-spacing: -0.03em;
+
   margin-bottom: 14px;
   text-align: left;
   &:last-child {

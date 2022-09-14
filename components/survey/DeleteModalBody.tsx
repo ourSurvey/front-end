@@ -33,7 +33,7 @@ const Confirm = styled.div`
   & span {
     display: inline-block;
     ${Pretendard({ weight: 700, font: 1.6, color: Common.colors.GY900 })};
-    letter-spacing: -0.03em;
+
     margin-bottom: 30px;
   }
 

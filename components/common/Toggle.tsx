@@ -33,7 +33,6 @@ const ToggleSwitch = styled.div<ColorProps>`
     margin-right: 2px;
     ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY700 })}
     line-height: 150%;
-    letter-spacing: -0.03em;
   }
 
   #toggle {

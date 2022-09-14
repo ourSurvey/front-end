@@ -42,7 +42,6 @@ const Share = ({ visibleState, setVisible }: IProps) => {
       ${Pretendard({ font: 1.6, weight: 700, color: Common.colors.GY900 })};
       line-height: 150%;
       text-align: center;
-      letter-spacing: -0.03em;
     }
   `;
 

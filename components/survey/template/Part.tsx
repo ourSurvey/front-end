@@ -39,7 +39,6 @@ const Part = ({ PartNum, ListLength }: IProps) => {
       display: inline;
       ${Pretendard({ font: 1.6, weight: 700, color: (PartNum + 1) % 2 === 0 ? Common.colors.PK500 : Common.colors.GR500 })};
       line-height: 150%;
-      letter-spacing: -0.03em;
     }
     & .total-step {
       ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY300 })};
@@ -116,7 +115,6 @@ const QusetionCount = styled.div`
   & span {
     ${Pretendard({ font: 1, weight: 700, color: Common.colors.GY700 })};
     line-height: 150%;
-    letter-spacing: -0.03em;
   }
   & svg {
     margin-left: 6px;
@@ -151,7 +149,6 @@ const PartButtonContainer = styled.div`
     background-color: ${Common.colors.GY500};
     ${Pretendard({ font: 1.2, weight: 700, color: "#fff" })};
     line-height: 150%;
-    letter-spacing: -0.03em;
 
     & svg {
       margin-right: 6px;

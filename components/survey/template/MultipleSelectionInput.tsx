@@ -56,7 +56,6 @@ const InputContainer = styled.div`
     padding: 12px 15px;
     &::placeholder {
       ${Pretendard({ font: 1.4, weight: 400, color: Common.colors.GY500 })};
-      letter-spacing: -0.03em;
     }
     &:focus {
       outline-color: ${Common.colors.GY700};

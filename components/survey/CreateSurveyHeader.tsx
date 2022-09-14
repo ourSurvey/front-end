@@ -13,7 +13,7 @@ const CreateSurveyHeader = ({ step, name, hasUnderLine }: Props) => {
   const router = useRouter();
   const Span = styled.p`
     ${Pretendard({ font: 1.4, weight: 700, color: Common.colors.GY900 })};
-    letter-spacing: -0.03em;
+
     line-height: 150%;
     display: flex;
     align-items: center;

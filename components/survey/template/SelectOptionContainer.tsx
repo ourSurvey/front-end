@@ -51,14 +51,14 @@ const SelectOptionContainer = ({ color, questionIndex, partIndex }: IProps) => {
       border: 1px solid ${Common.colors.GY100};
       line-height: 150%;
       text-align: center;
-      letter-spacing: -0.03em;
+
       transition: 0.5s;
     }
 
     & .active {
       background-color: ${color === "pink" ? Common.colors.PK500 : Common.colors.GR500};
       ${Pretendard({ font: 1.2, weight: 700, color: "#fff" })};
-      letter-spacing: -0.03em;
+
       line-height: 150%;
     }
   `;
@@ -106,7 +106,6 @@ const Container = styled.div`
 const SelectionTitle = styled.span`
   ${Pretendard({ font: 1, weight: 700, color: Common.colors.GY500 })};
   line-height: 150%;
-  letter-spacing: -0.03em;
 `;
 
 const Input = styled.input`
@@ -119,7 +118,6 @@ const Input = styled.input`
   &::placeholder {
     ${Pretendard({ font: 1.4, weight: 400, color: Common.colors.GY500 })};
     line-height: 17px;
-    letter-spacing: -0.03em;
   }
 `;
 
@@ -133,12 +131,10 @@ const ButtonContainer = styled.div`
     & .first {
       ${Pretendard({ font: 1.2, weight: 700, color: Common.colors.GY900 })};
       line-height: 150%;
-      letter-spacing: -0.03em;
     }
     & .second {
       ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY900 })};
       line-height: 150%;
-      letter-spacing: -0.03em;
     }
 
     &:last-child {

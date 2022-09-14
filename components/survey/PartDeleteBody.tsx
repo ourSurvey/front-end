@@ -40,14 +40,13 @@ const Confirm = styled.div`
   & p {
     margin: 0;
     ${Pretendard({ weight: 400, font: 1.3, color: "#333333" })};
-    letter-spacing: -0.03em;
+
     text-align: center;
     line-height: 150%;
   }
   & span {
     display: inline-block;
     ${Pretendard({ weight: 700, font: 1.6, color: Common.colors.GY900 })};
-    letter-spacing: -0.03em;
   }
 
   & button {

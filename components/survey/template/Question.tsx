@@ -29,13 +29,11 @@ const Question = ({ color, questionId, partNumber }: IProps) => {
       border-radius: 4px;
       padding: 1px 4px;
       margin-right: 4px;
-      letter-spacing: -0.03em;
     }
 
     & .question-num {
       ${Pretendard({ font: 1, weight: 700, color: Common.colors.GY700 })};
       line-height: 150%;
-      letter-spacing: -0.03em;
     }
   `;
 

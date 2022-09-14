@@ -37,7 +37,6 @@ const UlStyle = styled.ul`
   & li {
     ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY500 })}
     line-height: 200%;
-    letter-spacing: -0.03em;
   }
 `;
 

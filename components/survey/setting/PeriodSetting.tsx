@@ -36,7 +36,6 @@ const Period = styled.section`
       border-radius: 10px;
       ${Pretendard({ font: 1.4, weight: 400, color: Common.colors.GY900 })}
       line-height: 16px;
-      letter-spacing: -0.03em;
     }
   }
   & span {

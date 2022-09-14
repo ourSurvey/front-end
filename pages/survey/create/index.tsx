@@ -98,7 +98,6 @@ const Summary = styled.div`
   & ::placeholder {
     ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY300 })}
     line-height: 150%;
-    letter-spacing: -0.03em;
   }
 `;
 
@@ -116,7 +115,6 @@ const ButtonContainer = styled.div`
     border-radius: 5px;
     line-height: 150%;
     width: auto;
-    letter-spacing: -0.03em;
   }
   & button:not(:last-child) {
     margin-right: 15px;
@@ -135,7 +133,6 @@ const TextAreaContainder = styled.div`
     left: 10px;
     ${Pretendard({ font: 1.3, weight: 400, color: Common.colors.GY500 })}
     line-height: 150%;
-    letter-spacing: -0.03em;
   }
 
   & textarea {

@@ -88,9 +88,6 @@ const InputContainer = styled.div`
     &::placeholder {
       ${Pretendard({ font: 1.4, weight: 400, color: Common.colors.GY500 })};
       line-height: 150%;
-      /* identical to box height, or 21px */
-
-      letter-spacing: -0.03em;
     }
   }
 
@@ -130,8 +127,5 @@ const SubTitle = styled.input`
   &::placeholder {
     ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY500 })};
     line-height: 150%;
-    /* identical to box height, or 21px */
-
-    letter-spacing: -0.03em;
   }
 `;

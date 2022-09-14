@@ -51,7 +51,6 @@ const TimeSet = styled.section`
 const Description = styled.span`
   ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY700 })};
   line-height: 150%;
-  letter-spacing: -0.03em;
 `;
 
 const TimerContainer = styled.div`
@@ -67,7 +66,6 @@ const TimerContainer = styled.div`
     border-radius: 10px;
     ${Pretendard({ font: 1.4, weight: 400, color: Common.colors.GY900 })};
     line-height: 150%;
-    letter-spacing: -0.03em;
   }
 
   & span {
@@ -98,7 +96,6 @@ const Tip = styled.div`
     margin-right: 6px;
     ${Pretendard({ font: 1, weight: 700, color: "#fff" })};
     line-height: 150%;
-    letter-spacing: -0.03em;
   }
 
   & .bold {
@@ -111,6 +108,5 @@ const Tip = styled.div`
     margin: 0;
     ${Pretendard({ font: 1, weight: 400, color: Common.colors.GY700 })};
     line-height: 150%;
-    letter-spacing: -0.03em;
   }
 `;

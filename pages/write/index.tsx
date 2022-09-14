@@ -76,7 +76,7 @@ const BtnContainer = styled.div`
     padding: 10px 15px;
     ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY900 })};
     line-height: 150%;
-    letter-spacing: -0.03em;
+
     border: 1px solid ${Common.colors.GY700};
     background-color: #fff;
     border-radius: 5px;
@@ -89,6 +89,5 @@ const BtnContainer = styled.div`
     ${Pretendard({ font: 1.2, weight: 700, color: "#fff" })};
     border-radius: 5px;
     line-height: 150%;
-    letter-spacing: -0.03em;
   }
 `;

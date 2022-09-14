@@ -146,7 +146,6 @@ const IconContainer = styled.div`
       background-color: ${Common.colors.GY50};
       ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY700 })};
       line-height: 150%;
-      letter-spacing: -0.03em;
     }
     & button {
       position: absolute;
@@ -160,7 +159,6 @@ const IconContainer = styled.div`
       border-radius: 3px;
       ${Pretendard({ font: 1.2, weight: 700, color: "#fff" })};
       line-height: 150%;
-      letter-spacing: -0.03em;
     }
   }
 `;

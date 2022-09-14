@@ -38,15 +38,16 @@ export const Pretendard = (props: IPretendard) => css`
   font-weight: ${props.weight};
   line-height: ${props.font * 1.5}rem;
   color: ${props.color};
+  letter-spacing: -0.03em;
 `;
 
 export const AlignCenter = () => css`
   display: flex;
-  align-items:center;
-`
+  align-items: center;
+`;
 
 export const AlignAndJustifyCenter = () => css`
-  display:flex;
-  justify-content : center;
-  align-items : center;
-`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

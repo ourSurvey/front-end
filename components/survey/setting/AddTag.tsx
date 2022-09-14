@@ -99,7 +99,6 @@ const ChipStyle = styled.li`
   padding: 4px 8px;
   ${Pretendard({ font: 1.3, weight: 400, color: Common.colors.GY900 })};
   line-height: 150%;
-  letter-spacing: -0.03em;
   text-align: center;
 
   & svg {

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Pretendard, Common } from "styles/common";
+import { Pretendard, Common, SpaceBetween } from "styles/common";
 import { toastState } from "states/modal";
 import { useRecoilState } from "recoil";
 
@@ -27,9 +27,8 @@ const PartDeleteBody = ({ setVisible }: Props) => {
 export default PartDeleteBody;
 
 const Confirm = styled.div`
-  display: flex;
+  ${SpaceBetween()}
   height: 100%;
-  justify-content: space-between;
   flex-direction: column;
 
   .btn-container {

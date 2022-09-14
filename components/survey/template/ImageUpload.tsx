@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
-import { Common } from "styles/common";
+import { Common, SpaceBetween } from "styles/common";
 import SlideArrow from "public/icon/slide-arrow.svg";
 import ImageUpLoadSvg from "public/icon/img.svg";
-import React from "react";
 
 const ImageUpload = () => {
   return (
@@ -27,8 +26,7 @@ const ImageUpload = () => {
 export default ImageUpload;
 
 const MultipleSelectionLi = styled.li`
-  display: flex;
-  justify-content: space-between;
+  ${SpaceBetween()}
   align-items: center;
 `;
 

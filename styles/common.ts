@@ -51,3 +51,8 @@ export const AlignAndJustifyCenter = () => css`
   justify-content: center;
   align-items: center;
 `;
+
+export const SpaceBetween = () => css`
+  display: flex;
+  justify-content: space-between;
+`;

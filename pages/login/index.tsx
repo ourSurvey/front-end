@@ -6,12 +6,11 @@ import PasswordInput from "components/common/PasswordInput";
 import OutLineButton from "components/common/OutLineButton";
 import styled from "@emotion/styled";
 import { useMutation } from "react-query";
-import { Common, Pretendard } from "styles/common";
+import { Common, Pretendard, SpaceBetween } from "styles/common";
 import { login } from "services/api/auth";
 import Link from "next/link";
 import { toastState } from "states/modal";
 import { useRecoilState } from "recoil";
-import useUser from "hooks/useUser";
 import SearchHeader from "components/common/SearchHeader";
 const Index = () => {
   const router = useRouter();
@@ -79,9 +78,9 @@ const Index = () => {
 };
 
 const FormContainer = styled.div`
-  display: flex;
+  ${SpaceBetween()}
   flex-direction: column;
-  justify-content: space-between;
+
   padding-bottom: 5px;
   height: 100%;
 `;

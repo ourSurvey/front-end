@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Common, Pretendard, AlignAndJustifyCenter } from "styles/common";
+import { Common, Pretendard, AlignAndJustifyCenter, SpaceBetween } from "styles/common";
 import QusetionTitle from "./QusetionTitle";
 import InvertedTriangle from "public/icon/inverted-triangle.svg";
 import Question from "./Question";
@@ -107,8 +107,7 @@ const Line = styled.div`
 `;
 
 const SubjectContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
+  ${SpaceBetween()}
 `;
 
 const QusetionCount = styled.div`

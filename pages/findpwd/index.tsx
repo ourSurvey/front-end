@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "react-query";
 import styled from "@emotion/styled";
-import { Common, Pretendard, AlignAndJustifyCenter } from "styles/common";
+import { Common, Pretendard, AlignAndJustifyCenter, SpaceBetween } from "styles/common";
 import { getFieldError } from "utills/validate";
 import Timmer from "components/common/Timmer";
 import GreenCheck from "public/images/greenCheck.svg";
@@ -133,8 +133,7 @@ const Title = styled.h1`
 `;
 
 const EmailContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
+  ${SpaceBetween()};
   margin-bottom: 6px;
   position: relative;
   & input {

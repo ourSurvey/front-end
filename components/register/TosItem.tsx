@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Pretendard, Common } from "styles/common";
+import { Pretendard, Common, SpaceBetween } from "styles/common";
 interface IProps {
   title: string;
   isRequired: boolean;
@@ -22,8 +22,7 @@ const TosItem = (props: IProps) => {
 export default TosItem;
 
 const Container = styled.div`
-  display: flex;
-  justify-content: space-between;
+  ${SpaceBetween()}
   width: 100%;
   & div {
     display: flex;

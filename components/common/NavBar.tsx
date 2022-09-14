@@ -1,11 +1,9 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
 import Home from "public/icon/home.svg";
-import Plus from "public/icon/plus.svg";
 import Survey from "public/icon/survey.svg";
-import { Common, Pretendard } from "styles/common";
+import { Common, Pretendard, SpaceBetween } from "styles/common";
 import { useRouter } from "next/router";
-import { forwardRef } from "react";
 type ComponentProps = {
   width: number;
   height: number;
@@ -104,28 +102,27 @@ const NavBar = () => {
 export default NavBar;
 
 const NavBarContainer = styled.ul`
-  display: flex;
+  ${SpaceBetween()}
   position: fixed;
   background-color: #fff;
   width: 100%;
   bottom: 0; //주소창 때문에 임시로 걸어둔 것 추후 0으로 변경할 것!!
   margin: 0 -20px 0 -20px;
   list-style-type: none;
-  justify-content: space-between;
+
   padding: 7.5px 20px;
   /* box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 2 px 0px inset; */
   border-top: 1px solid ${Common.colors.GY100};
   & nav {
-    display: flex;
+    ${SpaceBetween()};
     width: 100%;
-    justify-content: space-between;
   }
   & li {
     & a {
-      display: flex;
+      ${SpaceBetween()};
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
+
       height: 45px;
     }
   }

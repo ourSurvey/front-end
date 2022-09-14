@@ -4,7 +4,7 @@ import ConfirmPassword from "components/common/ConfirmPassword";
 import PasswordInput from "components/common/PasswordInput";
 import TosContainer from "./TosContainer";
 import styled from "@emotion/styled";
-import { Common, Pretendard, AlignAndJustifyCenter } from "styles/common";
+import { Common, Pretendard, AlignAndJustifyCenter, SpaceBetween } from "styles/common";
 import { getFieldError } from "utills/validate";
 import { Button } from "components/common/Button";
 import Timmer from "components/common/Timmer";
@@ -186,8 +186,7 @@ const CompletedAuth = styled.div`
   }
 `;
 const EmailContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
+  ${SpaceBetween()}
   margin-bottom: 6px;
   position: relative;
   & input {

@@ -2,7 +2,7 @@ import Close from "public/icon/close.svg";
 import Insta from "public/icon/insta.svg";
 import Kakao from "public/icon/kakao.svg";
 import styled from "@emotion/styled";
-import { Pretendard, Common } from "styles/common";
+import { Pretendard, Common, SpaceBetween } from "styles/common";
 import { useRouter } from "next/router";
 import { toastState } from "states/modal";
 import { useRecoilState } from "recoil";
@@ -107,24 +107,20 @@ export default ShareBody;
 const IconContainer = styled.div`
   margin-top: 21px;
   height: 60%;
-
-  display: flex;
+  ${SpaceBetween()}
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+
   & .center {
     height: 100%;
     width: 70%;
-    display: flex;
+    ${SpaceBetween()}
     flex-direction: column;
-
-    justify-content: space-between;
   }
   & .icons {
-    display: flex;
+    ${SpaceBetween()}
     height: calc(100% - 50px);
     width: 100%;
-    justify-content: space-between;
   }
   & svg {
     display: inline;
@@ -134,8 +130,7 @@ const IconContainer = styled.div`
   & .copy {
     width: 100%;
     position: relative;
-    display: flex;
-    justify-content: space-between;
+    ${SpaceBetween()}
 
     & input {
       width: 100%;

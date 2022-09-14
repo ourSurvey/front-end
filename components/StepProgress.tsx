@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
 import { css, SerializedStyles } from "@emotion/react";
-import { Common } from "styles/common";
+import { Common, SpaceBetween } from "styles/common";
 import { stepState } from "states/stepProgress";
 import { useRecoilValue } from "recoil";
 import bg from "public/images/whiteCheck.png";
@@ -65,8 +65,7 @@ const StepProgress = () => {
 export default StepProgress;
 
 const StepProgressBar = styled.ul`
-  display: flex;
-  justify-content: space-between;
+  ${SpaceBetween()};
   padding: 0;
   list-style: none;
   & li {

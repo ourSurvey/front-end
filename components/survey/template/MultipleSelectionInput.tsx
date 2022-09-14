@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import SlideArrow from "public/icon/slide-arrow.svg";
 import CloseCircle from "public/icon/close-circle.svg";
 import styled from "@emotion/styled";
-import { Common, Pretendard } from "styles/common";
+import { Common, Pretendard, SpaceBetween } from "styles/common";
 import { useRecoilState } from "recoil";
 import { qusetionItemListAtomFamily } from "states/survey";
 import { QuestionItemIDFormat } from "utills/getDateSixth";
@@ -38,8 +38,7 @@ const MultipleSelectionInput = ({ hasDeleteBtn, onDragEnd, id }: IProps) => {
 export default MultipleSelectionInput;
 
 const MultipleSelectionLi = styled.li`
-  display: flex;
-  justify-content: space-between;
+  ${SpaceBetween()}
   align-items: center;
   cursor: move;
 `;

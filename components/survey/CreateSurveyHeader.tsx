@@ -1,6 +1,6 @@
 import Prev from "public/icon/prevArrow.svg";
 import styled from "@emotion/styled";
-import { Common, Pretendard } from "styles/common";
+import { Common, Pretendard, SpaceBetween } from "styles/common";
 import { useRouter } from "next/router";
 import { memo } from "react";
 type Props = {
@@ -23,8 +23,7 @@ const CreateSurveyHeader = ({ step, name, hasUnderLine }: Props) => {
 
   const Header = styled.header`
     background-color: #fff;
-    display: flex;
-    justify-content: space-between;
+    ${SpaceBetween()}
     padding: 21.5px 20px 15px 34px;
 
     border-bottom: ${hasUnderLine ? `1px solid ${Common.colors.GY100}` : "none"};

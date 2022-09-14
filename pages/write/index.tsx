@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Common, Pretendard } from "styles/common";
+import { Common, Pretendard, SpaceBetween } from "styles/common";
 import CreateSurveyHeader from "components/survey/CreateSurveyHeader";
 import Part from "components/survey/template/Part";
 import React, { useState, useEffect } from "react";
@@ -66,8 +66,7 @@ const BtnContainer = styled.div`
   height: 84px;
   background-color: #fff;
   padding: 14px 27px 0 20px;
-  display: flex;
-  justify-content: space-between;
+  ${SpaceBetween()}
   border-top: 1px solid ${Common.colors.GY200};
   & button {
     height: 36px;

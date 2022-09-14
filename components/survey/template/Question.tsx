@@ -1,7 +1,7 @@
 import { useState, memo } from "react";
 import styled from "@emotion/styled";
 import More from "public/icon/vertical-three-dots.svg";
-import { Common, Pretendard } from "styles/common";
+import { Common, Pretendard, SpaceBetween } from "styles/common";
 import Toggle from "components/common/Toggle";
 import QusetionTitle from "./QusetionTitle";
 import SelectOptionContainer from "./SelectOptionContainer";
@@ -67,8 +67,7 @@ const Container = styled.div`
 `;
 
 const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
+  ${SpaceBetween()}
 
   & .right {
     display: flex;

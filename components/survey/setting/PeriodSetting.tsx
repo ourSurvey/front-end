@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Common, Pretendard } from "styles/common";
+import { Common, Pretendard, SpaceBetween } from "styles/common";
 
 const PeriodSetting = () => {
   return (
@@ -27,8 +27,7 @@ const Period = styled.section`
   padding-top: 24px;
   padding-bottom: 32px;
   & .date-container {
-    display: flex;
-    justify-content: space-between;
+    ${SpaceBetween()}
     margin-top: 18px;
     & .date {
       padding: 12px 15px;

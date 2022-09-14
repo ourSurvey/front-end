@@ -1,7 +1,7 @@
 import surveyService from "services/survey.service";
 import { QueryClient, dehydrate, DehydratedState } from "react-query";
 import styled from "@emotion/styled";
-import { Pretendard, Common } from "styles/common";
+import { Pretendard, Common, SpaceBetween } from "styles/common";
 import OutLineButton from "components/common/OutLineButton";
 import { Button } from "components/common/Button";
 import Share from "components/Share";
@@ -139,8 +139,7 @@ const Hashtag = styled.span`
 `;
 
 const BtnContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
+  ${SpaceBetween()}
   position: absolute;
   width: 100%;
   bottom: 0;

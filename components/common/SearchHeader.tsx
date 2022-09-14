@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import Prev from "public/icon/prevArrow.svg";
 import Search from "public/icon/search.svg";
-import { Common, Pretendard } from "styles/common";
+import { Common, Pretendard, SpaceBetween } from "styles/common";
 import { useRouter } from "next/router";
 import { memo } from "react";
 
@@ -31,8 +31,7 @@ const SearchHeader = (props: Props) => {
 };
 
 const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
+  ${SpaceBetween()}
   margin-bottom: 41px;
 
   & .name {

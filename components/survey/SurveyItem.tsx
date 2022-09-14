@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Common, Pretendard } from "styles/common";
+import { Common, Pretendard, AlignAndJustifyCenter } from "styles/common";
 import { IContent } from "types/survey";
 import Lighting from "public/icon/lighting.svg";
 import Link from "next/link";
@@ -87,12 +87,10 @@ const UlContainer = styled.ul`
 `;
 
 const LiStyle = styled.li`
+  ${AlignAndJustifyCenter()};
   margin-right: 5px;
   padding: 0 4px;
-  display: flex;
   border-radius: 3px;
-  justify-content: center;
-  align-items: center;
   border-radius: 3px;
   background-color: ${Common.colors.GY50};
   ${Pretendard({ font: 1, weight: 400, color: "#000" })}
@@ -131,10 +129,8 @@ const Hashtag = styled.span`
 `;
 
 const FastChip = styled.li`
-  display: flex;
+  ${AlignAndJustifyCenter()};
   border-radius: 3px;
-  justify-content: center;
-  align-items: center;
   margin-right: 5px;
   padding: 0 4px 0 0;
   background-color: ${Common.colors.GY700} !important;

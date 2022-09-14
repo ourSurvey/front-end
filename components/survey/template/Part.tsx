@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Common, Pretendard } from "styles/common";
+import { Common, Pretendard, AlignAndJustifyCenter } from "styles/common";
 import QusetionTitle from "./QusetionTitle";
 import InvertedTriangle from "public/icon/inverted-triangle.svg";
 import Question from "./Question";
@@ -140,9 +140,7 @@ const PartButtonContainer = styled.div`
 
   & button {
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    ${AlignAndJustifyCenter()}
     width: 50%;
     height: 50px;
     border: none;

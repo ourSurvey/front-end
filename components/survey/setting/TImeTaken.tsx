@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import { Common, Pretendard } from "styles/common";
+import { Common, Pretendard, AlignAndJustifyCenter } from "styles/common";
 import Minus from "public/icon/minus.svg";
 import Plus from "public/icon/plus-not-cicle.svg";
 
@@ -85,9 +85,7 @@ const Tip = styled.div`
   align-items: center;
 
   & .tip {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    ${AlignAndJustifyCenter()};
     background: linear-gradient(0deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)), #0066d9;
     width: 30px;
     height: 30px;

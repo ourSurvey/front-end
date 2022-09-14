@@ -4,7 +4,7 @@ import ConfirmPassword from "components/common/ConfirmPassword";
 import PasswordInput from "components/common/PasswordInput";
 import TosContainer from "components/register/TosContainer";
 import styled from "@emotion/styled";
-import { Common, Pretendard } from "styles/common";
+import { Common, Pretendard, AlignAndJustifyCenter } from "styles/common";
 import { getFieldError } from "utills/validate";
 import { Button } from "components/common/Button";
 import Timmer from "components/common/Timmer";
@@ -184,9 +184,7 @@ const SignUpConatiner = styled.main`
 
 const CompletedAuth = styled.div`
   width: calc(30% - 10px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${AlignAndJustifyCenter()};
   ${Pretendard({ font: 1.3, weight: 700, color: Common.colors.GR500 })}
   line-height:0;
 

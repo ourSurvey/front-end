@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Link from "next/link";
-import { Common, Pretendard } from "styles/common";
+import { Common, Pretendard, AlignAndJustifyCenter } from "styles/common";
 import styled from "@emotion/styled";
 import OurSurveyLogo from "public/icon/our-survey.svg";
 import { useMutation } from "react-query";
@@ -44,10 +44,8 @@ export default Start;
 
 const StartContainer = styled.main`
   height: 70%;
-  display: flex;
+  ${AlignAndJustifyCenter()}
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 `;
 
 const SvgContainer = styled.section`
@@ -58,10 +56,9 @@ const SvgContainer = styled.section`
 const Button = styled.button`
   height: 50px;
   width: 90%;
-  display: flex;
-  justify-content: center;
+  ${AlignAndJustifyCenter()}
   margin-top: 42px;
-  align-items: center;
+
   padding: 10px 15px;
   outline: none;
   border: none;

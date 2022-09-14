@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import styled from "@emotion/styled";
 import GreenCheck from "public/images/greenCheck.svg";
 import PinkExcalmationMark from "public/images/pinkExclamationMark.svg";
-import { Common, Pretendard } from "styles/common";
+import { Common, Pretendard, AlignAndJustifyCenter } from "styles/common";
 import { toastState } from "states/modal";
 import { useRecoilState } from "recoil";
 import { css, keyframes } from "@emotion/react";
@@ -69,10 +69,7 @@ const Alert = () => {
 export default Alert;
 
 const Error = styled.div`
-  display: flex;
-
-  justify-content: center;
-  align-items: center;
+  ${AlignAndJustifyCenter()};
   height: 48px;
   width: 100%;
   border: 2px solid ${Common.colors.PK500};
@@ -82,9 +79,7 @@ const Error = styled.div`
 `;
 
 const Success = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${AlignAndJustifyCenter()};
   height: 48px;
   width: 100%;
   border: 2px solid ${Common.colors.GR500};

@@ -1,4 +1,4 @@
-import { atom, DefaultValue, selector } from "recoil";
+import { atom } from "recoil";
 
 export const tagState = atom<string[]>({
   key: "tagState",

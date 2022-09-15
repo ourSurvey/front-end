@@ -37,9 +37,6 @@ const Index = () => {
     }
   }, [content]);
 
-  const nextPage = () => {
-    router.push("/write");
-  };
   return (
     <Summary>
       <header>

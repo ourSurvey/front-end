@@ -8,7 +8,12 @@ import { useRef, useState } from "react";
 import SearchTagList from "components/survey/setting/SearchTagList";
 import ShowTagList from "components/survey/setting/ShowTagList";
 import { tagState } from "states/tag";
+import { toastState } from "states/modal";
 import { useRecoilState } from "recoil";
+import Portal from "components/common/Portal";
+import ModalTemplate from "components/common/ModalTemplate";
+import LeavePageAlert from "components/survey/setting/LeavePageAlert";
+import { useEffect } from "react";
 interface IStyle {
   inputFocus?: boolean;
   tag: string;
@@ -17,6 +22,10 @@ interface IStyle {
 const AddTag: NextPage = () => {
   const router = useRouter();
   const [tag, setTag] = useState("");
+  const [visibleAlertState, setVisibleAlertState] = useState(false);
+  const [ToastState, setToastState] = useRecoilState(toastState);
+  const [destination, setDestination] = useState("");
+  const [leave, setLeave] = useState(false);
   const [inputFocus, setinputFocus] = useState(false);
   const refs = useRef<HTMLInputElement>(null);
   const [tagList, setTagList] = useRecoilState(tagState);
@@ -31,23 +40,63 @@ const AddTag: NextPage = () => {
 
   const addTagHandler = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
-      setTagList([...tagList, tag]);
+      setTagList([...new Set([...tagList, tag])]);
       onReset();
     }
   };
   const addTagClick = () => {
-    setTagList([...tagList, tag]);
+    setTagList([...new Set([...tagList, tag])]);
     onReset();
   };
+
+  const handleRouteChange = (url: string) => {
+    console.log("얘가 실행되나");
+
+    setLeave(true);
+    setDestination(url);
+    throw `Route change to "${url}" was aborted (this error can be safely ignored).`;
+  };
+  const leavePage = () => {
+    setLeave(false);
+    setVisibleAlertState(true);
+  };
+
+  const onSave = () => {
+    setToastState({
+      ...ToastState,
+      text: "태그가 저장되었습니다.",
+      toastType: "success",
+    });
+    setVisibleAlertState(true);
+    // setTimeout(() => {
+    //   leavePage();
+    // }, 500);
+  };
+
+  //뒤로가기 이벤트 감지
+  useEffect(() => {
+    //if (tagList.length === 0) return;  파일이 업로드되지 않은 상태에선 자유롭게 뒤로가도됨
+    router.events.on("routeChangeStart", handleRouteChange);
+    if (visibleAlertState) {
+      setVisibleAlertState(false);
+      router.replace("/write/setting");
+      router.events.off("routeChangeStart", handleRouteChange);
+    }
+    return () => {
+      console.log("종료");
+
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, [destination, visibleAlertState]);
 
   return (
     <Container tag={tag}>
       <Header>
-        <SvgPosition onClick={() => router.back()}>
-          <Prev width="20" height="16" />
+        <SvgPosition>
+          <Prev width="20" height="16" onClick={() => router.back()} />
         </SvgPosition>
         <PageTitle>태그 추가</PageTitle>
-        <Save>저장</Save>
+        <Save onClick={onSave}>저장</Save>
       </Header>
 
       <InputContainer inputFocus={inputFocus} tag={tag}>
@@ -69,9 +118,20 @@ const AddTag: NextPage = () => {
 
       <CountContainer>
         <span className="current">{tagList.length}&nbsp;</span>
-        <span className="maximun">| 최대 30개</span>
+        <span className="maximun">
+          | {tagList.length === 30 && tag !== "" ? <ErrorMessage>최대 30개까지 추가할 수 있습니다.</ErrorMessage> : "최대 30개"}
+        </span>
       </CountContainer>
+
       {tag !== "" ? <SearchTagList inputValue={tag} onReset={onReset} /> : <ShowTagList />}
+
+      {leave && (
+        <Portal selector="#portal">
+          <ModalTemplate height={25} visibleState={leave} setVisible={setLeave}>
+            <LeavePageAlert setLeavePage={leavePage} setVisible={setLeave} />
+          </ModalTemplate>
+        </Portal>
+      )}
     </Container>
   );
 };
@@ -79,7 +139,7 @@ const AddTag: NextPage = () => {
 export default AddTag;
 
 const Container = styled.main<IStyle>`
-  margin-bottom: 30px;
+  height: 100%;
   & input {
     padding: 14.5px 15px 14.5px 24px;
     border: 1px solid ${Common.colors.GY300};
@@ -174,4 +234,8 @@ const InputContainer = styled.div<IStyle>`
     ${Pretendard({ font: 1.4, weight: 700, color: Common.colors.BL500 })};
     line-height: 150%;
   }
+`;
+
+const ErrorMessage = styled.span`
+  ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.alert500 })}
 `;

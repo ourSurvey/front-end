@@ -1,5 +1,7 @@
 import gql from "graphql-tag";
+import ApiClient from "services/ApiClient";
 
+const api = new ApiClient();
 export const GET_SURVEY = gql`
   query ($page: Int!, $size: Int!) {
     getSurveyToPage(page: $page, size: $size) {
@@ -25,3 +27,5 @@ export const GET_SURVEY = gql`
     }
   }
 `;
+
+export const getTagList = (tagString: string) => api.get(`/hashtag/${tagString}`);

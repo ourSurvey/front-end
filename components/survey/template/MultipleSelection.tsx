@@ -13,7 +13,7 @@ interface IProps {
 
 const MultipleSelection = ({ questionIndex, partIndex }: IProps) => {
   const PartFormat = PartIDFormat(partIndex);
-  const QuestionFormat = QuestionIDFormat(questionIndex + 1);
+  const QuestionFormat = QuestionIDFormat(questionIndex + 1, partIndex);
   const SyscodeFormat = `${PartFormat}${QuestionFormat}` as QuestionItemListID;
   const [items, setItems] = useState([""]);
   const dragItem = useRef<any>(null);

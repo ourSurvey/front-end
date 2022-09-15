@@ -3,9 +3,11 @@ import PeriodSetting from "components/survey/setting/PeriodSetting";
 import TImeTaken from "components/survey/setting/TImeTaken";
 import React from "react";
 import styled from "@emotion/styled";
-import { Common, Pretendard } from "styles/common";
+import { Common, Pretendard, SpaceBetween } from "styles/common";
 import SubLayout from "components/SubLayout";
 import AddTag from "components/survey/setting/AddTag";
+import ShareResult from "components/survey/setting/ShareResult";
+import CommentRespondent from "components/survey/setting/CommentRespondent";
 export default function Setting() {
   return (
     <SettingPage>
@@ -14,6 +16,12 @@ export default function Setting() {
         <PeriodSetting />
         <TImeTaken />
         <AddTag />
+        <ShareResult />
+        <CommentRespondent />
+        <BtnContainer>
+          <button className="temporary-storage">임시저장</button>
+          <button className="upload">설문 업로드</button>
+        </BtnContainer>
       </SettingItemContainer>
     </SettingPage>
   );
@@ -34,6 +42,10 @@ const SettingPage = styled.main`
 
   & section {
     margin-bottom: 10px;
+
+    &:last-of-type {
+      margin-bottom: 1px;
+    }
   }
 `;
 
@@ -41,10 +53,35 @@ const SettingItemContainer = styled.div`
   display: block;
   height: calc(100% - 54px) !important;
   width: 100%;
-  padding-bottom: 84px;
 
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;
+  }
+`;
+
+const BtnContainer = styled.footer`
+  ${SpaceBetween()};
+  background-color: #fff;
+  padding: 13px 20px 34px 20px;
+  & button {
+    outline: none;
+    border: none;
+    border-radius: 5px;
+
+    height: 36px;
+    line-height: 150%;
+  }
+
+  & .temporary-storage {
+    width: 33%;
+    border: 1px solid ${Common.colors.GY700};
+    ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY900 })}
+    background-color:#fff;
+  }
+  & .upload {
+    width: calc(67% - 7px);
+    background-color: ${Common.colors.BL500};
+    ${Pretendard({ font: 1.2, weight: 700, color: "#fff" })};
   }
 `;

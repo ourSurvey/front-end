@@ -1,7 +1,5 @@
 import styled from "@emotion/styled";
 import { Pretendard, Common } from "styles/common";
-import { toastState } from "states/modal";
-import { useRecoilState } from "recoil";
 
 type Props = {
   setVisible: (bool: boolean) => void;

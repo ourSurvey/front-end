@@ -20,7 +20,6 @@ const MultipleSelection = ({ questionIndex, partIndex }: IProps) => {
   const dragOverItem = useRef<any>(null);
 
   const questionItemIdList = useRecoilValue(qusetionItemIdListAtom(SyscodeFormat));
-  console.log(`questionIndex: ${questionIndex}, partIndex:${partIndex}`, questionItemIdList);
 
   const handleSort = (e: React.TouchEvent<HTMLLIElement>) => {
     console.log(e.targetTouches[0]);

@@ -15,8 +15,15 @@ const ShowTagList = () => {
 
 export default ShowTagList;
 
-const TagListContainer = styled.div`
+const TagListContainer = styled.ul`
   display: flex;
   flex-wrap: wrap;
   gap: 14px 12px;
+  max-height: calc(100% - 151px);
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  margin: 0;
+  padding-left: 0;
 `;

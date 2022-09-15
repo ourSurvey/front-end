@@ -1,3 +1,4 @@
+import TokenProvider from "services/TokenProvider";
 import axios, { AxiosRequestConfig } from "axios";
 
 class ApiClient {
@@ -8,20 +9,33 @@ class ApiClient {
     });
   }
 
-  get(url: string, option?: AxiosRequestConfig) {
-    return this.#instance.get(url, option);
+  requsetConfig(options: any = {}) {
+    return TokenProvider.has("accessToken")
+      ? {
+          headers: {
+            ...options,
+            Authorization: `Bearer ${TokenProvider.get("accessToken")}`,
+          },
+        }
+      : options.customHeader;
+  }
+
+  async get(url: string, option?: AxiosRequestConfig) {
+    const { data } = await this.#instance.get(url, this.requsetConfig(option));
+
+    return data;
   }
 
   post(url: string, data: any, option?: AxiosRequestConfig) {
-    return this.#instance.post(url, data, option);
+    return this.#instance.post(url, data, this.requsetConfig(option));
   }
 
   put(url: string, data: any, option?: AxiosRequestConfig) {
-    return this.#instance.put(url, data, option);
+    return this.#instance.put(url, data, this.requsetConfig(option));
   }
 
   delete(url: string, option?: AxiosRequestConfig) {
-    return this.#instance.delete(url, option);
+    return this.#instance.delete(url, this.requsetConfig(option));
   }
 }
 

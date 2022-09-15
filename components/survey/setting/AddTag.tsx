@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { Common, Pretendard } from "styles/common";
 import Link from "next/link";
 import Plus from "public/icon/plus-blue.svg";
+import Chip from "./Chip";
 
 const AddTag = () => {
   return (
@@ -16,12 +17,9 @@ const AddTag = () => {
       </Link>
 
       <UlContainer>
-        <Chip text="설문결과가 매우 좋군여" />
-        <Chip text="태그" />
-        <Chip text="태그" />
-        <Chip text="태그" />
-        <Chip text="태그" />
-        <Chip text="태그" />
+        {TagState.map((item) => (
+          <Chip text={item} key={item} />
+        ))}
       </UlContainer>
     </TagAdd>
   );

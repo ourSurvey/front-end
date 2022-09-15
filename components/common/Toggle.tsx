@@ -1,24 +1,35 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Common, Pretendard } from "styles/common";
+import { IQuestion } from "types/survey";
 
 interface IProps {
   name?: string;
-  toggle: boolean;
-  setToggle: (e: boolean) => void;
+  question: IQuestion;
+  setQuestion: any;
   color: string;
+  id: any;
 }
 
 type ColorProps = {
   mainColor: string;
 };
 
-const Toggle = ({ name, toggle, setToggle, color }: IProps) => {
+const Toggle = ({ name, question, setQuestion, color, id }: IProps) => {
+  const onToggleHanler = () => {
+    console.log("변경", question);
+
+    setQuestion({
+      ...question,
+      essFl: question.essFl === 0 ? 1 : 0,
+    });
+  };
+
   return (
     <ToggleSwitch mainColor={color}>
       <span>{name}</span>
-      <label htmlFor="toggle" className="toggle-label">
-        <input type="checkbox" checked={toggle} onChange={() => setToggle(!toggle)} id="toggle" />
+      <label htmlFor={id} className="toggle-label">
+        <input className="toggle" type="checkbox" checked={Boolean(question.essFl)} onChange={onToggleHanler} id={id} />
         <div className="toggle-label-handle"></div>
       </label>
     </ToggleSwitch>
@@ -35,7 +46,7 @@ const ToggleSwitch = styled.div<ColorProps>`
     line-height: 150%;
   }
 
-  #toggle {
+  .toggle {
     display: none;
     &:checked + div {
       border: ${(props) => (props.mainColor === "pink" ? `1px solid ${Common.colors.PK500}` : `1px solid ${Common.colors.GR500}`)};
@@ -48,7 +59,7 @@ const ToggleSwitch = styled.div<ColorProps>`
     }
   }
 
-  #toggle .toggle-label {
+  .toggle .toggle-label {
     display: inline-block;
   }
   .toggle-label-handle {

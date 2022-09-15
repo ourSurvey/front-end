@@ -25,8 +25,8 @@ export const numberSet = (num: number) => {
 export const PartIDFormat = (idx: number): SectionID => {
   return `SCTN${getDateSixDigitsFormatToday()}${numberSet(idx)}`;
 };
-export const QuestionIDFormat = (idx: number): QuestionID => {
-  return `QSTN${getDateSixDigitsFormatToday()}${numberSet(idx)}`;
+export const QuestionIDFormat = (idx: number, partId: number): QuestionID => {
+  return `QSTN${partId}${getDateSixDigitsFormatToday()}${numberSet(idx)}`;
 };
 export const QuestionListIDFormat = (idx: number): QuestionListID => {
   return `QTSCTN${getDateSixDigitsFormatToday()}${numberSet(idx)}`;

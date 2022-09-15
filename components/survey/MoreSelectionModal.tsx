@@ -4,6 +4,8 @@ import { Common, Pretendard } from "styles/common";
 import styled from "@emotion/styled";
 import DeleteConfirm from "./DeleteConfirm";
 import Portal from "components/common/Portal";
+import ModalTemplate from "components/common/ModalTemplate";
+import PartDeleteBody from "./PartDeleteBody";
 type Props = {};
 
 const MoreSelectionModal = () => {
@@ -44,7 +46,10 @@ const MoreSelectionModal = () => {
       </div>
       {deleteModal && (
         <Portal selector="#portal">
-          <DeleteConfirm visibleState={deleteModal} setVisible={setdeleteModal} />
+          {/* <DeleteConfirm visibleState={deleteModal} setVisible={setdeleteModal} /> */}
+          <ModalTemplate visibleState={deleteModal} setVisible={setdeleteModal} height={25}>
+            <PartDeleteBody setVisible={setdeleteModal} />
+          </ModalTemplate>
         </Portal>
       )}
     </MoreOption>

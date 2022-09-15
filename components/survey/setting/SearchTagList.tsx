@@ -1,20 +1,32 @@
 import useDebounce from "hooks/useDebouce";
-import React from "react";
 import { useResults } from "utills/autoCompleteSecarch";
 import { Pretendard, Common } from "styles/common";
 import styled from "@emotion/styled";
+import { tagState } from "states/tag";
+import { useRecoilState } from "recoil";
 interface IProps {
   inputValue: string;
+  onReset: () => void;
 }
 
-const SearchTagList = ({ inputValue }: IProps) => {
+const SearchTagList = ({ inputValue, onReset }: IProps) => {
   const debouncedSearch = useDebounce(inputValue, 500);
   const { data } = useResults(debouncedSearch);
+  const [tagList, setTagList] = useRecoilState(tagState);
+
+  const addTagHandler = (tagName: string) => {
+    setTagList([...tagList, tagName]);
+    onReset();
+  };
 
   return (
     <SearchTagListContainer>
       {data?.data.map((item: string) => {
-        return <li key={item}># {item}</li>;
+        return (
+          <li key={item} onClick={() => addTagHandler(item)}>
+            #&nbsp;{item}
+          </li>
+        );
       })}
     </SearchTagListContainer>
   );

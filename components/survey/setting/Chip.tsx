@@ -16,7 +16,7 @@ const Chip = ({ text }: Iprops) => {
   };
   return (
     <ChipStyle>
-      #{text}
+      #&nbsp;{text}
       <Close width="8" height="8" onClick={deleteTagHandler} fill={Common.colors.GY500} />
     </ChipStyle>
   );

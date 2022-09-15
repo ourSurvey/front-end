@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Common, Pretendard } from "styles/common";
 import ImageUpLoadSvg from "public/icon/img.svg";
-import React from "react";
+import React, { useCallback, memo } from "react";
 import { css } from "@emotion/react";
 import { ISection, IQuestion } from "types/survey";
 
@@ -17,33 +17,39 @@ const QusetionTitle = ({ hasImageInput, setValue, value, placeHolder }: IProps) 
     display: ${hasImageInput ? "inline" : "none"};
   `;
 
-  const TitleOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if ("title" in value) {
-      setValue({
-        ...value,
-        title: e.currentTarget.value,
-      });
-    } else {
-      setValue({
-        ...value,
-        ask: e.currentTarget.value,
-      });
-    }
-  };
+  const TitleOnChangeHandler = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      if ("title" in value) {
+        setValue({
+          ...value,
+          title: e.currentTarget.value,
+        });
+      } else {
+        setValue({
+          ...value,
+          ask: e.currentTarget.value,
+        });
+      }
+    },
+    [value]
+  );
 
-  const ContentChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if ("content" in value) {
-      setValue({
-        ...value,
-        content: e.currentTarget.value,
-      });
-    } else {
-      setValue({
-        ...value,
-        explain: e.currentTarget.value,
-      });
-    }
-  };
+  const ContentChangeHandler = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      if ("content" in value) {
+        setValue({
+          ...value,
+          content: e.currentTarget.value,
+        });
+      } else {
+        setValue({
+          ...value,
+          explain: e.currentTarget.value,
+        });
+      }
+    },
+    [value]
+  );
 
   return (
     <TitleAndSubTitle>
@@ -67,7 +73,7 @@ const QusetionTitle = ({ hasImageInput, setValue, value, placeHolder }: IProps) 
   );
 };
 
-export default QusetionTitle;
+export default memo(QusetionTitle);
 
 const TitleAndSubTitle = styled.div`
   margin-top: 12px;

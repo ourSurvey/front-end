@@ -1,4 +1,4 @@
-import { useState, memo } from "react";
+import { useState, memo, useEffect } from "react";
 import styled from "@emotion/styled";
 import More from "public/icon/vertical-three-dots.svg";
 import { Common, Pretendard, SpaceBetween } from "styles/common";
@@ -17,9 +17,8 @@ interface IProps {
 }
 
 const Question = ({ color, questionId, partNumber }: IProps) => {
-  const [toggle, settoggle] = useState(false);
   const [visibleMore, setVisibleMore] = useState(false);
-  const [question, setQusetion] = useRecoilState(qusetionListAtomFamily(QuestionIDFormat(questionId + 1)));
+  const [question, setQusetion] = useRecoilState(qusetionListAtomFamily(QuestionIDFormat(questionId + 1, partNumber)));
 
   const Title = styled.div`
     & .part {
@@ -45,7 +44,7 @@ const Question = ({ color, questionId, partNumber }: IProps) => {
           <span className="question-num">질문 {questionId + 1}.</span>
         </Title>
         <div className="right">
-          <Toggle color={color} name="필수" toggle={toggle} setToggle={settoggle} />
+          <Toggle color={color} name="필수" question={question} setQuestion={setQusetion} id={QuestionIDFormat(questionId + 1, partNumber)} />
           <More onClick={() => setVisibleMore(true)} />
         </div>
       </Header>
@@ -59,7 +58,7 @@ const Question = ({ color, questionId, partNumber }: IProps) => {
   );
 };
 
-export default memo(Question);
+export default Question;
 
 const Container = styled.div`
   background-color: #fff;

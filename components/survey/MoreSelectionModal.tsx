@@ -1,21 +1,26 @@
 import { useState } from "react";
-
 import { Common, Pretendard } from "styles/common";
 import styled from "@emotion/styled";
-import DeleteConfirm from "./DeleteConfirm";
 import Portal from "components/common/Portal";
 import ModalTemplate from "components/common/ModalTemplate";
 import PartDeleteBody from "./PartDeleteBody";
-import { QuestionID } from "types/survey";
-type Props = {
-  id: QuestionID;
-};
+import { qusetionListAtomFamily, MoreModalAtom } from "states/survey";
+import { useRecoilState, useRecoilValue } from "recoil";
 
-const MoreSelectionModal = ({ id }: Props) => {
+const MoreSelectionModal = () => {
   const [deleteModal, setdeleteModal] = useState(false);
-  const [random, setRandom] = useState(false);
+
   const [movePartByAnswer, setMovePartByAnswer] = useState(false);
-  console.log(id);
+  const questionId = useRecoilValue(MoreModalAtom);
+  const [question, setQusetion] = useRecoilState(qusetionListAtomFamily(questionId));
+
+  const onToggleRandomFlag = () => {
+    const flag: 0 | 1 = question.randomShowFl === 1 ? 0 : 1;
+    setQusetion({
+      ...question,
+      randomShowFl: flag,
+    });
+  };
 
   return (
     <MoreOption>
@@ -27,7 +32,7 @@ const MoreSelectionModal = ({ id }: Props) => {
       <div>
         <Container>
           <h6>선택지 옵션</h6>
-          <SelectableSpan className={random ? "active" : ""} onClick={() => setRandom((prev) => !prev)}>
+          <SelectableSpan className={question.randomShowFl === 1 ? "active" : ""} onClick={onToggleRandomFlag}>
             선택지 순서 무작위로 섞기
           </SelectableSpan>
           <SelectableSpan className={movePartByAnswer ? "active" : ""} onClick={() => setMovePartByAnswer((prev) => !prev)}>

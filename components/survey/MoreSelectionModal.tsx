@@ -6,12 +6,17 @@ import DeleteConfirm from "./DeleteConfirm";
 import Portal from "components/common/Portal";
 import ModalTemplate from "components/common/ModalTemplate";
 import PartDeleteBody from "./PartDeleteBody";
-type Props = {};
+import { QuestionID } from "types/survey";
+type Props = {
+  id: QuestionID;
+};
 
-const MoreSelectionModal = () => {
+const MoreSelectionModal = ({ id }: Props) => {
   const [deleteModal, setdeleteModal] = useState(false);
   const [random, setRandom] = useState(false);
   const [movePartByAnswer, setMovePartByAnswer] = useState(false);
+  console.log(id);
+
   return (
     <MoreOption>
       <Title>

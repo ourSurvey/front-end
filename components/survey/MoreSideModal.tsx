@@ -3,13 +3,15 @@ import React, { useRef, useEffect, useState } from "react";
 import MoreSelectionModal from "./MoreSelectionModal";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
+import { QuestionID } from "types/survey";
 
 interface IProps {
   visibleState: boolean;
   setVisible: (state: boolean) => void;
+  questionId: QuestionID;
 }
 
-const MoreSideModal = ({ visibleState, setVisible }: IProps) => {
+const MoreSideModal = ({ visibleState, setVisible, questionId }: IProps) => {
   const [modalShow, setModalShow] = useState(visibleState);
   let touchMoveStartLocation: number;
   const refs = useRef<any>(null); //모달의 width 크기를 잡기 위한 ref
@@ -65,7 +67,7 @@ const MoreSideModal = ({ visibleState, setVisible }: IProps) => {
         }}
       />
       <Modal ref={refs} onTouchStart={moveStartHandler} onTouchEnd={moveEndHandler}>
-        <MoreSelectionModal />
+        <MoreSelectionModal id={questionId} />
       </Modal>
     </>
   );

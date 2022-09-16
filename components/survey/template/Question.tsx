@@ -52,8 +52,12 @@ const Question = ({ color, questionId, partNumber }: IProps) => {
       <TitleContainer>
         <QusetionTitle placeHolder="질문" value={question} setValue={setQusetion} hasImageInput={true} />
       </TitleContainer>
-      <SelectOptionContainer partIndex={partNumber} questionIndex={questionId} color={color} />
-      <Portal selector="#portal">{visibleMore ? <MoreSideModal visibleState={visibleMore} setVisible={setVisibleMore} /> : null}</Portal>
+      <SelectOptionContainer partIndex={partNumber} questionIndex={questionId + 1} color={color} />
+      <Portal selector="#portal">
+        {visibleMore ? (
+          <MoreSideModal questionId={QuestionIDFormat(questionId + 1, partNumber)} visibleState={visibleMore} setVisible={setVisibleMore} />
+        ) : null}
+      </Portal>
     </Container>
   );
 };

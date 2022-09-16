@@ -15,7 +15,9 @@ interface IProps {
 
 const SelectOptionContainer = ({ color, questionIndex, partIndex }: IProps) => {
   const PartFormat = `SCTN${getDateSixDigitsFormatToday()}${numberSet(partIndex)}`;
-  const QuestionFormat = `QSTN${getDateSixDigitsFormatToday()}${numberSet(questionIndex + 1)}`;
+  const QuestionFormat = `QSTN${getDateSixDigitsFormatToday()}${numberSet(questionIndex)}`;
+  console.log(PartFormat, QuestionFormat);
+
   const SyscodeFormat = `${PartFormat}${QuestionFormat}` as QuestionItemListID;
   const [isActive, setIsActive] = useState<0 | 1>(1);
   const [isMultipleAnswersPossible, setIsMultipleAnswersPossible] = useState(false);
@@ -23,12 +25,7 @@ const SelectOptionContainer = ({ color, questionIndex, partIndex }: IProps) => {
   const addQuestionItem = useRecoilCallback(({ snapshot, set }) => () => {
     const questionItemIds = snapshot.getLoadable(qusetionItemIdListAtom(SyscodeFormat)).getValue();
     const lastNumber = questionItemIds[questionItemIds.length - 1].slice(-1);
-    const PartFormatInLastNumber = `SCTN${getDateSixDigitsFormatToday()}${numberSet(Number(lastNumber) + 1)}`;
-    const QuestionFormatInLastNumber = `QSTN${getDateSixDigitsFormatToday()}${numberSet(Number(lastNumber) + 1)}`;
-    set(qusetionItemIdListAtom(SyscodeFormat), [
-      ...questionItemIds,
-      `${PartFormatInLastNumber}${QuestionFormatInLastNumber}`,
-    ] as QuestionItemListID[]);
+    set(qusetionItemIdListAtom(SyscodeFormat), [...questionItemIds, `${SyscodeFormat}${Number(lastNumber) + 1}`] as QuestionItemListID[]);
   });
 
   const SelectOption = styled.ul`
@@ -79,7 +76,7 @@ const SelectOptionContainer = ({ color, questionIndex, partIndex }: IProps) => {
       </SelectOption>
 
       {isActive ? (
-        <MultipleSelection partIndex={partIndex} questionIndex={questionIndex} />
+        <MultipleSelection sysCode={SyscodeFormat} partIndex={partIndex} questionIndex={questionIndex} />
       ) : (
         <Input disabled placeholder="이곳에 답변을 입력해주세요." />
       )}

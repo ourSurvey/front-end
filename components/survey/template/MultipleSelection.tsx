@@ -9,17 +9,15 @@ import { PartIDFormat, QuestionIDFormat } from "utills/getDateSixth";
 interface IProps {
   questionIndex: number;
   partIndex: number;
+  sysCode: QuestionItemListID;
 }
 
-const MultipleSelection = ({ questionIndex, partIndex }: IProps) => {
-  const PartFormat = PartIDFormat(partIndex);
-  const QuestionFormat = QuestionIDFormat(questionIndex + 1, partIndex);
-  const SyscodeFormat = `${PartFormat}${QuestionFormat}` as QuestionItemListID;
+const MultipleSelection = ({ questionIndex, partIndex, sysCode }: IProps) => {
   const [items, setItems] = useState([""]);
   const dragItem = useRef<any>(null);
   const dragOverItem = useRef<any>(null);
 
-  const questionItemIdList = useRecoilValue(qusetionItemIdListAtom(SyscodeFormat));
+  const questionItemIdList = useRecoilValue(qusetionItemIdListAtom(sysCode));
 
   const handleSort = (e: React.TouchEvent<HTMLLIElement>) => {
     console.log(e.targetTouches[0]);
@@ -40,7 +38,18 @@ const MultipleSelection = ({ questionIndex, partIndex }: IProps) => {
   return (
     <Option>
       {questionItemIdList.map((id, idx, arr) => {
-        return <MultipleSelectionInput key={id} hasDeleteBtn={arr.length > 1} id={idx} onDragEnd={handleSort} />;
+        return (
+          <MultipleSelectionInput
+            key={id}
+            hasDeleteBtn={arr.length > 1}
+            partId={partIndex}
+            questionId={questionIndex}
+            selectionNumber={idx + 1}
+            onDragEnd={handleSort}
+            id={sysCode} //해당 선택지 리스트에 대한 id값
+            idName={id} //선택지 리스트 안에 있는 고유 id 값
+          />
+        );
       })}
     </Option>
   );

@@ -32,6 +32,6 @@ export const QuestionListIDFormat = (idx: number): QuestionListID => {
   return `QTSCTN${getDateSixDigitsFormatToday()}${numberSet(idx)}`;
 };
 
-export const QuestionItemIDFormat = (idx: number): QuestionItemID => {
-  return `QSTI${getDateSixDigitsFormatToday()}${numberSet(idx)}`;
+export const QuestionItemIDFormat = (partId: number, questionId: number, idx: number): QuestionItemID => {
+  return `QSTI${partId}${questionId}${idx}${getDateSixDigitsFormatToday()}${numberSet(idx)}`;
 };

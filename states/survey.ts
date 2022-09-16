@@ -44,7 +44,7 @@ export const qusetionItemListAtomFamily = atomFamily<IQuestionItem, QuestionItem
 //질문지의 Item ID만 관리하는 atom
 export const qusetionItemIdListAtom = atomFamily<QuestionItemListID[], QuestionItemListID>({
   key: "qusetionItemIdListAtom",
-  default: (id) => [id],
+  default: (id) => [`${id}1` as QuestionItemListID],
 });
 
 export const qusetionListAtomFamily = atomFamily<IQuestion, QuestionID>({

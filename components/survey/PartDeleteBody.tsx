@@ -5,20 +5,27 @@ import { useRecoilState } from "recoil";
 
 type Props = {
   setVisible: (bool: boolean) => void;
+  onDelete: () => void;
+  length: number;
 };
 
-const PartDeleteBody = ({ setVisible }: Props) => {
+const PartDeleteBody = ({ setVisible, onDelete, length }: Props) => {
   return (
     <Confirm>
-      <span>질문과 파트 모두 삭제 하시겠습니까?</span>
-      <p>
-        파트에 속한 질문이 없을 경우
-        <br />
-        파트도 함께 삭제됩니다.
-      </p>
+      <span>{length > 1 ? "질문을 정말 삭제하시겠습니까?" : "질문과 파트 모두 삭제 하시겠습니까?"}</span>
+      {length === 1 && (
+        <p>
+          파트에 속한 질문이 없을 경우
+          <br />
+          파트도 함께 삭제됩니다.
+        </p>
+      )}
+
       <div className="btn-container">
         <button onClick={() => setVisible(false)}>취소</button>
-        <button className="del">모두 삭제</button>
+        <button className="del" onClick={onDelete}>
+          {length > 1 ? "삭제" : "모두 삭제"}
+        </button>
       </div>
     </Confirm>
   );

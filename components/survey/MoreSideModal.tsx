@@ -66,7 +66,7 @@ const MoreSideModal = ({ visibleState, setVisible }: IProps) => {
         }}
       />
       <Modal ref={refs} onTouchStart={moveStartHandler} onTouchEnd={moveEndHandler}>
-        <MoreSelectionModal />
+        <MoreSelectionModal setSideModal={setModalShow} />
       </Modal>
     </>
   );

@@ -4,15 +4,32 @@ import styled from "@emotion/styled";
 import Portal from "components/common/Portal";
 import ModalTemplate from "components/common/ModalTemplate";
 import PartDeleteBody from "./PartDeleteBody";
-import { qusetionListAtomFamily, MoreModalAtom } from "states/survey";
-import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  qusetionListAtomFamily,
+  MoreModalAtom,
+  targetQuestionListIDAtom,
+  qusetionIdListAtom,
+  targetQuestionIDAtom,
+  targetPartIdAtom,
+  sectionIdListAtom,
+} from "states/survey";
+import { toastState } from "states/modal";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { PartIDFormat } from "utills/getDateSixth";
+interface IProps {
+  setSideModal: (bool: boolean) => void;
+}
 
-const MoreSelectionModal = () => {
+const MoreSelectionModal = ({ setSideModal }: IProps) => {
   const [deleteModal, setdeleteModal] = useState(false);
-
-  const [movePartByAnswer, setMovePartByAnswer] = useState(false);
   const questionId = useRecoilValue(MoreModalAtom);
   const [question, setQusetion] = useRecoilState(qusetionListAtomFamily(questionId));
+  const targetQuestion = useRecoilValue(targetQuestionListIDAtom);
+  const [questionIdList, setQuestionIdList] = useRecoilState(qusetionIdListAtom(targetQuestion));
+  const qusetionID = useRecoilValue(targetQuestionIDAtom);
+  const [ToastState, setToastState] = useRecoilState(toastState);
+  const targetPartID = useRecoilValue(targetPartIdAtom);
+  const setPartList = useSetRecoilState(sectionIdListAtom);
 
   const onToggleRandomFlag = () => {
     const flag: 0 | 1 = question.randomShowFl === 1 ? 0 : 1;
@@ -20,6 +37,33 @@ const MoreSelectionModal = () => {
       ...question,
       randomShowFl: flag,
     });
+  };
+
+  const onToggleNextPartFlag = () => {
+    setQusetion({
+      ...question,
+      hasNextPart: !question.hasNextPart,
+    });
+  };
+
+  const onDeleteQuestion = () => {
+    console.log(targetPartID);
+
+    if (questionIdList.length === 1) {
+      setPartList((arr) => arr.filter((item) => item !== targetPartID));
+    } else {
+      setQuestionIdList((list) => list.filter((item) => item !== qusetionID));
+    }
+    setdeleteModal(false);
+    setSideModal(false);
+    setTimeout(() => {
+      setToastState({
+        ...ToastState,
+        text: "질문이 삭제 되었습니다.",
+        visible: true,
+        toastType: "success",
+      });
+    }, 1000);
   };
 
   return (
@@ -35,7 +79,7 @@ const MoreSelectionModal = () => {
           <SelectableSpan className={question.randomShowFl === 1 ? "active" : ""} onClick={onToggleRandomFlag}>
             선택지 순서 무작위로 섞기
           </SelectableSpan>
-          <SelectableSpan className={movePartByAnswer ? "active" : ""} onClick={() => setMovePartByAnswer((prev) => !prev)}>
+          <SelectableSpan className={question.hasNextPart ? "active" : ""} onClick={onToggleNextPartFlag}>
             답변을 기준으로 파트 이동
           </SelectableSpan>
         </Container>
@@ -57,8 +101,8 @@ const MoreSelectionModal = () => {
       {deleteModal && (
         <Portal selector="#portal">
           {/* <DeleteConfirm visibleState={deleteModal} setVisible={setdeleteModal} /> */}
-          <ModalTemplate visibleState={deleteModal} setVisible={setdeleteModal} height={25}>
-            <PartDeleteBody setVisible={setdeleteModal} />
+          <ModalTemplate visibleState={deleteModal} setVisible={setdeleteModal} height={questionIdList.length > 1 ? 17 : 25}>
+            <PartDeleteBody length={questionIdList.length} onDelete={onDeleteQuestion} setVisible={setdeleteModal} />
           </ModalTemplate>
         </Portal>
       )}

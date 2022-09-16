@@ -8,16 +8,17 @@ import Copy from "public/icon/copy.svg";
 import Plus from "public/icon/plus-two.svg";
 import { sectionListAtomFamily, sectionIdListAtom, qusetionIdListAtom } from "states/survey";
 import { useRecoilCallback, useRecoilState, useRecoilValue } from "recoil";
-import { QuestionListID } from "types/survey";
+import { QuestionListID, SectionID } from "types/survey";
 import { PartIDFormat, QuestionListIDFormat } from "utills/getDateSixth";
 
 interface IProps {
   PartNum: number;
   ListLength: number;
   setVisibleMore: (bool: boolean) => void;
+  partID: SectionID;
 }
 
-const Part = ({ PartNum, ListLength, setVisibleMore }: IProps) => {
+const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
   const SyscodeFormat: QuestionListID = QuestionListIDFormat(PartNum + 1);
   const [partData, setPartData] = useRecoilState(sectionListAtomFamily(PartIDFormat(PartNum + 1)));
   const questionIdList = useRecoilValue(qusetionIdListAtom(SyscodeFormat)); //질문들의 IDList
@@ -74,6 +75,9 @@ const Part = ({ PartNum, ListLength, setVisibleMore }: IProps) => {
               questionId={idx}
               color={(PartNum + 1) % 2 === 0 ? "pink" : "green"}
               key={id}
+              id={id}
+              targetQuestionList={SyscodeFormat}
+              partId={partID}
             />
           );
         })}

@@ -1,12 +1,12 @@
-import { useState, memo, useEffect } from "react";
+import { memo } from "react";
 import styled from "@emotion/styled";
 import More from "public/icon/vertical-three-dots.svg";
 import { Common, Pretendard, SpaceBetween } from "styles/common";
 import Toggle from "components/common/Toggle";
 import QusetionTitle from "./QusetionTitle";
 import SelectOptionContainer from "./SelectOptionContainer";
-
-import { qusetionListAtomFamily, MoreModalAtom } from "states/survey";
+import { QuestionListID, SectionID } from "types/survey";
+import { qusetionListAtomFamily, MoreModalAtom, targetQuestionListIDAtom, targetQuestionIDAtom, targetPartIdAtom } from "states/survey";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { QuestionIDFormat } from "utills/getDateSixth";
 interface IProps {
@@ -14,11 +14,17 @@ interface IProps {
   color: string;
   partNumber: number;
   setVisibleMore: (bool: boolean) => void;
+  id: QuestionListID; //질문의 고유 ID
+  targetQuestionList: QuestionListID; //해당 질문들이 있는 배열의 ID값
+  partId: SectionID;
 }
 
-const Question = ({ color, questionId, partNumber, setVisibleMore }: IProps) => {
+const Question = ({ color, questionId, partNumber, setVisibleMore, id, targetQuestionList, partId }: IProps) => {
   const [question, setQusetion] = useRecoilState(qusetionListAtomFamily(QuestionIDFormat(questionId + 1, partNumber)));
   const setQusetionId = useSetRecoilState(MoreModalAtom);
+  const setQuestionListID = useSetRecoilState(targetQuestionListIDAtom);
+  const setQuestiontID = useSetRecoilState(targetQuestionIDAtom);
+  const setTargetPartID = useSetRecoilState(targetPartIdAtom);
   const Title = styled.div`
     & .part {
       ${Pretendard({ font: 1, weight: 700, color: color === "pink" ? Common.colors.PK500 : Common.colors.GR500 })};
@@ -37,6 +43,12 @@ const Question = ({ color, questionId, partNumber, setVisibleMore }: IProps) => 
 
   const setMoreModal = () => {
     setQusetionId(QuestionIDFormat(questionId + 1, partNumber));
+    //해당 질문이 있는 배열의 값을 저장
+    setQuestionListID(targetQuestionList);
+    //질문의 고유 ID 값을 저장
+    setQuestiontID(id);
+    //해당 파트의 ID값 설정
+    setTargetPartID(partId);
     setVisibleMore(true);
   };
 

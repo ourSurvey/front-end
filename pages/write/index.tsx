@@ -2,9 +2,8 @@ import styled from "@emotion/styled";
 import { Common, Pretendard, SpaceBetween } from "styles/common";
 import CreateSurveyHeader from "components/survey/CreateSurveyHeader";
 import Part from "components/survey/template/Part";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import SubLayout from "components/SubLayout";
-import { ISurveyData, ISection } from "types/survey";
 import { sectionIdListAtom } from "states/survey";
 import { useRecoilValue } from "recoil";
 import Link from "next/link";
@@ -32,7 +31,7 @@ export default function Index() {
       </div>
       <PartSectionContainer id="section2">
         {partIdList.map((id, idx) => {
-          return <Part setVisibleMore={setVisibleMore} ListLength={partIdList.length} PartNum={idx} key={id} />;
+          return <Part partID={id} setVisibleMore={setVisibleMore} ListLength={partIdList.length} PartNum={idx} key={id} />;
         })}
       </PartSectionContainer>
       <BtnContainer>

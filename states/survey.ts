@@ -29,9 +29,27 @@ export const surveyState = atom<ISurveyData>({
   },
 });
 
+//질문이 한개일 시 같이 삭제할 파트의 ID 정보
+export const targetPartIdAtom = atom<SectionID>({
+  key: "targetPartIdAtom",
+  default: "" as SectionID,
+});
+
 export const MoreModalAtom = atom<QuestionID>({
   key: "MoreModalAtom",
   default: "" as QuestionID,
+});
+
+//지울 question의 ID값을 저장할 atom
+export const targetQuestionIDAtom = atom<QuestionListID>({
+  key: "targetQuestionIDAtom",
+  default: "" as QuestionListID,
+});
+
+//지울 question의 ID들이 저장되어 있는 배열의 id 값을 저장할 atom
+export const targetQuestionListIDAtom = atom<QuestionListID>({
+  key: "targetQuestionListIDAtom",
+  default: "" as QuestionListID,
 });
 
 export const qusetionItemListAtomFamily = atomFamily<IQuestionItem, QuestionItemID>({
@@ -64,6 +82,7 @@ export const qusetionListAtomFamily = atomFamily<IQuestion, QuestionID>({
       randomShowFl: 0,
       dupFl: 0,
       oder: 0,
+      hasNextPart: false, //다음 파트로 진행하기 버튼 토글
       questionItems: [],
     };
   },

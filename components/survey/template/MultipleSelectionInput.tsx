@@ -3,17 +3,23 @@ import SlideArrow from "public/icon/slide-arrow.svg";
 import CloseCircle from "public/icon/close-circle.svg";
 import styled from "@emotion/styled";
 import { Common, Pretendard, SpaceBetween } from "styles/common";
-import { useRecoilState } from "recoil";
-import { qusetionItemListAtomFamily } from "states/survey";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { qusetionItemListAtomFamily, qusetionItemIdListAtom } from "states/survey";
 import { QuestionItemIDFormat } from "utills/getDateSixth";
+import { QuestionItemListID } from "types/survey";
 interface IProps {
-  id: number;
+  selectionNumber: number;
+  questionId: number;
+  partId: number;
   onDragEnd: (e: React.TouchEvent<HTMLLIElement>) => void;
   hasDeleteBtn: boolean;
+  id: QuestionItemListID;
+  idName: QuestionItemListID;
 }
 
-const MultipleSelectionInput = ({ hasDeleteBtn, onDragEnd, id }: IProps) => {
-  const [inputContent, setInputContent] = useRecoilState(qusetionItemListAtomFamily(QuestionItemIDFormat(id + 1)));
+const MultipleSelectionInput = ({ hasDeleteBtn, onDragEnd, selectionNumber, questionId, partId, id, idName }: IProps) => {
+  const [inputContent, setInputContent] = useRecoilState(qusetionItemListAtomFamily(QuestionItemIDFormat(partId, questionId, selectionNumber)));
+  const setSelectionList = useSetRecoilState(qusetionItemIdListAtom(id));
 
   const onChangeHandler = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,12 +30,16 @@ const MultipleSelectionInput = ({ hasDeleteBtn, onDragEnd, id }: IProps) => {
     },
     [inputContent]
   );
+
+  const onRemove = () => {
+    setSelectionList((id) => id.filter((item) => item !== idName));
+  };
   return (
     <MultipleSelectionLi draggable onTouchMove={(e) => onDragEnd(e)} onDragOver={(e) => e.preventDefault()}>
       <SlideArrow />
       <InputContainer>
         <input placeholder="선택지 입력" type="text" name="multiple-select-input" onChange={(e) => onChangeHandler(e)} />
-        {hasDeleteBtn ? <CloseCircle /> : null}
+        {hasDeleteBtn ? <CloseCircle onClick={onRemove} /> : null}
       </InputContainer>
     </MultipleSelectionLi>
   );

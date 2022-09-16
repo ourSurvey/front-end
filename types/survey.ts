@@ -43,7 +43,7 @@ export type SurveyID = `SUVY${number}${string}`;
 export type SectionID = `SCTN${number}${string}`;
 export type QuestionID = `QSTN${number}${string}`;
 export type QuestionItemID = `QSTI${number}${string}`;
-export type QuestionItemListID = `SCTN${number}${string}QSTN${number}${string}`;
+export type QuestionItemListID = `SCTN${number}${string}QSTN${number}${string}${number}`;
 export type QuestionListID = `QTSCTN${number}${string}`;
 export interface ISection {
   id: SectionID;

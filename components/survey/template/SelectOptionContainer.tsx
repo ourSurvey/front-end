@@ -11,9 +11,10 @@ interface IProps {
   color: string;
   questionIndex: number;
   partIndex: number;
+  hasNextSectionFlag: boolean;
 }
 
-const SelectOptionContainer = ({ color, questionIndex, partIndex }: IProps) => {
+const SelectOptionContainer = ({ color, questionIndex, partIndex, hasNextSectionFlag }: IProps) => {
   const PartFormat = `SCTN${getDateSixDigitsFormatToday()}${numberSet(partIndex)}`;
   const QuestionFormat = `QSTN${getDateSixDigitsFormatToday()}${numberSet(questionIndex)}`;
   console.log(PartFormat, QuestionFormat);
@@ -76,7 +77,7 @@ const SelectOptionContainer = ({ color, questionIndex, partIndex }: IProps) => {
       </SelectOption>
 
       {isActive ? (
-        <MultipleSelection sysCode={SyscodeFormat} partIndex={partIndex} questionIndex={questionIndex} />
+        <MultipleSelection hasNextSectionFlag={hasNextSectionFlag} sysCode={SyscodeFormat} partIndex={partIndex} questionIndex={questionIndex} />
       ) : (
         <Input disabled placeholder="이곳에 답변을 입력해주세요." />
       )}

@@ -15,9 +15,10 @@ interface IProps {
   hasDeleteBtn: boolean;
   id: QuestionItemListID;
   idName: QuestionItemListID;
+  hasNextSectionFlag: boolean;
 }
 
-const MultipleSelectionInput = ({ hasDeleteBtn, onDragEnd, selectionNumber, questionId, partId, id, idName }: IProps) => {
+const MultipleSelectionInput = ({ hasDeleteBtn, onDragEnd, hasNextSectionFlag, selectionNumber, questionId, partId, id, idName }: IProps) => {
   const [inputContent, setInputContent] = useRecoilState(qusetionItemListAtomFamily(QuestionItemIDFormat(partId, questionId, selectionNumber)));
   const setSelectionList = useSetRecoilState(qusetionItemIdListAtom(id));
 

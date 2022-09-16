@@ -26,7 +26,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
         <RecoilRoot>
-          <DebugObserver/>
+          {/* <DebugObserver/> */}
           <Global styles={global} />
           {getLayout(<Component {...pageProps} />)}
         </RecoilRoot>

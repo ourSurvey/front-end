@@ -10,9 +10,10 @@ interface IProps {
   questionIndex: number;
   partIndex: number;
   sysCode: QuestionItemListID;
+  hasNextSectionFlag: boolean;
 }
 
-const MultipleSelection = ({ questionIndex, partIndex, sysCode }: IProps) => {
+const MultipleSelection = ({ questionIndex, partIndex, sysCode, hasNextSectionFlag }: IProps) => {
   const [items, setItems] = useState([""]);
   const dragItem = useRef<any>(null);
   const dragOverItem = useRef<any>(null);
@@ -41,6 +42,7 @@ const MultipleSelection = ({ questionIndex, partIndex, sysCode }: IProps) => {
         return (
           <MultipleSelectionInput
             key={id}
+            hasNextSectionFlag={hasNextSectionFlag}
             hasDeleteBtn={arr.length > 1}
             partId={partIndex}
             questionId={questionIndex}

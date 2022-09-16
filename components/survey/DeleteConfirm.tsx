@@ -44,7 +44,7 @@ const DeleteConfirm = ({ visibleState, setVisible }: IProps) => {
       <Dimmer zIndex={201} onClick={() => setVisible(false)} />
       <Modal>
         {/* <DeleteModalBody setVisible={setVisible} /> */}
-        <PartDeleteBody setVisible={setVisible} />
+        {/* <PartDeleteBody setVisible={setVisible} /> */}
       </Modal>
     </>
   );

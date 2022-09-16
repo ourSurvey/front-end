@@ -29,6 +29,11 @@ export const surveyState = atom<ISurveyData>({
   },
 });
 
+export const MoreModalAtom = atom<QuestionID>({
+  key: "MoreModalAtom",
+  default: "" as QuestionID,
+});
+
 export const qusetionItemListAtomFamily = atomFamily<IQuestionItem, QuestionItemID>({
   key: "qusetionItemListAtomFamily",
   default: (id) => {

@@ -14,9 +14,10 @@ import { PartIDFormat, QuestionListIDFormat } from "utills/getDateSixth";
 interface IProps {
   PartNum: number;
   ListLength: number;
+  setVisibleMore: (bool: boolean) => void;
 }
 
-const Part = ({ PartNum, ListLength }: IProps) => {
+const Part = ({ PartNum, ListLength, setVisibleMore }: IProps) => {
   const SyscodeFormat: QuestionListID = QuestionListIDFormat(PartNum + 1);
   const [partData, setPartData] = useRecoilState(sectionListAtomFamily(PartIDFormat(PartNum + 1)));
   const questionIdList = useRecoilValue(qusetionIdListAtom(SyscodeFormat)); //질문들의 IDList
@@ -66,7 +67,15 @@ const Part = ({ PartNum, ListLength }: IProps) => {
       <Line></Line>
       <QusetionContainer>
         {questionIdList.map((id, idx) => {
-          return <Question partNumber={PartNum + 1} questionId={idx} color={(PartNum + 1) % 2 === 0 ? "pink" : "green"} key={id} />;
+          return (
+            <Question
+              setVisibleMore={setVisibleMore}
+              partNumber={PartNum + 1}
+              questionId={idx}
+              color={(PartNum + 1) % 2 === 0 ? "pink" : "green"}
+              key={id}
+            />
+          );
         })}
       </QusetionContainer>
 

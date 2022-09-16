@@ -8,10 +8,12 @@ import { ISurveyData, ISection } from "types/survey";
 import { sectionIdListAtom } from "states/survey";
 import { useRecoilValue } from "recoil";
 import Link from "next/link";
+import Portal from "components/common/Portal";
+import MoreSideModal from "components/survey/MoreSideModal";
 
 export default function Index() {
   const partIdList = useRecoilValue(sectionIdListAtom);
-
+  const [visibleMore, setVisibleMore] = useState(false);
   const PartSectionContainer = styled.div`
     display: block;
     height: calc(100% - 54px) !important;
@@ -30,7 +32,7 @@ export default function Index() {
       </div>
       <PartSectionContainer id="section2">
         {partIdList.map((id, idx) => {
-          return <Part ListLength={partIdList.length} PartNum={idx} key={id} />;
+          return <Part setVisibleMore={setVisibleMore} ListLength={partIdList.length} PartNum={idx} key={id} />;
         })}
       </PartSectionContainer>
       <BtnContainer>
@@ -39,6 +41,7 @@ export default function Index() {
           <a>다음</a>
         </Link>
       </BtnContainer>
+      <Portal selector="#portal">{visibleMore ? <MoreSideModal visibleState={visibleMore} setVisible={setVisibleMore} /> : null}</Portal>
     </WriteContainer>
   );
 }

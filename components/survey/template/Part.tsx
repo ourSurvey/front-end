@@ -141,9 +141,7 @@ const PartButtonContainer = styled.div`
   bottom: 0;
   position: relative;
   display: flex;
-  width: calc(100% + 20 * 2);
-
-  margin: 0 -20px 0 -20px;
+  width: 100%;
   background-color: ${Common.colors.GY500};
 
   & button {

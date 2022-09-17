@@ -13,22 +13,11 @@ import MoreSideModal from "components/survey/MoreSideModal";
 export default function Index() {
   const partIdList = useRecoilValue(sectionIdListAtom);
   const [visibleMore, setVisibleMore] = useState(false);
-  const PartSectionContainer = styled.div`
-    display: block;
-    height: calc(100% - 54px) !important;
-    padding-bottom: 84px;
-
-    overflow-y: scroll;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  `;
 
   return (
     <WriteContainer>
-      <div>
-        <CreateSurveyHeader hasUnderLine={false} name="질문을 작성해주세요." step="02" />
-      </div>
+      <CreateSurveyHeader hasUnderLine={false} name="질문을 작성해주세요." step="02" />
+
       <PartSectionContainer id="section2">
         {partIdList.map((id, idx) => {
           return <Part partID={id} setVisibleMore={setVisibleMore} ListLength={partIdList.length} PartNum={idx} key={id} />;
@@ -58,6 +47,17 @@ const WriteContainer = styled.main`
 
   & .nav-up {
     top: -60.5px;
+  }
+`;
+
+const PartSectionContainer = styled.div`
+  display: block;
+  height: calc(100% - 54px) !important;
+  padding-bottom: 84px;
+
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
   }
 `;
 

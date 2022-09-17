@@ -18,10 +18,15 @@ interface IProps {
   partID: SectionID;
 }
 
+interface IStyle {
+  PartNum: number;
+}
+
 const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
   const SyscodeFormat: QuestionListID = QuestionListIDFormat(PartNum + 1);
   const [partData, setPartData] = useRecoilState(sectionListAtomFamily(PartIDFormat(PartNum + 1)));
   const questionIdList = useRecoilValue(qusetionIdListAtom(SyscodeFormat)); //질문들의 IDList
+  console.log(partData);
 
   const addPart = useRecoilCallback(({ snapshot, set }) => () => {
     const partIds = snapshot.getLoadable(sectionIdListAtom).getValue();
@@ -36,23 +41,11 @@ const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
     set(qusetionIdListAtom(SyscodeFormat), [...questionIds, QuestionListIDFormat(Number(lastNumber) + 1)] as QuestionListID[]);
   });
 
-  const PartTitle = styled.div`
-    & h1 {
-      display: inline;
-      ${Pretendard({ font: 1.6, weight: 700, color: (PartNum + 1) % 2 === 0 ? Common.colors.PK500 : Common.colors.GR500 })};
-      line-height: 150%;
-    }
-    & .total-step {
-      ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY300 })};
-      line-height: 150%;
-    }
-  `;
-
   return (
     <PartContainer>
       <header>
         <SubjectContainer>
-          <PartTitle>
+          <PartTitle PartNum={PartNum}>
             <h1>PART {PartNum + 1}</h1>
             <span className="total-step">/{ListLength}</span>
           </PartTitle>
@@ -110,6 +103,18 @@ const PartContainer = styled.section`
   & header,
   .qustion-title {
     padding: 0 20px;
+  }
+`;
+
+const PartTitle = styled.div<IStyle>`
+  & h1 {
+    display: inline;
+    ${(props) => Pretendard({ font: 1.6, weight: 700, color: (props.PartNum + 1) % 2 === 0 ? Common.colors.PK500 : Common.colors.GR500 })};
+    line-height: 150%;
+  }
+  & .total-step {
+    ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY300 })};
+    line-height: 150%;
   }
 `;
 

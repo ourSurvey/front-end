@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "@emotion/styled";
 import { Common, Pretendard } from "styles/common";
 import MultipleSelection from "./MultipleSelection";
@@ -15,13 +14,15 @@ interface IProps {
   questionAtomFamilyID: QuestionID;
 }
 
+interface IStyle {
+  color: string;
+}
+
 const SelectOptionContainer = ({ color, questionIndex, partIndex, hasNextSectionFlag, questionAtomFamilyID }: IProps) => {
   const PartFormat = `SCTN${getDateSixDigitsFormatToday()}${numberSet(partIndex)}`;
   const QuestionFormat = `QSTN${getDateSixDigitsFormatToday()}${numberSet(questionIndex)}`;
   const [question, setQuestion] = useRecoilState(qusetionListAtomFamily(questionAtomFamilyID));
-
   const SyscodeFormat = `${PartFormat}${QuestionFormat}` as QuestionItemListID;
-  const [isActive, setIsActive] = useState<0 | 1>(1);
 
   const addQuestionItem = useRecoilCallback(({ snapshot, set }) => () => {
     const questionItemIds = snapshot.getLoadable(qusetionItemIdListAtom(SyscodeFormat)).getValue();
@@ -47,42 +48,10 @@ const SelectOptionContainer = ({ color, questionIndex, partIndex, hasNextSection
     });
   };
 
-  const SelectOption = styled.ul`
-    display: flex;
-    list-style-type: none;
-    position: relative;
-    padding-left: 0;
-    margin: 0;
-    margin-top: 8px;
-    margin-bottom: 18px;
-    & li:not(:last-child) {
-      margin-right: 5px;
-    }
-
-    & li {
-      padding: 4px 8px;
-      height: 26px;
-      border-radius: 90px;
-      ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY700 })};
-      border: 1px solid ${Common.colors.GY100};
-      line-height: 150%;
-      text-align: center;
-
-      transition: 0.5s;
-    }
-
-    & .active {
-      background-color: ${color === "pink" ? Common.colors.PK500 : Common.colors.GR500};
-      ${Pretendard({ font: 1.2, weight: 700, color: "#fff" })};
-
-      line-height: 150%;
-    }
-  `;
-
   return (
     <Container>
       <SelectionTitle>선택지 입력</SelectionTitle>
-      <SelectOption>
+      <SelectOption color={color}>
         <li onClick={onMultipleFlag} className={question.multiFl === 1 ? "active" : ""}>
           객관식
         </li>
@@ -94,12 +63,12 @@ const SelectOptionContainer = ({ color, questionIndex, partIndex, hasNextSection
         </li>
       </SelectOption>
 
-      {isActive ? (
+      {question.multiFl ? (
         <MultipleSelection hasNextSectionFlag={hasNextSectionFlag} sysCode={SyscodeFormat} partIndex={partIndex} questionIndex={questionIndex} />
       ) : (
         <Input disabled placeholder="이곳에 답변을 입력해주세요." />
       )}
-      {isActive ? (
+      {question.multiFl ? (
         <ButtonContainer>
           <div onClick={addQuestionItem}>
             <Plus /> <span className="first">선택지 추가</span>
@@ -134,6 +103,38 @@ const Input = styled.input`
   &::placeholder {
     ${Pretendard({ font: 1.4, weight: 400, color: Common.colors.GY500 })};
     line-height: 17px;
+  }
+`;
+
+const SelectOption = styled.ul<IStyle>`
+  display: flex;
+  list-style-type: none;
+  position: relative;
+  padding-left: 0;
+  margin: 0;
+  margin-top: 8px;
+  margin-bottom: 18px;
+  & li:not(:last-child) {
+    margin-right: 5px;
+  }
+
+  & li {
+    padding: 4px 8px;
+    height: 26px;
+    border-radius: 90px;
+    ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY700 })};
+    border: 1px solid ${Common.colors.GY100};
+    line-height: 150%;
+    text-align: center;
+
+    transition: 0.5s;
+  }
+
+  & .active {
+    background-color: ${(props) => (props.color === "pink" ? Common.colors.PK500 : Common.colors.GR500)};
+    ${Pretendard({ font: 1.2, weight: 700, color: "#fff" })};
+
+    line-height: 150%;
   }
 `;
 

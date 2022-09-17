@@ -3,6 +3,8 @@ import styled from "@emotion/styled";
 import { Common, Pretendard, SpaceBetween } from "styles/common";
 import { useRouter } from "next/router";
 import { memo } from "react";
+import { useRecoilValue } from "recoil";
+import { surveySelector } from "states/survey";
 type Props = {
   step: string;
   name: string;
@@ -10,6 +12,7 @@ type Props = {
 };
 
 const CreateSurveyHeader = ({ step, name, hasUnderLine }: Props) => {
+  const state = useRecoilValue(surveySelector);
   const router = useRouter();
   const Span = styled.p`
     ${Pretendard({ font: 1.4, weight: 700, color: Common.colors.GY900 })};
@@ -39,7 +42,7 @@ const CreateSurveyHeader = ({ step, name, hasUnderLine }: Props) => {
     <Header>
       <Prev width="20" height="16" onClick={() => router.back()} />
 
-      <Span>{name}</Span>
+      <Span onClick={() => console.log(state)}>{name}</Span>
       <StepPosition>
         STEP {step}
         <span className="total">/03</span>

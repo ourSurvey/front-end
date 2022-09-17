@@ -18,6 +18,9 @@ interface IProps {
   targetQuestionList: QuestionListID; //해당 질문들이 있는 배열의 ID값
   partId: SectionID;
 }
+interface IStyle {
+  color: string;
+}
 
 const Question = ({ color, questionId, partNumber, setVisibleMore, id, targetQuestionList, partId }: IProps) => {
   const [question, setQusetion] = useRecoilState(qusetionListAtomFamily(QuestionIDFormat(questionId + 1, partNumber)));
@@ -25,21 +28,6 @@ const Question = ({ color, questionId, partNumber, setVisibleMore, id, targetQue
   const setQuestionListID = useSetRecoilState(targetQuestionListIDAtom);
   const setQuestiontID = useSetRecoilState(targetQuestionIDAtom);
   const setTargetPartID = useSetRecoilState(targetPartIdAtom);
-  const Title = styled.div`
-    & .part {
-      ${Pretendard({ font: 1, weight: 700, color: color === "pink" ? Common.colors.PK500 : Common.colors.GR500 })};
-      line-height: 150%;
-      background-color: ${color === "pink" ? Common.colors.PK50 : Common.colors.GR50};
-      border-radius: 4px;
-      padding: 1px 4px;
-      margin-right: 4px;
-    }
-
-    & .question-num {
-      ${Pretendard({ font: 1, weight: 700, color: Common.colors.GY700 })};
-      line-height: 150%;
-    }
-  `;
 
   const setMoreModal = () => {
     setQusetionId(QuestionIDFormat(questionId + 1, partNumber));
@@ -55,7 +43,7 @@ const Question = ({ color, questionId, partNumber, setVisibleMore, id, targetQue
   return (
     <Container className="question">
       <Header>
-        <Title>
+        <Title color={color}>
           <span className="part">PT{partNumber}</span>
           <span className="question-num">질문 {questionId + 1}.</span>
         </Title>
@@ -84,6 +72,22 @@ export default memo(Question);
 const Container = styled.div`
   background-color: #fff;
   padding: 37px 20px 0 20px;
+`;
+
+const Title = styled.div<IStyle>`
+  & .part {
+    ${(props) => Pretendard({ font: 1, weight: 700, color: props.color === "pink" ? Common.colors.PK500 : Common.colors.GR500 })};
+    line-height: 150%;
+    background-color: ${(props) => (props.color === "pink" ? Common.colors.PK50 : Common.colors.GR50)};
+    border-radius: 4px;
+    padding: 1px 4px;
+    margin-right: 4px;
+  }
+
+  & .question-num {
+    ${Pretendard({ font: 1, weight: 700, color: Common.colors.GY700 })};
+    line-height: 150%;
+  }
 `;
 
 const Header = styled.div`

@@ -11,24 +11,27 @@ type Props = {
   hasSearch: boolean;
 };
 
+interface IStyle {
+  hasBack: boolean;
+  hasSearch: boolean;
+}
+
 const SearchHeader = (props: Props) => {
   const { name, hasBack, hasSearch } = props;
   const router = useRouter();
-  const Span = styled.span`
-    ${Pretendard({ font: 1.4, weight: 700, color: Common.colors.GY900 })};
-
-    margin-left: ${!hasBack ? "20px" : ""};
-    margin-right: ${!hasSearch ? "20px" : ""};
-  `;
 
   return (
     <Header>
       <SvgPosition onClick={() => router.back()}>{hasBack ? <Prev width="20" height="16" /> : null}</SvgPosition>
-      <Span>{name}</Span>
+      <Span hasBack={hasBack} hasSearch={hasSearch}>
+        {name}
+      </Span>
       <SvgPosition>{hasSearch ? <Search /> : null}</SvgPosition>
     </Header>
   );
 };
+
+export default memo(SearchHeader);
 
 const Header = styled.header`
   ${SpaceBetween()}
@@ -53,4 +56,9 @@ const SvgPosition = styled.div`
   transform: translateY(25%);
 `;
 
-export default memo(SearchHeader);
+const Span = styled.span<IStyle>`
+  ${Pretendard({ font: 1.4, weight: 700, color: Common.colors.GY900 })};
+
+  margin-left: ${(props) => (!props.hasBack ? "20px" : "")};
+  margin-right: ${(props) => (!props.hasSearch ? "20px" : "")};
+`;

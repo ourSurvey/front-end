@@ -5,31 +5,14 @@ import Lighting from "public/icon/lighting.svg";
 import Link from "next/link";
 import { useRef } from "react";
 
+interface IStyle {
+  hashtagList: [] | null;
+}
+
 const SurveyItem = (props: IContent) => {
   const { subject, content, openFl, minute, startDate, endDate, hashtagList, id } = props;
 
   const target = useRef(null); // 대상 ref
-
-  const Button = styled.a`
-    display: block;
-    text-align: center;
-    height: 36px;
-    width: 100%;
-    border-radius: 5px;
-    font-family: "Pretendard";
-    font-weight: 700;
-    font-size: 0.75rem;
-    font-style: normal;
-    color: #fff;
-    outline: 0;
-    border: 0;
-
-    padding-top: 9px;
-    padding-bottom: 9px;
-    background-color: ${Common.colors.BL500};
-    margin-top: 10px;
-    margin-bottom: ${hashtagList && hashtagList.length > 0 ? "10px" : "0"};
-  `;
   return (
     <ItemContainer ref={target}>
       <>
@@ -53,13 +36,15 @@ const SurveyItem = (props: IContent) => {
           </>
         </DateContainer>
         <Link href={`/survey/${id}`} key={id}>
-          <Button>설문 참여하기</Button>
+          <Button hashtagList={hashtagList}>설문 참여하기</Button>
         </Link>
         {hashtagList && hashtagList.length > 0 ? <Hashtag>{hashtagList?.map((item) => `#${item}`)}</Hashtag> : null}
       </>
     </ItemContainer>
   );
 };
+
+export default SurveyItem;
 
 const ItemContainer = styled.div`
   padding: 15px;
@@ -138,4 +123,23 @@ const FastChip = styled.li`
   line-height: 150%;
 `;
 
-export default SurveyItem;
+const Button = styled.a<IStyle>`
+  display: block;
+  text-align: center;
+  height: 36px;
+  width: 100%;
+  border-radius: 5px;
+  font-family: "Pretendard";
+  font-weight: 700;
+  font-size: 0.75rem;
+  font-style: normal;
+  color: #fff;
+  outline: 0;
+  border: 0;
+
+  padding-top: 9px;
+  padding-bottom: 9px;
+  background-color: ${Common.colors.BL500};
+  margin-top: 10px;
+  margin-bottom: ${({ hashtagList }) => (hashtagList && hashtagList.length > 0 ? "10px" : "0")};
+`;

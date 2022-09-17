@@ -68,7 +68,13 @@ const Question = ({ color, questionId, partNumber, setVisibleMore, id, targetQue
       <TitleContainer>
         <QusetionTitle placeHolder="질문" value={question} setValue={setQusetion} hasImageInput={true} />
       </TitleContainer>
-      <SelectOptionContainer hasNextSectionFlag={question.hasNextPart} partIndex={partNumber} questionIndex={questionId + 1} color={color} />
+      <SelectOptionContainer
+        questionAtomFamilyID={QuestionIDFormat(questionId + 1, partNumber)}
+        hasNextSectionFlag={question.hasNextPart}
+        partIndex={partNumber}
+        questionIndex={questionId + 1}
+        color={color}
+      />
     </Container>
   );
 };

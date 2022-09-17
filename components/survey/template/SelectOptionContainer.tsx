@@ -3,31 +3,49 @@ import styled from "@emotion/styled";
 import { Common, Pretendard } from "styles/common";
 import MultipleSelection from "./MultipleSelection";
 import Plus from "public/icon/plus.svg";
-import { useRecoilCallback } from "recoil";
-import { qusetionItemIdListAtom } from "states/survey";
-import { QuestionItemListID } from "types/survey";
+import { useRecoilCallback, useRecoilState } from "recoil";
+import { qusetionItemIdListAtom, qusetionListAtomFamily } from "states/survey";
+import { QuestionID, QuestionItemListID } from "types/survey";
 import { getDateSixDigitsFormatToday, numberSet } from "utills/getDateSixth";
 interface IProps {
   color: string;
   questionIndex: number;
   partIndex: number;
   hasNextSectionFlag: boolean;
+  questionAtomFamilyID: QuestionID;
 }
 
-const SelectOptionContainer = ({ color, questionIndex, partIndex, hasNextSectionFlag }: IProps) => {
+const SelectOptionContainer = ({ color, questionIndex, partIndex, hasNextSectionFlag, questionAtomFamilyID }: IProps) => {
   const PartFormat = `SCTN${getDateSixDigitsFormatToday()}${numberSet(partIndex)}`;
   const QuestionFormat = `QSTN${getDateSixDigitsFormatToday()}${numberSet(questionIndex)}`;
-  console.log(PartFormat, QuestionFormat);
+  const [question, setQuestion] = useRecoilState(qusetionListAtomFamily(questionAtomFamilyID));
 
   const SyscodeFormat = `${PartFormat}${QuestionFormat}` as QuestionItemListID;
   const [isActive, setIsActive] = useState<0 | 1>(1);
-  const [isMultipleAnswersPossible, setIsMultipleAnswersPossible] = useState(false);
 
   const addQuestionItem = useRecoilCallback(({ snapshot, set }) => () => {
     const questionItemIds = snapshot.getLoadable(qusetionItemIdListAtom(SyscodeFormat)).getValue();
     const lastNumber = questionItemIds[questionItemIds.length - 1].slice(-1);
     set(qusetionItemIdListAtom(SyscodeFormat), [...questionItemIds, `${SyscodeFormat}${Number(lastNumber) + 1}`] as QuestionItemListID[]);
   });
+
+  //중복 가능여부 설정
+  const onDuplicatePossible = () => {
+    const flag = question.dupFl === 1 ? 0 : 1;
+    setQuestion({
+      ...question,
+      dupFl: flag,
+    });
+  };
+
+  //객관식 주관식 설정
+  const onMultipleFlag = () => {
+    const flag = question.multiFl === 1 ? 0 : 1;
+    setQuestion({
+      ...question,
+      multiFl: flag,
+    });
+  };
 
   const SelectOption = styled.ul`
     display: flex;
@@ -65,13 +83,13 @@ const SelectOptionContainer = ({ color, questionIndex, partIndex, hasNextSection
     <Container>
       <SelectionTitle>선택지 입력</SelectionTitle>
       <SelectOption>
-        <li onClick={() => setIsActive(1)} className={isActive === 1 ? "active" : ""}>
+        <li onClick={onMultipleFlag} className={question.multiFl === 1 ? "active" : ""}>
           객관식
         </li>
-        <li onClick={() => setIsActive(0)} className={isActive === 0 ? "active" : ""}>
+        <li onClick={onMultipleFlag} className={question.multiFl === 0 ? "active" : ""}>
           주관식
         </li>
-        <li className={isMultipleAnswersPossible ? "active" : ""} onClick={() => setIsMultipleAnswersPossible((prev) => !prev)}>
+        <li className={question.dupFl === 1 ? "active" : ""} onClick={onDuplicatePossible}>
           중복 선택 가능
         </li>
       </SelectOption>

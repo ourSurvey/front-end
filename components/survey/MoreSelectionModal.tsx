@@ -20,6 +20,10 @@ interface IProps {
   setSideModal: (bool: boolean) => void;
 }
 
+interface IStyle {
+  idx: number;
+}
+
 const MoreSelectionModal = ({ setSideModal }: IProps) => {
   const [deleteModal, setdeleteModal] = useState(false);
   const questionId = useRecoilValue(MoreModalAtom);
@@ -29,7 +33,7 @@ const MoreSelectionModal = ({ setSideModal }: IProps) => {
   const qusetionID = useRecoilValue(targetQuestionIDAtom);
   const [ToastState, setToastState] = useRecoilState(toastState);
   const targetPartID = useRecoilValue(targetPartIdAtom);
-  const setPartList = useSetRecoilState(sectionIdListAtom);
+  const [partList, setPartList] = useRecoilState(sectionIdListAtom);
 
   const onToggleRandomFlag = () => {
     const flag: 0 | 1 = question.randomShowFl === 1 ? 0 : 1;
@@ -49,6 +53,8 @@ const MoreSelectionModal = ({ setSideModal }: IProps) => {
   const onDeleteQuestion = () => {
     console.log(targetPartID);
 
+    //리스트의 개수가 1이라면 파트 삭제
+    //아니라면 질문 삭제
     if (questionIdList.length === 1) {
       setPartList((arr) => arr.filter((item) => item !== targetPartID));
     } else {
@@ -68,9 +74,9 @@ const MoreSelectionModal = ({ setSideModal }: IProps) => {
 
   return (
     <MoreOption>
-      <Title>
-        <span className="part">PT1</span>
-        <span className="question-num">질문 1.</span>
+      <Title idx={partList.indexOf(targetPartID) + 1}>
+        <span className="part">PT{partList.indexOf(targetPartID) + 1}</span>
+        <span className="question-num">질문 {questionIdList.indexOf(qusetionID) + 1}.</span>
       </Title>
 
       <div>
@@ -126,13 +132,13 @@ const MoreOption = styled.aside`
   }
 `;
 
-const Title = styled.div`
+const Title = styled.div<IStyle>`
   padding-left: 18px;
   display: flex;
   & .part {
-    ${Pretendard({ font: 1, weight: 700, color: Common.colors.GR500 })};
+    ${(props) => Pretendard({ font: 1, weight: 700, color: props.idx % 2 === 0 ? Common.colors.PK500 : Common.colors.GR500 })};
     line-height: 150%;
-    background-color: ${Common.colors.GR50};
+    background-color: ${(props) => (props.idx % 2 === 0 ? Common.colors.PK50 : Common.colors.GR50)};
     border-radius: 4px;
     padding: 1px 4px;
     margin-right: 4px;
@@ -145,9 +151,6 @@ const Title = styled.div`
 `;
 
 const Line = styled.div`
-  /* width: calc(100% + 20 * 2);
-
-  margin: 0 -20px 0 -20px; */
   width: 100%;
   height: 2px;
   background-color: ${Common.colors.GY50};

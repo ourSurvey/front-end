@@ -26,7 +26,6 @@ const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
   const SyscodeFormat: QuestionListID = QuestionListIDFormat(PartNum + 1);
   const [partData, setPartData] = useRecoilState(sectionListAtomFamily(PartIDFormat(PartNum + 1)));
   const questionIdList = useRecoilValue(qusetionIdListAtom(SyscodeFormat)); //질문들의 IDList
-  console.log(partData);
 
   const addPart = useRecoilCallback(({ snapshot, set }) => () => {
     const partIds = snapshot.getLoadable(sectionIdListAtom).getValue();
@@ -40,7 +39,6 @@ const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
     const lastNumber = questionIds[questionIds.length - 1].slice(-1);
     set(qusetionIdListAtom(SyscodeFormat), [...questionIds, QuestionListIDFormat(Number(lastNumber) + 1)] as QuestionListID[]);
   });
-
   return (
     <PartContainer>
       <header>

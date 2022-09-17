@@ -1,4 +1,5 @@
-import { atom, atomFamily } from "recoil";
+import { atom, atomFamily, selector } from "recoil";
+import { QuestionIDFormat, PartIDFormat, QuestionListIDFormat, QuestionItemIDFormat } from "utills/getDateSixth";
 import {
   IQuestionItem,
   IQuestion,
@@ -10,7 +11,7 @@ import {
   QuestionItemListID,
   QuestionListID,
 } from "types/survey";
-import { getDateSixDigitsFormatToday } from "utills/getDateSixth";
+import { getDateSixDigitsFormatToday, numberSet } from "utills/getDateSixth";
 
 export const surveyState = atom<ISurveyData>({
   key: "surveyState",
@@ -26,6 +27,40 @@ export const surveyState = atom<ISurveyData>({
     closingComment: "",
     hashtag: [],
     sections: [],
+  },
+});
+
+export const surveySelector = selector({
+  key: "surveySelector",
+  get: ({ get }) => {
+    const sectionList = get(sectionIdListAtom);
+    const surveyData = get(surveyState);
+    //파트의 ID리스트
+    const sections = sectionList.map((_, sectionIdx) => {
+      const qusetionList = get(qusetionIdListAtom(QuestionListIDFormat(sectionIdx + 1)));
+      //질문의 ID리스트
+      const questionLit = qusetionList.map((_, questionIdx) => {
+        const PartFormat = `SCTN${getDateSixDigitsFormatToday()}${numberSet(sectionIdx + 1)}`;
+        const QuestionFormat = `QSTN${getDateSixDigitsFormatToday()}${numberSet(questionIdx + 1)}`;
+        const SyscodeFormat = `${PartFormat}${QuestionFormat}` as QuestionItemListID;
+
+        //item의idList
+        const questionItemIdList = get(qusetionItemIdListAtom(SyscodeFormat));
+        const questionItem = questionItemIdList.map((_, questionItemIdx) => {
+          //item 아톰 패밀리를 가져와서 리턴
+          return get(qusetionItemListAtomFamily(QuestionItemIDFormat(sectionIdx + 1, questionIdx + 1, questionItemIdx + 1)));
+        });
+        //question을 가져와서 questionItem을 담아서 리턴
+        const question = get(qusetionListAtomFamily(QuestionIDFormat(questionIdx + 1, sectionIdx + 1)));
+        return { ...question, questionItems: questionItem };
+      });
+
+      const part = get(sectionListAtomFamily(PartIDFormat(sectionIdx + 1)));
+      //part를 가져와서 question을 담아서 리턴
+      return { ...part, questions: questionLit };
+    });
+
+    return { ...surveyData, sections: sections };
   },
 });
 

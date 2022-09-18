@@ -12,6 +12,7 @@ import {
   targetQuestionIDAtom,
   targetPartIdAtom,
   sectionIdListAtom,
+  templateSelector,
 } from "states/survey";
 import { toastState } from "states/modal";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
@@ -34,6 +35,7 @@ const MoreSelectionModal = ({ setSideModal }: IProps) => {
   const [ToastState, setToastState] = useRecoilState(toastState);
   const targetPartID = useRecoilValue(targetPartIdAtom);
   const [partList, setPartList] = useRecoilState(sectionIdListAtom);
+  const setTemplate = useSetRecoilState(templateSelector);
 
   const onToggleRandomFlag = () => {
     const flag: 0 | 1 = question.randomShowFl === 1 ? 0 : 1;
@@ -98,10 +100,10 @@ const MoreSelectionModal = ({ setSideModal }: IProps) => {
         <Line></Line>
         <Container>
           <h6>템플릿 사용</h6>
-          <span>성별 질문</span>
-          <span>나이 질문</span>
-          <span>연락처 질문</span>
-          <span>이메일 질문</span>
+          <span onClick={() => setTemplate("gender")}>성별 질문</span>
+          <span onClick={() => setTemplate("birth")}>나이 질문</span>
+          <span onClick={() => setTemplate("phone")}>연락처 질문</span>
+          <span onClick={() => setTemplate("email")}>이메일 질문</span>
         </Container>
       </div>
       {deleteModal && (

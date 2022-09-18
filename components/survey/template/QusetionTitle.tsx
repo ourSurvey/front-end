@@ -44,7 +44,7 @@ const QusetionTitle = ({ hasImageInput, setValue, value, placeHolder }: IProps) 
       } else {
         setValue({
           ...value,
-          explain: e.currentTarget.value,
+          descrip: e.currentTarget.value,
         });
       }
     },
@@ -54,7 +54,12 @@ const QusetionTitle = ({ hasImageInput, setValue, value, placeHolder }: IProps) 
   return (
     <TitleAndSubTitle>
       <InputContainer>
-        <input type="text" placeholder={`${placeHolder} 제목을 입력해주세요.`} onChange={(e) => TitleOnChangeHandler(e)} />
+        <input
+          defaultValue={"title" in value ? value.title : value.ask}
+          type="text"
+          placeholder={`${placeHolder} 제목을 입력해주세요.`}
+          onChange={(e) => TitleOnChangeHandler(e)}
+        />
         <div css={ImageInputState}>
           <input
             type="file"
@@ -62,6 +67,7 @@ const QusetionTitle = ({ hasImageInput, setValue, value, placeHolder }: IProps) 
             // onChange={(e: React.ChangeEvent<HTMLInputElement>) => console.log(e.target.files[0])}
             className="input-file"
             accept="image/jpg, image/png, image/jpeg"
+            defaultValue={"title" in value ? value.content : value.descrip}
           />
           <label htmlFor="select-file">
             <ImageUpLoadSvg />

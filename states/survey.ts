@@ -13,6 +13,11 @@ import {
 } from "types/survey";
 import { getDateSixDigitsFormatToday, numberSet } from "utills/getDateSixth";
 
+interface ITarget {
+  part: number;
+  question: number;
+}
+
 export const surveyState = atom<ISurveyData>({
   key: "surveyState",
   default: {
@@ -123,7 +128,7 @@ export const qusetionListAtomFamily = atomFamily<IQuestion, QuestionID>({
   },
 });
 
-//질문의 Item ID만 관리하는 atom
+//질문의 ID만 관리하는 atom
 export const qusetionIdListAtom = atomFamily<QuestionListID[], QuestionListID>({
   key: "qusetionIdListAtom",
   default: (id) => [id],
@@ -146,6 +151,7 @@ export const sectionIdListAtom = atom<SectionID[]>({
   key: "sectionIdListAtom",
   default: [`SCTN${getDateSixDigitsFormatToday()}A001`],
 });
+
 export const targetAtom = atom<ITarget>({
   key: "targetAtom",
   default: { part: 0, question: 0 },
@@ -154,4 +160,86 @@ export const targetAtom = atom<ITarget>({
 export const templateAtom = atom<"email" | "" | "gender" | "birth" | "phone">({
   key: "templateAtom",
   default: "",
+});
+
+export const templateSelector = selector({
+  key: "templateSelector",
+  get: ({ get }) => {
+    return get(templateAtom);
+  },
+  set: ({ get, set, reset }, newValue) => {
+    const targetQuestionListID = get(targetQuestionListIDAtom);
+    const qusetionIdList = get(qusetionIdListAtom(targetQuestionListID));
+    const newQuestionIdx = qusetionIdList.length + 1;
+    const questionListlastNumber = targetQuestionListID[targetQuestionListID.length - 1].slice(-1);
+    set(qusetionIdListAtom(targetQuestionListID), [...qusetionIdList, QuestionListIDFormat(Number(questionListlastNumber) + 1)]); //새로운 question을 만듬
+    const partIdx = get(targetAtom).part;
+    const question = get(qusetionListAtomFamily(QuestionIDFormat(newQuestionIdx, partIdx)));
+    switch (newValue) {
+      case "birth":
+        set(qusetionListAtomFamily(QuestionIDFormat(newQuestionIdx, partIdx)), {
+          ...question,
+          ask: "출생 년도를 알려주세요.",
+          multiFl: 0,
+        } as IQuestion);
+        break;
+      case "phone":
+        set(qusetionListAtomFamily(QuestionIDFormat(newQuestionIdx, partIdx)), {
+          ...question,
+          ask: "연락이 가능한 휴대폰 번호를 알려주세요",
+          multiFl: 0,
+        } as IQuestion);
+        break;
+      case "gender":
+        set(qusetionListAtomFamily(QuestionIDFormat(newQuestionIdx, partIdx)), { ...question, ask: "성별을 알려주세요.", multiFl: 1 } as IQuestion);
+        const PartFormat = `SCTN${getDateSixDigitsFormatToday()}${numberSet(partIdx)}`;
+        const QuestionFormat = `QSTN${getDateSixDigitsFormatToday()}${numberSet(newQuestionIdx)}`;
+        const SyscodeFormat = `${PartFormat}${QuestionFormat}` as QuestionItemListID;
+        const questionItemIds = get(qusetionItemIdListAtom(SyscodeFormat));
+        const newQuestionItemIdx = questionItemIds.length + 1;
+        const lastNumber = questionItemIds[questionItemIds.length - 1].slice(-1);
+        set(qusetionItemIdListAtom(SyscodeFormat), [
+          ...questionItemIds,
+          `${SyscodeFormat}${Number(lastNumber) + 1}`,
+          `${SyscodeFormat}${Number(lastNumber) + 2}`,
+          `${SyscodeFormat}${Number(lastNumber) + 3}`,
+        ] as QuestionItemListID[]); //questionItem ID 리스트 새로 생성
+        const itemData = [
+          {
+            content: "남성",
+            oder: 1,
+          },
+          {
+            content: "여성",
+            oder: 2,
+          },
+          {
+            content: "응답하지 않음",
+            oder: 3,
+          },
+          {
+            content: "기타",
+            oder: 4,
+          },
+        ];
+        itemData.forEach((item) => {
+          const data = get(qusetionItemListAtomFamily(QuestionItemIDFormat(partIdx, newQuestionItemIdx, item.oder)));
+          set(qusetionItemListAtomFamily(QuestionItemIDFormat(partIdx, newQuestionItemIdx, item.oder)), {
+            ...data,
+            content: item.content,
+          } as IQuestionItem);
+        });
+
+        break;
+      case "email":
+        set(qusetionListAtomFamily(QuestionIDFormat(newQuestionIdx, partIdx)), {
+          ...question,
+          ask: "연락이 가능한 이메일을 알려주세요, ",
+          multiFl: 0,
+        } as IQuestion);
+        break;
+      default:
+        reset(templateAtom);
+    }
+  },
 });

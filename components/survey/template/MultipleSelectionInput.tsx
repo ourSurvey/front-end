@@ -39,7 +39,13 @@ const MultipleSelectionInput = ({ hasDeleteBtn, onDragEnd, hasNextSectionFlag, s
     <MultipleSelectionLi draggable onTouchMove={(e) => onDragEnd(e)} onDragOver={(e) => e.preventDefault()}>
       <SlideArrow />
       <InputContainer>
-        <input placeholder="선택지 입력" type="text" name="multiple-select-input" onChange={(e) => onChangeHandler(e)} />
+        <input
+          placeholder="선택지 입력"
+          defaultValue={inputContent.content}
+          type="text"
+          name="multiple-select-input"
+          onChange={(e) => onChangeHandler(e)}
+        />
         {hasDeleteBtn ? <CloseCircle onClick={onRemove} /> : null}
       </InputContainer>
     </MultipleSelectionLi>

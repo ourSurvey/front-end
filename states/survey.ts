@@ -146,3 +146,12 @@ export const sectionIdListAtom = atom<SectionID[]>({
   key: "sectionIdListAtom",
   default: [`SCTN${getDateSixDigitsFormatToday()}A001`],
 });
+export const targetAtom = atom<ITarget>({
+  key: "targetAtom",
+  default: { part: 0, question: 0 },
+});
+
+export const templateAtom = atom<"email" | "" | "gender" | "birth" | "phone">({
+  key: "templateAtom",
+  default: "",
+});

@@ -1,15 +1,47 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import styled from "@emotion/styled";
 import { Common, Pretendard, AlignAndJustifyCenter } from "styles/common";
 import Minus from "public/icon/minus.svg";
 import Plus from "public/icon/plus-not-cicle.svg";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { surveyState, surveySelector } from "states/survey";
 
 const TImeTaken = () => {
-  const [takenTime, setTakenTime] = useState(1);
-
+  const [survey, setSurvey] = useRecoilState(surveyState);
+  const questionsData = useRecoilValue(surveySelector);
   const timeSetting = (): string => {
-    return ("00" + takenTime).slice(-2);
+    return ("00" + survey.minute).slice(-2);
   };
+
+  //소요시간 계산
+  const getTimeTaken = () => {
+    let time = 0;
+
+    questionsData.sections.forEach((item) => {
+      item.questions.forEach((question) => {
+        if (question.multiFl === 0) {
+          time += 8;
+        } else {
+          time += 3;
+        }
+      });
+    });
+    console.log(time);
+
+    if (time % 60 === 0) {
+      return time / 60;
+    } else {
+      return Math.ceil(time / 60);
+    }
+  };
+
+  useEffect(() => {
+    setSurvey({
+      ...survey,
+      minute: getTimeTaken(),
+    });
+  }, []);
+
   return (
     <TimeSet>
       <h1>설문에 모두 응답하려면 몇 분 정도 걸릴까요?</h1>
@@ -18,11 +50,11 @@ const TImeTaken = () => {
       <TimerContainer>
         약&nbsp;
         <div className="container">
-          <Minus onClick={() => setTakenTime((prev) => prev - 1)} />
+          <Minus onClick={() => setSurvey({ ...survey, minute: survey.minute - 1 })} />
 
           <span>{timeSetting()}</span>
 
-          <Plus onClick={() => setTakenTime((prev) => prev + 1)} />
+          <Plus onClick={() => setSurvey({ ...survey, minute: survey.minute + 1 })} />
         </div>
         &nbsp;분 소요 예정
       </TimerContainer>

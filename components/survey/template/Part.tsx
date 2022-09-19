@@ -25,6 +25,7 @@ interface IStyle {
 const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
   const SyscodeFormat: QuestionListID = QuestionListIDFormat(PartNum + 1);
   const [partData, setPartData] = useRecoilState(sectionListAtomFamily(PartIDFormat(PartNum + 1)));
+  const lastPart = useRecoilValue(sectionListAtomFamily(PartIDFormat(ListLength)));
   const questionIdList = useRecoilValue(qusetionIdListAtom(SyscodeFormat)); //질문들의 IDList
 
   const addPart = useRecoilCallback(({ snapshot, set }) => () => {
@@ -37,6 +38,7 @@ const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
   const addQuestion = useRecoilCallback(({ snapshot, set }) => () => {
     const questionIds = snapshot.getLoadable(qusetionIdListAtom(SyscodeFormat)).getValue();
     const lastNumber = questionIds[questionIds.length - 1].slice(-1);
+    set(sectionListAtomFamily(PartIDFormat(ListLength)), { ...lastPart, nextSection: ListLength - 1 });
     set(qusetionIdListAtom(SyscodeFormat), [...questionIds, QuestionListIDFormat(Number(lastNumber) + 1)] as QuestionListID[]);
   });
   return (

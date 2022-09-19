@@ -4,38 +4,27 @@ import { Common, Pretendard } from "styles/common";
 import OutLineButton from "components/common/OutLineButton";
 import { Button } from "components/common/Button";
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import Link from "next/link";
 import { surveyState } from "states/survey";
 import { useRecoilState } from "recoil";
 
 const Index = () => {
-  const [content, setContent] = useState("");
   const [surVeyData, setSurveyData] = useRecoilState(surveyState);
   const [visibleSpan, setvisibleSpan] = useState(1);
-  const [title, setTitle] = useState("");
-  const router = useRouter();
-  const btnDisable = content !== "" && title !== "";
+
+  const btnDisable = surVeyData.content !== "" && surVeyData.subject !== "";
 
   const Title = styled.span`
     opacity: ${visibleSpan};
   `;
 
-  const onClickHandler = () => {
-    setSurveyData({
-      ...surVeyData,
-      subject: title,
-      content: content,
-    });
-  };
-
   useEffect(() => {
-    if (content !== "") {
+    if (surVeyData.subject !== "") {
       setvisibleSpan(0);
     } else {
       setvisibleSpan(1);
     }
-  }, [content]);
+  }, [surVeyData.subject]);
 
   return (
     <Summary>
@@ -44,11 +33,17 @@ const Index = () => {
       </header>
 
       <form>
-        <input type="text" placeholder="제목" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)} />
+        <input
+          type="text"
+          defaultValue={surVeyData.content}
+          placeholder="제목"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSurveyData({ ...surVeyData, content: e.target.value })}
+        />
         <TextAreaContainder>
           <Title>설문에 대한 설명을 적어주세요</Title>
           <textarea
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)}
+            defaultValue={surVeyData.subject}
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setSurveyData({ ...surVeyData, subject: e.target.value })}
             placeholder="&#13;&#10;ex) 모집 계기, 참여시 리워드 등"
             name="survey-summary"
           ></textarea>
@@ -57,7 +52,7 @@ const Index = () => {
           <OutLineButton isDisabled={false} textColor={Common.colors.GY900} btnText="임시저장" borderColor={Common.colors.GY900} />
           <Link href="/write">
             <a>
-              <Button isDisabled={!btnDisable} onClick={onClickHandler} textColor="#fff" btnText="다음" color={Common.colors.BL500} />
+              <Button isDisabled={!btnDisable} textColor="#fff" btnText="다음" color={Common.colors.BL500} />
             </a>
           </Link>
         </ButtonContainer>

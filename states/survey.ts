@@ -171,7 +171,8 @@ export const templateSelector = selector({
     const targetQuestionListID = get(targetQuestionListIDAtom);
     const qusetionIdList = get(qusetionIdListAtom(targetQuestionListID));
     const newQuestionIdx = qusetionIdList.length + 1;
-    const questionListlastNumber = targetQuestionListID[targetQuestionListID.length - 1].slice(-1);
+    const questionListlastNumber = qusetionIdList[qusetionIdList.length - 1].slice(-1);
+
     set(qusetionIdListAtom(targetQuestionListID), [...qusetionIdList, QuestionListIDFormat(Number(questionListlastNumber) + 1)]); //새로운 question을 만듬
     const partIdx = get(targetAtom).part;
     const question = get(qusetionListAtomFamily(QuestionIDFormat(newQuestionIdx, partIdx)));
@@ -234,7 +235,7 @@ export const templateSelector = selector({
       case "email":
         set(qusetionListAtomFamily(QuestionIDFormat(newQuestionIdx, partIdx)), {
           ...question,
-          ask: "연락이 가능한 이메일을 알려주세요, ",
+          ask: "연락이 가능한 이메일을 알려주세요.",
           multiFl: 0,
         } as IQuestion);
         break;

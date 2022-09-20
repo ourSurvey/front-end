@@ -35,3 +35,6 @@ export const QuestionListIDFormat = (idx: number): QuestionListID => {
 export const QuestionItemIDFormat = (partId: number, questionId: number, idx: number): QuestionItemID => {
   return `QSTI${partId}${questionId}${idx}${getDateSixDigitsFormatToday()}${numberSet(idx)}`;
 };
+
+export const QuestionItemListIDFormat = (partIndex: number, questionIdx: number) =>
+  `${PartIDFormat(partIndex)}${QuestionIDFormat(questionIdx, partIndex)}`;

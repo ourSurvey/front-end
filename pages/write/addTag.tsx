@@ -14,6 +14,14 @@ import Portal from "components/common/Portal";
 import ModalTemplate from "components/common/ModalTemplate";
 import LeavePageAlert from "components/survey/setting/LeavePageAlert";
 import { useEffect } from "react";
+import { GetServerSideProps } from "next";
+import { withAuth } from "utills/isLoggedIn";
+
+export const getServerSideProps: GetServerSideProps = withAuth(() => {
+  return {
+    props: {},
+  };
+});
 interface IStyle {
   inputFocus?: boolean;
   tag: string;

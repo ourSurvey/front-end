@@ -9,6 +9,14 @@ import { useRecoilValue } from "recoil";
 import Link from "next/link";
 import Portal from "components/common/Portal";
 import MoreSideModal from "components/survey/MoreSideModal";
+import { GetServerSideProps } from "next";
+import { withAuth } from "utills/isLoggedIn";
+
+export const getServerSideProps: GetServerSideProps = withAuth(() => {
+  return {
+    props: {},
+  };
+});
 
 export default function Index() {
   const partIdList = useRecoilValue(sectionIdListAtom);

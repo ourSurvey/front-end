@@ -8,6 +8,14 @@ import SubLayout from "components/SubLayout";
 import AddTag from "components/survey/setting/AddTag";
 import ShareResult from "components/survey/setting/ShareResult";
 import CommentRespondent from "components/survey/setting/CommentRespondent";
+import { GetServerSideProps } from "next";
+import { withAuth } from "utills/isLoggedIn";
+
+export const getServerSideProps: GetServerSideProps = withAuth(() => {
+  return {
+    props: {},
+  };
+});
 export default function Setting() {
   return (
     <SettingPage>

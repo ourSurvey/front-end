@@ -7,6 +7,14 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { surveyState } from "states/survey";
 import { useRecoilState } from "recoil";
+import { GetServerSideProps } from "next";
+import { withAuth } from "utills/isLoggedIn";
+
+export const getServerSideProps: GetServerSideProps = withAuth(() => {
+  return {
+    props: {},
+  };
+});
 
 const Index = () => {
   const [surVeyData, setSurveyData] = useRecoilState(surveyState);

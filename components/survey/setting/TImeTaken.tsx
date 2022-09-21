@@ -40,6 +40,7 @@ const TImeTaken = () => {
       ...survey,
       minute: getTimeTaken(),
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

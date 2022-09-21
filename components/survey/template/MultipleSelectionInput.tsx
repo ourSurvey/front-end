@@ -29,6 +29,7 @@ const MultipleSelectionInput = ({ hasDeleteBtn, onDragEnd, hasNextSectionFlag, s
         content: e.target.value,
       });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [inputContent]
   );
 

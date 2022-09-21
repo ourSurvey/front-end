@@ -31,6 +31,7 @@ const MoreSideModal = ({ visibleState, setVisible }: IProps) => {
         setVisible(false);
       }, 130);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalShow]);
 
   const fadein = keyframes`

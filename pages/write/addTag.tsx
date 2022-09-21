@@ -90,11 +90,13 @@ const AddTag: NextPage = () => {
       router.replace("/write/setting");
       router.events.off("routeChangeStart", handleRouteChange);
     }
+
     return () => {
       console.log("종료");
 
       router.events.off("routeChangeStart", handleRouteChange);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [destination, visibleAlertState]);
 
   return (

@@ -31,6 +31,7 @@ const QusetionTitle = ({ hasImageInput, setValue, value, placeHolder }: IProps) 
         });
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [value]
   );
 
@@ -48,6 +49,7 @@ const QusetionTitle = ({ hasImageInput, setValue, value, placeHolder }: IProps) 
         });
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [value]
   );
 

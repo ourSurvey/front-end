@@ -80,6 +80,7 @@ const ShareBody = ({ setVisible }: Props) => {
         toastType: "success",
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

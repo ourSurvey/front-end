@@ -18,7 +18,6 @@ const Index = () => {
   const [email, setEmail] = useState(false);
   const [pwd, setPwd] = useState(false);
   const [ToastState, setToastState] = useRecoilState(toastState);
-  // const user = useUser({ redirectTo: "/", redirectIfFound: true });
 
   const loginHandler = useMutation(login, {
     onSuccess: () => {

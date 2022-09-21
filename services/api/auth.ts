@@ -19,6 +19,8 @@ const findPwd = (email: IEmail) => api.post("/auth/findpwd", email);
 //비밀번호 초기화
 const resetPassword = (pwdinfo: IResetPwd) => api.post("/auth/resetpwd", pwdinfo);
 //인증 여부 확인
-const isAuthed = (): Promise<AxiosResponse> => authService.isAuthedUser();
+const isAuthed = (token: string): Promise<AxiosResponse> => authService.isAuthedUser(token);
 
-export { emailAuth, emailAuthCheckNum, register, login, findPwd, resetPassword, isAuthed, postAddition };
+const getRefresh = (token: string): Promise<AxiosResponse> => authService.refresh(token);
+
+export { emailAuth, emailAuthCheckNum, register, login, findPwd, resetPassword, isAuthed, getRefresh, postAddition };

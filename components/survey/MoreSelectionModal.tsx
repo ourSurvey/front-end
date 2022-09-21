@@ -53,8 +53,6 @@ const MoreSelectionModal = ({ setSideModal }: IProps) => {
   };
 
   const onDeleteQuestion = () => {
-    console.log(targetPartID);
-
     //리스트의 개수가 1이라면 파트 삭제
     //아니라면 질문 삭제
     if (questionIdList.length === 1) {

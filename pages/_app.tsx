@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { global } from "styles/global";
 import { Global } from "@emotion/react";
 import { RecoilRoot } from "recoil";

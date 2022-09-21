@@ -12,7 +12,7 @@ class TokenProvider {
   }
 
   static has(tokenType: TokenType) {
-    return !!cookies.get(tokenType);
+    return cookies.get(tokenType) ? true : false;
   }
 
   static clear() {

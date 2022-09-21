@@ -1,19 +1,18 @@
+import axios from "axios";
 import { ILoginData, ISignupData, IAddtionData } from "../types/auth";
 import ApiClient from "./ApiClient";
 import TokenProvider from "./TokenProvider";
 
 class AuthService extends ApiClient {
   /** refreshToken을 이용해 새로운 토큰을 발급받습니다. */
-  async refresh() {
-    if (!TokenProvider.has("refreshToken")) return;
-
-    const { data } = await super.post("/refresh", null, {
+  async refresh(token: string) {
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/api/auth/refresh`, {
       headers: {
-        Authorization: `Bearer ${TokenProvider.get("refreshToken")}`,
+        Authorization: `Bearer ${token}`,
       },
     });
-    TokenProvider.set("accessToken", data.access, 1);
-    TokenProvider.set("refreshToken", data.refresh, 7);
+
+    return data;
   }
 
   /** 새로운 계정을 생성하고 토큰을 발급받습니다. */
@@ -34,10 +33,10 @@ class AuthService extends ApiClient {
     TokenProvider.set("refreshToken", data.data.refresh, refreshExpire);
   }
 
-  async isAuthedUser() {
-    const { data } = await super.get("/auth/validate", {
+  async isAuthedUser(token: string) {
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/api/auth/validate`, {
       headers: {
-        Authorization: `Bearer ${TokenProvider.get("accessToken")}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 

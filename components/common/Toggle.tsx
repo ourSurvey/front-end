@@ -17,8 +17,6 @@ type ColorProps = {
 
 const Toggle = ({ name, question, setQuestion, color, id }: IProps) => {
   const onToggleHanler = () => {
-    console.log("변경", question);
-
     setQuestion({
       ...question,
       essFl: question.essFl === 0 ? 1 : 0,

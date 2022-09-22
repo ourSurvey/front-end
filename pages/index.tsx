@@ -1,14 +1,14 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { GetServerSideProps } from "next";
-import { withAuth } from "utills/isLoggedIn";
+// import { GetServerSideProps } from "next";
+// import { withAuth } from "utills/isLoggedIn";
 
-export const getServerSideProps: GetServerSideProps = withAuth(() => {
-  return {
-    props: {},
-  };
-});
+// export const getServerSideProps: GetServerSideProps = withAuth(() => {
+//   return {
+//     props: {},
+//   };
+// });
 
 const Home: NextPage = () => {
   const router = useRouter();

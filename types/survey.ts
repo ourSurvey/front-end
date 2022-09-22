@@ -27,7 +27,7 @@ export interface IContent {
 }
 
 export interface ISurveyData {
-  id: number; //임시저장한걸 실제저장하려고 할 때 보내주세요 default 0;
+  id: number | ""; //임시저장한걸 실제저장하려고 할 때 보내주세요 default 0;
   subject: string; //제목,
   content: string; //서베이에 대한 설명,
   startDate: string; //시작일(년월일),

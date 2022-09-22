@@ -59,6 +59,7 @@ const QusetionTitle = ({ hasImageInput, setValue, value, placeHolder }: IProps) 
         <input
           defaultValue={"title" in value ? value.title : value.ask}
           type="text"
+          required
           placeholder={`${placeHolder} 제목을 입력해주세요.`}
           onChange={(e) => TitleOnChangeHandler(e)}
         />

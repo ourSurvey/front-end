@@ -12,7 +12,7 @@ import {
   QuestionListID,
 } from "types/survey";
 import { getDateSixDigitsFormatToday, numberSet } from "utills/getDateSixth";
-
+import { tagState } from "states/tag";
 interface ITarget {
   part: number;
   question: number;
@@ -64,8 +64,9 @@ export const surveySelector = selector({
       //part를 가져와서 question을 담아서 리턴
       return { ...part, questions: questionLit };
     });
+    const tagList = get(tagState);
 
-    return { ...surveyData, sections: sections };
+    return { ...surveyData, sections: sections, hashtag: [...tagList] };
   },
 });
 

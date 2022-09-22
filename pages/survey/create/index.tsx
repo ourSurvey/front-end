@@ -45,6 +45,7 @@ const Index = () => {
           type="text"
           defaultValue={surVeyData.content}
           placeholder="제목"
+          required
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSurveyData({ ...surVeyData, content: e.target.value })}
         />
         <TextAreaContainder>

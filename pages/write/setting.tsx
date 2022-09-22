@@ -10,13 +10,40 @@ import ShareResult from "components/survey/setting/ShareResult";
 import CommentRespondent from "components/survey/setting/CommentRespondent";
 import { GetServerSideProps } from "next";
 import { withAuth } from "utills/isLoggedIn";
-
+import { useMutation } from "react-query";
+import { createSurvey } from "services/api/survey";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { toastState } from "states/modal";
+import { surveySelector } from "states/survey";
 export const getServerSideProps: GetServerSideProps = withAuth(() => {
   return {
     props: {},
   };
 });
 export default function Setting() {
+  const [ToastState, setToastState] = useRecoilState(toastState);
+  const state = useRecoilValue(surveySelector);
+  const createSurveyHandler = useMutation(createSurvey, {
+    onSuccess: (data) => {
+      if (data.status === 200) {
+        setToastState({
+          text: "설문이 정상적으로 생성되었습니다!",
+          toastType: "success",
+          visible: true,
+        });
+      }
+    },
+    onError: (data) => {
+      console.log(data);
+    },
+  });
+
+  const createSurveyButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    console.log("클릭");
+
+    createSurveyHandler.mutate({ ...state, id: "" });
+  };
   return (
     <SettingPage>
       <CreateSurveyHeader name="설정" hasUnderLine={true} step="3" />
@@ -28,7 +55,9 @@ export default function Setting() {
         <CommentRespondent />
         <BtnContainer>
           <button className="temporary-storage">임시저장</button>
-          <button className="upload">설문 업로드</button>
+          <button className="upload" onClick={createSurveyButton}>
+            설문 업로드
+          </button>
         </BtnContainer>
       </SettingItemContainer>
     </SettingPage>

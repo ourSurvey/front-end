@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import { Common, Pretendard } from "styles/common";
-const CommentRespondent = () => {
-  const [title, setTitle] = useState("설문이 종료되었습니다");
-  const [subject, setSubject] = useState("응답해주셔서 감사합니다.");
 
+interface IProps {
+  setClosinTitle: (e: string) => void;
+  setclosingComment: (e: string) => void;
+  closingComment: string;
+  closinTitle: string;
+}
+
+const CommentRespondent = ({ setClosinTitle, setclosingComment, closingComment, closinTitle }: IProps) => {
   const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
+    setClosinTitle(e.target.value);
   };
 
   const onSubjectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSubject(e.target.value);
+    setclosingComment(e.target.value);
   };
 
   return (
@@ -20,14 +25,14 @@ const CommentRespondent = () => {
 
       <div>
         <InputContainer>
-          <TitleInput className="title" type="text" onChange={onTitleChange} defaultValue={title} />
+          <TitleInput className="title" type="text" onChange={onTitleChange} defaultValue={closinTitle} />
           <div>
             <span className="content-length">8&nbsp;</span>
             <span> / 20자</span>
           </div>
         </InputContainer>
         <InputContainer>
-          <SubjectInput onChange={onSubjectChange} defaultValue={subject} className="subject" type="text" />
+          <SubjectInput onChange={onSubjectChange} defaultValue={closingComment} className="subject" type="text" />
           <div>
             <span className="content-length">8&nbsp;</span>
             <span> / 20자</span>

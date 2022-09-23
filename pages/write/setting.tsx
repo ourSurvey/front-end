@@ -22,6 +22,8 @@ export const getServerSideProps: GetServerSideProps = withAuth(() => {
 });
 export default function Setting() {
   const [ToastState, setToastState] = useRecoilState(toastState);
+  const [closinTitle, setClosinTitle] = useState("설문이 종료되었습니다");
+  const [closingComment, setclosingComment] = useState("응답해주셔서 감사합니다.");
   const state = useRecoilValue(surveySelector);
   const createSurveyHandler = useMutation(createSurvey, {
     onSuccess: (data) => {
@@ -52,7 +54,12 @@ export default function Setting() {
         <TImeTaken />
         <AddTag />
         <ShareResult />
-        <CommentRespondent />
+        <CommentRespondent
+          closinTitle={closinTitle}
+          closingComment={closingComment}
+          setClosinTitle={setClosinTitle}
+          setclosingComment={setclosingComment}
+        />
         <BtnContainer>
           <button className="temporary-storage">임시저장</button>
           <button className="upload" onClick={createSurveyButton}>

@@ -1,7 +1,7 @@
 import CreateSurveyHeader from "components/survey/CreateSurveyHeader";
 import PeriodSetting from "components/survey/setting/PeriodSetting";
 import TImeTaken from "components/survey/setting/TImeTaken";
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { Common, Pretendard, SpaceBetween } from "styles/common";
 import SubLayout from "components/SubLayout";
@@ -12,21 +12,24 @@ import { GetServerSideProps } from "next";
 import { withAuth } from "utills/isLoggedIn";
 import { useMutation } from "react-query";
 import { createSurvey } from "services/api/survey";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 import { toastState } from "states/modal";
 import { surveySelector } from "states/survey";
+import { deleteIDproperty } from "utills/deleteIdProperty";
 import { useHeaderScroll } from "hooks/useHeaderScroll";
+
 export const getServerSideProps: GetServerSideProps = withAuth(() => {
   return {
     props: {},
   };
 });
 export default function Setting() {
-  const [ToastState, setToastState] = useRecoilState(toastState);
+  const setToastState = useSetRecoilState(toastState);
   const [closinTitle, setClosinTitle] = useState("설문이 종료되었습니다");
   const [closingComment, setclosingComment] = useState("응답해주셔서 감사합니다.");
   const state = useRecoilValue(surveySelector);
   const { hide, scrollDetectHandler } = useHeaderScroll();
+
   const createSurveyHandler = useMutation(createSurvey, {
     onSuccess: (data) => {
       if (data.status === 200) {
@@ -37,16 +40,25 @@ export default function Setting() {
         });
       }
     },
-    onError: (data) => {
-      console.log(data);
+    onError: (data: any) => {
+      setToastState({
+        text: data.response?.data.message,
+        toastType: "error",
+        visible: true,
+      });
     },
   });
 
-  const createSurveyButton = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    console.log("클릭");
+  const createSurveyButton = () => {
+    const sendState = deleteIDproperty(state);
+    createSurveyHandler.mutate({ ...sendState, id: "", closingComment: `${closinTitle}|${closingComment}`, tempFl: 0 });
+    console.log({ ...sendState, id: "", closingComment: `${closinTitle}|${closingComment}`, tempFl: 0 });
+  };
 
-    createSurveyHandler.mutate({ ...state, id: "" });
+  const temporaryStorageHandler = () => {
+    const sendState = deleteIDproperty(state);
+    createSurveyHandler.mutate({ ...sendState, id: "", closingComment: `${closinTitle}|${closingComment}`, tempFl: 1 });
+    console.log({ ...sendState, id: "", closingComment: `${closinTitle}|${closingComment}`, tempFl: 1 });
   };
   return (
     <SettingPage>
@@ -65,7 +77,9 @@ export default function Setting() {
           setclosingComment={setclosingComment}
         />
         <BtnContainer>
-          <button className="temporary-storage">임시저장</button>
+          <button className="temporary-storage" onClick={temporaryStorageHandler}>
+            임시저장
+          </button>
           <button className="upload" onClick={createSurveyButton}>
             설문 업로드
           </button>

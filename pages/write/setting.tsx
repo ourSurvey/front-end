@@ -15,6 +15,7 @@ import { createSurvey } from "services/api/survey";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { toastState } from "states/modal";
 import { surveySelector } from "states/survey";
+import { useHeaderScroll } from "hooks/useHeaderScroll";
 export const getServerSideProps: GetServerSideProps = withAuth(() => {
   return {
     props: {},
@@ -25,6 +26,7 @@ export default function Setting() {
   const [closinTitle, setClosinTitle] = useState("설문이 종료되었습니다");
   const [closingComment, setclosingComment] = useState("응답해주셔서 감사합니다.");
   const state = useRecoilValue(surveySelector);
+  const { hide, scrollDetectHandler } = useHeaderScroll();
   const createSurveyHandler = useMutation(createSurvey, {
     onSuccess: (data) => {
       if (data.status === 200) {
@@ -48,8 +50,10 @@ export default function Setting() {
   };
   return (
     <SettingPage>
-      <CreateSurveyHeader name="설정" hasUnderLine={true} step="3" />
-      <SettingItemContainer>
+      <HeaderWrap className={!hide ? "hide" : ""}>
+        <CreateSurveyHeader name="설정" hasUnderLine={true} step="3" />
+      </HeaderWrap>
+      <SettingItemContainer onScroll={scrollDetectHandler}>
         <PeriodSetting />
         <TImeTaken />
         <AddTag />
@@ -127,5 +131,18 @@ const BtnContainer = styled.footer`
     width: calc(67% - 7px);
     background-color: ${Common.colors.BL500};
     ${Pretendard({ font: 1.2, weight: 700, color: "#fff" })};
+  }
+`;
+
+const HeaderWrap = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  transition: 0.4s ease;
+
+  &.hide {
+    transform: translateY(-60.5px);
   }
 `;

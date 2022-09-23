@@ -11,7 +11,11 @@ import Portal from "components/common/Portal";
 import MoreSideModal from "components/survey/MoreSideModal";
 import { GetServerSideProps } from "next";
 import { withAuth } from "utills/isLoggedIn";
+import { useHeaderScroll } from "hooks/useHeaderScroll";
 
+interface IHeader {
+  isHide: boolean;
+}
 export const getServerSideProps: GetServerSideProps = withAuth(() => {
   return {
     props: {},
@@ -21,12 +25,14 @@ export const getServerSideProps: GetServerSideProps = withAuth(() => {
 export default function Index() {
   const partIdList = useRecoilValue(sectionIdListAtom);
   const [visibleMore, setVisibleMore] = useState(false);
+  const { hide, scrollDetectHandler } = useHeaderScroll();
 
   return (
     <WriteContainer>
-      <CreateSurveyHeader hasUnderLine={false} name="질문을 작성해주세요." step="02" />
-
-      <PartSectionContainer id="section2">
+      <HeaderWrap className={!hide ? "hide" : ""}>
+        <CreateSurveyHeader hasUnderLine={true} name="질문을 작성해주세요." step="02" />
+      </HeaderWrap>
+      <PartSectionContainer onScroll={scrollDetectHandler} id="section2">
         {partIdList.map((id, idx) => {
           return <Part partID={id} setVisibleMore={setVisibleMore} ListLength={partIdList.length} PartNum={idx} key={id} />;
         })}
@@ -54,7 +60,9 @@ const WriteContainer = styled.main`
   background-color: ${Common.colors.GY50};
 
   & .nav-up {
+    position: absolute;
     top: -60.5px;
+    transition: 1s;
   }
 `;
 
@@ -98,5 +106,18 @@ const BtnContainer = styled.div`
     ${Pretendard({ font: 1.2, weight: 700, color: "#fff" })};
     border-radius: 5px;
     line-height: 150%;
+  }
+`;
+
+const HeaderWrap = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  transition: 0.4s ease;
+
+  &.hide {
+    transform: translateY(-60.5px);
   }
 `;

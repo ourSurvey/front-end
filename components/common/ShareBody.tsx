@@ -15,7 +15,7 @@ type Props = {
 const ShareBody = ({ setVisible }: Props) => {
   const [ToastState, setToastState] = useRecoilState(toastState);
   const router = useRouter();
-  const surveyUrl: string = `${process.env.NEXT_LOCAL_API}${router.asPath}`;
+  const surveyUrl: string = `${process.env.NEXT_PUBLIC_URL}${router.asPath}`;
 
   const handleCopy = useCallback(() => {
     console.log("버튼클릭");

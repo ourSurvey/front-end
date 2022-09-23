@@ -66,7 +66,7 @@ const SelectOptionContainer = ({ color, questionIndex, partIndex, hasNextSection
       {question.multiFl ? (
         <MultipleSelection hasNextSectionFlag={hasNextSectionFlag} sysCode={SyscodeFormat} partIndex={partIndex} questionIndex={questionIndex} />
       ) : (
-        <Input disabled placeholder="이곳에 답변을 입력해주세요." />
+        <Input disabled placeholder="이곳에 답변이 입력될 예정입니다." />
       )}
       {question.multiFl ? (
         <ButtonContainer>

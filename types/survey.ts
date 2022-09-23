@@ -27,7 +27,7 @@ export interface IContent {
 }
 
 export interface ISurveyData {
-  id: number | ""; //임시저장한걸 실제저장하려고 할 때 보내주세요 default 0;
+  id?: number | ""; //임시저장한걸 실제저장하려고 할 때 보내주세요 default 0;
   subject: string; //제목,
   content: string; //서베이에 대한 설명,
   startDate: string; //시작일(년월일),
@@ -46,7 +46,7 @@ export type QuestionItemID = `QSTI${number}${string}`;
 export type QuestionItemListID = `SCTN${number}${string}QSTN${number}${string}${number}`;
 export type QuestionListID = `QTSCTN${number}${string}`;
 export interface ISection {
-  id: SectionID;
+  id?: SectionID;
   title: string; //섹션제목,
   content: string; //설명,
   nextSection: number; //*다음섹션(Integer|-1이면 이 섹션이 마지막 섹션, 사실 그냥 index값임 프론트에서도 설문 만들 때 정렬해서 보여줘야하니깐 index값 그대로 넣기),
@@ -54,7 +54,7 @@ export interface ISection {
 }
 
 export interface IQuestion {
-  id: QuestionID;
+  id?: QuestionID;
   ask: string; //*질문,
   descrip: string; //설명,
   multiFl: 0 | 1; //*(Integer|0:주관식,1:객관식),
@@ -67,7 +67,7 @@ export interface IQuestion {
 }
 
 export interface IQuestionItem {
-  id: QuestionItemID;
+  id?: QuestionItemID;
   content: string; //*선택지,
   oder: number; //*위 oder랑 동일함,
   nextSection: number; //다음섹션(답변을 기준으로 파트이동일 때 - Integer|-1이면 설문제출, 답변 기준 파트이동이 아니라면 0으로)

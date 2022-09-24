@@ -30,13 +30,18 @@ export const useHeaderScroll = () => {
   const stopScroll = useCallback((e: any) => {
     // console.log("🥎🥎🥎멈춤", e.target.scrollTop);
     setHide(true);
+    setTimeout(() => {
+      if (e.target.scrollTop !== 0) {
+        setHide(false);
+      }
+    }, 4000);
     // 스크롤이 가장 끝까지 올라가면 헤더보임.
     if (e.target.scrollTop === 0) {
       setHide(true);
     }
   }, []);
 
-  const throttleScroll: any = useThrottle(handleScroll, 300);
+  const throttleScroll: any = useThrottle(handleScroll, 500);
   const debounceScroll: any = debounce(stopScroll, 1500);
 
   const scrollDetectHandler = useCallback(

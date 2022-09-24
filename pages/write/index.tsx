@@ -68,6 +68,7 @@ const WriteContainer = styled.main`
 
 const PartSectionContainer = styled.div`
   display: block;
+  padding-top: 60.5px;
   height: calc(100% - 54px) !important;
   padding-bottom: 84px;
 

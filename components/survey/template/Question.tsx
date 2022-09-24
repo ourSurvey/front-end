@@ -42,7 +42,7 @@ const Question = ({ color, questionId, partNumber, setVisibleMore, id, targetQue
   };
 
   return (
-    <Container className="question">
+    <Container id={QuestionIDFormat(questionId + 1, partNumber)} className="question">
       <Header>
         <Title color={color}>
           <span className="part">PT{partNumber}</span>

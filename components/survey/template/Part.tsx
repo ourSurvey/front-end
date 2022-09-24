@@ -3,7 +3,7 @@ import { Common, Pretendard, AlignAndJustifyCenter, SpaceBetween } from "styles/
 import QusetionTitle from "./QusetionTitle";
 import InvertedTriangle from "public/icon/inverted-triangle.svg";
 import Question from "./Question";
-import { memo } from "react";
+import { memo, useRef, useState } from "react";
 import Copy from "public/icon/copy.svg";
 import Plus from "public/icon/plus-two.svg";
 import { sectionListAtomFamily, sectionIdListAtom, qusetionIdListAtom } from "states/survey";
@@ -27,7 +27,8 @@ const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
   const [partData, setPartData] = useRecoilState(sectionListAtomFamily(PartIDFormat(PartNum + 1)));
   const lastPart = useRecoilValue(sectionListAtomFamily(PartIDFormat(ListLength)));
   const questionIdList = useRecoilValue(qusetionIdListAtom(SyscodeFormat)); //질문들의 IDList
-
+  const [hideList, setHideList] = useState(false);
+  const listRef = useRef<HTMLDivElement>(null);
   const addPart = useRecoilCallback(({ snapshot, set }) => () => {
     const partIds = snapshot.getLoadable(sectionIdListAtom).getValue();
     //Syscode에서 마지막 숫자 가져오기
@@ -41,6 +42,22 @@ const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
     set(sectionListAtomFamily(PartIDFormat(ListLength)), { ...lastPart, nextSection: ListLength - 1 });
     set(qusetionIdListAtom(SyscodeFormat), [...questionIds, QuestionListIDFormat(Number(lastNumber) + 1)] as QuestionListID[]);
   });
+
+  const foldList = () => {
+    if (!listRef || !listRef.current) {
+      return;
+    }
+
+    const style = listRef.current.style;
+
+    if (hideList) {
+      style.maxHeight = "0";
+    } else {
+      style.maxHeight = `${listRef.current.scrollHeight}px`;
+    }
+    setHideList((prev) => !prev);
+  };
+
   return (
     <PartContainer>
       <header>
@@ -51,7 +68,7 @@ const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
           </PartTitle>
           <QusetionCount>
             <span>총 {questionIdList.length}개 질문</span>
-            <InvertedTriangle />
+            <InvertedTriangle transform={hideList ? "rotate(180)" : "rotate(0)"} onClick={foldList} />
           </QusetionCount>
         </SubjectContainer>
       </header>
@@ -59,7 +76,7 @@ const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
         <QusetionTitle setValue={setPartData} value={partData} placeHolder="파트" hasImageInput={false} />
       </div>
       <Line></Line>
-      <QusetionContainer>
+      <QusetionContainer className="content" ref={listRef}>
         {questionIdList.map((id, idx) => {
           return (
             <Question
@@ -103,6 +120,11 @@ const PartContainer = styled.section`
   & header,
   .qustion-title {
     padding: 0 20px;
+  }
+
+  & .content {
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
   }
 `;
 

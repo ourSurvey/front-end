@@ -7,7 +7,7 @@ export const useHeaderScroll = () => {
   const scrollContainerRef = useRef<any>(null);
   //과거 스크롤 값 저장
   const [prevY, setPrevY] = useState(0);
-  const [hide, setHide] = useState(false);
+  const [hide, setHide] = useState(true);
 
   const handleScroll = useCallback(
     (e: any) => {

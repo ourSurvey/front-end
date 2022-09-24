@@ -4,7 +4,9 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head />
+        <Head>
+          <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+        </Head>
         <body>
           <div id="portal" />
           <Main />

@@ -3,9 +3,9 @@ import { Common, Pretendard } from "styles/common";
 import MultipleSelection from "./MultipleSelection";
 import Plus from "public/icon/plus.svg";
 import { useRecoilCallback, useRecoilState } from "recoil";
-import { qusetionItemIdListAtom, qusetionListAtomFamily } from "states/survey";
-import { QuestionID, QuestionItemListID } from "types/survey";
-import { getDateSixDigitsFormatToday, numberSet } from "utills/getDateSixth";
+import { qusetionItemIdListAtom, qusetionListAtomFamily, qusetionItemListAtomFamily } from "states/survey";
+import { IQuestionItem, QuestionID, QuestionItemListID } from "types/survey";
+import { getDateSixDigitsFormatToday, numberSet, QuestionItemIDFormat } from "utills/getDateSixth";
 interface IProps {
   color: string;
   questionIndex: number;
@@ -24,10 +24,32 @@ const SelectOptionContainer = ({ color, questionIndex, partIndex, hasNextSection
   const [question, setQuestion] = useRecoilState(qusetionListAtomFamily(questionAtomFamilyID));
   const SyscodeFormat = `${PartFormat}${QuestionFormat}` as QuestionItemListID;
 
+  const getNewQuestionItemState = useRecoilCallback(
+    ({ snapshot }) =>
+      (partIndex: number, questionIndex: number, selectionNumber: number) => {
+        let loadable = snapshot.getLoadable(qusetionItemListAtomFamily(QuestionItemIDFormat(partIndex, questionIndex, selectionNumber)));
+
+        return loadable.valueMaybe();
+      },
+    []
+  );
+
   const addQuestionItem = useRecoilCallback(({ snapshot, set }) => () => {
     const questionItemIds = snapshot.getLoadable(qusetionItemIdListAtom(SyscodeFormat)).getValue();
     const lastNumber = questionItemIds[questionItemIds.length - 1].slice(-1);
     set(qusetionItemIdListAtom(SyscodeFormat), [...questionItemIds, `${SyscodeFormat}${Number(lastNumber) + 1}`] as QuestionItemListID[]);
+  });
+
+  const addEtcQuestionItem = useRecoilCallback(({ snapshot, set }) => () => {
+    const questionItemIds = snapshot.getLoadable(qusetionItemIdListAtom(SyscodeFormat)).getValue();
+    const lastNumber = questionItemIds[questionItemIds.length - 1].slice(-1);
+    set(qusetionItemIdListAtom(SyscodeFormat), [...questionItemIds, `${SyscodeFormat}${Number(lastNumber) + 1}`] as QuestionItemListID[]);
+
+    const newData = getNewQuestionItemState(partIndex, questionIndex, questionItemIds.length + 1);
+    set(qusetionItemListAtomFamily(QuestionItemIDFormat(partIndex, questionIndex, questionItemIds.length + 1)), {
+      ...newData,
+      content: "기타",
+    } as IQuestionItem);
   });
 
   //중복 가능여부 설정
@@ -71,10 +93,10 @@ const SelectOptionContainer = ({ color, questionIndex, partIndex, hasNextSection
       {question.multiFl ? (
         <ButtonContainer>
           <div onClick={addQuestionItem}>
-            <Plus /> <span className="first">선택지 추가</span>
+            <Plus /> <span>선택지 추가</span>
           </div>
-          <div>
-            <Plus /> <span className="second">기타 추가</span>
+          <div onClick={addEtcQuestionItem}>
+            <Plus /> <span>기타 추가</span>
           </div>
         </ButtonContainer>
       ) : null}
@@ -145,11 +167,8 @@ const ButtonContainer = styled.div`
   & div {
     display: flex;
     align-items: center;
-    & .first {
-      ${Pretendard({ font: 1.2, weight: 700, color: Common.colors.GY900 })};
-      line-height: 150%;
-    }
-    & .second {
+
+    & span {
       ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY900 })};
       line-height: 150%;
     }

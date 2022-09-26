@@ -4,7 +4,6 @@ import styled from "@emotion/styled";
 import { Pretendard, Common, SpaceBetween } from "styles/common";
 import OutLineButton from "components/common/OutLineButton";
 import { Button } from "components/common/Button";
-import Share from "components/Share";
 import { useState } from "react";
 import SearchHeader from "components/common/SearchHeader";
 import Portal from "components/common/Portal";

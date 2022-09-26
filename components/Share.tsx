@@ -4,7 +4,7 @@ import { keyframes } from "@emotion/react";
 import { Pretendard, Common } from "styles/common";
 
 import { memo, useState } from "react";
-import ShareBody from "./common/ShareBody";
+import ShareBody from "./modal/ShareBody";
 
 interface IProps {
   visibleState: boolean;

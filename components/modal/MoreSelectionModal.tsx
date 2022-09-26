@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Common, Pretendard } from "styles/common";
 import styled from "@emotion/styled";
 import Portal from "components/common/Portal";
-import ModalTemplate from "components/common/ModalTemplate";
-import PartDeleteBody from "./PartDeleteBody";
+import ModalTemplate from "components/modal/ModalTemplate";
+import PartDeleteBody from "components/modal/PartDeleteBody";
 import {
   qusetionListAtomFamily,
   MoreModalAtom,

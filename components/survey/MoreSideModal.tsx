@@ -1,6 +1,6 @@
 import Dimmer from "components/common/Dimmer";
 import React, { useRef, useEffect, useState } from "react";
-import MoreSelectionModal from "./MoreSelectionModal";
+import MoreSelectionModal from "components/modal/MoreSelectionModal";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
 

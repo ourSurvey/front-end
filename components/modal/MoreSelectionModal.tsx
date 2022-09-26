@@ -106,7 +106,6 @@ const MoreSelectionModal = ({ setSideModal }: IProps) => {
       </div>
       {deleteModal && (
         <Portal selector="#portal">
-          {/* <DeleteConfirm visibleState={deleteModal} setVisible={setdeleteModal} /> */}
           <ModalTemplate visibleState={deleteModal} setVisible={setdeleteModal} height={questionIdList.length > 1 ? 17 : 25}>
             <PartDeleteBody length={questionIdList.length} onDelete={onDeleteQuestion} setVisible={setdeleteModal} />
           </ModalTemplate>

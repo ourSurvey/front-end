@@ -35,12 +35,12 @@ const MoreSideModal = ({ visibleState, setVisible }: IProps) => {
   }, [modalShow]);
 
   const fadein = keyframes`
-  from {right: -40%; opacity: 0;}
+  from {right: -55%; opacity: 0;}
   to {right: 0; opacity: 1;}
 `;
   const fadeout = keyframes`
   from {right: 0; opacity: 1;}
-  to {right: -40%; opacity: 0;}
+  to {right: -55%; opacity: 0;}
 `;
 
   const Modal = styled.div`
@@ -52,7 +52,7 @@ const MoreSideModal = ({ visibleState, setVisible }: IProps) => {
     margin: -21.5px 0 -35px 0;
     bottom: 0;
     right: 0;
-    width: 50%;
+    width: 55%;
     box-shadow: 0px 2px 11px rgba(0, 0, 0, 0.25);
 
     background-color: #fff;

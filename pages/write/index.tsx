@@ -8,7 +8,7 @@ import { sectionIdListAtom } from "states/survey";
 import { useRecoilValue } from "recoil";
 import Link from "next/link";
 import Portal from "components/common/Portal";
-import MoreSideModal from "components/survey/MoreSideModal";
+import MoreSideModal from "components/modal/MoreSideModal";
 import { GetServerSideProps } from "next";
 import { withAuth } from "utills/isLoggedIn";
 import { useHeaderScroll } from "hooks/useHeaderScroll";

@@ -16,12 +16,12 @@ interface IStyle {
 
 const ModalTemplate = ({ visibleState, setVisible, children, height }: IProps) => {
   const fadein = keyframes`
-  from {bottom: -30%; opacity: 0;}
+  from {bottom: -${height}%; opacity: 0;}
   to {bottom: 0; opacity: 1;}
 `;
   const fadeout = keyframes`
   from {bottom: 0; opacity: 1;}
-  to {bottom: -30%; opacity: 0;}
+  to {bottom: -${height}%; opacity: 0;}
 `;
 
   const Modal = styled.div<IStyle>`

@@ -7,6 +7,9 @@ import { Button } from "components/common/Button";
 import Share from "components/Share";
 import { useState } from "react";
 import SearchHeader from "components/common/SearchHeader";
+import Portal from "components/common/Portal";
+import ModalTemplate from "components/modal/ModalTemplate";
+import ShareBody from "components/modal/ShareBody";
 
 interface IProps {
   dehydratedState: DehydratedState;
@@ -75,7 +78,13 @@ const SurveyId = ({ dehydratedState }: IProps) => {
         />
         <Button isDisabled={false} textColor="#fff" btnText="설문 참여하기" color={Common.colors.BL500} />
       </BtnContainer>
-      {showShare ? <Share visibleState={showShare} setVisible={setshowShare} /> : null}
+      {showShare && (
+        <Portal selector="#portal">
+          <ModalTemplate height={30} visibleState={showShare} setVisible={setshowShare}>
+            <ShareBody setVisible={setshowShare} />
+          </ModalTemplate>
+        </Portal>
+      )}
     </Detail>
   );
 };

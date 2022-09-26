@@ -85,7 +85,9 @@ const ShareBody = ({ setVisible }: Props) => {
 
   return (
     <>
-      <Close width="14" height="14" fill={Common.colors.GY900} onClick={() => setVisible(false)} />
+      <Absolute>
+        <Close width="14" height="14" fill={Common.colors.GY900} onClick={() => setVisible(false)} />
+      </Absolute>
       <span>공유하기</span>
       <IconContainer>
         <div className="center">
@@ -156,5 +158,13 @@ const IconContainer = styled.div`
       ${Pretendard({ font: 1.2, weight: 700, color: "#fff" })};
       line-height: 150%;
     }
+  }
+`;
+
+const Absolute = styled.div`
+  position: relative;
+  display: flex;
+  & svg {
+    margin-left: auto;
   }
 `;

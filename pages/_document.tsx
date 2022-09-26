@@ -6,6 +6,12 @@ export default class MyDocument extends Document {
       <Html>
         <Head>
           <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+          <link
+            rel="stylesheet"
+            as="style"
+            crossOrigin="anonymous"
+            href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css"
+          />
         </Head>
         <body>
           <div id="portal" />

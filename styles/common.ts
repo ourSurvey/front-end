@@ -30,10 +30,19 @@ export const Common = {
     GY100: "#e7e9f0",
     GY50: "#f3f5fa",
   },
-};
+} as const;
 
 export const Pretendard = (props: IPretendard) => css`
-  font-family: "Pretendard" !important;
+  font-family: "Pretendard";
+  font-size: ${props.font * 0.625}rem !important;
+  font-weight: ${props.weight};
+  line-height: ${props.font * 1.5}rem;
+  color: ${props.color};
+  letter-spacing: -0.03em;
+`;
+
+export const Roboto = (props: IPretendard) => css`
+  font-family: "Roboto", sans-serif;
   font-size: ${props.font * 0.625}rem !important;
   font-weight: ${props.weight};
   line-height: ${props.font * 1.5}rem;

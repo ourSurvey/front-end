@@ -104,7 +104,7 @@ const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
           질문 추가
         </button>
       </PartButtonContainer>
-      <SpeechBubble partNum={PartNum + 1} color={(PartNum + 1) % 2 === 0 ? "pink" : "green"} />
+      <SpeechBubble partLength={ListLength} partNum={PartNum + 1} color={(PartNum + 1) % 2 === 0 ? "pink" : "green"} />
     </PartContainer>
   );
 };

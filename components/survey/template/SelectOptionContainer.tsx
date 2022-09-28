@@ -80,9 +80,11 @@ const SelectOptionContainer = ({ color, questionIndex, partIndex, hasNextSection
         <li onClick={onMultipleFlag} className={question.multiFl === 0 ? "active" : ""}>
           주관식
         </li>
-        <li className={question.dupFl === 1 ? "active" : ""} onClick={onDuplicatePossible}>
-          중복 선택 가능
-        </li>
+        {question.multiFl === 1 && (
+          <li className={question.dupFl === 1 ? "active" : ""} onClick={onDuplicatePossible}>
+            중복 선택 가능
+          </li>
+        )}
       </SelectOption>
 
       {question.multiFl ? (

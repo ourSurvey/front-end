@@ -35,13 +35,6 @@ const ModalTemplate = ({ visibleState, setVisible, children, height }: IProps) =
     border-radius: 30px 30px 0px 0px;
     background-color: #fff;
     z-index: 202;
-
-    & span {
-      display: block;
-      ${Pretendard({ font: 1.6, weight: 700, color: Common.colors.GY900 })};
-      line-height: 150%;
-      text-align: center;
-    }
   `;
   return (
     <>

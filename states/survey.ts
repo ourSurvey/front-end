@@ -9,7 +9,6 @@ import {
   QuestionID,
   SectionID,
   QuestionItemListID,
-  QuestionListID,
 } from 'types/survey';
 import { getDateSixDigitsFormatToday, numberSet } from 'utills/getDateSixth';
 import { tagState } from 'states/tag';
@@ -107,12 +106,6 @@ export const qusetionItemListAtomFamily = atomFamily<IQuestionItem, QuestionItem
   },
 });
 
-//질문지의 Item ID만 관리하는 atom
-export const qusetionItemIdListAtom = atomFamily<QuestionItemListID[], QuestionItemListID>({
-  key: 'qusetionItemIdListAtom',
-  default: (id) => [`${id}1` as QuestionItemListID],
-});
-
 export const qusetionListAtomFamily = atomFamily<IQuestion, QuestionID>({
   key: 'qusetionListAtomFamily',
   default: (id) => {
@@ -131,12 +124,6 @@ export const qusetionListAtomFamily = atomFamily<IQuestion, QuestionID>({
   },
 });
 
-//질문의 ID만 관리하는 atom
-export const qusetionIdListAtom = atomFamily<QuestionListID[], QuestionListID>({
-  key: 'qusetionIdListAtom',
-  default: (id) => [id],
-});
-
 export const sectionListAtomFamily = atomFamily<ISection, SectionID>({
   key: 'sectionListAtomFamily',
   default: (id) => {
@@ -148,11 +135,6 @@ export const sectionListAtomFamily = atomFamily<ISection, SectionID>({
       questions: [],
     };
   },
-});
-
-export const sectionIdListAtom = atom<SectionID[]>({
-  key: 'sectionIdListAtom',
-  default: [`SCTN${getDateSixDigitsFormatToday()}A001`],
 });
 
 export const targetAtom = atom<ITarget>({

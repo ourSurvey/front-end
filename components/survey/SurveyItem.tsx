@@ -1,9 +1,9 @@
-import styled from "@emotion/styled";
-import { Common, Pretendard, AlignAndJustifyCenter } from "styles/common";
-import { IContent } from "types/survey";
-import Lighting from "public/icon/lighting.svg";
-import Link from "next/link";
-import { useRef } from "react";
+import styled from '@emotion/styled';
+import { Common, Pretendard, AlignAndJustifyCenter } from 'styles/common';
+import { IContent } from 'types/survey';
+import Lighting from 'public/icon/lighting.svg';
+import Link from 'next/link';
+import { useRef } from 'react';
 
 interface IStyle {
   hashtagList: [] | null;
@@ -78,7 +78,7 @@ const LiStyle = styled.li`
   border-radius: 3px;
   border-radius: 3px;
   background-color: ${Common.colors.GY50};
-  ${Pretendard({ font: 1, weight: 400, color: "#000" })}
+  ${Pretendard({ font: 1, weight: 400, color: '#000' })}
   line-height: 150%;
   &:last-child {
     margin-right: 0;
@@ -119,7 +119,7 @@ const FastChip = styled.li`
   margin-right: 5px;
   padding: 0 4px 0 0;
   background-color: ${Common.colors.GY700} !important;
-  ${Pretendard({ font: 1, weight: 700, color: "#fff" })}
+  ${Pretendard({ font: 1, weight: 700, color: '#fff' })}
   line-height: 150%;
 `;
 
@@ -129,7 +129,7 @@ const Button = styled.a<IStyle>`
   height: 36px;
   width: 100%;
   border-radius: 5px;
-  font-family: "Pretendard";
+  font-family: 'Pretendard';
   font-weight: 700;
   font-size: 0.75rem;
   font-style: normal;
@@ -141,5 +141,5 @@ const Button = styled.a<IStyle>`
   padding-bottom: 9px;
   background-color: ${Common.colors.BL500};
   margin-top: 10px;
-  margin-bottom: ${({ hashtagList }) => (hashtagList && hashtagList.length > 0 ? "10px" : "0")};
+  margin-bottom: ${({ hashtagList }) => (hashtagList && hashtagList.length > 0 ? '10px' : '0')};
 `;

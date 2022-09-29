@@ -1,10 +1,10 @@
-import styled from "@emotion/styled";
-import { Common, Pretendard } from "styles/common";
-import Link from "next/link";
-import Plus from "public/icon/plus-blue.svg";
-import { tagState } from "states/tag";
-import { useRecoilValue } from "recoil";
-import Chip from "./Chip";
+import styled from '@emotion/styled';
+import { Common, Pretendard } from 'styles/common';
+import Link from 'next/link';
+import Plus from 'public/icon/plus-blue.svg';
+import { tagState } from 'states/tag';
+import { useRecoilValue } from 'recoil';
+import Chip from './Chip';
 
 const AddTag = () => {
   const TagState = useRecoilValue(tagState);

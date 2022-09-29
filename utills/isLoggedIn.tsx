@@ -1,5 +1,5 @@
-import { isAuthed, getRefresh } from "services/api/auth";
-import cookie from "cookie";
+import { isAuthed, getRefresh } from 'services/api/auth';
+import cookie from 'cookie';
 export const withAuth = (GetServerSidePropsFunction: any) => {
   return async (ctx: any) => {
     // 1. 쿠키에 토큰이 있는지 확인
@@ -10,7 +10,7 @@ export const withAuth = (GetServerSidePropsFunction: any) => {
     if (!accessToken && !refreshToken) {
       return {
         redirect: {
-          destination: "/login",
+          destination: '/login',
           statusCode: 302,
         },
       };
@@ -26,7 +26,9 @@ export const withAuth = (GetServerSidePropsFunction: any) => {
 
       if (refreshData.code === 200) {
         //access 토큰 다시 저장
-        ctx.res.setHeader("set-cookie", [cookie.serialize("accessToken", refreshData.data.access, { maxAge: 60 * 60 * 24 })]);
+        ctx.res.setHeader('set-cookie', [
+          cookie.serialize('accessToken', refreshData.data.access, { maxAge: 60 * 60 * 24 }),
+        ]);
         return await GetServerSidePropsFunction(ctx);
       }
     }
@@ -35,7 +37,7 @@ export const withAuth = (GetServerSidePropsFunction: any) => {
     if (!data.data) {
       return {
         redirect: {
-          destination: "/login",
+          destination: '/login',
           statusCode: 302,
         },
       };

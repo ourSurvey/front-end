@@ -1,21 +1,21 @@
-import { NextPage } from "next";
-import Prev from "public/icon/prevArrow.svg";
-import { Common, Pretendard, SpaceBetween } from "styles/common";
-import styled from "@emotion/styled";
-import { useRouter } from "next/router";
-import CloseCircle from "public/icon/close-circle.svg";
-import { useRef, useState } from "react";
-import SearchTagList from "components/survey/setting/SearchTagList";
-import ShowTagList from "components/survey/setting/ShowTagList";
-import { tagState } from "states/tag";
-import { toastState } from "states/modal";
-import { useRecoilState } from "recoil";
-import Portal from "components/common/Portal";
-import ModalTemplate from "components/modal/ModalTemplate";
-import LeavePageAlert from "components/survey/setting/LeavePageAlert";
-import { useEffect } from "react";
-import { GetServerSideProps } from "next";
-import { withAuth } from "utills/isLoggedIn";
+import { NextPage } from 'next';
+import Prev from 'public/icon/prevArrow.svg';
+import { Common, Pretendard, SpaceBetween } from 'styles/common';
+import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
+import CloseCircle from 'public/icon/close-circle.svg';
+import { useRef, useState } from 'react';
+import SearchTagList from 'components/survey/setting/SearchTagList';
+import ShowTagList from 'components/survey/setting/ShowTagList';
+import { tagState } from 'states/tag';
+import { toastState } from 'states/modal';
+import { useRecoilState } from 'recoil';
+import Portal from 'components/common/Portal';
+import ModalTemplate from 'components/modal/ModalTemplate';
+import LeavePageAlert from 'components/survey/setting/LeavePageAlert';
+import { useEffect } from 'react';
+import { GetServerSideProps } from 'next';
+import { withAuth } from 'utills/isLoggedIn';
 
 export const getServerSideProps: GetServerSideProps = withAuth(() => {
   return {
@@ -29,10 +29,10 @@ interface IStyle {
 
 const AddTag: NextPage = () => {
   const router = useRouter();
-  const [tag, setTag] = useState("");
+  const [tag, setTag] = useState('');
   const [visibleAlertState, setVisibleAlertState] = useState(false);
   const [ToastState, setToastState] = useRecoilState(toastState);
-  const [destination, setDestination] = useState("");
+  const [destination, setDestination] = useState('');
   const [leave, setLeave] = useState(false);
   const [inputFocus, setinputFocus] = useState(false);
   const refs = useRef<HTMLInputElement>(null);
@@ -42,12 +42,12 @@ const AddTag: NextPage = () => {
   };
 
   const onReset = () => {
-    setTag("");
+    setTag('');
     refs.current && refs.current.focus();
   };
 
   const addTagHandler = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       setTagList([...new Set([...tagList, tag])]);
       onReset();
     }
@@ -58,7 +58,7 @@ const AddTag: NextPage = () => {
   };
 
   const handleRouteChange = (url: string) => {
-    console.log("얘가 실행되나");
+    console.log('얘가 실행되나');
 
     setLeave(true);
     setDestination(url);
@@ -72,8 +72,8 @@ const AddTag: NextPage = () => {
   const onSave = () => {
     setToastState({
       ...ToastState,
-      text: "태그가 저장되었습니다.",
-      toastType: "success",
+      text: '태그가 저장되었습니다.',
+      toastType: 'success',
     });
     setVisibleAlertState(true);
     // setTimeout(() => {
@@ -84,17 +84,17 @@ const AddTag: NextPage = () => {
   //뒤로가기 이벤트 감지
   useEffect(() => {
     //if (tagList.length === 0) return;  파일이 업로드되지 않은 상태에선 자유롭게 뒤로가도됨
-    router.events.on("routeChangeStart", handleRouteChange);
+    router.events.on('routeChangeStart', handleRouteChange);
     if (visibleAlertState) {
       setVisibleAlertState(false);
-      router.replace("/write/setting");
-      router.events.off("routeChangeStart", handleRouteChange);
+      router.replace('/write/setting');
+      router.events.off('routeChangeStart', handleRouteChange);
     }
 
     return () => {
-      console.log("종료");
+      console.log('종료');
 
-      router.events.off("routeChangeStart", handleRouteChange);
+      router.events.off('routeChangeStart', handleRouteChange);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [destination, visibleAlertState]);
@@ -129,11 +129,16 @@ const AddTag: NextPage = () => {
       <CountContainer>
         <span className="current">{tagList.length}&nbsp;</span>
         <span className="maximun">
-          | {tagList.length === 30 && tag !== "" ? <ErrorMessage>최대 30개까지 추가할 수 있습니다.</ErrorMessage> : "최대 30개"}
+          |{' '}
+          {tagList.length === 30 && tag !== '' ? (
+            <ErrorMessage>최대 30개까지 추가할 수 있습니다.</ErrorMessage>
+          ) : (
+            '최대 30개'
+          )}
         </span>
       </CountContainer>
 
-      {tag !== "" ? <SearchTagList inputValue={tag} onReset={onReset} /> : <ShowTagList />}
+      {tag !== '' ? <SearchTagList inputValue={tag} onReset={onReset} /> : <ShowTagList />}
 
       {leave && (
         <Portal selector="#portal">
@@ -155,8 +160,8 @@ const Container = styled.main<IStyle>`
     border: 1px solid ${Common.colors.GY300};
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
-    border-top-right-radius: ${(props) => (props.tag !== "" ? 0 : 10)}px;
-    border-bottom-right-radius: ${(props) => (props.tag !== "" ? 0 : 10)}px;
+    border-top-right-radius: ${(props) => (props.tag !== '' ? 0 : 10)}px;
+    border-bottom-right-radius: ${(props) => (props.tag !== '' ? 0 : 10)}px;
     height: 46px;
     width: 100%;
     ${Pretendard({ font: 1.4, weight: 400, color: Common.colors.GY900 })}
@@ -211,8 +216,8 @@ const InputContainer = styled.div<IStyle>`
   display: flex;
 
   & input {
-    border-top-right-radius: ${(props) => (props.tag !== "" ? 0 : 10)}px;
-    border-bottom-right-radius: ${(props) => (props.tag !== "" ? 0 : 10)}px;
+    border-top-right-radius: ${(props) => (props.tag !== '' ? 0 : 10)}px;
+    border-bottom-right-radius: ${(props) => (props.tag !== '' ? 0 : 10)}px;
   }
   & .shapp {
     position: absolute;
@@ -220,20 +225,20 @@ const InputContainer = styled.div<IStyle>`
     left: 16px;
 
     &::before {
-      content: "#";
+      content: '#';
       ${Pretendard({ font: 1.4, weight: 400, color: Common.colors.GY500 })};
       line-height: 150%;
     }
   }
 
   & svg {
-    display: ${(props) => (props.tag !== "" ? "block" : "none")};
+    display: ${(props) => (props.tag !== '' ? 'block' : 'none')};
     position: absolute;
     right: 64px;
     top: 13px;
   }
   & button {
-    display: ${(props) => (props.tag !== "" ? "block" : "none")};
+    display: ${(props) => (props.tag !== '' ? 'block' : 'none')};
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
 

@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react';
 
 function usePasswordValue(ref: React.RefObject<HTMLInputElement>, passwordInputName: string) {
-  const [passwordValue, setPasswordValue] = React.useState("");
+  const [passwordValue, setPasswordValue] = React.useState('');
 
   React.useEffect(() => {
     const node = ref.current;
     if (node === null) return;
 
-    const form = node?.closest("form");
-    const inputs = form?.getElementsByTagName("input");
+    const form = node?.closest('form');
+    const inputs = form?.getElementsByTagName('input');
 
     if (inputs === undefined) {
       throw new Error(`This element must be a decendent of a form`);
@@ -30,11 +30,11 @@ function usePasswordValue(ref: React.RefObject<HTMLInputElement>, passwordInputN
       if (passwordInput === undefined) return; // not sure why TS thinks passwordInput could be undefined
       setPasswordValue(passwordInput.value);
     };
-    passwordInput.addEventListener("change", handleChange);
+    passwordInput.addEventListener('change', handleChange);
     // cleanup
     return () => {
       if (passwordInput === undefined) return; // not sure why TS thinks passwordInput could be undefined
-      passwordInput.removeEventListener("change", handleChange);
+      passwordInput.removeEventListener('change', handleChange);
     };
   });
 

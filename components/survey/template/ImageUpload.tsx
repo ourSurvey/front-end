@@ -1,7 +1,7 @@
-import styled from "@emotion/styled";
-import { Common, SpaceBetween } from "styles/common";
-import SlideArrow from "public/icon/slide-arrow.svg";
-import ImageUpLoadSvg from "public/icon/img.svg";
+import styled from '@emotion/styled';
+import { Common, SpaceBetween } from 'styles/common';
+import SlideArrow from 'public/icon/slide-arrow.svg';
+import ImageUpLoadSvg from 'public/icon/img.svg';
 
 const ImageUpload = () => {
   return (
@@ -40,7 +40,7 @@ const InputContainer = styled.div`
   border: 1px solid ${Common.colors.GY300};
   border-radius: 10px;
   padding: 12px 15px;
-  & input[type="file"] {
+  & input[type='file'] {
     position: absolute;
     width: 0;
     height: 0;

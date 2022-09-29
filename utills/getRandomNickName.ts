@@ -1,4 +1,4 @@
-import { noun, determiner } from "utills/nickNameList";
+import { noun, determiner } from 'utills/nickNameList';
 
 const randomNickName = () => {
   const firstNickName = determiner[Math.floor(Math.random() * determiner.length)];

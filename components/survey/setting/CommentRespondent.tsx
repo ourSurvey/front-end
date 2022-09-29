@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "@emotion/styled";
-import { Common, Pretendard } from "styles/common";
+import React from 'react';
+import styled from '@emotion/styled';
+import { Common, Pretendard } from 'styles/common';
 
 interface IProps {
   setClosinTitle: (e: string) => void;
@@ -61,7 +61,7 @@ const CommetContainer = styled.section`
 
 const InputContainer = styled.div`
   margin-top: 25px;
-  & input[type="text"] {
+  & input[type='text'] {
     width: 100%;
     border: none;
     border-bottom: 1px solid ${Common.colors.GY200};
@@ -83,7 +83,7 @@ const InputContainer = styled.div`
 `;
 
 const TitleInput = styled.input`
-  ${Pretendard({ font: 2, weight: 700, color: "#000" })};
+  ${Pretendard({ font: 2, weight: 700, color: '#000' })};
   line-height: 23px;
 `;
 const SubjectInput = styled.input`

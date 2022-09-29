@@ -1,8 +1,11 @@
 # Our-Survey
+
 ## Contributor
-  - @sunpl13 (김정수)
+
+- @sunpl13 (김정수)
 
 ## Tech Requirement (Tech Stack)
+
 - Create-next-app
 - Next.js
 - TypeScript
@@ -13,11 +16,12 @@
 - React-Query
 - Recoil
 
-
 ## Script
+
 ```
 $npm run dev
 ```
+
 ```
 $npm run test
 ```

@@ -1,6 +1,6 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
 export const stepState = atom<1 | 2 | 3>({
-  key: "stepState",
+  key: 'stepState',
   default: 1,
 });

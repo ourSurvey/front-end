@@ -1,5 +1,5 @@
-import TokenProvider from "services/TokenProvider";
-import axios, { AxiosRequestConfig } from "axios";
+import TokenProvider from 'services/TokenProvider';
+import axios, { AxiosRequestConfig } from 'axios';
 
 class ApiClient {
   #instance;
@@ -10,11 +10,11 @@ class ApiClient {
   }
 
   requsetConfig(options: any = {}) {
-    return TokenProvider.has("accessToken")
+    return TokenProvider.has('accessToken')
       ? {
           headers: {
             ...options,
-            Authorization: `Bearer ${TokenProvider.get("accessToken")}`,
+            Authorization: `Bearer ${TokenProvider.get('accessToken')}`,
           },
         }
       : options.customHeader;

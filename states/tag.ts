@@ -1,6 +1,6 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
 export const tagState = atom<string[]>({
-  key: "tagState",
+  key: 'tagState',
   default: [],
 });

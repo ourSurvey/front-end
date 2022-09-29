@@ -1,10 +1,10 @@
-import Prev from "public/icon/prevArrow.svg";
-import styled from "@emotion/styled";
-import { Common, Pretendard, SpaceBetween } from "styles/common";
-import { useRouter } from "next/router";
-import { memo } from "react";
-import { useRecoilValue } from "recoil";
-import { surveySelector } from "states/survey";
+import Prev from 'public/icon/prevArrow.svg';
+import styled from '@emotion/styled';
+import { Common, Pretendard, SpaceBetween } from 'styles/common';
+import { useRouter } from 'next/router';
+import { memo } from 'react';
+import { useRecoilValue } from 'recoil';
+import { surveySelector } from 'states/survey';
 type Props = {
   step: string;
   name: string;
@@ -29,7 +29,7 @@ const CreateSurveyHeader = ({ step, name, hasUnderLine }: Props) => {
     ${SpaceBetween()}
     padding: 21.5px 20px 15px 34px;
 
-    border-bottom: ${hasUnderLine ? `1px solid ${Common.colors.GY100}` : "none"};
+    border-bottom: ${hasUnderLine ? `1px solid ${Common.colors.GY100}` : 'none'};
 
     & svg {
       -webkit-transform: translateY(25%);

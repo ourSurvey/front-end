@@ -1,16 +1,16 @@
-import { useEffect } from "react";
-import styled from "@emotion/styled";
-import { Common, Pretendard, AlignAndJustifyCenter } from "styles/common";
-import Minus from "public/icon/minus.svg";
-import Plus from "public/icon/plus-not-cicle.svg";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { surveyState, surveySelector } from "states/survey";
+import { useEffect } from 'react';
+import styled from '@emotion/styled';
+import { Common, Pretendard, AlignAndJustifyCenter } from 'styles/common';
+import Minus from 'public/icon/minus.svg';
+import Plus from 'public/icon/plus-not-cicle.svg';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { surveyState, surveySelector } from 'states/survey';
 
 const TImeTaken = () => {
   const [survey, setSurvey] = useRecoilState(surveyState);
   const questionsData = useRecoilValue(surveySelector);
   const timeSetting = (): string => {
-    return ("00" + survey.minute).slice(-2);
+    return ('00' + survey.minute).slice(-2);
   };
 
   //소요시간 계산
@@ -125,7 +125,7 @@ const Tip = styled.div`
     border-radius: 20px;
     padding: 10px;
     margin-right: 6px;
-    ${Pretendard({ font: 1, weight: 700, color: "#fff" })};
+    ${Pretendard({ font: 1, weight: 700, color: '#fff' })};
     line-height: 150%;
   }
 

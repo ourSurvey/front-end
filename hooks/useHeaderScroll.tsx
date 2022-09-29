@@ -1,6 +1,6 @@
-import { useRef, useState, useCallback, useLayoutEffect } from "react";
-import useThrottle from "hooks/useThrottle";
-import { debounce } from "lodash";
+import { useRef, useState, useCallback, useLayoutEffect } from 'react';
+import useThrottle from 'hooks/useThrottle';
+import { debounce } from 'lodash';
 
 export const useHeaderScroll = () => {
   //scroll이 일어나는 container. 현재 scroll 내린 만큼의 값을 구하기 위해
@@ -54,11 +54,11 @@ export const useHeaderScroll = () => {
 
   useLayoutEffect(() => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.addEventListener("scroll", scrollDetectHandler);
+      scrollContainerRef.current.addEventListener('scroll', scrollDetectHandler);
     }
     return () => {
       if (!scrollContainerRef.current) return;
-      scrollContainerRef.current.removeEventListener("scroll", scrollDetectHandler);
+      scrollContainerRef.current.removeEventListener('scroll', scrollDetectHandler);
     };
   }, [prevY]);
 

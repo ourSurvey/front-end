@@ -1,12 +1,12 @@
-import type { NextPage } from "next";
-import Link from "next/link";
-import { Common, Pretendard, AlignAndJustifyCenter } from "styles/common";
-import styled from "@emotion/styled";
-import OurSurveyLogo from "public/icon/our-survey.svg";
-import { useMutation } from "react-query";
-import { postAddition } from "services/api/auth";
-import { useRecoilValue } from "recoil";
-import { nullDeleteAdttionState } from "states/onBoard";
+import type { NextPage } from 'next';
+import Link from 'next/link';
+import { Common, Pretendard, AlignAndJustifyCenter } from 'styles/common';
+import styled from '@emotion/styled';
+import OurSurveyLogo from 'public/icon/our-survey.svg';
+import { useMutation } from 'react-query';
+import { postAddition } from 'services/api/auth';
+import { useRecoilValue } from 'recoil';
+import { nullDeleteAdttionState } from 'states/onBoard';
 const Start: NextPage = () => {
   const additionState = useRecoilValue(nullDeleteAdttionState);
 
@@ -64,7 +64,7 @@ const Button = styled.button`
   border: none;
   background-color: ${Common.colors.BL500};
   border-radius: 10px;
-  ${Pretendard({ font: 1.4, weight: 700, color: "#fff" })}
+  ${Pretendard({ font: 1.4, weight: 700, color: '#fff' })}
 `;
 
 const Subject = styled.p`

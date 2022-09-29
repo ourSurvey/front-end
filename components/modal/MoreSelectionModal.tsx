@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { Common, Pretendard } from "styles/common";
-import styled from "@emotion/styled";
-import Portal from "components/common/Portal";
-import ModalTemplate from "components/modal/ModalTemplate";
-import PartDeleteBody from "components/modal/PartDeleteBody";
+import { useState } from 'react';
+import { Common, Pretendard } from 'styles/common';
+import styled from '@emotion/styled';
+import Portal from 'components/common/Portal';
+import ModalTemplate from 'components/modal/ModalTemplate';
+import PartDeleteBody from 'components/modal/PartDeleteBody';
 import {
   qusetionListAtomFamily,
   MoreModalAtom,
@@ -13,10 +13,10 @@ import {
   targetPartIdAtom,
   sectionIdListAtom,
   templateSelector,
-} from "states/survey";
-import { toastState } from "states/modal";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { PartIDFormat } from "utills/getDateSixth";
+} from 'states/survey';
+import { toastState } from 'states/modal';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { PartIDFormat } from 'utills/getDateSixth';
 interface IProps {
   setSideModal: (bool: boolean) => void;
 }
@@ -65,9 +65,9 @@ const MoreSelectionModal = ({ setSideModal }: IProps) => {
     setTimeout(() => {
       setToastState({
         ...ToastState,
-        text: "질문이 삭제 되었습니다.",
+        text: '질문이 삭제 되었습니다.',
         visible: true,
-        toastType: "success",
+        toastType: 'success',
       });
     }, 1000);
   };
@@ -82,10 +82,10 @@ const MoreSelectionModal = ({ setSideModal }: IProps) => {
       <div>
         <Container>
           <h6>선택지 옵션</h6>
-          <SelectableSpan className={question.randomShowFl === 1 ? "active" : ""} onClick={onToggleRandomFlag}>
+          <SelectableSpan className={question.randomShowFl === 1 ? 'active' : ''} onClick={onToggleRandomFlag}>
             선택지 순서 무작위로 섞기
           </SelectableSpan>
-          <SelectableSpan className={question.hasNextPart ? "active" : ""} onClick={onToggleNextPartFlag}>
+          <SelectableSpan className={question.hasNextPart ? 'active' : ''} onClick={onToggleNextPartFlag}>
             답변을 기준으로 파트 이동
           </SelectableSpan>
         </Container>
@@ -98,15 +98,19 @@ const MoreSelectionModal = ({ setSideModal }: IProps) => {
         <Line></Line>
         <Container>
           <h6>템플릿 사용</h6>
-          <span onClick={() => setTemplate("gender")}>성별 질문</span>
-          <span onClick={() => setTemplate("birth")}>나이 질문</span>
-          <span onClick={() => setTemplate("phone")}>연락처 질문</span>
-          <span onClick={() => setTemplate("email")}>이메일 질문</span>
+          <span onClick={() => setTemplate('gender')}>성별 질문</span>
+          <span onClick={() => setTemplate('birth')}>나이 질문</span>
+          <span onClick={() => setTemplate('phone')}>연락처 질문</span>
+          <span onClick={() => setTemplate('email')}>이메일 질문</span>
         </Container>
       </div>
       {deleteModal && (
         <Portal selector="#portal">
-          <ModalTemplate visibleState={deleteModal} setVisible={setdeleteModal} height={questionIdList.length > 1 ? 17 : 25}>
+          <ModalTemplate
+            visibleState={deleteModal}
+            setVisible={setdeleteModal}
+            height={questionIdList.length > 1 ? 17 : 25}
+          >
             <PartDeleteBody length={questionIdList.length} onDelete={onDeleteQuestion} setVisible={setdeleteModal} />
           </ModalTemplate>
         </Portal>
@@ -124,7 +128,7 @@ const MoreOption = styled.aside`
   & .active {
     font-weight: 700 !important;
     &::before {
-      content: url("images/checkedCheck.svg");
+      content: url('images/checkedCheck.svg');
       margin-right: 4px;
       width: 10px;
     }
@@ -135,7 +139,8 @@ const Title = styled.div<IStyle>`
   padding-left: 18px;
   display: flex;
   & .part {
-    ${(props) => Pretendard({ font: 1, weight: 700, color: props.idx % 2 === 0 ? Common.colors.PK500 : Common.colors.GR500 })};
+    ${(props) =>
+      Pretendard({ font: 1, weight: 700, color: props.idx % 2 === 0 ? Common.colors.PK500 : Common.colors.GR500 })};
     line-height: 150%;
     background-color: ${(props) => (props.idx % 2 === 0 ? Common.colors.PK50 : Common.colors.GR50)};
     border-radius: 4px;

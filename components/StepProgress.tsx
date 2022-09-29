@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import styled from "@emotion/styled";
-import { css, SerializedStyles } from "@emotion/react";
-import { Common, SpaceBetween } from "styles/common";
-import { stepState } from "states/stepProgress";
-import { useRecoilValue } from "recoil";
-import bg from "public/images/whiteCheck.png";
+import styled from '@emotion/styled';
+import { css, SerializedStyles } from '@emotion/react';
+import { Common, SpaceBetween } from 'styles/common';
+import { stepState } from 'states/stepProgress';
+import { useRecoilValue } from 'recoil';
+import bg from 'public/images/whiteCheck.png';
 const StepProgress = () => {
   const onBoardingStep = useRecoilValue(stepState);
   const liStyle = css`
@@ -19,7 +19,7 @@ const StepProgress = () => {
     background-position: 50%;
     ${liStyle}
     &:not(#first)::before {
-      content: "";
+      content: '';
       position: absolute;
       bottom: 2px;
       right: 9px;
@@ -33,7 +33,7 @@ const StepProgress = () => {
     border: 3px solid ${Common.colors.GR200} !important;
     z-index: 5;
     &:before {
-      content: "";
+      content: '';
       position: absolute;
       bottom: 2px;
       right: 9px;
@@ -55,9 +55,9 @@ const StepProgress = () => {
 
   return (
     <StepProgressBar>
-      <li id="first" css={onBoardingStep !== 1 ? completed : ""}></li>
+      <li id="first" css={onBoardingStep !== 1 ? completed : ''}></li>
       <li css={twoStepReturnCssStyle}></li>
-      <li css={onBoardingStep === 3 ? proceeding : ""}></li>
+      <li css={onBoardingStep === 3 ? proceeding : ''}></li>
     </StepProgressBar>
   );
 };
@@ -81,7 +81,7 @@ const StepProgressBar = styled.ul`
     }
 
     &:not(:first-of-type)::before {
-      content: "";
+      content: '';
       position: absolute;
       bottom: 2px;
       right: 9px;

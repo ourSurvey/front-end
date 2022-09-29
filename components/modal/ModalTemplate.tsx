@@ -1,7 +1,7 @@
-import Dimmer from "components/common/Dimmer";
-import styled from "@emotion/styled";
-import { keyframes } from "@emotion/react";
-import { Pretendard, Common } from "styles/common";
+import Dimmer from 'components/common/Dimmer';
+import styled from '@emotion/styled';
+import { keyframes } from '@emotion/react';
+import { Pretendard, Common } from 'styles/common';
 
 interface IProps {
   visibleState: boolean;

@@ -1,15 +1,15 @@
-import { useState } from "react";
-import PasswordInput from "components/common/PasswordInput";
-import { Common, Pretendard } from "styles/common";
-import ConfirmPassword from "components/common/ConfirmPassword";
-import { Button } from "components/common/Button";
-import styled from "@emotion/styled";
-import { resetPassword } from "services/api/auth";
-import { useRouter } from "next/router";
-import { useMutation } from "react-query";
-import { toastState } from "states/modal";
-import { useRecoilState } from "recoil";
-import SearchHeader from "components/common/SearchHeader";
+import { useState } from 'react';
+import PasswordInput from 'components/common/PasswordInput';
+import { Common, Pretendard } from 'styles/common';
+import ConfirmPassword from 'components/common/ConfirmPassword';
+import { Button } from 'components/common/Button';
+import styled from '@emotion/styled';
+import { resetPassword } from 'services/api/auth';
+import { useRouter } from 'next/router';
+import { useMutation } from 'react-query';
+import { toastState } from 'states/modal';
+import { useRecoilState } from 'recoil';
+import SearchHeader from 'components/common/SearchHeader';
 
 const Reset = () => {
   const [wasSubmitted, setwasSubmitted] = useState(false);
@@ -24,19 +24,19 @@ const Reset = () => {
       setToastState({
         ...ToastState,
         visible: true,
-        text: "비밀번호가 재설정 되었습니다.",
-        toastType: "success",
+        text: '비밀번호가 재설정 되었습니다.',
+        toastType: 'success',
       });
       setTimeout(() => {
-        router.push("/login");
+        router.push('/login');
       }, 1000);
     },
     onError: () => {
       setToastState({
         ...ToastState,
         visible: true,
-        text: "비밀번호 설정에 실패 했습니다.",
-        toastType: "error",
+        text: '비밀번호 설정에 실패 했습니다.',
+        toastType: 'error',
       });
     },
   });
@@ -45,7 +45,7 @@ const Reset = () => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const fieldValues = Object.fromEntries(formData.entries());
-    const pwd = fieldValues["비밀번호"] as string;
+    const pwd = fieldValues['비밀번호'] as string;
     setwasSubmitted(true);
     resetPasswordHandler.mutate({ pwd: pwd, token: router.query.token as string });
   };
@@ -63,7 +63,13 @@ const Reset = () => {
           passwordInputName="비밀번호"
           wasSubmitted={wasSubmitted}
         />
-        <Button type="submit" color={Common.colors.BL500} btnText="재설정 하기" textColor="#fff" isDisabled={!restButtonToggle} />
+        <Button
+          type="submit"
+          color={Common.colors.BL500}
+          btnText="재설정 하기"
+          textColor="#fff"
+          isDisabled={!restButtonToggle}
+        />
       </form>
     </>
   );

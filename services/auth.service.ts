@@ -1,7 +1,7 @@
-import axios from "axios";
-import { ILoginData, ISignupData, IAddtionData } from "../types/auth";
-import ApiClient from "./ApiClient";
-import TokenProvider from "./TokenProvider";
+import axios from 'axios';
+import { ILoginData, ISignupData, IAddtionData } from '../types/auth';
+import ApiClient from './ApiClient';
+import TokenProvider from './TokenProvider';
 
 class AuthService extends ApiClient {
   /** refreshToken을 이용해 새로운 토큰을 발급받습니다. */
@@ -17,20 +17,20 @@ class AuthService extends ApiClient {
 
   /** 새로운 계정을 생성하고 토큰을 발급받습니다. */
   async signup(signupData: ISignupData) {
-    const { data } = await super.post("/auth/join", signupData);
-    TokenProvider.set("accessToken", data.data.access, 1);
+    const { data } = await super.post('/auth/join', signupData);
+    TokenProvider.set('accessToken', data.data.access, 1);
 
     return data;
   }
 
   /** 이미 생성된 계정의 토큰을 발급받습니다. */
   async login(loginData: ILoginData) {
-    const { data } = await super.post("/auth/login", loginData);
+    const { data } = await super.post('/auth/login', loginData);
 
     const refreshExpire: number = data.data.refreshExpire / 60 / 60 / 24; //초로 오는 시간 일로 변환
 
-    TokenProvider.set("accessToken", data.data.access, 1);
-    TokenProvider.set("refreshToken", data.data.refresh, refreshExpire);
+    TokenProvider.set('accessToken', data.data.access, 1);
+    TokenProvider.set('refreshToken', data.data.refresh, refreshExpire);
   }
 
   async isAuthedUser(token: string) {
@@ -44,9 +44,9 @@ class AuthService extends ApiClient {
   }
 
   async addtion(additionData: IAddtionData) {
-    const { data } = await super.post("/auth/addition", additionData, {
+    const { data } = await super.post('/auth/addition', additionData, {
       headers: {
-        Authorization: `Bearer ${TokenProvider.get("accessToken")}`,
+        Authorization: `Bearer ${TokenProvider.get('accessToken')}`,
       },
     });
 
@@ -55,7 +55,7 @@ class AuthService extends ApiClient {
 
   // 아직 요청 url 을 모름
   async logout() {
-    const { data } = await super.post("logoutUrl", null);
+    const { data } = await super.post('logoutUrl', null);
     TokenProvider.clear();
   }
 }

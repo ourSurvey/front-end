@@ -1,13 +1,13 @@
-import styled from "@emotion/styled";
-import { Common, Pretendard, Roboto, AlignAndJustifyCenter } from "styles/common";
-import Arrow from "public/icon/underArrow.svg";
-import { PartIDFormat } from "utills/getDateSixth";
-import { sectionListAtomFamily } from "states/survey";
-import { useRecoilValue } from "recoil";
-import Portal from "components/common/Portal";
-import ModalTemplate from "components/modal/ModalTemplate";
-import { useState } from "react";
-import NextPartSectionModal from "components/modal/NextPartSectionModal";
+import styled from '@emotion/styled';
+import { Common, Pretendard, Roboto, AlignAndJustifyCenter } from 'styles/common';
+import Arrow from 'public/icon/underArrow.svg';
+import { PartIDFormat } from 'utills/getDateSixth';
+import { sectionListAtomFamily } from 'states/survey';
+import { useRecoilValue } from 'recoil';
+import Portal from 'components/common/Portal';
+import ModalTemplate from 'components/modal/ModalTemplate';
+import { useState } from 'react';
+import NextPartSectionModal from 'components/modal/NextPartSectionModal';
 interface IProps {
   partNum: number;
   color: string;
@@ -25,7 +25,7 @@ const SpeechBubble = ({ partNum, color, partLength }: IProps) => {
     <BubbleContiner color={color}>
       <div>
         <strong>Part{partNum}.</strong>
-        <h1>{partData.title === "" ? "(제목없음)" : partData.title}</h1>
+        <h1>{partData.title === '' ? '(제목없음)' : partData.title}</h1>
       </div>
       <h2>다음으로 어디로 이동할까요?</h2>
       <button onClick={() => setshowModalState(true)}>
@@ -35,7 +35,12 @@ const SpeechBubble = ({ partNum, color, partLength }: IProps) => {
       {showModalState && (
         <Portal selector="#portal">
           <ModalTemplate height={50} visibleState={showModalState} setVisible={setshowModalState}>
-            <NextPartSectionModal partLength={partLength} partName={partData.title} partNum={partNum} setVisible={setshowModalState} />
+            <NextPartSectionModal
+              partLength={partLength}
+              partName={partData.title}
+              partNum={partNum}
+              setVisible={setshowModalState}
+            />
           </ModalTemplate>
         </Portal>
       )}
@@ -61,7 +66,7 @@ const BubbleContiner = styled.div<IStyle>`
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.24);
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     top: -10px;
     left: calc(50% - 14.5px);
@@ -89,7 +94,7 @@ const BubbleContiner = styled.div<IStyle>`
     ${AlignAndJustifyCenter()};
 
     padding: 7px 10px;
-    background-color: ${(props) => (props.color === "pink" ? Common.colors.PK500 : Common.colors.GR500)};
+    background-color: ${(props) => (props.color === 'pink' ? Common.colors.PK500 : Common.colors.GR500)};
     border-radius: 60px;
     width: 100%;
 

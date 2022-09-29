@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import styled from "@emotion/styled";
-import { Common, Pretendard } from "styles/common";
-import ColorCustomRadio from "components/common/ColorCustomRadio";
+import React, { useState } from 'react';
+import styled from '@emotion/styled';
+import { Common, Pretendard } from 'styles/common';
+import ColorCustomRadio from 'components/common/ColorCustomRadio';
 const ShareResult = () => {
-  const [share, setShare] = useState("1");
+  const [share, setShare] = useState('1');
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setShare(e.target.value);
@@ -18,7 +18,7 @@ const ShareResult = () => {
         checkedColor={Common.colors.BL500}
         borderColor={Common.colors.GY300}
         onChange={onChangeHandler}
-        isSelected={share === "1"}
+        isSelected={share === '1'}
         id="1"
         label="공유"
         value={1}
@@ -29,7 +29,7 @@ const ShareResult = () => {
         checkedColor={Common.colors.BL500}
         borderColor={Common.colors.GY300}
         onChange={onChangeHandler}
-        isSelected={share === "0"}
+        isSelected={share === '0'}
         id="2"
         label="공유하지 않음"
         value={0}

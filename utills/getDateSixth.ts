@@ -1,4 +1,4 @@
-import { QuestionListID, SectionID, QuestionID, QuestionItemID } from "types/survey";
+import { QuestionListID, SectionID, QuestionID, QuestionItemID } from 'types/survey';
 
 export const getDateSixDigitsFormatToday = (): number => {
   const date = new Date();
@@ -19,7 +19,7 @@ export const numberSet = (num: number) => {
   if (num > 999) ASCCode++;
   if (ASCCode > 90) return;
 
-  return `${String.fromCharCode(ASCCode)}${("000" + num).slice(-3)}`;
+  return `${String.fromCharCode(ASCCode)}${('000' + num).slice(-3)}`;
 };
 
 export const PartIDFormat = (idx: number): SectionID => {

@@ -1,7 +1,14 @@
-import TokenProvider from "services/TokenProvider";
-import { UseInfiniteQueryResult, useQuery, QueryKey, UseQueryOptions, useInfiniteQuery, UseInfiniteQueryOptions } from "react-query";
-import { RequestDocument } from "graphql-request/dist/types";
-import { GraphQLClient } from "graphql-request";
+import TokenProvider from 'services/TokenProvider';
+import {
+  UseInfiniteQueryResult,
+  useQuery,
+  QueryKey,
+  UseQueryOptions,
+  useInfiniteQuery,
+  UseInfiniteQueryOptions,
+} from 'react-query';
+import { RequestDocument } from 'graphql-request/dist/types';
+import { GraphQLClient } from 'graphql-request';
 
 interface UseQueryFn<TData extends Record<string, any>, TVariables extends Record<string, any>> {
   (variables: TVariables, options?: UseQueryOptions<TData>): unknown;
@@ -16,7 +23,7 @@ export const useGQLQuery = (key: QueryKey, query: RequestDocument, variables: an
   //헤더 값 가져오기
   const headers = {
     headers: {
-      Authorization: `Bearer ${TokenProvider.get("accessToken")}`,
+      Authorization: `Bearer ${TokenProvider.get('accessToken')}`,
     },
   };
 
@@ -39,7 +46,7 @@ export const useInfiniteGQLQuery = (
   //헤더 값 가져오기
   const headers = {
     headers: {
-      Authorization: `Bearer ${TokenProvider.get("accessToken")}`,
+      Authorization: `Bearer ${TokenProvider.get('accessToken')}`,
     },
   };
 
@@ -64,7 +71,7 @@ export function useInfiniteGraphQLQuery<TData extends Record<string, any>, TVari
   //헤더 값 가져오기
   const headers = {
     headers: {
-      Authorization: `Bearer ${TokenProvider.get("accessToken")}`,
+      Authorization: `Bearer ${TokenProvider.get('accessToken')}`,
     },
   };
 

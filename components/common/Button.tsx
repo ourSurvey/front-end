@@ -1,10 +1,10 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 interface IProp {
   color: string;
   btnText: string;
   textColor: string;
-  type?: "button" | "submit" | "reset" | undefined;
+  type?: 'button' | 'submit' | 'reset' | undefined;
   onClick?: (e?: any) => void;
   isDisabled: boolean;
 }
@@ -19,7 +19,14 @@ export const Button = (props: IProp) => {
   const { color, textColor, isDisabled, onClick, btnText, type } = props;
 
   return (
-    <ButtonContainer textColor={textColor} color={color} isDisabled={isDisabled} type={type} disabled={isDisabled} onClick={onClick}>
+    <ButtonContainer
+      textColor={textColor}
+      color={color}
+      isDisabled={isDisabled}
+      type={type}
+      disabled={isDisabled}
+      onClick={onClick}
+    >
       {btnText}
     </ButtonContainer>
   );

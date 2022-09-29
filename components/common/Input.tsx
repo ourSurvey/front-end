@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import { getFieldError } from "utills/validate";
-import styled from "@emotion/styled";
-import { Common, Pretendard } from "styles/common";
+import { useState, useEffect } from 'react';
+import { getFieldError } from 'utills/validate';
+import styled from '@emotion/styled';
+import { Common, Pretendard } from 'styles/common';
 
 interface IProps {
   name: string; //폼이 제출되었을 때 form.element에서 필드값을 찾는데 사용
@@ -12,7 +12,7 @@ interface IProps {
 }
 
 function Input({ name, wasSubmitted, type, placeHolder, setValidate }: IProps) {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
   const [touched, setTouched] = useState(false);
 
   const errorMessage = getFieldError(value, name);
@@ -42,7 +42,7 @@ function Input({ name, wasSubmitted, type, placeHolder, setValidate }: IProps) {
         onChange={(event) => setValue(event.currentTarget.value)}
         onBlur={() => setTouched(true)}
         aria-describedby={displayErrorMessage ? `${name}-error` : undefined}
-        placeholder={placeHolder !== undefined ? placeHolder : ""}
+        placeholder={placeHolder !== undefined ? placeHolder : ''}
       />
 
       {displayErrorMessage ? (

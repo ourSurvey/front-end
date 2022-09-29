@@ -1,9 +1,9 @@
-import styled from "@emotion/styled";
-import Link from "next/link";
-import Home from "public/icon/home.svg";
-import Survey from "public/icon/survey.svg";
-import { Common, Pretendard, SpaceBetween } from "styles/common";
-import { useRouter } from "next/router";
+import styled from '@emotion/styled';
+import Link from 'next/link';
+import Home from 'public/icon/home.svg';
+import Survey from 'public/icon/survey.svg';
+import { Common, Pretendard, SpaceBetween } from 'styles/common';
+import { useRouter } from 'next/router';
 type ComponentProps = {
   width: number;
   height: number;
@@ -58,7 +58,7 @@ const NavBar = () => {
       <li>
         <Link href="/">
           <a>
-            <Home width="24 " height="27" stroke={router.asPath === "/" ? Common.colors.BL500 : Common.colors.GY900} />
+            <Home width="24 " height="27" stroke={router.asPath === '/' ? Common.colors.BL500 : Common.colors.GY900} />
             <Span>홈</Span>
           </a>
         </Link>
@@ -66,7 +66,11 @@ const NavBar = () => {
       <li>
         <Link href="/survey">
           <a>
-            <Survey width="30" height="27" stroke={router.asPath === "/survey" ? Common.colors.BL500 : Common.colors.GY900} />
+            <Survey
+              width="30"
+              height="27"
+              stroke={router.asPath === '/survey' ? Common.colors.BL500 : Common.colors.GY900}
+            />
             <Span>서베이</Span>
           </a>
         </Link>
@@ -81,7 +85,11 @@ const NavBar = () => {
       <li>
         <Link href="/mypage">
           <a>
-            <PhoneSurvey width={25} height={27} selected={router.asPath === "/mypage" ? Common.colors.BL500 : Common.colors.GY900} />
+            <PhoneSurvey
+              width={25}
+              height={27}
+              selected={router.asPath === '/mypage' ? Common.colors.BL500 : Common.colors.GY900}
+            />
             {/* <PhoneSurvey width="30" height="27" stroke="blue" /> */}
             <Span>나의 서베이</Span>
           </a>
@@ -90,7 +98,11 @@ const NavBar = () => {
       <li>
         <Link href="/more">
           <a>
-            <More width={25} height={27} selected={router.asPath === "/more" ? Common.colors.BL500 : Common.colors.GY900} />
+            <More
+              width={25}
+              height={27}
+              selected={router.asPath === '/more' ? Common.colors.BL500 : Common.colors.GY900}
+            />
             <Span>더보기</Span>
           </a>
         </Link>

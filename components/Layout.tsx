@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import { useEffect } from "react";
-import styled from "@emotion/styled";
+import { useEffect } from 'react';
+import styled from '@emotion/styled';
 
-import Alert from "./common/Alert";
+import Alert from './common/Alert';
 
-import { useRouter } from "next/router";
-import NavBar from "./common/NavBar";
-import { hasNavbar } from "utills/hasNavbar";
-import Portal from "./common/Portal";
+import { useRouter } from 'next/router';
+import NavBar from './common/NavBar';
+import { hasNavbar } from 'utills/hasNavbar';
+import Portal from './common/Portal';
 type IProps = {
   children: JSX.Element;
 };
@@ -15,16 +15,16 @@ type IProps = {
 const Layout = ({ children }: IProps) => {
   const handleResize = () => {
     const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
   };
 
   const router = useRouter();
 
   useEffect(() => {
     handleResize();
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
-    return () => window.removeEventListener("resize", handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const LayoutContainer = styled.div`
@@ -39,7 +39,7 @@ const Layout = ({ children }: IProps) => {
       <Portal selector="#portal">
         <Alert />
       </Portal>
-      {hasNavbar(router.asPath) ? <NavBar /> : ""}
+      {hasNavbar(router.asPath) ? <NavBar /> : ''}
     </LayoutContainer>
   );
 };

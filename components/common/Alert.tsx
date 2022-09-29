@@ -1,15 +1,15 @@
-import { useEffect } from "react";
-import styled from "@emotion/styled";
-import GreenCheck from "public/images/greenCheck.svg";
-import PinkExcalmationMark from "public/images/pinkExclamationMark.svg";
-import { Common, Pretendard, AlignAndJustifyCenter } from "styles/common";
-import { toastState } from "states/modal";
-import { useRecoilState } from "recoil";
-import { css, keyframes } from "@emotion/react";
-import { showToastState } from "states/modal";
-import { useRecoilValue } from "recoil";
-import { hasNavbar } from "utills/hasNavbar";
-import { useRouter } from "next/router";
+import { useEffect } from 'react';
+import styled from '@emotion/styled';
+import GreenCheck from 'public/images/greenCheck.svg';
+import PinkExcalmationMark from 'public/images/pinkExclamationMark.svg';
+import { Common, Pretendard, AlignAndJustifyCenter } from 'styles/common';
+import { toastState } from 'states/modal';
+import { useRecoilState } from 'recoil';
+import { css, keyframes } from '@emotion/react';
+import { showToastState } from 'states/modal';
+import { useRecoilValue } from 'recoil';
+import { hasNavbar } from 'utills/hasNavbar';
+import { useRouter } from 'next/router';
 const Alert = () => {
   const [ToastState, setToastState] = useRecoilState(toastState);
   const visible = useRecoilValue(showToastState);
@@ -27,10 +27,10 @@ const Alert = () => {
   const toast = css`
     position: absolute;
     bottom: 0;
-    visibility: ${visible ? `visible` : "hidden"};
+    visibility: ${visible ? `visible` : 'hidden'};
     animation: ${visible ? fadein : fadeout} 0.2s ease-out;
     transition: visibility 0.2s ease-out;
-    margin-bottom: ${hasNavbar(router.asPath) ? "27px" : ""}; //nav바가 있다면 알럿 위치 위로 올림
+    margin-bottom: ${hasNavbar(router.asPath) ? '27px' : ''}; //nav바가 있다면 알럿 위치 위로 올림
     padding: 21.5px 20px 35px 20px;
     left: 0;
     right: 0;
@@ -51,7 +51,7 @@ const Alert = () => {
 
   return (
     <div css={toast} role="alert">
-      {ToastState.toastType === "error" ? (
+      {ToastState.toastType === 'error' ? (
         <Error>
           <PinkExcalmationMark width="18" height="18" />
           {ToastState.text}

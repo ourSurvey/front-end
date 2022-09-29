@@ -15,7 +15,7 @@ export interface ILoginData {
 }
 
 export interface IAddtionData {
-  gender?: "M" | "F" | null;
+  gender?: 'M' | 'F' | null;
   age?: number | null;
   tel?: string | null;
 }

@@ -1,32 +1,32 @@
-import React, { useState, memo } from "react";
-import { useMutation } from "react-query";
-import ConfirmPassword from "components/common/ConfirmPassword";
-import PasswordInput from "components/common/PasswordInput";
-import TosContainer from "./TosContainer";
-import styled from "@emotion/styled";
-import { Common, Pretendard, AlignAndJustifyCenter, SpaceBetween } from "styles/common";
-import { getFieldError } from "utills/validate";
-import { Button } from "components/common/Button";
-import Timmer from "components/common/Timmer";
-import GreenCheck from "public/images/greenCheck.svg";
-import { emailAuth, emailAuthCheckNum, register } from "services/api/auth";
-import { useRouter } from "next/router";
-import { ClipLoader } from "react-spinners";
-import SearchHeader from "components/common/SearchHeader";
-import randomNickName from "utills/getRandomNickName";
-import { useSetRecoilState } from "recoil";
-import { toastState } from "states/modal";
+import React, { useState, memo } from 'react';
+import { useMutation } from 'react-query';
+import ConfirmPassword from 'components/common/ConfirmPassword';
+import PasswordInput from 'components/common/PasswordInput';
+import TosContainer from './TosContainer';
+import styled from '@emotion/styled';
+import { Common, Pretendard, AlignAndJustifyCenter, SpaceBetween } from 'styles/common';
+import { getFieldError } from 'utills/validate';
+import { Button } from 'components/common/Button';
+import Timmer from 'components/common/Timmer';
+import GreenCheck from 'public/images/greenCheck.svg';
+import { emailAuth, emailAuthCheckNum, register } from 'services/api/auth';
+import { useRouter } from 'next/router';
+import { ClipLoader } from 'react-spinners';
+import SearchHeader from 'components/common/SearchHeader';
+import randomNickName from 'utills/getRandomNickName';
+import { useSetRecoilState } from 'recoil';
+import { toastState } from 'states/modal';
 const Register = () => {
   const [wasSubmitted, setwasSubmitted] = useState(false);
   const [validatePassword, setvalidatePassword] = useState(false);
   const [touched, setTouched] = useState(false); //터치에 대한 state
   const [buttonNameState, setbuttonNameState] = useState(false); //이메일 인증 메일 보내고 난 후 버튼 이름 변경 state
-  const [authNumber, setAuthNumber] = useState("");
+  const [authNumber, setAuthNumber] = useState('');
   const [visibleAuthInput, setVisibleAuthInput] = useState(false); //이메일 인증 보내지면 인증번호 입력할 input 컴포넌트 토글
   const [isAuthedEmail, setIsAuthedEmail] = useState(false); //정상적으로 인증 완료되면 인증완료 표시 나오게 하기
   const [timerMinute, setTimerMinute] = useState(0); //타이머 컴포넌트를 위한 state
-  const [email, setemail] = useState("");
-  const errorMessage = getFieldError(email, "이메일"); //에러 메시지
+  const [email, setemail] = useState('');
+  const errorMessage = getFieldError(email, '이메일'); //에러 메시지
   const [isAllCheck, setisAllCheck] = useState(false); //체크 토글
   const displayErrorMessage = (wasSubmitted || touched) && errorMessage;
   const [isSame, setIsSame] = useState(false);
@@ -41,8 +41,8 @@ const Register = () => {
       setTimerMinute(3);
       if (data.status === 200) {
         setModalState({
-          text: "입력하신 이메일로 발송된 인증번호를 입력해주세요.",
-          toastType: "error",
+          text: '입력하신 이메일로 발송된 인증번호를 입력해주세요.',
+          toastType: 'error',
           visible: true,
         });
       }
@@ -58,8 +58,8 @@ const Register = () => {
     },
     onError: () => {
       setModalState({
-        text: "인증번호를 다시 확인해주세요.",
-        toastType: "error",
+        text: '인증번호를 다시 확인해주세요.',
+        toastType: 'error',
         visible: true,
       });
     },
@@ -68,12 +68,12 @@ const Register = () => {
   const registerApi = useMutation(register, {
     onSuccess: (data) => {
       setModalState({
-        text: "회원가입이 완료되었습니다!",
-        toastType: "success",
+        text: '회원가입이 완료되었습니다!',
+        toastType: 'success',
         visible: true,
       });
       if (data.code === 200) {
-        router.push("/onBoarding");
+        router.push('/onBoarding');
       }
     },
   });
@@ -83,9 +83,9 @@ const Register = () => {
       return <ClipLoader className="spinner" size={25} color={Common.colors.GY900} />;
     } else {
       if (!buttonNameState) {
-        return "인증하기";
+        return '인증하기';
       } else {
-        return "재발송";
+        return '재발송';
       }
     }
   };
@@ -106,7 +106,7 @@ const Register = () => {
     const fieldValues = Object.fromEntries(formData.entries());
     setwasSubmitted(true);
     const nickName = randomNickName();
-    registerApi.mutate({ email: email, pwd: fieldValues["비밀번호"] as string, nickname: nickName });
+    registerApi.mutate({ email: email, pwd: fieldValues['비밀번호'] as string, nickname: nickName });
   };
 
   return (
@@ -115,7 +115,7 @@ const Register = () => {
       <Form onSubmit={registerHandler}>
         <Label htmlFor={`email-input`}>이메일 주소</Label>
         <br />
-        <div style={{ marginBottom: "30px" }}>
+        <div style={{ marginBottom: '30px' }}>
           <EmailContainer>
             <input
               id={`email-input`}
@@ -147,9 +147,14 @@ const Register = () => {
           <>
             <Label htmlFor={`auth-input`}>이메일 인증</Label>
             <br />
-            <div style={{ marginBottom: "30px" }}>
+            <div style={{ marginBottom: '30px' }}>
               <EmailContainer>
-                <input id={`auth-input`} onChange={(e) => setAuthNumber(e.currentTarget.value)} onBlur={() => setTouched(true)} type="number" />
+                <input
+                  id={`auth-input`}
+                  onChange={(e) => setAuthNumber(e.currentTarget.value)}
+                  onBlur={() => setTouched(true)}
+                  type="number"
+                />
                 <Timmer minute={timerMinute} second={0} />
                 <AuthCheckButton type="button" onClick={(e) => checkAuth(e)} disabled={errorMessage !== null}>
                   인증확인
@@ -158,16 +163,27 @@ const Register = () => {
             </div>
           </>
         ) : (
-          ""
+          ''
         )}
 
         <div>
           <PasswordInput name="비밀번호" wasSubmitted={wasSubmitted} setValidate={setvalidatePassword} />
-          <ConfirmPassword setIsSame={setIsSame} name="비밀번호 확인" passwordInputName="비밀번호" wasSubmitted={wasSubmitted} />
+          <ConfirmPassword
+            setIsSame={setIsSame}
+            name="비밀번호 확인"
+            passwordInputName="비밀번호"
+            wasSubmitted={wasSubmitted}
+          />
         </div>
 
         <TosContainer setIsAllCheck={setisAllCheck} />
-        <Button type="submit" color={Common.colors.BL500} btnText="가입하기" textColor="#fff" isDisabled={!registerOnButton} />
+        <Button
+          type="submit"
+          color={Common.colors.BL500}
+          btnText="가입하기"
+          textColor="#fff"
+          isDisabled={!registerOnButton}
+        />
       </Form>
     </>
   );
@@ -226,7 +242,7 @@ const AuthCheckButton = styled.button`
   padding: 10px 15px;
   background-color: ${Common.colors.GY900};
   outline: 0;
-  ${Pretendard({ font: 1.3, weight: 700, color: "#fff" })}
+  ${Pretendard({ font: 1.3, weight: 700, color: '#fff' })}
   line-height: 16px;
 `;
 

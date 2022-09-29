@@ -1,11 +1,11 @@
-import styled from "@emotion/styled";
-import { Common, Pretendard } from "styles/common";
-import MultipleSelection from "./MultipleSelection";
-import Plus from "public/icon/plus.svg";
-import { useRecoilCallback, useRecoilState } from "recoil";
-import { qusetionItemIdListAtom, qusetionListAtomFamily, qusetionItemListAtomFamily } from "states/survey";
-import { IQuestionItem, QuestionID, QuestionItemListID } from "types/survey";
-import { getDateSixDigitsFormatToday, numberSet, QuestionItemIDFormat } from "utills/getDateSixth";
+import styled from '@emotion/styled';
+import { Common, Pretendard } from 'styles/common';
+import MultipleSelection from './MultipleSelection';
+import Plus from 'public/icon/plus.svg';
+import { useRecoilCallback, useRecoilState } from 'recoil';
+import { qusetionItemIdListAtom, qusetionListAtomFamily, qusetionItemListAtomFamily } from 'states/survey';
+import { IQuestionItem, QuestionID, QuestionItemListID } from 'types/survey';
+import { getDateSixDigitsFormatToday, numberSet, QuestionItemIDFormat } from 'utills/getDateSixth';
 interface IProps {
   color: string;
   questionIndex: number;
@@ -18,7 +18,13 @@ interface IStyle {
   color: string;
 }
 
-const SelectOptionContainer = ({ color, questionIndex, partIndex, hasNextSectionFlag, questionAtomFamilyID }: IProps) => {
+const SelectOptionContainer = ({
+  color,
+  questionIndex,
+  partIndex,
+  hasNextSectionFlag,
+  questionAtomFamilyID,
+}: IProps) => {
   const PartFormat = `SCTN${getDateSixDigitsFormatToday()}${numberSet(partIndex)}`;
   const QuestionFormat = `QSTN${getDateSixDigitsFormatToday()}${numberSet(questionIndex)}`;
   const [question, setQuestion] = useRecoilState(qusetionListAtomFamily(questionAtomFamilyID));
@@ -27,7 +33,9 @@ const SelectOptionContainer = ({ color, questionIndex, partIndex, hasNextSection
   const getNewQuestionItemState = useRecoilCallback(
     ({ snapshot }) =>
       (partIndex: number, questionIndex: number, selectionNumber: number) => {
-        let loadable = snapshot.getLoadable(qusetionItemListAtomFamily(QuestionItemIDFormat(partIndex, questionIndex, selectionNumber)));
+        let loadable = snapshot.getLoadable(
+          qusetionItemListAtomFamily(QuestionItemIDFormat(partIndex, questionIndex, selectionNumber))
+        );
 
         return loadable.valueMaybe();
       },
@@ -37,18 +45,24 @@ const SelectOptionContainer = ({ color, questionIndex, partIndex, hasNextSection
   const addQuestionItem = useRecoilCallback(({ snapshot, set }) => () => {
     const questionItemIds = snapshot.getLoadable(qusetionItemIdListAtom(SyscodeFormat)).getValue();
     const lastNumber = questionItemIds[questionItemIds.length - 1].slice(-1);
-    set(qusetionItemIdListAtom(SyscodeFormat), [...questionItemIds, `${SyscodeFormat}${Number(lastNumber) + 1}`] as QuestionItemListID[]);
+    set(qusetionItemIdListAtom(SyscodeFormat), [
+      ...questionItemIds,
+      `${SyscodeFormat}${Number(lastNumber) + 1}`,
+    ] as QuestionItemListID[]);
   });
 
   const addEtcQuestionItem = useRecoilCallback(({ snapshot, set }) => () => {
     const questionItemIds = snapshot.getLoadable(qusetionItemIdListAtom(SyscodeFormat)).getValue();
     const lastNumber = questionItemIds[questionItemIds.length - 1].slice(-1);
-    set(qusetionItemIdListAtom(SyscodeFormat), [...questionItemIds, `${SyscodeFormat}${Number(lastNumber) + 1}`] as QuestionItemListID[]);
+    set(qusetionItemIdListAtom(SyscodeFormat), [
+      ...questionItemIds,
+      `${SyscodeFormat}${Number(lastNumber) + 1}`,
+    ] as QuestionItemListID[]);
 
     const newData = getNewQuestionItemState(partIndex, questionIndex, questionItemIds.length + 1);
     set(qusetionItemListAtomFamily(QuestionItemIDFormat(partIndex, questionIndex, questionItemIds.length + 1)), {
       ...newData,
-      content: "기타",
+      content: '기타',
     } as IQuestionItem);
   });
 
@@ -74,19 +88,24 @@ const SelectOptionContainer = ({ color, questionIndex, partIndex, hasNextSection
     <Container>
       <SelectionTitle>선택지 입력</SelectionTitle>
       <SelectOption color={color}>
-        <li onClick={onMultipleFlag} className={question.multiFl === 1 ? "active" : ""}>
+        <li onClick={onMultipleFlag} className={question.multiFl === 1 ? 'active' : ''}>
           객관식
         </li>
-        <li onClick={onMultipleFlag} className={question.multiFl === 0 ? "active" : ""}>
+        <li onClick={onMultipleFlag} className={question.multiFl === 0 ? 'active' : ''}>
           주관식
         </li>
-        <li className={question.dupFl === 1 ? "active" : ""} onClick={onDuplicatePossible}>
+        <li className={question.dupFl === 1 ? 'active' : ''} onClick={onDuplicatePossible}>
           중복 선택 가능
         </li>
       </SelectOption>
 
       {question.multiFl ? (
-        <MultipleSelection hasNextSectionFlag={hasNextSectionFlag} sysCode={SyscodeFormat} partIndex={partIndex} questionIndex={questionIndex} />
+        <MultipleSelection
+          hasNextSectionFlag={hasNextSectionFlag}
+          sysCode={SyscodeFormat}
+          partIndex={partIndex}
+          questionIndex={questionIndex}
+        />
       ) : (
         <Input disabled placeholder="이곳에 답변이 입력될 예정입니다." />
       )}
@@ -153,8 +172,8 @@ const SelectOption = styled.ul<IStyle>`
   }
 
   & .active {
-    background-color: ${(props) => (props.color === "pink" ? Common.colors.PK500 : Common.colors.GR500)};
-    ${Pretendard({ font: 1.2, weight: 700, color: "#fff" })};
+    background-color: ${(props) => (props.color === 'pink' ? Common.colors.PK500 : Common.colors.GR500)};
+    ${Pretendard({ font: 1.2, weight: 700, color: '#fff' })};
 
     line-height: 150%;
   }

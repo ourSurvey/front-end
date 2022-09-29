@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
-import { Common, Pretendard, AlignCenter } from "styles/common";
+import styled from '@emotion/styled';
+import { Common, Pretendard, AlignCenter } from 'styles/common';
 
 interface IProps {
   id: string; //id
@@ -20,9 +20,24 @@ interface IStyle {
   borderColor: string; //라디오 테두리 색상
 }
 
-const ColorCustomRadio = ({ id, label, onChange, isSelected, value, radioSize, radioCheckedSize, checkedColor, borderColor }: IProps) => {
+const ColorCustomRadio = ({
+  id,
+  label,
+  onChange,
+  isSelected,
+  value,
+  radioSize,
+  radioCheckedSize,
+  checkedColor,
+  borderColor,
+}: IProps) => {
   return (
-    <RadioButton borderColor={borderColor} checkedColor={checkedColor} radioCheckedSize={radioCheckedSize} radioSize={radioSize}>
+    <RadioButton
+      borderColor={borderColor}
+      checkedColor={checkedColor}
+      radioCheckedSize={radioCheckedSize}
+      radioSize={radioSize}
+    >
       <input type="radio" value={value} id={id} onChange={onChange} checked={isSelected} />
       <label htmlFor={id}>{label}</label>
     </RadioButton>
@@ -34,7 +49,7 @@ export default ColorCustomRadio;
 const RadioButton = styled.div<IStyle>`
   margin: 16px 0;
 
-  & input[type="radio"] {
+  & input[type='radio'] {
     display: none;
 
     &:checked + label:before {
@@ -59,7 +74,7 @@ const RadioButton = styled.div<IStyle>`
     &:before,
     &:after {
       position: absolute;
-      content: "";
+      content: '';
       border-radius: 50%;
       transition: all 0.3s ease;
       transition-property: transform;

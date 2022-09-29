@@ -1,18 +1,18 @@
-import styled from "@emotion/styled";
-import { Button } from "components/common/Button";
-import { getFieldError } from "utills/validate";
-import { Common, Pretendard } from "styles/common";
-import React, { useState, useEffect } from "react";
-import { stepState } from "states/stepProgress";
-import { addtionState } from "states/onBoard";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { useRouter } from "next/router";
+import styled from '@emotion/styled';
+import { Button } from 'components/common/Button';
+import { getFieldError } from 'utills/validate';
+import { Common, Pretendard } from 'styles/common';
+import React, { useState, useEffect } from 'react';
+import { stepState } from 'states/stepProgress';
+import { addtionState } from 'states/onBoard';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRouter } from 'next/router';
 
 const InsertBitrhYear = () => {
-  const [birthYear, setbirthYear] = useState("");
+  const [birthYear, setbirthYear] = useState('');
   const [touched, setTouched] = useState(false);
   const [additionState, setAdditionState] = useRecoilState(addtionState);
-  const errorMessage = getFieldError(birthYear, "출생년도");
+  const errorMessage = getFieldError(birthYear, '출생년도');
   const displayErrorMessage = touched && errorMessage;
 
   const setStepState = useSetRecoilState(stepState);
@@ -23,7 +23,7 @@ const InsertBitrhYear = () => {
       ...additionState,
       age: Number(birthYear),
     });
-    router.push("/onBoarding/phone");
+    router.push('/onBoarding/phone');
   };
 
   const noAnswerNextPage = (): void => {
@@ -31,7 +31,7 @@ const InsertBitrhYear = () => {
       ...additionState,
       age: null,
     });
-    router.push("/onBoarding/phone");
+    router.push('/onBoarding/phone');
   };
 
   useEffect(() => {
@@ -59,7 +59,13 @@ const InsertBitrhYear = () => {
           </ErrorMessage>
         ) : null}
       </Container>
-      <Button onClick={nextPage} isDisabled={errorMessage !== null || birthYear === ""} btnText="다음" color={Common.colors.BL500} textColor="#fff" />
+      <Button
+        onClick={nextPage}
+        isDisabled={errorMessage !== null || birthYear === ''}
+        btnText="다음"
+        color={Common.colors.BL500}
+        textColor="#fff"
+      />
       <Pstyle onClick={noAnswerNextPage}>답변하지 않고 넘어가기</Pstyle>
     </div>
   );

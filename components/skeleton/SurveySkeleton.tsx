@@ -1,6 +1,6 @@
-import { keyframes, css } from "@emotion/react";
-import styled from "@emotion/styled";
-import React, { useMemo } from "react";
+import { keyframes, css } from '@emotion/react';
+import styled from '@emotion/styled';
+import React, { useMemo } from 'react';
 
 interface Props {
   width?: number;
@@ -22,12 +22,12 @@ const SurveySkeleton: React.FC<Props> = ({
   circle,
   rounded,
   count,
-  hUnit = "px",
-  wUnit = "px",
+  hUnit = 'px',
+  wUnit = 'px',
   animation = true,
-  color = "#f4f4f4",
+  color = '#f4f4f4',
 }) => {
-  const content = useMemo(() => [...Array({ length: count })].map(() => "-").join(""), [count]);
+  const content = useMemo(() => [...Array({ length: count })].map(() => '-').join(''), [count]);
   return (
     <Base
       style={style}

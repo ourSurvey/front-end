@@ -1,6 +1,6 @@
-import type { NextPage } from "next";
-import Layout from "components/onBoarding/Layout";
-import InsertBitrhYear from "components/onBoarding/InsertBitrhYear";
+import type { NextPage } from 'next';
+import Layout from 'components/onBoarding/Layout';
+import InsertBitrhYear from 'components/onBoarding/InsertBitrhYear';
 
 const Birth: NextPage = () => {
   return (

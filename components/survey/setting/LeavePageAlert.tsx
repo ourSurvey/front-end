@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
-import { useRouter } from "next/router";
-import { Pretendard, Common, SpaceBetween } from "styles/common";
+import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
+import { Pretendard, Common, SpaceBetween } from 'styles/common';
 
 type Props = {
   setVisible: (bool: boolean) => void;
@@ -41,7 +41,7 @@ const Confirm = styled.div`
   }
   & p {
     margin: 0;
-    ${Pretendard({ weight: 400, font: 1.3, color: "#333333" })};
+    ${Pretendard({ weight: 400, font: 1.3, color: '#333333' })};
 
     text-align: center;
     line-height: 150%;

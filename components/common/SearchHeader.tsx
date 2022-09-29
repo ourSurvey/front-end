@@ -1,9 +1,9 @@
-import styled from "@emotion/styled";
-import Prev from "public/icon/prevArrow.svg";
-import Search from "public/icon/search.svg";
-import { Common, Pretendard, SpaceBetween } from "styles/common";
-import { useRouter } from "next/router";
-import { memo } from "react";
+import styled from '@emotion/styled';
+import Prev from 'public/icon/prevArrow.svg';
+import Search from 'public/icon/search.svg';
+import { Common, Pretendard, SpaceBetween } from 'styles/common';
+import { useRouter } from 'next/router';
+import { memo } from 'react';
 
 type Props = {
   name: string;
@@ -59,6 +59,6 @@ const SvgPosition = styled.div`
 const Span = styled.span<IStyle>`
   ${Pretendard({ font: 1.4, weight: 700, color: Common.colors.GY900 })};
 
-  margin-left: ${(props) => (!props.hasBack ? "20px" : "")};
-  margin-right: ${(props) => (!props.hasSearch ? "20px" : "")};
+  margin-left: ${(props) => (!props.hasBack ? '20px' : '')};
+  margin-right: ${(props) => (!props.hasSearch ? '20px' : '')};
 `;

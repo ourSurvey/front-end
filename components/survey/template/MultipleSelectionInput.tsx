@@ -1,12 +1,12 @@
-import React, { useCallback } from "react";
-import SlideArrow from "public/icon/slide-arrow.svg";
-import CloseCircle from "public/icon/close-circle.svg";
-import styled from "@emotion/styled";
-import { Common, Pretendard, SpaceBetween } from "styles/common";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { qusetionItemListAtomFamily, qusetionItemIdListAtom } from "states/survey";
-import { QuestionItemIDFormat } from "utills/getDateSixth";
-import { QuestionItemListID } from "types/survey";
+import React, { useCallback } from 'react';
+import SlideArrow from 'public/icon/slide-arrow.svg';
+import CloseCircle from 'public/icon/close-circle.svg';
+import styled from '@emotion/styled';
+import { Common, Pretendard, SpaceBetween } from 'styles/common';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { qusetionItemListAtomFamily, qusetionItemIdListAtom } from 'states/survey';
+import { QuestionItemIDFormat } from 'utills/getDateSixth';
+import { QuestionItemListID } from 'types/survey';
 interface IProps {
   selectionNumber: number;
   questionId: number;
@@ -18,8 +18,19 @@ interface IProps {
   hasNextSectionFlag: boolean;
 }
 
-const MultipleSelectionInput = ({ hasDeleteBtn, onDragEnd, hasNextSectionFlag, selectionNumber, questionId, partId, id, idName }: IProps) => {
-  const [inputContent, setInputContent] = useRecoilState(qusetionItemListAtomFamily(QuestionItemIDFormat(partId, questionId, selectionNumber)));
+const MultipleSelectionInput = ({
+  hasDeleteBtn,
+  onDragEnd,
+  hasNextSectionFlag,
+  selectionNumber,
+  questionId,
+  partId,
+  id,
+  idName,
+}: IProps) => {
+  const [inputContent, setInputContent] = useRecoilState(
+    qusetionItemListAtomFamily(QuestionItemIDFormat(partId, questionId, selectionNumber))
+  );
   const setSelectionList = useSetRecoilState(qusetionItemIdListAtom(id));
 
   const onChangeHandler = useCallback(

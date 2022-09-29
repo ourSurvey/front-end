@@ -1,5 +1,5 @@
-import { atom, atomFamily, selector } from "recoil";
-import { QuestionIDFormat, PartIDFormat, QuestionListIDFormat, QuestionItemIDFormat } from "utills/getDateSixth";
+import { atom, atomFamily, selector } from 'recoil';
+import { QuestionIDFormat, PartIDFormat, QuestionListIDFormat, QuestionItemIDFormat } from 'utills/getDateSixth';
 import {
   IQuestionItem,
   IQuestion,
@@ -10,33 +10,33 @@ import {
   SectionID,
   QuestionItemListID,
   QuestionListID,
-} from "types/survey";
-import { getDateSixDigitsFormatToday, numberSet } from "utills/getDateSixth";
-import { tagState } from "states/tag";
+} from 'types/survey';
+import { getDateSixDigitsFormatToday, numberSet } from 'utills/getDateSixth';
+import { tagState } from 'states/tag';
 interface ITarget {
   part: number;
   question: number;
 }
 
 export const surveyState = atom<ISurveyData>({
-  key: "surveyState",
+  key: 'surveyState',
   default: {
     id: 0,
-    subject: "",
-    content: "",
-    startDate: "2022-09-01",
-    endDate: "2022-09-30",
+    subject: '',
+    content: '',
+    startDate: '2022-09-01',
+    endDate: '2022-09-30',
     minute: 0,
     openFl: 1,
     tempFl: 1,
-    closingComment: "",
+    closingComment: '',
     hashtag: [],
     sections: [],
   },
 });
 
 export const surveySelector = selector({
-  key: "surveySelector",
+  key: 'surveySelector',
   get: ({ get }) => {
     const sectionList = get(sectionIdListAtom);
     const surveyData = get(surveyState);
@@ -53,7 +53,9 @@ export const surveySelector = selector({
         const questionItemIdList = get(qusetionItemIdListAtom(SyscodeFormat));
         const questionItem = questionItemIdList.map((_, questionItemIdx) => {
           //item 아톰 패밀리를 가져와서 리턴
-          return get(qusetionItemListAtomFamily(QuestionItemIDFormat(sectionIdx + 1, questionIdx + 1, questionItemIdx + 1)));
+          return get(
+            qusetionItemListAtomFamily(QuestionItemIDFormat(sectionIdx + 1, questionIdx + 1, questionItemIdx + 1))
+          );
         });
         //question을 가져와서 questionItem을 담아서 리턴
         const question = get(qusetionListAtomFamily(QuestionIDFormat(questionIdx + 1, sectionIdx + 1)));
@@ -72,33 +74,33 @@ export const surveySelector = selector({
 
 //질문이 한개일 시 같이 삭제할 파트의 ID 정보
 export const targetPartIdAtom = atom<SectionID>({
-  key: "targetPartIdAtom",
-  default: "" as SectionID,
+  key: 'targetPartIdAtom',
+  default: '' as SectionID,
 });
 
 export const MoreModalAtom = atom<QuestionID>({
-  key: "MoreModalAtom",
-  default: "" as QuestionID,
+  key: 'MoreModalAtom',
+  default: '' as QuestionID,
 });
 
 //지울 question의 ID값을 저장할 atom
 export const targetQuestionIDAtom = atom<QuestionListID>({
-  key: "targetQuestionIDAtom",
-  default: "" as QuestionListID,
+  key: 'targetQuestionIDAtom',
+  default: '' as QuestionListID,
 });
 
 //지울 question의 ID들이 저장되어 있는 배열의 id 값을 저장할 atom
 export const targetQuestionListIDAtom = atom<QuestionListID>({
-  key: "targetQuestionListIDAtom",
-  default: "" as QuestionListID,
+  key: 'targetQuestionListIDAtom',
+  default: '' as QuestionListID,
 });
 
 export const qusetionItemListAtomFamily = atomFamily<IQuestionItem, QuestionItemID>({
-  key: "qusetionItemListAtomFamily",
+  key: 'qusetionItemListAtomFamily',
   default: (id) => {
     return {
       id,
-      content: "",
+      content: '',
       oder: 0,
       nextSection: 0,
     };
@@ -107,17 +109,17 @@ export const qusetionItemListAtomFamily = atomFamily<IQuestionItem, QuestionItem
 
 //질문지의 Item ID만 관리하는 atom
 export const qusetionItemIdListAtom = atomFamily<QuestionItemListID[], QuestionItemListID>({
-  key: "qusetionItemIdListAtom",
+  key: 'qusetionItemIdListAtom',
   default: (id) => [`${id}1` as QuestionItemListID],
 });
 
 export const qusetionListAtomFamily = atomFamily<IQuestion, QuestionID>({
-  key: "qusetionListAtomFamily",
+  key: 'qusetionListAtomFamily',
   default: (id) => {
     return {
       id,
-      ask: "",
-      descrip: "",
+      ask: '',
+      descrip: '',
       multiFl: 1,
       essFl: 1,
       randomShowFl: 0,
@@ -131,17 +133,17 @@ export const qusetionListAtomFamily = atomFamily<IQuestion, QuestionID>({
 
 //질문의 ID만 관리하는 atom
 export const qusetionIdListAtom = atomFamily<QuestionListID[], QuestionListID>({
-  key: "qusetionIdListAtom",
+  key: 'qusetionIdListAtom',
   default: (id) => [id],
 });
 
 export const sectionListAtomFamily = atomFamily<ISection, SectionID>({
-  key: "sectionListAtomFamily",
+  key: 'sectionListAtomFamily',
   default: (id) => {
     return {
       id,
-      title: "",
-      content: "",
+      title: '',
+      content: '',
       nextSection: -1,
       questions: [],
     };
@@ -149,22 +151,22 @@ export const sectionListAtomFamily = atomFamily<ISection, SectionID>({
 });
 
 export const sectionIdListAtom = atom<SectionID[]>({
-  key: "sectionIdListAtom",
+  key: 'sectionIdListAtom',
   default: [`SCTN${getDateSixDigitsFormatToday()}A001`],
 });
 
 export const targetAtom = atom<ITarget>({
-  key: "targetAtom",
+  key: 'targetAtom',
   default: { part: 0, question: 0 },
 });
 
-export const templateAtom = atom<"email" | "" | "gender" | "birth" | "phone">({
-  key: "templateAtom",
-  default: "",
+export const templateAtom = atom<'email' | '' | 'gender' | 'birth' | 'phone'>({
+  key: 'templateAtom',
+  default: '',
 });
 
 export const templateSelector = selector({
-  key: "templateSelector",
+  key: 'templateSelector',
   get: ({ get }) => {
     return get(templateAtom);
   },
@@ -174,26 +176,33 @@ export const templateSelector = selector({
     const newQuestionIdx = qusetionIdList.length + 1;
     const questionListlastNumber = qusetionIdList[qusetionIdList.length - 1].slice(-1);
 
-    set(qusetionIdListAtom(targetQuestionListID), [...qusetionIdList, QuestionListIDFormat(Number(questionListlastNumber) + 1)]); //새로운 question을 만듬
+    set(qusetionIdListAtom(targetQuestionListID), [
+      ...qusetionIdList,
+      QuestionListIDFormat(Number(questionListlastNumber) + 1),
+    ]); //새로운 question을 만듬
     const partIdx = get(targetAtom).part;
     const question = get(qusetionListAtomFamily(QuestionIDFormat(newQuestionIdx, partIdx)));
     switch (newValue) {
-      case "birth":
+      case 'birth':
         set(qusetionListAtomFamily(QuestionIDFormat(newQuestionIdx, partIdx)), {
           ...question,
-          ask: "출생 년도를 알려주세요.",
+          ask: '출생 년도를 알려주세요.',
           multiFl: 0,
         } as IQuestion);
         break;
-      case "phone":
+      case 'phone':
         set(qusetionListAtomFamily(QuestionIDFormat(newQuestionIdx, partIdx)), {
           ...question,
-          ask: "연락이 가능한 휴대폰 번호를 알려주세요",
+          ask: '연락이 가능한 휴대폰 번호를 알려주세요',
           multiFl: 0,
         } as IQuestion);
         break;
-      case "gender":
-        set(qusetionListAtomFamily(QuestionIDFormat(newQuestionIdx, partIdx)), { ...question, ask: "성별을 알려주세요.", multiFl: 1 } as IQuestion);
+      case 'gender':
+        set(qusetionListAtomFamily(QuestionIDFormat(newQuestionIdx, partIdx)), {
+          ...question,
+          ask: '성별을 알려주세요.',
+          multiFl: 1,
+        } as IQuestion);
         const PartFormat = `SCTN${getDateSixDigitsFormatToday()}${numberSet(partIdx)}`;
         const QuestionFormat = `QSTN${getDateSixDigitsFormatToday()}${numberSet(newQuestionIdx)}`;
         const SyscodeFormat = `${PartFormat}${QuestionFormat}` as QuestionItemListID;
@@ -208,19 +217,19 @@ export const templateSelector = selector({
         ] as QuestionItemListID[]); //questionItem ID 리스트 새로 생성
         const itemData = [
           {
-            content: "남성",
+            content: '남성',
             oder: 1,
           },
           {
-            content: "여성",
+            content: '여성',
             oder: 2,
           },
           {
-            content: "응답하지 않음",
+            content: '응답하지 않음',
             oder: 3,
           },
           {
-            content: "기타",
+            content: '기타',
             oder: 4,
           },
         ];
@@ -233,10 +242,10 @@ export const templateSelector = selector({
         });
 
         break;
-      case "email":
+      case 'email':
         set(qusetionListAtomFamily(QuestionIDFormat(newQuestionIdx, partIdx)), {
           ...question,
-          ask: "연락이 가능한 이메일을 알려주세요.",
+          ask: '연락이 가능한 이메일을 알려주세요.',
           multiFl: 0,
         } as IQuestion);
         break;

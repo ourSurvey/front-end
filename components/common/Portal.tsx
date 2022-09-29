@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { createPortal } from "react-dom";
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 interface IProps {
   children: React.ReactNode;

@@ -1,22 +1,22 @@
-import CreateSurveyHeader from "components/survey/CreateSurveyHeader";
-import PeriodSetting from "components/survey/setting/PeriodSetting";
-import TImeTaken from "components/survey/setting/TImeTaken";
-import React, { useState } from "react";
-import styled from "@emotion/styled";
-import { Common, Pretendard, SpaceBetween } from "styles/common";
-import SubLayout from "components/SubLayout";
-import AddTag from "components/survey/setting/AddTag";
-import ShareResult from "components/survey/setting/ShareResult";
-import CommentRespondent from "components/survey/setting/CommentRespondent";
-import { GetServerSideProps } from "next";
-import { withAuth } from "utills/isLoggedIn";
-import { useMutation } from "react-query";
-import { createSurvey } from "services/api/survey";
-import { useSetRecoilState, useRecoilValue } from "recoil";
-import { toastState } from "states/modal";
-import { surveySelector } from "states/survey";
-import { deleteIDproperty } from "utills/deleteIdProperty";
-import { useHeaderScroll } from "hooks/useHeaderScroll";
+import CreateSurveyHeader from 'components/survey/CreateSurveyHeader';
+import PeriodSetting from 'components/survey/setting/PeriodSetting';
+import TImeTaken from 'components/survey/setting/TImeTaken';
+import React, { useState } from 'react';
+import styled from '@emotion/styled';
+import { Common, Pretendard, SpaceBetween } from 'styles/common';
+import SubLayout from 'components/SubLayout';
+import AddTag from 'components/survey/setting/AddTag';
+import ShareResult from 'components/survey/setting/ShareResult';
+import CommentRespondent from 'components/survey/setting/CommentRespondent';
+import { GetServerSideProps } from 'next';
+import { withAuth } from 'utills/isLoggedIn';
+import { useMutation } from 'react-query';
+import { createSurvey } from 'services/api/survey';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
+import { toastState } from 'states/modal';
+import { surveySelector } from 'states/survey';
+import { deleteIDproperty } from 'utills/deleteIdProperty';
+import { useHeaderScroll } from 'hooks/useHeaderScroll';
 
 export const getServerSideProps: GetServerSideProps = withAuth(() => {
   return {
@@ -25,8 +25,8 @@ export const getServerSideProps: GetServerSideProps = withAuth(() => {
 });
 export default function Setting() {
   const setToastState = useSetRecoilState(toastState);
-  const [closinTitle, setClosinTitle] = useState("설문이 종료되었습니다");
-  const [closingComment, setclosingComment] = useState("응답해주셔서 감사합니다.");
+  const [closinTitle, setClosinTitle] = useState('설문이 종료되었습니다');
+  const [closingComment, setclosingComment] = useState('응답해주셔서 감사합니다.');
   const state = useRecoilValue(surveySelector);
   const { hide, scrollDetectHandler } = useHeaderScroll();
 
@@ -34,8 +34,8 @@ export default function Setting() {
     onSuccess: (data) => {
       if (data.status === 200) {
         setToastState({
-          text: "설문이 정상적으로 생성되었습니다!",
-          toastType: "success",
+          text: '설문이 정상적으로 생성되었습니다!',
+          toastType: 'success',
           visible: true,
         });
       }
@@ -43,7 +43,7 @@ export default function Setting() {
     onError: (data: any) => {
       setToastState({
         text: data.response?.data.message,
-        toastType: "error",
+        toastType: 'error',
         visible: true,
       });
     },
@@ -51,18 +51,18 @@ export default function Setting() {
 
   const createSurveyButton = () => {
     const sendState = deleteIDproperty(state);
-    createSurveyHandler.mutate({ ...sendState, id: "", closingComment: `${closinTitle}|${closingComment}`, tempFl: 0 });
-    console.log({ ...sendState, id: "", closingComment: `${closinTitle}|${closingComment}`, tempFl: 0 });
+    createSurveyHandler.mutate({ ...sendState, id: '', closingComment: `${closinTitle}|${closingComment}`, tempFl: 0 });
+    console.log({ ...sendState, id: '', closingComment: `${closinTitle}|${closingComment}`, tempFl: 0 });
   };
 
   const temporaryStorageHandler = () => {
     const sendState = deleteIDproperty(state);
-    createSurveyHandler.mutate({ ...sendState, id: "", closingComment: `${closinTitle}|${closingComment}`, tempFl: 1 });
-    console.log({ ...sendState, id: "", closingComment: `${closinTitle}|${closingComment}`, tempFl: 1 });
+    createSurveyHandler.mutate({ ...sendState, id: '', closingComment: `${closinTitle}|${closingComment}`, tempFl: 1 });
+    console.log({ ...sendState, id: '', closingComment: `${closinTitle}|${closingComment}`, tempFl: 1 });
   };
   return (
     <SettingPage>
-      <HeaderWrap className={!hide ? "hide" : ""}>
+      <HeaderWrap className={!hide ? 'hide' : ''}>
         <CreateSurveyHeader name="설정" hasUnderLine={true} step="3" />
       </HeaderWrap>
       <SettingItemContainer onScroll={scrollDetectHandler}>
@@ -144,7 +144,7 @@ const BtnContainer = styled.footer`
   & .upload {
     width: calc(67% - 7px);
     background-color: ${Common.colors.BL500};
-    ${Pretendard({ font: 1.2, weight: 700, color: "#fff" })};
+    ${Pretendard({ font: 1.2, weight: 700, color: '#fff' })};
   }
 `;
 

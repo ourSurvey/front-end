@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "@emotion/styled";
-import { Common, Pretendard } from "styles/common";
-import { IQuestion } from "types/survey";
+import React from 'react';
+import styled from '@emotion/styled';
+import { Common, Pretendard } from 'styles/common';
+import { IQuestion } from 'types/survey';
 
 interface IProps {
   name?: string;
@@ -47,13 +47,14 @@ const ToggleSwitch = styled.div<ColorProps>`
   .toggle {
     display: none;
     &:checked + div {
-      border: ${(props) => (props.mainColor === "pink" ? `1px solid ${Common.colors.PK500}` : `1px solid ${Common.colors.GR500}`)};
+      border: ${(props) =>
+        props.mainColor === 'pink' ? `1px solid ${Common.colors.PK500}` : `1px solid ${Common.colors.GR500}`};
     }
     &:checked + div:after {
       right: calc(100% - 35px);
     }
     &:checked + .toggle-label-handle::after {
-      background-color: ${(props) => (props.mainColor === "pink" ? Common.colors.PK500 : Common.colors.GR500)};
+      background-color: ${(props) => (props.mainColor === 'pink' ? Common.colors.PK500 : Common.colors.GR500)};
     }
   }
 
@@ -70,7 +71,7 @@ const ToggleSwitch = styled.div<ColorProps>`
   }
 
   .toggle-label-handle::after {
-    content: "";
+    content: '';
     position: relative;
     right: 0;
     display: block;

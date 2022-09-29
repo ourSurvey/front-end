@@ -1,16 +1,16 @@
-import styled from "@emotion/styled";
-import { Common, Pretendard, AlignAndJustifyCenter, SpaceBetween } from "styles/common";
-import QusetionTitle from "./QusetionTitle";
-import InvertedTriangle from "public/icon/inverted-triangle.svg";
-import Question from "./Question";
-import { memo, useRef, useState } from "react";
-import Copy from "public/icon/copy.svg";
-import Plus from "public/icon/plus-two.svg";
-import { sectionListAtomFamily, sectionIdListAtom, qusetionIdListAtom } from "states/survey";
-import { useRecoilCallback, useRecoilState, useRecoilValue } from "recoil";
-import { QuestionListID, SectionID } from "types/survey";
-import { PartIDFormat, QuestionListIDFormat } from "utills/getDateSixth";
-import SpeechBubble from "./SpeechBubble";
+import styled from '@emotion/styled';
+import { Common, Pretendard, AlignAndJustifyCenter, SpaceBetween } from 'styles/common';
+import QusetionTitle from './QusetionTitle';
+import InvertedTriangle from 'public/icon/inverted-triangle.svg';
+import Question from './Question';
+import { memo, useRef, useState } from 'react';
+import Copy from 'public/icon/copy.svg';
+import Plus from 'public/icon/plus-two.svg';
+import { sectionListAtomFamily, sectionIdListAtom, qusetionIdListAtom } from 'states/survey';
+import { useRecoilCallback, useRecoilState, useRecoilValue } from 'recoil';
+import { QuestionListID, SectionID } from 'types/survey';
+import { PartIDFormat, QuestionListIDFormat } from 'utills/getDateSixth';
+import SpeechBubble from './SpeechBubble';
 
 interface IProps {
   PartNum: number;
@@ -41,7 +41,10 @@ const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
     const questionIds = snapshot.getLoadable(qusetionIdListAtom(SyscodeFormat)).getValue();
     const lastNumber = questionIds[questionIds.length - 1].slice(-1);
     set(sectionListAtomFamily(PartIDFormat(ListLength)), { ...lastPart, nextSection: ListLength - 1 });
-    set(qusetionIdListAtom(SyscodeFormat), [...questionIds, QuestionListIDFormat(Number(lastNumber) + 1)] as QuestionListID[]);
+    set(qusetionIdListAtom(SyscodeFormat), [
+      ...questionIds,
+      QuestionListIDFormat(Number(lastNumber) + 1),
+    ] as QuestionListID[]);
   });
 
   const foldList = () => {
@@ -52,7 +55,7 @@ const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
     const style = listRef.current.style;
 
     if (hideList) {
-      style.maxHeight = "0";
+      style.maxHeight = '0';
     } else {
       style.maxHeight = `${listRef.current.scrollHeight}px`;
     }
@@ -69,7 +72,7 @@ const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
           </PartTitle>
           <QusetionCount>
             <span>총 {questionIdList.length}개 질문</span>
-            <InvertedTriangle transform={hideList ? "rotate(180)" : "rotate(0)"} onClick={foldList} />
+            <InvertedTriangle transform={hideList ? 'rotate(180)' : 'rotate(0)'} onClick={foldList} />
           </QusetionCount>
         </SubjectContainer>
       </header>
@@ -84,7 +87,7 @@ const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
               setVisibleMore={setVisibleMore}
               partNumber={PartNum + 1}
               questionId={idx}
-              color={(PartNum + 1) % 2 === 0 ? "pink" : "green"}
+              color={(PartNum + 1) % 2 === 0 ? 'pink' : 'green'}
               key={id}
               id={id}
               targetQuestionList={SyscodeFormat}
@@ -104,7 +107,7 @@ const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
           질문 추가
         </button>
       </PartButtonContainer>
-      <SpeechBubble partNum={PartNum + 1} color={(PartNum + 1) % 2 === 0 ? "pink" : "green"} />
+      <SpeechBubble partNum={PartNum + 1} color={(PartNum + 1) % 2 === 0 ? 'pink' : 'green'} />
     </PartContainer>
   );
 };
@@ -134,7 +137,12 @@ const PartContainer = styled.section`
 const PartTitle = styled.div<IStyle>`
   & h1 {
     display: inline;
-    ${(props) => Pretendard({ font: 1.6, weight: 700, color: (props.PartNum + 1) % 2 === 0 ? Common.colors.PK500 : Common.colors.GR500 })};
+    ${(props) =>
+      Pretendard({
+        font: 1.6,
+        weight: 700,
+        color: (props.PartNum + 1) % 2 === 0 ? Common.colors.PK500 : Common.colors.GR500,
+      })};
     line-height: 150%;
   }
   & .total-step {
@@ -185,7 +193,7 @@ const PartButtonContainer = styled.div`
     height: 50px;
     border: none;
     background-color: ${Common.colors.GY500};
-    ${Pretendard({ font: 1.2, weight: 700, color: "#fff" })};
+    ${Pretendard({ font: 1.2, weight: 700, color: '#fff' })};
     line-height: 150%;
 
     & svg {
@@ -195,7 +203,7 @@ const PartButtonContainer = styled.div`
     &:first-of-type {
       &::after {
         position: absolute;
-        content: "";
+        content: '';
         width: 1px;
         height: 20px;
         background-color: #fff;

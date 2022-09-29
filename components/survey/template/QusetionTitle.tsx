@@ -1,9 +1,9 @@
-import styled from "@emotion/styled";
-import { Common, Pretendard } from "styles/common";
-import ImageUpLoadSvg from "public/icon/img.svg";
-import React, { useCallback, memo } from "react";
-import { css } from "@emotion/react";
-import { ISection, IQuestion } from "types/survey";
+import styled from '@emotion/styled';
+import { Common, Pretendard } from 'styles/common';
+import ImageUpLoadSvg from 'public/icon/img.svg';
+import React, { useCallback, memo } from 'react';
+import { css } from '@emotion/react';
+import { ISection, IQuestion } from 'types/survey';
 
 interface IProps {
   hasImageInput: boolean;
@@ -14,12 +14,12 @@ interface IProps {
 
 const QusetionTitle = ({ hasImageInput, setValue, value, placeHolder }: IProps) => {
   const ImageInputState = css`
-    display: ${hasImageInput ? "inline" : "none"};
+    display: ${hasImageInput ? 'inline' : 'none'};
   `;
 
   const TitleOnChangeHandler = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      if ("title" in value) {
+      if ('title' in value) {
         setValue({
           ...value,
           title: e.currentTarget.value,
@@ -37,7 +37,7 @@ const QusetionTitle = ({ hasImageInput, setValue, value, placeHolder }: IProps) 
 
   const ContentChangeHandler = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      if ("content" in value) {
+      if ('content' in value) {
         setValue({
           ...value,
           content: e.currentTarget.value,
@@ -57,7 +57,7 @@ const QusetionTitle = ({ hasImageInput, setValue, value, placeHolder }: IProps) 
     <TitleAndSubTitle>
       <InputContainer>
         <input
-          defaultValue={"title" in value ? value.title : value.ask}
+          defaultValue={'title' in value ? value.title : value.ask}
           type="text"
           required
           placeholder={`${placeHolder} 제목을 입력해주세요.`}
@@ -70,14 +70,19 @@ const QusetionTitle = ({ hasImageInput, setValue, value, placeHolder }: IProps) 
             // onChange={(e: React.ChangeEvent<HTMLInputElement>) => console.log(e.target.files[0])}
             className="input-file"
             accept="image/jpg, image/png, image/jpeg"
-            defaultValue={"title" in value ? value.content : value.descrip}
+            defaultValue={'title' in value ? value.content : value.descrip}
           />
           <label htmlFor="select-file">
             <ImageUpLoadSvg />
           </label>
         </div>
       </InputContainer>
-      <SubTitle type="text" placeholder={`${placeHolder}설명(선택사항)`} onChange={(e) => ContentChangeHandler(e)} name="sub-title" />
+      <SubTitle
+        type="text"
+        placeholder={`${placeHolder}설명(선택사항)`}
+        onChange={(e) => ContentChangeHandler(e)}
+        name="sub-title"
+      />
     </TitleAndSubTitle>
   );
 };
@@ -93,7 +98,7 @@ const InputContainer = styled.div`
   position: relative;
   flex: 1;
 
-  & input[type="text"] {
+  & input[type='text'] {
     border: 0;
     padding: 12.5px 40px 12.5px 0;
     width: 100%;
@@ -106,7 +111,7 @@ const InputContainer = styled.div`
     }
   }
 
-  & input[type="file"] {
+  & input[type='file'] {
     position: absolute;
     width: 0;
     height: 0;

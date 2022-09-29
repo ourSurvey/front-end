@@ -1,14 +1,14 @@
-import styled from "@emotion/styled";
-import SearchHeader from "components/common/SearchHeader";
-import { Common, Pretendard } from "styles/common";
-import SurveyContainer from "components/survey/SurveyContainer";
-import { useEffect, useState } from "react";
+import styled from '@emotion/styled';
+import SearchHeader from 'components/common/SearchHeader';
+import { Common, Pretendard } from 'styles/common';
+import SurveyContainer from 'components/survey/SurveyContainer';
+import { useEffect, useState } from 'react';
 
 const Index = () => {
   const [sectionHeight, setSectionHeight] = useState<number | undefined>(0);
 
   useEffect(() => {
-    const height = document.getElementById("section1")?.getBoundingClientRect().top;
+    const height = document.getElementById('section1')?.getBoundingClientRect().top;
     setSectionHeight(height);
   }, []);
 

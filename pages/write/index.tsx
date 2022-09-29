@@ -1,17 +1,17 @@
-import styled from "@emotion/styled";
-import { Common, Pretendard, SpaceBetween } from "styles/common";
-import CreateSurveyHeader from "components/survey/CreateSurveyHeader";
-import Part from "components/survey/template/Part";
-import React, { useState } from "react";
-import SubLayout from "components/SubLayout";
-import { sectionIdListAtom } from "states/survey";
-import { useRecoilValue } from "recoil";
-import Link from "next/link";
-import Portal from "components/common/Portal";
-import MoreSideModal from "components/modal/MoreSideModal";
-import { GetServerSideProps } from "next";
-import { withAuth } from "utills/isLoggedIn";
-import { useHeaderScroll } from "hooks/useHeaderScroll";
+import styled from '@emotion/styled';
+import { Common, Pretendard, SpaceBetween } from 'styles/common';
+import CreateSurveyHeader from 'components/survey/CreateSurveyHeader';
+import Part from 'components/survey/template/Part';
+import React, { useState } from 'react';
+import SubLayout from 'components/SubLayout';
+import { sectionIdListAtom } from 'states/survey';
+import { useRecoilValue } from 'recoil';
+import Link from 'next/link';
+import Portal from 'components/common/Portal';
+import MoreSideModal from 'components/modal/MoreSideModal';
+import { GetServerSideProps } from 'next';
+import { withAuth } from 'utills/isLoggedIn';
+import { useHeaderScroll } from 'hooks/useHeaderScroll';
 
 interface IHeader {
   isHide: boolean;
@@ -29,12 +29,14 @@ export default function Index() {
 
   return (
     <WriteContainer>
-      <HeaderWrap className={!hide ? "hide" : ""}>
+      <HeaderWrap className={!hide ? 'hide' : ''}>
         <CreateSurveyHeader hasUnderLine={true} name="질문을 작성해주세요." step="02" />
       </HeaderWrap>
       <PartSectionContainer onScroll={scrollDetectHandler} id="section2">
         {partIdList.map((id, idx) => {
-          return <Part partID={id} setVisibleMore={setVisibleMore} ListLength={partIdList.length} PartNum={idx} key={id} />;
+          return (
+            <Part partID={id} setVisibleMore={setVisibleMore} ListLength={partIdList.length} PartNum={idx} key={id} />
+          );
         })}
       </PartSectionContainer>
       <BtnContainer>
@@ -43,7 +45,9 @@ export default function Index() {
           <a>다음</a>
         </Link>
       </BtnContainer>
-      <Portal selector="#portal">{visibleMore ? <MoreSideModal visibleState={visibleMore} setVisible={setVisibleMore} /> : null}</Portal>
+      <Portal selector="#portal">
+        {visibleMore ? <MoreSideModal visibleState={visibleMore} setVisible={setVisibleMore} /> : null}
+      </Portal>
     </WriteContainer>
   );
 }
@@ -104,7 +108,7 @@ const BtnContainer = styled.div`
     height: 36px;
     padding: 10px 15px;
     background-color: ${Common.colors.BL500};
-    ${Pretendard({ font: 1.2, weight: 700, color: "#fff" })};
+    ${Pretendard({ font: 1.2, weight: 700, color: '#fff' })};
     border-radius: 5px;
     line-height: 150%;
   }

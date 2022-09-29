@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
-import { Pretendard, Common, SpaceBetween } from "styles/common";
+import styled from '@emotion/styled';
+import { Pretendard, Common, SpaceBetween } from 'styles/common';
 type Props = {
   setVisible: (bool: boolean) => void;
   onDelete: () => void;
@@ -9,7 +9,7 @@ type Props = {
 const PartDeleteBody = ({ setVisible, onDelete, length }: Props) => {
   return (
     <Confirm>
-      <span>{length > 1 ? "질문을 정말 삭제하시겠습니까?" : "질문과 파트 모두 삭제 하시겠습니까?"}</span>
+      <span>{length > 1 ? '질문을 정말 삭제하시겠습니까?' : '질문과 파트 모두 삭제 하시겠습니까?'}</span>
       {length === 1 && (
         <p>
           파트에 속한 질문이 없을 경우
@@ -21,7 +21,7 @@ const PartDeleteBody = ({ setVisible, onDelete, length }: Props) => {
       <div className="btn-container">
         <button onClick={() => setVisible(false)}>취소</button>
         <button className="del" onClick={onDelete}>
-          {length > 1 ? "삭제" : "모두 삭제"}
+          {length > 1 ? '삭제' : '모두 삭제'}
         </button>
       </div>
     </Confirm>
@@ -42,7 +42,7 @@ const Confirm = styled.div`
   }
   & p {
     margin: 0;
-    ${Pretendard({ weight: 400, font: 1.3, color: "#333333" })};
+    ${Pretendard({ weight: 400, font: 1.3, color: '#333333' })};
 
     text-align: center;
     line-height: 150%;

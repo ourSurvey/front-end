@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
-import { Pretendard, Common, SpaceBetween } from "styles/common";
+import styled from '@emotion/styled';
+import { Pretendard, Common, SpaceBetween } from 'styles/common';
 interface IProps {
   title: string;
   isRequired: boolean;
@@ -12,9 +12,9 @@ const TosItem = (props: IProps) => {
     <Container>
       <div>
         <Title>{title}</Title>
-        {isRequired ? <RequireSpan>&nbsp;(필수)</RequireSpan> : ""}
+        {isRequired ? <RequireSpan>&nbsp;(필수)</RequireSpan> : ''}
       </div>
-      {hasContent ? <ContentSpan>내용보기</ContentSpan> : ""}
+      {hasContent ? <ContentSpan>내용보기</ContentSpan> : ''}
     </Container>
   );
 };

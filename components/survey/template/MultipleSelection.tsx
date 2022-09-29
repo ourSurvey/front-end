@@ -1,11 +1,11 @@
-import React, { useRef, useState } from "react";
-import MultipleSelectionInput from "./MultipleSelectionInput";
-import styled from "@emotion/styled";
-import { Common, Pretendard } from "styles/common";
-import { useRecoilValue } from "recoil";
-import { qusetionItemIdListAtom } from "states/survey";
-import { QuestionItemListID } from "types/survey";
-import { PartIDFormat, QuestionIDFormat } from "utills/getDateSixth";
+import React, { useRef, useState } from 'react';
+import MultipleSelectionInput from './MultipleSelectionInput';
+import styled from '@emotion/styled';
+import { Common, Pretendard } from 'styles/common';
+import { useRecoilValue } from 'recoil';
+import { qusetionItemIdListAtom } from 'states/survey';
+import { QuestionItemListID } from 'types/survey';
+import { PartIDFormat, QuestionIDFormat } from 'utills/getDateSixth';
 interface IProps {
   questionIndex: number;
   partIndex: number;
@@ -14,7 +14,7 @@ interface IProps {
 }
 
 const MultipleSelection = ({ questionIndex, partIndex, sysCode, hasNextSectionFlag }: IProps) => {
-  const [items, setItems] = useState([""]);
+  const [items, setItems] = useState(['']);
   const dragItem = useRef<any>(null);
   const dragOverItem = useRef<any>(null);
 

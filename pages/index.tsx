@@ -1,8 +1,8 @@
-import type { NextPage } from "next";
-import { useRouter } from "next/router";
-import Head from "next/head";
-import { GetServerSideProps } from "next";
-import { withAuth } from "utills/isLoggedIn";
+import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
+import Head from 'next/head';
+import { GetServerSideProps } from 'next';
+import { withAuth } from 'utills/isLoggedIn';
 
 export const getServerSideProps: GetServerSideProps = withAuth(() => {
   return {

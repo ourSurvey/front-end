@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
-import { Common, Pretendard } from "styles/common";
+import styled from '@emotion/styled';
+import { Common, Pretendard } from 'styles/common';
 interface IObject {
   key: string;
   value: any;
@@ -7,7 +7,7 @@ interface IObject {
 
 type Props = {
   items: IObject[];
-  handleRadio: (e: null | "M" | "F" | string) => void;
+  handleRadio: (e: null | 'M' | 'F' | string) => void;
 };
 
 const CustomRadio = ({ items, handleRadio }: Props) => {
@@ -19,7 +19,7 @@ const CustomRadio = ({ items, handleRadio }: Props) => {
             <RadioInput
               id={item.key}
               type="radio"
-              value={item.value || ""}
+              value={item.value || ''}
               name="radioBoxes"
               key={item.key}
               onChange={(e) => handleRadio(e.target.value)}

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import styled from "@emotion/styled";
-import { Common, Pretendard } from "styles/common";
+import React, { useState, useEffect } from 'react';
+import styled from '@emotion/styled';
+import { Common, Pretendard } from 'styles/common';
 interface IProps {
   children: JSX.Element;
   checked: boolean;
@@ -47,7 +47,7 @@ const CheckBox = ({ checkedItemHandler, checkItems, data, children, checked, dis
 export default CheckBox;
 
 const CheckboxWrapper = styled.div`
-  & input[type="checkbox"] {
+  & input[type='checkbox'] {
     -webkit-appearance: none;
     appearance: none;
     margin-right: 6px;
@@ -56,7 +56,7 @@ const CheckboxWrapper = styled.div`
     width: 1.375rem;
     height: 1.375rem;
     border-radius: 0.375rem;
-    background-image: url("images/check.svg");
+    background-image: url('images/check.svg');
     background-size: 50% 50%;
     background-position: 50%;
     background-repeat: no-repeat;
@@ -65,17 +65,17 @@ const CheckboxWrapper = styled.div`
     cursor: pointer;
 
     &:checked {
-      background-image: url("images/checkedCheck.svg");
+      background-image: url('images/checkedCheck.svg');
       background-size: 50% 50%;
       background-position: 50%;
       background-repeat: no-repeat;
     }
   }
-  & input[type="checkbox"]:disabled {
+  & input[type='checkbox']:disabled {
     border-color: ${Common.colors.GY100};
     background-color: ${Common.colors.GY100};
   }
-  & input[type="checkbox"]:disabled + span {
+  & input[type='checkbox']:disabled + span {
     color: ${Common.colors.GY100};
   }
   & label {

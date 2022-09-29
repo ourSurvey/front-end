@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 
 export const global = css`
   html,
@@ -9,8 +9,8 @@ export const global = css`
     width: 100%;
     position: fixed;
     overflow: hidden;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif,
-      Pretendard;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+      Helvetica Neue, sans-serif, Pretendard;
   }
 
   a {

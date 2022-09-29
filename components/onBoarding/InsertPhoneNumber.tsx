@@ -1,17 +1,17 @@
-import styled from "@emotion/styled";
-import { Button } from "components/common/Button";
-import { getFieldError } from "utills/validate";
-import { Common, Pretendard } from "styles/common";
-import React, { useState, useEffect } from "react";
-import { stepState } from "states/stepProgress";
-import { addtionState } from "states/onBoard";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { useRouter } from "next/router";
+import styled from '@emotion/styled';
+import { Button } from 'components/common/Button';
+import { getFieldError } from 'utills/validate';
+import { Common, Pretendard } from 'styles/common';
+import React, { useState, useEffect } from 'react';
+import { stepState } from 'states/stepProgress';
+import { addtionState } from 'states/onBoard';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRouter } from 'next/router';
 
 const InsertPhoneNumber = (props: any) => {
-  const [pNum, setPNum] = useState("");
+  const [pNum, setPNum] = useState('');
   const [touched, setTouched] = useState(false);
-  const errorMessage = getFieldError(pNum, "휴대폰 번호");
+  const errorMessage = getFieldError(pNum, '휴대폰 번호');
   const displayErrorMessage = touched && errorMessage;
   const setStepState = useSetRecoilState(stepState);
   const [additionState, setAdditionState] = useRecoilState(addtionState);
@@ -22,7 +22,7 @@ const InsertPhoneNumber = (props: any) => {
       ...additionState,
       tel: pNum,
     });
-    router.push("/onBoarding/start");
+    router.push('/onBoarding/start');
   };
 
   const noAnswerNextPage = (): void => {
@@ -30,7 +30,7 @@ const InsertPhoneNumber = (props: any) => {
       ...additionState,
       tel: null,
     });
-    router.push("/onBoarding/start");
+    router.push('/onBoarding/start');
   };
 
   useEffect(() => {
@@ -58,7 +58,13 @@ const InsertPhoneNumber = (props: any) => {
           </ErrorMessage>
         ) : null}
       </Container>
-      <Button onClick={nextPage} isDisabled={errorMessage !== null || pNum === ""} btnText="다음" color={Common.colors.BL500} textColor="#fff" />
+      <Button
+        onClick={nextPage}
+        isDisabled={errorMessage !== null || pNum === ''}
+        btnText="다음"
+        color={Common.colors.BL500}
+        textColor="#fff"
+      />
       <Pstyle onClick={noAnswerNextPage}>답변하지 않고 넘어가기</Pstyle>
     </div>
   );

@@ -1,14 +1,14 @@
-import surveyService from "services/survey.service";
-import { QueryClient, dehydrate, DehydratedState } from "react-query";
-import styled from "@emotion/styled";
-import { Pretendard, Common, SpaceBetween } from "styles/common";
-import OutLineButton from "components/common/OutLineButton";
-import { Button } from "components/common/Button";
-import { useState } from "react";
-import SearchHeader from "components/common/SearchHeader";
-import Portal from "components/common/Portal";
-import ModalTemplate from "components/modal/ModalTemplate";
-import ShareBody from "components/modal/ShareBody";
+import surveyService from 'services/survey.service';
+import { QueryClient, dehydrate, DehydratedState } from 'react-query';
+import styled from '@emotion/styled';
+import { Pretendard, Common, SpaceBetween } from 'styles/common';
+import OutLineButton from 'components/common/OutLineButton';
+import { Button } from 'components/common/Button';
+import { useState } from 'react';
+import SearchHeader from 'components/common/SearchHeader';
+import Portal from 'components/common/Portal';
+import ModalTemplate from 'components/modal/ModalTemplate';
+import ShareBody from 'components/modal/ShareBody';
 
 interface IProps {
   dehydratedState: DehydratedState;
@@ -17,8 +17,8 @@ interface IProps {
 export const getServerSideProps = async (context: any) => {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(["surveyDetail", context.params.surveyId], () =>
-    surveyService.surveyDetail(context.params.surveyId, context.req.headers.cookie.split(";")[0].substr(12))
+  await queryClient.prefetchQuery(['surveyDetail', context.params.surveyId], () =>
+    surveyService.surveyDetail(context.params.surveyId, context.req.headers.cookie.split(';')[0].substr(12))
   );
 
   return { props: { dehydratedState: dehydrate(queryClient) } };
@@ -46,7 +46,7 @@ const SurveyId = ({ dehydratedState }: IProps) => {
       <header>
         <SearchHeader hasBack={true} hasSearch={false} name="" />
         <DateContainer>
-          {" "}
+          {' '}
           <>
             <span>설문 기간 </span>
             {data.data.data.startDate} ~ {data.data.data.endDate}

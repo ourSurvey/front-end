@@ -1,7 +1,7 @@
-import Chip from "components/survey/setting/Chip";
-import styled from "@emotion/styled";
-import { tagState } from "states/tag";
-import { useRecoilValue } from "recoil";
+import Chip from 'components/survey/setting/Chip';
+import styled from '@emotion/styled';
+import { tagState } from 'states/tag';
+import { useRecoilValue } from 'recoil';
 const ShowTagList = () => {
   const tagList = useRecoilValue(tagState);
   return (

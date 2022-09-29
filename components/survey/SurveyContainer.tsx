@@ -1,12 +1,12 @@
-import React, { useRef } from "react";
-import styled from "@emotion/styled";
-import SurveyItem from "./SurveyItem";
-import { useInfiniteGQLQuery } from "hooks/useGQLQuery";
-import { GET_SURVEY } from "services/api/survey";
-import { IContent } from "types/survey";
-import { useObserver } from "hooks/useObserver";
-import SurveySkeleton from "components/skeleton/SurveySkeleton";
-import { ClipLoader } from "react-spinners";
+import React, { useRef } from 'react';
+import styled from '@emotion/styled';
+import SurveyItem from './SurveyItem';
+import { useInfiniteGQLQuery } from 'hooks/useGQLQuery';
+import { GET_SURVEY } from 'services/api/survey';
+import { IContent } from 'types/survey';
+import { useObserver } from 'hooks/useObserver';
+import SurveySkeleton from 'components/skeleton/SurveySkeleton';
+import { ClipLoader } from 'react-spinners';
 const Placeholder: React.FC = () => (
   <ItemContainer>
     <UlContainer>
@@ -40,7 +40,7 @@ const SurveyContainer = () => {
     isFetchingNextPage, //추가 페이지 fetching 여부, Boolean
     status, //loading, error, success 중 하나의 상태, string
   } = useInfiniteGQLQuery(
-    "surveyList",
+    'surveyList',
     GET_SURVEY,
     ({ pageParam = 0 }) => {
       return {
@@ -68,10 +68,10 @@ const SurveyContainer = () => {
 
   return (
     <Container>
-      {status === "loading" && <Placeholder />}
+      {status === 'loading' && <Placeholder />}
 
-      {status === "error" && <p>{error.message}</p>}
-      {status === "success" && (
+      {status === 'error' && <p>{error.message}</p>}
+      {status === 'success' && (
         <>
           {data?.pages.map((item, idx) => (
             <React.Fragment key={idx}>

@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
-import { Common, Pretendard, SpaceBetween } from "styles/common";
+import styled from '@emotion/styled';
+import { Common, Pretendard, SpaceBetween } from 'styles/common';
 
 const PeriodSetting = () => {
   return (

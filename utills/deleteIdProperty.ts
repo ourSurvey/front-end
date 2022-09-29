@@ -1,4 +1,4 @@
-import { ISurveyData } from "types/survey";
+import { ISurveyData } from 'types/survey';
 export const deleteIDproperty = (object: ISurveyData) => {
   const sectionArr = [...object.sections];
   const newArr = sectionArr.map((item) => {

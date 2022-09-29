@@ -1,9 +1,9 @@
-import useDebounce from "hooks/useDebouce";
-import { useResults } from "utills/autoCompleteSecarch";
-import { Pretendard, Common } from "styles/common";
-import styled from "@emotion/styled";
-import { tagState } from "states/tag";
-import { useRecoilState } from "recoil";
+import useDebounce from 'hooks/useDebouce';
+import { useResults } from 'utills/autoCompleteSecarch';
+import { Pretendard, Common } from 'styles/common';
+import styled from '@emotion/styled';
+import { tagState } from 'states/tag';
+import { useRecoilState } from 'recoil';
 interface IProps {
   inputValue: string;
   onReset: () => void;

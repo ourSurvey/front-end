@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "@emotion/styled";
-import { Common, Pretendard } from "styles/common";
-import dynamic from "next/dynamic";
-const StepProgress = dynamic(() => import("components/StepProgress"), { ssr: false });
+import React from 'react';
+import styled from '@emotion/styled';
+import { Common, Pretendard } from 'styles/common';
+import dynamic from 'next/dynamic';
+const StepProgress = dynamic(() => import('components/StepProgress'), { ssr: false });
 
 type Props = {
   children: React.ReactNode;

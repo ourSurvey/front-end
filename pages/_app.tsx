@@ -1,12 +1,12 @@
-import { global } from "styles/global";
-import { Global } from "@emotion/react";
-import { RecoilRoot } from "recoil";
-import { ReactElement, ReactNode, useState } from "react";
-import type { AppProps } from "next/app";
-import Layout from "components/Layout";
-import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
-import { NextPage } from "next";
-import DebugObserver from "components/common/DebugObserver";
+import { global } from 'styles/global';
+import { Global } from '@emotion/react';
+import { RecoilRoot } from 'recoil';
+import { ReactElement, ReactNode, useState } from 'react';
+import type { AppProps } from 'next/app';
+import Layout from 'components/Layout';
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
+import { NextPage } from 'next';
+import DebugObserver from 'components/common/DebugObserver';
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;

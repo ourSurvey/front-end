@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
-import { Common, Pretendard, Roboto, AlignAndJustifyCenter } from "styles/common";
-import Arrow from "public/icon/underArrow.svg";
+import styled from '@emotion/styled';
+import { Common, Pretendard, Roboto, AlignAndJustifyCenter } from 'styles/common';
+import Arrow from 'public/icon/underArrow.svg';
 interface IProps {
   partNum: number;
   color: string;
@@ -44,7 +44,7 @@ const BubbleContiner = styled.div<IStyle>`
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.24);
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     top: -10px;
     left: calc(50% - 14.5px);
@@ -72,7 +72,7 @@ const BubbleContiner = styled.div<IStyle>`
     ${AlignAndJustifyCenter()};
 
     padding: 7px 10px;
-    background-color: ${(props) => (props.color === "pink" ? Common.colors.PK500 : Common.colors.GR500)};
+    background-color: ${(props) => (props.color === 'pink' ? Common.colors.PK500 : Common.colors.GR500)};
     border-radius: 60px;
     width: 100%;
 

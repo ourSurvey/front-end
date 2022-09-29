@@ -1,7 +1,7 @@
 //서베이의 리스트들의 ID만을 관리하는 파일
 import { atom, atomFamily } from 'recoil';
-import { SectionID, QuestionItemListID, QuestionListID } from 'types/survey';
-import { getDateSixDigitsFormatToday, numberSet } from 'utills/getDateSixth';
+import { SectionID, QuestionItemListID, QuestionListID, QuestionID } from 'types/survey';
+import { getDateSixDigitsFormatToday } from 'utills/getDateSixth';
 
 export const sectionIdListAtom = atom<SectionID[]>({
   key: 'sectionIdListAtom',
@@ -36,4 +36,9 @@ export const targetQuestionIDAtom = atom<QuestionListID>({
 export const targetQuestionListIDAtom = atom<QuestionListID>({
   key: 'targetQuestionListIDAtom',
   default: '' as QuestionListID,
+});
+
+export const MoreModalIDAtom = atom<QuestionID>({
+  key: 'MoreModalAtom',
+  default: '' as QuestionID,
 });

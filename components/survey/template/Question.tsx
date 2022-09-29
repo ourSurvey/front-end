@@ -6,14 +6,8 @@ import Toggle from 'components/common/Toggle';
 import QusetionTitle from './QusetionTitle';
 import SelectOptionContainer from './SelectOptionContainer';
 import { QuestionListID, SectionID } from 'types/survey';
-import {
-  qusetionListAtomFamily,
-  MoreModalAtom,
-  targetQuestionListIDAtom,
-  targetQuestionIDAtom,
-  targetPartIdAtom,
-  targetAtom,
-} from 'states/survey';
+import { qusetionListAtomFamily, targetAtom } from 'states/survey';
+import { MoreModalIDAtom, targetQuestionListIDAtom, targetQuestionIDAtom, targetPartIdAtom } from 'states/surveyIds';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { QuestionIDFormat } from 'utills/getDateSixth';
 interface IProps {
@@ -31,7 +25,7 @@ interface IStyle {
 
 const Question = ({ color, questionId, partNumber, setVisibleMore, id, targetQuestionList, partId }: IProps) => {
   const [question, setQusetion] = useRecoilState(qusetionListAtomFamily(QuestionIDFormat(questionId + 1, partNumber)));
-  const setQusetionId = useSetRecoilState(MoreModalAtom);
+  const setQusetionId = useSetRecoilState(MoreModalIDAtom);
   const setQuestionListID = useSetRecoilState(targetQuestionListIDAtom);
   const setQuestiontID = useSetRecoilState(targetQuestionIDAtom);
   const setTargetPartID = useSetRecoilState(targetPartIdAtom);

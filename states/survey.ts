@@ -77,10 +77,6 @@ export const targetPartIdAtom = atom<SectionID>({
   default: '' as SectionID,
 });
 
-export const MoreModalAtom = atom<QuestionID>({
-  key: 'MoreModalAtom',
-  default: '' as QuestionID,
-});
 
 //지울 question의 ID값을 저장할 atom
 export const targetQuestionIDAtom = atom<QuestionListID>({

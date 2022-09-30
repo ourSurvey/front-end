@@ -6,6 +6,7 @@ import { useRecoilValue } from 'recoil';
 import { qusetionItemIdListAtom } from 'states/surveyIds';
 import { QuestionItemListID } from 'types/survey';
 import { PartIDFormat, QuestionIDFormat } from 'utills/getDateSixth';
+import InputAndNextPartContainer from './InputAndNextPartContainer';
 interface IProps {
   questionIndex: number;
   partIndex: number;
@@ -14,7 +15,7 @@ interface IProps {
   ListLength: number;
 }
 
-const MultipleSelection = ({ questionIndex, partIndex, sysCode, hasNextSectionFlag }: IProps) => {
+const MultipleSelection = ({ questionIndex, partIndex, sysCode, hasNextSectionFlag, ListLength }: IProps) => {
   const [items, setItems] = useState(['']);
   const dragItem = useRef<any>(null);
   const dragOverItem = useRef<any>(null);
@@ -41,7 +42,7 @@ const MultipleSelection = ({ questionIndex, partIndex, sysCode, hasNextSectionFl
     <Option>
       {questionItemIdList.map((id, idx, arr) => {
         return (
-          <MultipleSelectionInput
+          <InputAndNextPartContainer
             key={id}
             hasNextSectionFlag={hasNextSectionFlag}
             hasDeleteBtn={arr.length > 1}

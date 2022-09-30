@@ -3,7 +3,8 @@ import { Common, Pretendard } from 'styles/common';
 import MultipleSelection from './MultipleSelection';
 import Plus from 'public/icon/plus.svg';
 import { useRecoilCallback, useRecoilState } from 'recoil';
-import { qusetionItemIdListAtom, qusetionListAtomFamily, qusetionItemListAtomFamily } from 'states/survey';
+import { qusetionListAtomFamily, qusetionItemListAtomFamily } from 'states/survey';
+import { qusetionItemIdListAtom } from 'states/surveyIds';
 import { IQuestionItem, QuestionID, QuestionItemListID } from 'types/survey';
 import { getDateSixDigitsFormatToday, numberSet, QuestionItemIDFormat } from 'utills/getDateSixth';
 interface IProps {

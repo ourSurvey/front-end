@@ -30,7 +30,7 @@ const SpeechBubble = ({ partNum, color, partLength }: IProps) => {
       <h2>다음으로 어디로 이동할까요?</h2>
       <button onClick={() => setshowModalState(true)}>
         <span>다음 파트</span>로 진행하기
-        <Arrow />
+        <Arrow fill="white" />
       </button>
       <Portal selector="#portal">
         <ModalTemplate height={50} visibleState={showModalState} setVisible={setshowModalState}>

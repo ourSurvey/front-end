@@ -88,17 +88,14 @@ const ShareBody = ({ setVisible }: Props) => {
       <Absolute>
         <Close width="14" height="14" fill={Common.colors.GY900} onClick={() => setVisible(false)} />
       </Absolute>
-      <span>공유하기</span>
+      <ShareSpan>공유하기</ShareSpan>
       <IconContainer>
         <div className="center">
           <div className="icons">
             <Kakao />
             <Insta />
           </div>
-          <div className="copy">
-            <input type="text" name="url" disabled defaultValue={surveyUrl} />
-            <button onClick={handleCopy}>URL 복사</button>
-          </div>
+          <CopyBtn onClick={handleCopy}>URL 복사</CopyBtn>
         </div>
       </IconContainer>
     </>
@@ -115,49 +112,18 @@ const IconContainer = styled.div`
   align-items: center;
 
   & .center {
-    height: 100%;
     width: 70%;
     ${SpaceBetween()}
     flex-direction: column;
   }
   & .icons {
     ${SpaceBetween()}
-    height: calc(100% - 50px);
+    margin-bottom:14px;
     width: 100%;
   }
   & svg {
     display: inline;
     position: static;
-  }
-
-  & .copy {
-    width: 100%;
-    position: relative;
-    ${SpaceBetween()}
-
-    & input {
-      width: 100%;
-      height: 40px;
-      padding-left: 10px;
-      border: 1px solid ${Common.colors.GY100};
-      border-radius: 5px;
-      background-color: ${Common.colors.GY50};
-      ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY700 })};
-      line-height: 150%;
-    }
-    & button {
-      position: absolute;
-      right: 5px;
-      height: 28px;
-      width: 65px;
-      top: 6px;
-      background-color: ${Common.colors.GY700};
-      outline: none;
-      border: none;
-      border-radius: 3px;
-      ${Pretendard({ font: 1.2, weight: 700, color: '#fff' })};
-      line-height: 150%;
-    }
   }
 `;
 
@@ -167,4 +133,21 @@ const Absolute = styled.div`
   & svg {
     margin-left: auto;
   }
+`;
+
+const ShareSpan = styled.span`
+  ${Pretendard({ font: 1.6, weight: 700, color: Common.colors.GY900 })};
+  line-height: 150%;
+  display: block;
+  text-align: center;
+`;
+
+const CopyBtn = styled.button`
+  height: 38px;
+  background-color: ${Common.colors.GY700};
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  ${Pretendard({ font: 1.2, weight: 700, color: '#fff' })};
+  line-height: 150%;
 `;

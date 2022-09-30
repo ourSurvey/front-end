@@ -66,7 +66,7 @@ export const qusetionItemListAtomFamily = atomFamily<IQuestionItem, QuestionItem
       id,
       content: '',
       oder: 0,
-      nextSection: 0,
+      nextSection: -2,
     };
   },
 });
@@ -219,7 +219,18 @@ export const surveySelector = selector({
         });
         //question을 가져와서 questionItem을 담아서 리턴
         const question = get(qusetionListAtomFamily(QuestionIDFormat(questionIdx + 1, sectionIdx + 1)));
-        return { ...question, questionItems: questionItem };
+        const questionItemsLength = questionItem.length;
+        const nextSectionSetting = questionItem.map((item, idx) => {
+          //마지막 인덱스라면
+          if (idx + 1 === questionItemsLength) {
+            return { ...item, nextSection: -1 };
+          }
+          if (item.nextSection === -2) {
+            return { ...item, nextSection: 0 };
+          }
+        });
+
+        return { ...question, questionItems: nextSectionSetting };
       });
 
       const part = get(sectionListAtomFamily(PartIDFormat(sectionIdx + 1)));

@@ -4,7 +4,8 @@ import CloseCircle from 'public/icon/close-circle.svg';
 import styled from '@emotion/styled';
 import { Common, Pretendard, SpaceBetween } from 'styles/common';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { qusetionItemListAtomFamily, qusetionItemIdListAtom } from 'states/survey';
+import { qusetionItemListAtomFamily } from 'states/survey';
+import { qusetionItemIdListAtom } from 'states/surveyIds';
 import { QuestionItemIDFormat } from 'utills/getDateSixth';
 import { QuestionItemListID } from 'types/survey';
 interface IProps {

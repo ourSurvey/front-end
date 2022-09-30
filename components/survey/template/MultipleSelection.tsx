@@ -3,7 +3,7 @@ import MultipleSelectionInput from './MultipleSelectionInput';
 import styled from '@emotion/styled';
 import { Common, Pretendard } from 'styles/common';
 import { useRecoilValue } from 'recoil';
-import { qusetionItemIdListAtom } from 'states/survey';
+import { qusetionItemIdListAtom } from 'states/surveyIds';
 import { QuestionItemListID } from 'types/survey';
 import { PartIDFormat, QuestionIDFormat } from 'utills/getDateSixth';
 interface IProps {

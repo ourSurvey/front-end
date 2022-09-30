@@ -4,7 +4,7 @@ import CreateSurveyHeader from 'components/survey/CreateSurveyHeader';
 import PartSpeechContainer from 'components/survey/template/PartSpeechContainer';
 import React, { useState } from 'react';
 import SubLayout from 'components/SubLayout';
-import { sectionIdListAtom } from 'states/survey';
+import { sectionIdListAtom } from 'states/surveyIds';
 import { useRecoilValue } from 'recoil';
 import Link from 'next/link';
 import Portal from 'components/common/Portal';

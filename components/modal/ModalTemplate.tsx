@@ -1,7 +1,7 @@
 import Dimmer from 'components/common/Dimmer';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
-import { Pretendard, Common } from 'styles/common';
+import { useEffect, useState } from 'react';
 
 interface IProps {
   visibleState: boolean;
@@ -12,9 +12,30 @@ interface IProps {
 
 interface IStyle {
   height: number;
+  visible: boolean;
 }
 
 const ModalTemplate = ({ visibleState, setVisible, children, height }: IProps) => {
+  const [open, setOpen] = useState(false);
+
+  const onClose = () => {
+    setVisible(false);
+  };
+
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+    if (visibleState) {
+      setOpen(true);
+    } else {
+      timeoutId = setTimeout(() => setOpen(false), 130);
+    }
+
+    return () => {
+      if (timeoutId !== undefined) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [visibleState]);
   const fadein = keyframes`
   from {bottom: -${height}%; opacity: 0;}
   to {bottom: 0; opacity: 1;}
@@ -28,7 +49,7 @@ const ModalTemplate = ({ visibleState, setVisible, children, height }: IProps) =
     position: absolute;
     padding: 23px 25px;
     display: block;
-    animation: ${visibleState ? fadein : fadeout} 0.2s ease-out;
+    animation: ${(props) => (props.visible ? fadein : fadeout)} 0.2s ease-out;
     width: 100%;
     bottom: 0;
     height: ${(props) => props.height}%;
@@ -36,10 +57,17 @@ const ModalTemplate = ({ visibleState, setVisible, children, height }: IProps) =
     background-color: #fff;
     z-index: 202;
   `;
+
+  if (!open) {
+    return null;
+  }
+
   return (
     <>
-      <Dimmer zIndex={201} onClick={() => setVisible(false)} />
-      <Modal height={height}>{children}</Modal>
+      <Dimmer zIndex={201} onClick={onClose} />
+      <Modal visible={visibleState} height={height}>
+        {children}
+      </Modal>
     </>
   );
 };

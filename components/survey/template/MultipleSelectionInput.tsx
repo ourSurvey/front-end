@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import SlideArrow from 'public/icon/slide-arrow.svg';
 import CloseCircle from 'public/icon/close-circle.svg';
 import styled from '@emotion/styled';
@@ -9,6 +9,7 @@ import { qusetionItemIdListAtom } from 'states/surveyIds';
 import { QuestionItemIDFormat } from 'utills/getDateSixth';
 import { QuestionItemListID } from 'types/survey';
 import Arrow from 'public/icon/underArrow.svg';
+
 interface IProps {
   selectionNumber: number;
   questionId: number;
@@ -18,6 +19,7 @@ interface IProps {
   id: QuestionItemListID;
   idName: QuestionItemListID;
   hasNextSectionFlag: boolean;
+  setVisibleModal: (target: boolean) => void;
 }
 
 const MultipleSelectionInput = ({
@@ -28,6 +30,7 @@ const MultipleSelectionInput = ({
   questionId,
   partId,
   id,
+  setVisibleModal,
   idName,
 }: IProps) => {
   const [inputContent, setInputContent] = useRecoilState(
@@ -50,33 +53,38 @@ const MultipleSelectionInput = ({
     setSelectionList((id) => id.filter((item) => item !== idName));
   };
   return (
-    <MultipleSelectionLi draggable onTouchMove={(e) => onDragEnd(e)} onDragOver={(e) => e.preventDefault()}>
-      <SlideArrow />
-      {/* <InputContainer>
-        <input
-          placeholder="선택지 입력"
-          defaultValue={inputContent.content}
-          type="text"
-          name="multiple-select-input"
-          onChange={(e) => onChangeHandler(e)}
-        />
-        {hasDeleteBtn ? <CloseCircle onClick={onRemove} /> : null}
-      </InputContainer> */}
-      <HaveNextPart>
-        <input
-          placeholder="선택지 입력"
-          defaultValue={inputContent.content}
-          type="text"
-          name="multiple-select-input"
-          onChange={(e) => onChangeHandler(e)}
-        />
-        {hasDeleteBtn ? <CloseCircle className="close-svg" onClick={onRemove} /> : null}
-        <div className="nexts">
-          <strong>다음 파트</strong>로 진행하기
-          <Arrow fill={Common.colors.GY700} />
-        </div>
-      </HaveNextPart>
-    </MultipleSelectionLi>
+    <>
+      <MultipleSelectionLi draggable onTouchMove={(e) => onDragEnd(e)} onDragOver={(e) => e.preventDefault()}>
+        <SlideArrow />
+        {hasNextSectionFlag ? (
+          <HaveNextPart>
+            <input
+              placeholder="선택지 입력"
+              defaultValue={inputContent.content}
+              type="text"
+              name="multiple-select-input"
+              onChange={(e) => onChangeHandler(e)}
+            />
+            {hasDeleteBtn ? <CloseCircle className="close-svg" onClick={onRemove} /> : null}
+            <div onClick={() => setVisibleModal(true)} className="nexts">
+              <strong>다음 파트</strong>로 진행하기
+              <Arrow fill={Common.colors.GY700} />
+            </div>
+          </HaveNextPart>
+        ) : (
+          <InputContainer>
+            <input
+              placeholder="선택지 입력"
+              defaultValue={inputContent.content}
+              type="text"
+              name="multiple-select-input"
+              onChange={(e) => onChangeHandler(e)}
+            />
+            {hasDeleteBtn ? <CloseCircle onClick={onRemove} /> : null}
+          </InputContainer>
+        )}
+      </MultipleSelectionLi>
+    </>
   );
 };
 

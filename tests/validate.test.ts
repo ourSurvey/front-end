@@ -1,4 +1,4 @@
-import { emailValidate, pNumValidate, passwordValidate, getFieldError, birthValidate } from './validate';
+import { emailValidate, pNumValidate, passwordValidate, getFieldError, birthValidate } from 'utills/validate';
 describe('정규식', () => {
   describe('이메일 정규식', () => {
     test('이메일 주소 시작은 숫자나 알파벳으로 시작한다.', () => {

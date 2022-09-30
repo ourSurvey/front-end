@@ -13,6 +13,7 @@ interface IProps {
   partIndex: number;
   hasNextSectionFlag: boolean;
   questionAtomFamilyID: QuestionID;
+  ListLength: number;
 }
 
 interface IStyle {
@@ -25,6 +26,7 @@ const SelectOptionContainer = ({
   partIndex,
   hasNextSectionFlag,
   questionAtomFamilyID,
+  ListLength,
 }: IProps) => {
   const PartFormat = `SCTN${getDateSixDigitsFormatToday()}${numberSet(partIndex)}`;
   const QuestionFormat = `QSTN${getDateSixDigitsFormatToday()}${numberSet(questionIndex)}`;
@@ -108,6 +110,7 @@ const SelectOptionContainer = ({
           sysCode={SyscodeFormat}
           partIndex={partIndex}
           questionIndex={questionIndex}
+          ListLength={ListLength}
         />
       ) : (
         <Input disabled placeholder="이곳에 답변이 입력될 예정입니다." />

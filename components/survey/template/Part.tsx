@@ -84,6 +84,7 @@ const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
         {questionIdList.map((id, idx) => {
           return (
             <Question
+              ListLength={ListLength}
               setVisibleMore={setVisibleMore}
               partNumber={PartNum + 1}
               questionId={idx}

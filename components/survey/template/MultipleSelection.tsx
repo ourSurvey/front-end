@@ -11,6 +11,7 @@ interface IProps {
   partIndex: number;
   sysCode: QuestionItemListID;
   hasNextSectionFlag: boolean;
+  ListLength: number;
 }
 
 const MultipleSelection = ({ questionIndex, partIndex, sysCode, hasNextSectionFlag }: IProps) => {
@@ -50,6 +51,7 @@ const MultipleSelection = ({ questionIndex, partIndex, sysCode, hasNextSectionFl
             onDragEnd={handleSort}
             id={sysCode} //해당 선택지 리스트에 대한 id값
             idName={id} //선택지 리스트 안에 있는 고유 id 값
+            ListLength={ListLength}
           />
         );
       })}

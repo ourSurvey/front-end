@@ -18,12 +18,22 @@ interface IProps {
   id: QuestionListID; //질문의 고유 ID
   targetQuestionList: QuestionListID; //해당 질문들이 있는 배열의 ID값
   partId: SectionID;
+  ListLength: number;
 }
 interface IStyle {
   color: string;
 }
 
-const Question = ({ color, questionId, partNumber, setVisibleMore, id, targetQuestionList, partId }: IProps) => {
+const Question = ({
+  color,
+  questionId,
+  partNumber,
+  setVisibleMore,
+  id,
+  targetQuestionList,
+  partId,
+  ListLength,
+}: IProps) => {
   const [question, setQusetion] = useRecoilState(qusetionListAtomFamily(QuestionIDFormat(questionId + 1, partNumber)));
   const setQusetionId = useSetRecoilState(MoreModalIDAtom);
   const setQuestionListID = useSetRecoilState(targetQuestionListIDAtom);
@@ -66,6 +76,7 @@ const Question = ({ color, questionId, partNumber, setVisibleMore, id, targetQue
       </TitleContainer>
       <SelectOptionContainer
         questionAtomFamilyID={QuestionIDFormat(questionId + 1, partNumber)}
+        ListLength={ListLength}
         hasNextSectionFlag={question.hasNextPart}
         partIndex={partNumber}
         questionIndex={questionId + 1}

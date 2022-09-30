@@ -4,7 +4,7 @@ import {
   qusetionItemIdListAtom,
   targetQuestionListIDAtom,
 } from 'states/surveyIds';
-import { atom, atomFamily, selector } from 'recoil';
+import { atom, atomFamily, selector, selectorFamily } from 'recoil';
 import { QuestionIDFormat, PartIDFormat, QuestionListIDFormat, QuestionItemIDFormat } from 'utills/getDateSixth';
 import {
   IQuestionItem,
@@ -100,6 +100,15 @@ export const sectionListAtomFamily = atomFamily<ISection, SectionID>({
       questions: [],
     };
   },
+});
+
+export const sectionTitleSelectorFamily = selectorFamily<String, SectionID>({
+  key: 'sectionTitleSelectorFamily',
+  get:
+    (id) =>
+    ({ get }) => {
+      return get(sectionListAtomFamily(id)).title;
+    },
 });
 
 export const targetAtom = atom<ITarget>({

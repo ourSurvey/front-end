@@ -2,19 +2,19 @@ import Close from 'public/icon/close.svg';
 
 import styled from '@emotion/styled';
 import { Pretendard, Common, SpaceBetween } from 'styles/common';
-import { useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useCallback, useEffect, useState } from 'react';
+import { useRecoilValue, useRecoilState, useRecoilCallback } from 'recoil';
 import { PartIDFormat } from 'utills/getDateSixth';
 import { sectionListAtomFamily } from 'states/survey';
+import { ISection } from 'types/survey';
 interface IProps {
   setVisible: (bool: boolean) => void;
   partNum: number;
-  partName: string;
   partLength: number;
 }
 
-const NextPartSectionModal = ({ setVisible, partNum, partName, partLength }: IProps) => {
-  const [selectedSection, setselectedSection] = useState('nextPart');
+const NextPartSectionModal = ({ setVisible, partNum, partLength }: IProps) => {
+  const [partData, setPartData] = useRecoilState(sectionListAtomFamily(PartIDFormat(partNum)));
   //클릭한 파트 번호를 제외한 배열 생성
   const partIndexArray = Array.from({ length: partLength }, (_, index) => index + 1).filter((item) => item !== partNum);
 
@@ -24,7 +24,7 @@ const NextPartSectionModal = ({ setVisible, partNum, partName, partLength }: IPr
         <div>
           <TitleContainer>
             <strong>Part{partNum}.</strong>
-            <PartTitle>{partName === '' ? '(제목없음)' : partName}</PartTitle>
+            <PartTitle>{partData.title === '' ? '(제목없음)' : partData.title}</PartTitle>
           </TitleContainer>
           <Description>다음으로 어디로 이동할까요?</Description>
         </div>
@@ -35,7 +35,10 @@ const NextPartSectionModal = ({ setVisible, partNum, partName, partLength }: IPr
       <Line />
 
       <UlContainer>
-        <li onClick={() => setselectedSection('nextPart')} className={selectedSection === 'nextPart' ? 'active' : ''}>
+        <li
+          onClick={() => setPartData({ ...partData, nextSection: -2 })}
+          className={partData.nextSection === -2 ? 'active' : ''}
+        >
           다음 파트로 진행하기
         </li>
         {partIndexArray.map((item) => {
@@ -43,14 +46,17 @@ const NextPartSectionModal = ({ setVisible, partNum, partName, partLength }: IPr
           return (
             <li
               key={part.id}
-              onClick={() => setselectedSection(`${item - 1}`)}
-              className={selectedSection === `${item - 1}` ? 'active' : ''}
+              onClick={() => setPartData({ ...partData, nextSection: item - 1 })}
+              className={partData.nextSection === item - 1 ? 'active' : ''}
             >
               Part{item}. {part.title === '' ? '(제목없음)' : part.title}
             </li>
           );
         })}
-        <li onClick={() => setselectedSection('send')} className={selectedSection === 'send' ? 'active' : ''}>
+        <li
+          onClick={() => setPartData({ ...partData, nextSection: -1 })}
+          className={partData.nextSection === -1 ? 'active' : ''}
+        >
           설문 제출하기
         </li>
       </UlContainer>

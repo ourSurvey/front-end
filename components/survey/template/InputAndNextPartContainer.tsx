@@ -12,7 +12,7 @@ interface IProps {
   hasDeleteBtn: boolean;
   id: QuestionItemListID;
   idName: QuestionItemListID;
-  hasNextSectionFlag: boolean;
+  hasNextSectionFlag: 0 | 1;
   ListLength: number;
 }
 

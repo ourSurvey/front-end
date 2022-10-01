@@ -47,7 +47,7 @@ const MoreSelectionModal = ({ setSideModal }: IProps) => {
   const onToggleNextPartFlag = () => {
     setQusetion({
       ...question,
-      hasNextPart: !question.hasNextPart,
+      nextFl: question.nextFl === 1 ? 0 : 1,
     });
   };
 
@@ -84,7 +84,7 @@ const MoreSelectionModal = ({ setSideModal }: IProps) => {
           <SelectableSpan className={question.randomShowFl === 1 ? 'active' : ''} onClick={onToggleRandomFlag}>
             선택지 순서 무작위로 섞기
           </SelectableSpan>
-          <SelectableSpan className={question.hasNextPart ? 'active' : ''} onClick={onToggleNextPartFlag}>
+          <SelectableSpan className={question.nextFl === 1 ? 'active' : ''} onClick={onToggleNextPartFlag}>
             답변을 기준으로 파트 이동
           </SelectableSpan>
         </Container>

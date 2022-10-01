@@ -11,7 +11,7 @@ interface IProps {
   color: string;
   questionIndex: number;
   partIndex: number;
-  hasNextSectionFlag: boolean;
+  hasNextSectionFlag: 0 | 1;
   questionAtomFamilyID: QuestionID;
   ListLength: number;
 }

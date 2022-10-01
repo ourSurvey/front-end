@@ -11,7 +11,7 @@ interface IProps {
   questionIndex: number;
   partIndex: number;
   sysCode: QuestionItemListID;
-  hasNextSectionFlag: boolean;
+  hasNextSectionFlag: 0 | 1;
   ListLength: number;
 }
 

@@ -83,7 +83,7 @@ export const qusetionListAtomFamily = atomFamily<IQuestion, QuestionID>({
       randomShowFl: 0,
       dupFl: 0,
       oder: 0,
-      hasNextPart: false, //다음 파트로 진행하기 버튼 토글
+      nextFl: false, //다음 파트로 진행하기 버튼 토글
       questionItems: [],
     };
   },

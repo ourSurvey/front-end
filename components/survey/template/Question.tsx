@@ -77,7 +77,7 @@ const Question = ({
       <SelectOptionContainer
         questionAtomFamilyID={QuestionIDFormat(questionId + 1, partNumber)}
         ListLength={ListLength}
-        hasNextSectionFlag={question.hasNextPart}
+        hasNextSectionFlag={question.nextFl}
         partIndex={partNumber}
         questionIndex={questionId + 1}
         color={color}

@@ -18,7 +18,7 @@ interface IProps {
   hasDeleteBtn: boolean;
   id: QuestionItemListID;
   idName: QuestionItemListID;
-  hasNextSectionFlag: boolean;
+  hasNextSectionFlag: 0 | 1;
   setVisibleModal: (target: boolean) => void;
 }
 
@@ -56,7 +56,7 @@ const MultipleSelectionInput = ({
     <>
       <MultipleSelectionLi draggable onTouchMove={(e) => onDragEnd(e)} onDragOver={(e) => e.preventDefault()}>
         <SlideArrow />
-        {hasNextSectionFlag ? (
+        {hasNextSectionFlag === 1 ? (
           <HaveNextPart>
             <input
               placeholder="선택지 입력"

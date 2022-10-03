@@ -3,10 +3,12 @@ import { QuestionListID, SectionID, QuestionID, QuestionItemID } from 'types/sur
 export const getDateSixDigitsFormatToday = (): number => {
   const date = new Date();
   const year = String(date.getFullYear()).substring(2);
-  let monthSet;
+  let monthSet: string;
   const month = date.getMonth() + 1;
   if (month < 10) {
     monthSet = `0${month}`;
+  } else {
+    monthSet = String(month);
   }
 
   const day = date.getDate();

@@ -1,12 +1,15 @@
-import React, { useRef, useState } from 'react';
-import MultipleSelectionInput from './MultipleSelectionInput';
+import React, { useRef, useState, useCallback } from 'react';
+
+import update from 'immutability-helper';
 import styled from '@emotion/styled';
 import { Common, Pretendard } from 'styles/common';
-import { useRecoilValue } from 'recoil';
-import { qusetionItemIdListAtom } from 'states/surveyIds';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { qusetionItemIdListAtom, qusetionItemIdListSelectorFamily } from 'states/surveyIds';
 import { QuestionItemListID } from 'types/survey';
-import { PartIDFormat, QuestionIDFormat } from 'utills/getDateSixth';
+
 import InputAndNextPartContainer from './InputAndNextPartContainer';
+import { DndProvider } from 'react-dnd';
+import { TouchBackend } from 'react-dnd-touch-backend';
 interface IProps {
   questionIndex: number;
   partIndex: number;
@@ -16,47 +19,45 @@ interface IProps {
 }
 
 const MultipleSelection = ({ questionIndex, partIndex, sysCode, hasNextSectionFlag, ListLength }: IProps) => {
-  const [items, setItems] = useState(['']);
-  const dragItem = useRef<any>(null);
-  const dragOverItem = useRef<any>(null);
+  const [questionItemIdList, setQuestionItemIdList] = useRecoilState(qusetionItemIdListAtom(sysCode));
 
-  const questionItemIdList = useRecoilValue(qusetionItemIdListAtom(sysCode));
+  // console.log(questionList);
+  const onMove = useCallback((dragIndex: number, hoverIndex: number) => {
+    const dragInput = questionItemIdList[dragIndex];
+    console.log(questionItemIdList, dragIndex, hoverIndex);
+    setQuestionItemIdList(
+      update(questionItemIdList, {
+        $splice: [
+          [dragIndex, 1], // Delete
+          [hoverIndex, 0, dragInput], // Add
+        ],
+      })
+    );
 
-  const handleSort = (e: React.TouchEvent<HTMLLIElement>) => {
-    console.log(e.targetTouches[0]);
+    // console.log(questionItemIdList);
+  }, []);
 
-    let _question = [...items];
-
-    const draggedItemContent = _question.splice(dragItem.current, 1)[0];
-
-    //위치 변경
-    _question.splice(dragOverItem.current, 0, draggedItemContent);
-
-    dragItem.current = null;
-    dragOverItem.current = null;
-
-    setItems(_question);
-  };
+  const renderInput = useCallback((id: QuestionItemListID, index: number, arr: QuestionItemListID[]) => {
+    return (
+      <InputAndNextPartContainer
+        key={id}
+        hasNextSectionFlag={hasNextSectionFlag}
+        hasDeleteBtn={arr.length > 1}
+        partId={partIndex}
+        questionId={questionIndex}
+        selectionNumber={index + 1}
+        id={sysCode} //해당 선택지 리스트에 대한 id값
+        idName={id} //선택지 리스트 안에 있는 고유 id 값
+        ListLength={ListLength}
+        moveCard={onMove}
+      />
+    );
+  }, []);
 
   return (
-    <Option>
-      {questionItemIdList.map((id, idx, arr) => {
-        return (
-          <InputAndNextPartContainer
-            key={id}
-            hasNextSectionFlag={hasNextSectionFlag}
-            hasDeleteBtn={arr.length > 1}
-            partId={partIndex}
-            questionId={questionIndex}
-            selectionNumber={idx + 1}
-            onDragEnd={handleSort}
-            id={sysCode} //해당 선택지 리스트에 대한 id값
-            idName={id} //선택지 리스트 안에 있는 고유 id 값
-            ListLength={ListLength}
-          />
-        );
-      })}
-    </Option>
+    <DndProvider backend={TouchBackend}>
+      <Option>{questionItemIdList.map((id, idx, arr) => renderInput(id, idx, arr))}</Option>
+    </DndProvider>
   );
 };
 

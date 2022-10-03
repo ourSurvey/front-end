@@ -1,5 +1,5 @@
 //서베이의 리스트들의 ID만을 관리하는 파일
-import { atom, atomFamily } from 'recoil';
+import { atom, atomFamily, selectorFamily } from 'recoil';
 import { SectionID, QuestionItemListID, QuestionListID, QuestionID } from 'types/survey';
 import { getDateSixDigitsFormatToday } from 'utills/getDateSixth';
 
@@ -18,6 +18,15 @@ export const qusetionIdListAtom = atomFamily<QuestionListID[], QuestionListID>({
 export const qusetionItemIdListAtom = atomFamily<QuestionItemListID[], QuestionItemListID>({
   key: 'qusetionItemIdListAtom',
   default: (id) => [`${id}1` as QuestionItemListID],
+});
+
+export const qusetionItemIdListSelectorFamily = selectorFamily<QuestionItemListID[], QuestionItemListID>({
+  key: 'qusetionItemIdListSelectorFamily',
+  get:
+    (id) =>
+    ({ get }) => {
+      return get(qusetionItemIdListAtom(id));
+    },
 });
 
 //질문이 한개일 시 같이 삭제할 파트의 ID 정보

@@ -12,6 +12,7 @@ import Link from 'next/link';
 import { toastState } from 'states/modal';
 import { useRecoilState } from 'recoil';
 import SearchHeader from 'components/common/SearchHeader';
+
 const Index = () => {
   const router = useRouter();
   const [wasSubmitted, setwasSubmitted] = useState(false);
@@ -32,8 +33,31 @@ const Index = () => {
         router.push('/');
       }, 1000);
     },
-    onError: () => {
+    onError: (data: any) => {
       //실패 시
+
+      if (data.response.data.code === 402) {
+        setToastState({
+          ...ToastState,
+          visible: true,
+          text: '등록되지 않은 아이디입니다.',
+          toastType: 'error',
+        });
+      } else if (data.response.data.code === 403) {
+        setToastState({
+          ...ToastState,
+          visible: true,
+          text: '비밀번호를 잘못 입력했습니다.',
+          toastType: 'error',
+        });
+      } else {
+        setToastState({
+          ...ToastState,
+          visible: true,
+          text: '일시적인 오류로 로그인을 할 수 없습니다. 잠시 후 다시 이용해주세요.',
+          toastType: 'error',
+        });
+      }
     },
   });
 

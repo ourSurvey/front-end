@@ -31,6 +31,8 @@ class AuthService extends ApiClient {
 
     TokenProvider.set('accessToken', data.data.access, 1);
     TokenProvider.set('refreshToken', data.data.refresh, refreshExpire);
+
+    return data;
   }
 
   async isAuthedUser(token: string) {

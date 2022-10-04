@@ -22,7 +22,7 @@ const Index = () => {
       <Title>
         실시간 설문에 참여하고
         <br />
-        <span>N포인트</span> 받아가세요!
+        <span>300포인트</span> 받아가세요!
       </Title>
 
       <Section id="section1">

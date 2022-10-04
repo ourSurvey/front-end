@@ -17,6 +17,9 @@ import { toastState } from 'states/modal';
 import { surveySelector } from 'states/survey';
 import { deleteIDproperty } from 'utills/deleteIdProperty';
 import { useHeaderScroll } from 'hooks/useHeaderScroll';
+import Portal from 'components/common/Portal';
+import ModalTemplate from 'components/modal/ModalTemplate';
+import SurveyUpLoadAlert from 'components/modal/SurveyUpLoadAlert';
 
 export const getServerSideProps: GetServerSideProps = withAuth(() => {
   return {
@@ -27,6 +30,7 @@ export default function Setting() {
   const setToastState = useSetRecoilState(toastState);
   const [closinTitle, setClosinTitle] = useState('설문이 종료되었습니다');
   const [closingComment, setclosingComment] = useState('응답해주셔서 감사합니다.');
+  const [showModal, setShowModal] = useState(false);
   const state = useRecoilValue(surveySelector);
   const { hide, scrollDetectHandler } = useHeaderScroll();
 
@@ -80,11 +84,16 @@ export default function Setting() {
           <button className="temporary-storage" onClick={temporaryStorageHandler}>
             임시저장
           </button>
-          <button className="upload" onClick={createSurveyButton}>
+          <button className="upload" onClick={() => setShowModal(true)}>
             설문 업로드
           </button>
         </BtnContainer>
       </SettingItemContainer>
+      <Portal selector="#portal">
+        <ModalTemplate visibleState={showModal} setVisible={setShowModal} height={25}>
+          <SurveyUpLoadAlert setVisible={setShowModal} upload={createSurveyButton} />
+        </ModalTemplate>
+      </Portal>
     </SettingPage>
   );
 }

@@ -1,20 +1,14 @@
 import styled from '@emotion/styled';
-import { useQuery } from 'react-query';
-import { getMyPoint } from 'services/api/point';
-import TokenProvider from 'services/TokenProvider';
+
 import { Pretendard, Common, SpaceBetween, AlignAndJustifyCenter } from 'styles/common';
 import Coin from 'public/icon/gold-coin.svg';
 type Props = {
   setVisible: (bool: boolean) => void;
   upload: () => void;
+  point: number;
 };
 
-const SurveyUpLoadAlert = ({ setVisible, upload }: Props) => {
-  const { isLoading, data } = useQuery(['point'], () => getMyPoint(), {
-    refetchOnWindowFocus: false,
-    staleTime: 5 * 1000 * 60,
-  });
-
+const SurveyUpLoadAlert = ({ setVisible, upload, point }: Props) => {
   return (
     <Confirm>
       <h1>설문을 업로드하시겠어요?</h1>
@@ -23,7 +17,7 @@ const SurveyUpLoadAlert = ({ setVisible, upload }: Props) => {
         <strong>500포인트</strong>가 사용돼요.
       </Flex>
       <Container>
-        <CurrentPoint>현재 포인트 : {isLoading ? 0 : data.data}P</CurrentPoint>
+        <CurrentPoint>현재 포인트 : {point}P</CurrentPoint>
       </Container>
       <div className="btn-container">
         <button onClick={() => setVisible(false)}>취소</button>

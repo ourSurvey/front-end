@@ -1,34 +1,22 @@
 import styled from '@emotion/styled';
-import { useQuery } from 'react-query';
-import { getMyPoint } from 'services/api/point';
-import TokenProvider from 'services/TokenProvider';
 import { Pretendard, Common, SpaceBetween, AlignAndJustifyCenter, Roboto } from 'styles/common';
 import Coin from 'public/icon/gold-coin.svg';
 type Props = {
   setVisible: (bool: boolean) => void;
-  upload: () => void;
+  point: number;
 };
 
-const LackPointModal = ({ setVisible, upload }: Props) => {
-  const { isLoading, data } = useQuery(['point'], () => getMyPoint(), {
-    refetchOnWindowFocus: false,
-    staleTime: 5 * 1000 * 60,
-  });
-
-  if (isLoading) {
-    return <div>...로딩중</div>;
-  }
-
+const LackPointModal = ({ setVisible, point }: Props) => {
   return (
     <Confirm>
       <h1>포인트가 부족합니다</h1>
       <Flex>
         설문을 업로드 하려면
         <Coin />
-        <strong>{500 - data.data}포인트</strong>&nbsp;더 필요해요.
+        <strong>{500 - point}포인트</strong>&nbsp;더 필요해요.
       </Flex>
       <Container>
-        <CurrentPoint>현재 포인트 : {isLoading ? 0 : data.data}P</CurrentPoint>
+        <CurrentPoint>현재 포인트 : {point}P</CurrentPoint>
       </Container>
       <SelectBox>
         <h2>이렇게 포인트를 얻을 수 있어요!</h2>

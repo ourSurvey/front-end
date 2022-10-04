@@ -48,7 +48,8 @@ const Draggable = ({ children, handleMove, index, id }: IProps) => {
     //마우스 위치 결정
     const clientOffset = monitor.getClientOffset();
     //픽셀을 맨 위로 가져오기
-    const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
+    if (clientOffset === null) return;
+    const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
     // 마우스가 항목 높이의 절반을 넘었을 때만 이동을 수행합니다.
     // 아래로 드래그할 때 커서가 50% 미만일 때만 이동

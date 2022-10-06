@@ -22,41 +22,39 @@ const MultipleSelection = ({ questionIndex, partIndex, sysCode, hasNextSectionFl
   const [questionItemIdList, setQuestionItemIdList] = useRecoilState(qusetionItemIdListAtom(sysCode));
 
   // console.log(questionList);
-  const onMove = useCallback((dragIndex: number, hoverIndex: number) => {
-    const dragInput = questionItemIdList[dragIndex];
-    console.log(questionItemIdList, dragIndex, hoverIndex);
-    setQuestionItemIdList(
-      update(questionItemIdList, {
-        $splice: [
-          [dragIndex, 1], // Delete
-          [hoverIndex, 0, dragInput], // Add
-        ],
-      })
-    );
-
-    // console.log(questionItemIdList);
-  }, []);
-
-  const renderInput = useCallback((id: QuestionItemListID, index: number, arr: QuestionItemListID[]) => {
-    return (
-      <InputAndNextPartContainer
-        key={id}
-        hasNextSectionFlag={hasNextSectionFlag}
-        hasDeleteBtn={arr.length > 1}
-        partId={partIndex}
-        questionId={questionIndex}
-        selectionNumber={index + 1}
-        id={sysCode} //해당 선택지 리스트에 대한 id값
-        idName={id} //선택지 리스트 안에 있는 고유 id 값
-        ListLength={ListLength}
-        moveCard={onMove}
-      />
-    );
-  }, []);
+  const onMove = useCallback(
+    (dragIndex: number, hoverIndex: number) => {
+      const dragInput = questionItemIdList[dragIndex];
+      setQuestionItemIdList(
+        update(questionItemIdList, {
+          $splice: [
+            [dragIndex, 1], // Delete
+            [hoverIndex, 0, dragInput], // Add
+          ],
+        })
+      );
+    },
+    [questionItemIdList]
+  );
 
   return (
     <DndProvider backend={TouchBackend}>
-      <Option>{questionItemIdList.map((id, idx, arr) => renderInput(id, idx, arr))}</Option>
+      <Option>
+        {questionItemIdList.map((id, idx, arr) => (
+          <InputAndNextPartContainer
+            key={id}
+            hasNextSectionFlag={hasNextSectionFlag}
+            hasDeleteBtn={arr.length > 1}
+            partId={partIndex}
+            questionId={questionIndex}
+            selectionNumber={idx + 1}
+            id={sysCode} //해당 선택지 리스트에 대한 id값
+            idName={id} //선택지 리스트 안에 있는 고유 id 값
+            ListLength={ListLength}
+            moveCard={onMove}
+          />
+        ))}
+      </Option>
     </DndProvider>
   );
 };

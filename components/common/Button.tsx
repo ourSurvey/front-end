@@ -1,6 +1,7 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
+import { Pretendard, Roboto } from 'styles/common';
 interface IProp {
   color: string;
   fontFamily?: 'pretendard' | 'roboto';
@@ -135,8 +136,8 @@ const Ripple = styled.span`
 `;
 
 const BtnText = styled.span<IBtnText>`
-  color: ${(props) => props.textColor};
-  font-size: ${(props) => props.fontSize * 0.625}rem;
-  font-weight: ${(props) => props.fontWeight};
-  font-family: ${(props) => (props.fontFamily === 'pretendard' ? 'Pretendard' : 'Roboto')};
+  ${({ fontFamily, fontSize, fontWeight, textColor }) =>
+    fontFamily === 'pretendard'
+      ? Pretendard({ font: fontSize, weight: fontWeight, color: textColor })
+      : Roboto({ font: fontSize, weight: fontWeight, color: textColor })};
 `;

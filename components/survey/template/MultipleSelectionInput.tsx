@@ -52,6 +52,7 @@ const MultipleSelectionInput = ({
   );
 
   const onRemove = () => {
+    setInputContent({ ...inputContent, content: '', nextSection: -1 });
     setSelectionList((id) => id.filter((item) => item !== idName));
   };
   return (

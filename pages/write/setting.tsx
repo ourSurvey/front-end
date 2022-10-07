@@ -90,7 +90,7 @@ export default function Setting() {
     return (
       <SettingPage>
         <HeaderWrap className={!hide ? 'hide' : ''}>
-          <CreateSurveyHeader name="설정" hasUnderLine={true} step="3" />
+          <CreateSurveyHeader name="설정" hasUnderLine={true} step="03" />
         </HeaderWrap>
         <div css={{ marginTop: '64px' }}>
           <Placeholder />
@@ -106,7 +106,7 @@ export default function Setting() {
   return (
     <SettingPage>
       <HeaderWrap className={!hide ? 'hide' : ''}>
-        <CreateSurveyHeader name="설정" hasUnderLine={true} step="3" />
+        <CreateSurveyHeader name="설정" hasUnderLine={true} step="03" />
       </HeaderWrap>
       <SettingItemContainer onScroll={scrollDetectHandler}>
         <PeriodSetting />
@@ -179,7 +179,11 @@ const SettingItemContainer = styled.div`
 `;
 
 const BtnContainer = styled.footer`
+  width: 100%;
+  position: fixed;
+  bottom: 0;
   ${SpaceBetween()};
+  border-top: 1px solid ${Common.colors.GY200};
   background-color: #fff;
   padding: 13px 20px 34px 20px;
   & button {

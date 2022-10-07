@@ -26,8 +26,14 @@ const Toggle = ({ name, question, setQuestion, color, id }: IProps) => {
   return (
     <ToggleSwitch mainColor={color}>
       <span>{name}</span>
-      <label htmlFor={id} className="toggle-label">
-        <input className="toggle" type="checkbox" checked={Boolean(question.essFl)} onChange={onToggleHanler} id={id} />
+      <label htmlFor={`toggle-${id}`} className="toggle-label">
+        <input
+          className="toggle"
+          type="checkbox"
+          checked={Boolean(question.essFl)}
+          onChange={onToggleHanler}
+          id={`toggle-${id}`}
+        />
         <div className="toggle-label-handle"></div>
       </label>
     </ToggleSwitch>

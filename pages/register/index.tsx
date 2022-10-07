@@ -129,7 +129,7 @@ const Index: NextPage = () => {
             />
             {/* 이메일 인증 완료 표시 */}
             {!isAuthedEmail ? (
-              <AuthButton type="button" onClick={(e) => emailAuthHandler(e)} disabled={errorMessage !== null}>
+              <AuthButton type="button" onClick={emailAuthHandler} disabled={errorMessage !== null}>
                 {btnName()}
               </AuthButton>
             ) : (
@@ -181,6 +181,7 @@ const Index: NextPage = () => {
         <TosContainer setIsAllCheck={setisAllCheck} />
         <Button
           type="submit"
+          className="btn-wrrapper"
           color={Common.colors.BL500}
           btnText="가입하기"
           textColor="#fff"
@@ -281,5 +282,10 @@ const Form = styled.form`
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  & .btn-wrrapper {
+    padding-top: 0;
+    padding-bottom: 0;
   }
 `;

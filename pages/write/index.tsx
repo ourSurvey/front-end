@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import { Common, Pretendard, SpaceBetween } from 'styles/common';
 import CreateSurveyHeader from 'components/survey/CreateSurveyHeader';
-import Part from 'components/survey/template/Part';
+import PartSpeechContainer from 'components/survey/template/PartSpeechContainer';
 import React, { useState } from 'react';
 import SubLayout from 'components/SubLayout';
-import { sectionIdListAtom } from 'states/survey';
+import { sectionIdListAtom } from 'states/surveyIds';
 import { useRecoilValue } from 'recoil';
 import Link from 'next/link';
 import Portal from 'components/common/Portal';
@@ -35,7 +35,13 @@ export default function Index() {
       <PartSectionContainer onScroll={scrollDetectHandler} id="section2">
         {partIdList.map((id, idx) => {
           return (
-            <Part partID={id} setVisibleMore={setVisibleMore} ListLength={partIdList.length} PartNum={idx} key={id} />
+            <PartSpeechContainer
+              partID={id}
+              setVisibleMore={setVisibleMore}
+              ListLength={partIdList.length}
+              PartNum={idx}
+              key={id}
+            />
           );
         })}
       </PartSectionContainer>

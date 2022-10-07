@@ -6,11 +6,11 @@ import Question from './Question';
 import { memo, useRef, useState } from 'react';
 import Copy from 'public/icon/copy.svg';
 import Plus from 'public/icon/plus-two.svg';
-import { sectionListAtomFamily, sectionIdListAtom, qusetionIdListAtom } from 'states/survey';
+import { sectionListAtomFamily } from 'states/survey';
+import { sectionIdListAtom, qusetionIdListAtom } from 'states/surveyIds';
 import { useRecoilCallback, useRecoilState, useRecoilValue } from 'recoil';
 import { QuestionListID, SectionID } from 'types/survey';
 import { PartIDFormat, QuestionListIDFormat } from 'utills/getDateSixth';
-import SpeechBubble from './SpeechBubble';
 
 interface IProps {
   PartNum: number;
@@ -84,6 +84,7 @@ const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
         {questionIdList.map((id, idx) => {
           return (
             <Question
+              ListLength={ListLength}
               setVisibleMore={setVisibleMore}
               partNumber={PartNum + 1}
               questionId={idx}
@@ -107,7 +108,6 @@ const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
           질문 추가
         </button>
       </PartButtonContainer>
-      <SpeechBubble partNum={PartNum + 1} color={(PartNum + 1) % 2 === 0 ? 'pink' : 'green'} />
     </PartContainer>
   );
 };
@@ -116,12 +116,10 @@ export default memo(Part);
 
 const PartContainer = styled.section`
   width: 100%;
-  /* padding: 0 20px; */
-  padding-top: 30px;
-  padding-bottom: 24px;
-  background-color: #fff;
 
-  margin-bottom: 10px;
+  padding-top: 30px;
+  padding-bottom: 10px;
+  background-color: #fff;
 
   & header,
   .qustion-title {

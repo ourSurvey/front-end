@@ -38,14 +38,20 @@ const Alert = () => {
   `;
 
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
     if (ToastState.visible) {
-      setTimeout(() => {
+      timeoutId = setTimeout(() => {
         setToastState({
           ...ToastState,
           visible: false,
         });
       }, 2000);
     }
+    return () => {
+      if (timeoutId !== undefined) {
+        clearTimeout(timeoutId);
+      }
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ToastState]);
 

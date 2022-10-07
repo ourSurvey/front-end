@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Common, Pretendard, AlignAndJustifyCenter } from 'styles/common';
 import Minus from 'public/icon/minus.svg';
@@ -8,37 +8,47 @@ import { surveyState, surveySelector } from 'states/survey';
 
 const TImeTaken = () => {
   const [survey, setSurvey] = useRecoilState(surveyState);
+  const [multipleSelectionCount, setmultipleSelectionCount] = useState(0); //객관식 숫자
+  const [totalCount, settotalCount] = useState(0);
+  const [totalMinute, settotalMinute] = useState(0);
   const questionsData = useRecoilValue(surveySelector);
   const timeSetting = (): string => {
     return ('00' + survey.minute).slice(-2);
   };
 
-  //소요시간 계산
-  const getTimeTaken = () => {
-    let time = 0;
+  useLayoutEffect(() => {
+    //소요시간 계산
+    const getTimeTaken = () => {
+      let time = 0;
+      let totalSelectionCount = 0;
+      let multipleCount = 0;
 
-    questionsData.sections.forEach((item) => {
-      item.questions.forEach((question) => {
-        if (question.multiFl === 0) {
-          time += 8;
-        } else {
-          time += 3;
-        }
+      questionsData.sections.forEach((item) => {
+        item.questions.forEach((question) => {
+          totalSelectionCount++;
+
+          if (question.multiFl === 0) {
+            time += 8;
+          } else {
+            multipleCount++;
+
+            time += 3;
+          }
+        });
       });
-    });
-    console.log(time);
 
-    if (time % 60 === 0) {
-      return time / 60;
-    } else {
-      return Math.ceil(time / 60);
-    }
-  };
-
-  useEffect(() => {
+      setmultipleSelectionCount(multipleCount);
+      settotalCount(totalSelectionCount);
+      if (time % 60 === 0) {
+        settotalMinute(time / 60);
+      } else {
+        settotalMinute(Math.ceil(time / 60));
+      }
+    };
+    getTimeTaken();
     setSurvey({
       ...survey,
-      minute: getTimeTaken(),
+      minute: totalMinute,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -62,8 +72,8 @@ const TImeTaken = () => {
       <Tip>
         <span className="tip">TIP</span>
         <div className="des">
-          예시로 주관식 13개 & 객관식 45개 구성의 설문은 <br />
-          <span className="bold">약 85분</span> 정도 소요돼요.
+          지금 작성하신 설문은 대략 <span className="bold">{totalMinute}분</span> 정도 소요돼요. <br />
+          질문 구성 : 객관식 {multipleSelectionCount}문항 & 주관식 {totalCount - multipleSelectionCount}문항
         </div>
       </Tip>
     </TimeSet>

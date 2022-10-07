@@ -1,4 +1,10 @@
-import { atom, atomFamily, selector } from 'recoil';
+import {
+  sectionIdListAtom,
+  qusetionIdListAtom,
+  qusetionItemIdListAtom,
+  targetQuestionListIDAtom,
+} from 'states/surveyIds';
+import { atom, atomFamily, selector, selectorFamily } from 'recoil';
 import { QuestionIDFormat, PartIDFormat, QuestionListIDFormat, QuestionItemIDFormat } from 'utills/getDateSixth';
 import {
   IQuestionItem,
@@ -9,7 +15,6 @@ import {
   QuestionID,
   SectionID,
   QuestionItemListID,
-  QuestionListID,
 } from 'types/survey';
 import { getDateSixDigitsFormatToday, numberSet } from 'utills/getDateSixth';
 import { tagState } from 'states/tag';
@@ -17,6 +22,25 @@ interface ITarget {
   part: number;
   question: number;
 }
+
+const GENDER_ITEM_DATA = [
+  {
+    content: '남성',
+    oder: 1,
+  },
+  {
+    content: '여성',
+    oder: 2,
+  },
+  {
+    content: '응답하지 않음',
+    oder: 3,
+  },
+  {
+    content: '기타',
+    oder: 4,
+  },
+];
 
 export const surveyState = atom<ISurveyData>({
   key: 'surveyState',
@@ -35,66 +59,6 @@ export const surveyState = atom<ISurveyData>({
   },
 });
 
-export const surveySelector = selector({
-  key: 'surveySelector',
-  get: ({ get }) => {
-    const sectionList = get(sectionIdListAtom);
-    const surveyData = get(surveyState);
-    //파트의 ID리스트
-    const sections = sectionList.map((_, sectionIdx) => {
-      const qusetionList = get(qusetionIdListAtom(QuestionListIDFormat(sectionIdx + 1)));
-      //질문의 ID리스트
-      const questionLit = qusetionList.map((_, questionIdx) => {
-        const PartFormat = `SCTN${getDateSixDigitsFormatToday()}${numberSet(sectionIdx + 1)}`;
-        const QuestionFormat = `QSTN${getDateSixDigitsFormatToday()}${numberSet(questionIdx + 1)}`;
-        const SyscodeFormat = `${PartFormat}${QuestionFormat}` as QuestionItemListID;
-
-        //item의idList
-        const questionItemIdList = get(qusetionItemIdListAtom(SyscodeFormat));
-        const questionItem = questionItemIdList.map((_, questionItemIdx) => {
-          //item 아톰 패밀리를 가져와서 리턴
-          return get(
-            qusetionItemListAtomFamily(QuestionItemIDFormat(sectionIdx + 1, questionIdx + 1, questionItemIdx + 1))
-          );
-        });
-        //question을 가져와서 questionItem을 담아서 리턴
-        const question = get(qusetionListAtomFamily(QuestionIDFormat(questionIdx + 1, sectionIdx + 1)));
-        return { ...question, questionItems: questionItem };
-      });
-
-      const part = get(sectionListAtomFamily(PartIDFormat(sectionIdx + 1)));
-      //part를 가져와서 question을 담아서 리턴
-      return { ...part, questions: questionLit };
-    });
-    const tagList = get(tagState);
-
-    return { ...surveyData, sections: sections, hashtag: [...tagList] };
-  },
-});
-
-//질문이 한개일 시 같이 삭제할 파트의 ID 정보
-export const targetPartIdAtom = atom<SectionID>({
-  key: 'targetPartIdAtom',
-  default: '' as SectionID,
-});
-
-export const MoreModalAtom = atom<QuestionID>({
-  key: 'MoreModalAtom',
-  default: '' as QuestionID,
-});
-
-//지울 question의 ID값을 저장할 atom
-export const targetQuestionIDAtom = atom<QuestionListID>({
-  key: 'targetQuestionIDAtom',
-  default: '' as QuestionListID,
-});
-
-//지울 question의 ID들이 저장되어 있는 배열의 id 값을 저장할 atom
-export const targetQuestionListIDAtom = atom<QuestionListID>({
-  key: 'targetQuestionListIDAtom',
-  default: '' as QuestionListID,
-});
-
 export const qusetionItemListAtomFamily = atomFamily<IQuestionItem, QuestionItemID>({
   key: 'qusetionItemListAtomFamily',
   default: (id) => {
@@ -102,15 +66,9 @@ export const qusetionItemListAtomFamily = atomFamily<IQuestionItem, QuestionItem
       id,
       content: '',
       oder: 0,
-      nextSection: 0,
+      nextSection: -2,
     };
   },
-});
-
-//질문지의 Item ID만 관리하는 atom
-export const qusetionItemIdListAtom = atomFamily<QuestionItemListID[], QuestionItemListID>({
-  key: 'qusetionItemIdListAtom',
-  default: (id) => [`${id}1` as QuestionItemListID],
 });
 
 export const qusetionListAtomFamily = atomFamily<IQuestion, QuestionID>({
@@ -125,16 +83,10 @@ export const qusetionListAtomFamily = atomFamily<IQuestion, QuestionID>({
       randomShowFl: 0,
       dupFl: 0,
       oder: 0,
-      hasNextPart: false, //다음 파트로 진행하기 버튼 토글
+      nextFl: 0, //다음 파트로 진행하기 버튼 토글
       questionItems: [],
     };
   },
-});
-
-//질문의 ID만 관리하는 atom
-export const qusetionIdListAtom = atomFamily<QuestionListID[], QuestionListID>({
-  key: 'qusetionIdListAtom',
-  default: (id) => [id],
 });
 
 export const sectionListAtomFamily = atomFamily<ISection, SectionID>({
@@ -144,15 +96,19 @@ export const sectionListAtomFamily = atomFamily<ISection, SectionID>({
       id,
       title: '',
       content: '',
-      nextSection: -1,
+      nextSection: -2,
       questions: [],
     };
   },
 });
 
-export const sectionIdListAtom = atom<SectionID[]>({
-  key: 'sectionIdListAtom',
-  default: [`SCTN${getDateSixDigitsFormatToday()}A001`],
+export const sectionTitleSelectorFamily = selectorFamily<String, SectionID>({
+  key: 'sectionTitleSelectorFamily',
+  get:
+    (id) =>
+    ({ get }) => {
+      return get(sectionListAtomFamily(id)).title;
+    },
 });
 
 export const targetAtom = atom<ITarget>({
@@ -165,6 +121,7 @@ export const templateAtom = atom<'email' | '' | 'gender' | 'birth' | 'phone'>({
   default: '',
 });
 
+//템플릿 생성해주는 selector
 export const templateSelector = selector({
   key: 'templateSelector',
   get: ({ get }) => {
@@ -215,25 +172,8 @@ export const templateSelector = selector({
           `${SyscodeFormat}${Number(lastNumber) + 2}`,
           `${SyscodeFormat}${Number(lastNumber) + 3}`,
         ] as QuestionItemListID[]); //questionItem ID 리스트 새로 생성
-        const itemData = [
-          {
-            content: '남성',
-            oder: 1,
-          },
-          {
-            content: '여성',
-            oder: 2,
-          },
-          {
-            content: '응답하지 않음',
-            oder: 3,
-          },
-          {
-            content: '기타',
-            oder: 4,
-          },
-        ];
-        itemData.forEach((item) => {
+
+        GENDER_ITEM_DATA.forEach((item) => {
           const data = get(qusetionItemListAtomFamily(QuestionItemIDFormat(partIdx, newQuestionItemIdx, item.oder)));
           set(qusetionItemListAtomFamily(QuestionItemIDFormat(partIdx, newQuestionItemIdx, item.oder)), {
             ...data,
@@ -252,5 +192,63 @@ export const templateSelector = selector({
       default:
         reset(templateAtom);
     }
+  },
+});
+
+export const surveySelector = selector({
+  key: 'surveySelector',
+  get: ({ get }) => {
+    const sectionList = get(sectionIdListAtom);
+    const surveyData = get(surveyState);
+    //파트의 ID리스트
+    const sections = sectionList.map((_, sectionIdx) => {
+      const qusetionList = get(qusetionIdListAtom(QuestionListIDFormat(sectionIdx + 1)));
+      //질문의 ID리스트
+      const questionLit = qusetionList.map((_, questionIdx) => {
+        const PartFormat = `SCTN${getDateSixDigitsFormatToday()}${numberSet(sectionIdx + 1)}`;
+        const QuestionFormat = `QSTN${getDateSixDigitsFormatToday()}${numberSet(questionIdx + 1)}`;
+        const SyscodeFormat = `${PartFormat}${QuestionFormat}` as QuestionItemListID;
+
+        //item의idList
+        const questionItemIdList = get(qusetionItemIdListAtom(SyscodeFormat));
+        const questionItem = questionItemIdList.map((_, questionItemIdx) => {
+          //item 아톰 패밀리를 가져와서 리턴
+          return get(
+            qusetionItemListAtomFamily(QuestionItemIDFormat(sectionIdx + 1, questionIdx + 1, questionItemIdx + 1))
+          );
+        });
+        //question을 가져와서 questionItem을 담아서 리턴
+        const question = get(qusetionListAtomFamily(QuestionIDFormat(questionIdx + 1, sectionIdx + 1)));
+        const questionItemsLength = questionItem.length;
+        const nextSectionSetting = questionItem.map((item, idx) => {
+          //마지막 인덱스라면
+          if (idx + 1 === questionItemsLength) {
+            return { ...item, nextSection: -1 };
+          }
+          if (item.nextSection === -2) {
+            return { ...item, nextSection: 0 };
+          }
+        });
+
+        return { ...question, questionItems: nextSectionSetting };
+      });
+
+      const part = get(sectionListAtomFamily(PartIDFormat(sectionIdx + 1)));
+      //part를 가져와서 question을 담아서 리턴
+      return { ...part, questions: questionLit };
+    });
+    const tagList = get(tagState);
+    const arrLength = sections.length;
+    //다음 섹션 세팅
+    const nextSectionPropertySet = sections.map((item, idx) => {
+      //마지막 인덱스라면
+      if (idx + 1 === arrLength) {
+        return { ...item, nextSection: -1 };
+      }
+      if (item.nextSection === -2) {
+        return { ...item, nextSection: idx };
+      }
+    });
+    return { ...surveyData, sections: nextSectionPropertySet, hashtag: [...tagList] } as ISurveyData;
   },
 });

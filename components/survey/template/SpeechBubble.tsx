@@ -1,27 +1,42 @@
 import styled from '@emotion/styled';
 import { Common, Pretendard, Roboto, AlignAndJustifyCenter } from 'styles/common';
 import Arrow from 'public/icon/underArrow.svg';
+import Portal from 'components/common/Portal';
+import ModalTemplate from 'components/modal/ModalTemplate';
+import { useState } from 'react';
+import NextPartSectionModal from 'components/modal/NextPartSectionModal';
+import { useRecoilValue } from 'recoil';
+import { PartIDFormat } from 'utills/getDateSixth';
+import { sectionTitleSelectorFamily } from 'states/survey';
 interface IProps {
   partNum: number;
   color: string;
+  partLength: number;
 }
 
 interface IStyle {
   color: string;
 }
 
-const SpeechBubble = ({ partNum, color }: IProps) => {
+const SpeechBubble = ({ partNum, color, partLength }: IProps) => {
+  const title = useRecoilValue(sectionTitleSelectorFamily(PartIDFormat(partNum)));
+  const [showModalState, setshowModalState] = useState(false);
   return (
     <BubbleContiner color={color}>
       <div>
         <strong>Part{partNum}.</strong>
-        <h1>파트 제목</h1>
+        <h1>{title === '' ? '(제목없음)' : title}</h1>
       </div>
       <h2>다음으로 어디로 이동할까요?</h2>
-      <button>
+      <button onClick={() => setshowModalState(true)}>
         <span>다음 파트</span>로 진행하기
-        <Arrow />
+        <Arrow fill="white" />
       </button>
+      <Portal selector="#portal">
+        <ModalTemplate height={50} visibleState={showModalState} setVisible={setshowModalState}>
+          <NextPartSectionModal partLength={partLength} partNum={partNum} setVisible={setshowModalState} />
+        </ModalTemplate>
+      </Portal>
     </BubbleContiner>
   );
 };

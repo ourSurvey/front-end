@@ -1,4 +1,4 @@
-import { ISurveyData } from './../../types/survey';
+import { ISurveyData } from 'types/survey';
 import gql from 'graphql-tag';
 import ApiClient from 'services/ApiClient';
 

@@ -7,6 +7,7 @@ import { useMutation } from 'react-query';
 import { postAddition } from 'services/api/auth';
 import { useRecoilValue } from 'recoil';
 import { nullDeleteAdttionState } from 'states/onBoard';
+import { Button } from 'components/common/Button';
 const Start: NextPage = () => {
   const additionState = useRecoilValue(nullDeleteAdttionState);
 
@@ -34,7 +35,17 @@ const Start: NextPage = () => {
         </Subject>
       </SvgContainer>
       <Link href="/">
-        <Button onClick={postAddtionDataHandler}>OUR SURVEY 시작하기</Button>
+        <Button
+          onClick={postAddtionDataHandler}
+          color={Common.colors.BL500}
+          textColor="#fff"
+          wUnit="%"
+          isDisabled={false}
+          height={50}
+          width={90}
+          fontFamily="pretendard"
+          btnText="OUR SURVEY 시작하기"
+        />
       </Link>
     </StartContainer>
   );
@@ -46,25 +57,16 @@ const StartContainer = styled.main`
   height: 70%;
   ${AlignAndJustifyCenter()}
   flex-direction: column;
+
+  & button {
+    margin-top: 42px;
+    padding: 10px 15px;
+  }
 `;
 
 const SvgContainer = styled.section`
   width: 90%;
   position: relative;
-`;
-
-const Button = styled.button`
-  height: 50px;
-  width: 90%;
-  ${AlignAndJustifyCenter()}
-  margin-top: 42px;
-
-  padding: 10px 15px;
-  outline: none;
-  border: none;
-  background-color: ${Common.colors.BL500};
-  border-radius: 10px;
-  ${Pretendard({ font: 1.4, weight: 700, color: '#fff' })}
 `;
 
 const Subject = styled.p`

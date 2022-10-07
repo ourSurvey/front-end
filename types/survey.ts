@@ -63,7 +63,7 @@ export interface IQuestion {
   dupFl: 0 | 1; //*질문이 객관식일 때 중복선택 가능여부(Integer|0:중복X,1:중복가능|주관식이면 무조건 0),
   oder: number; //*순서(Integer|사실 그냥 index값임 프론트에서도 설문 만들 때 정렬해서 보여줘야하니깐 index값 그대로 넣어주세요),
   questionItems: IQuestionItem[];
-  hasNextPart: boolean;
+  nextFl: 0 | 1;
 }
 
 export interface IQuestionItem {

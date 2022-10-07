@@ -34,7 +34,7 @@ export const Common = {
 
 export const Pretendard = (props: IPretendard) => css`
   font-family: 'Pretendard';
-  font-size: ${props.font * 0.625}rem !important;
+  font-size: ${props.font * 0.625}rem;
   font-weight: ${props.weight};
   line-height: ${props.font * 1.5}rem;
   color: ${props.color};
@@ -43,7 +43,7 @@ export const Pretendard = (props: IPretendard) => css`
 
 export const Roboto = (props: IPretendard) => css`
   font-family: 'Roboto', sans-serif;
-  font-size: ${props.font * 0.625}rem !important;
+  font-size: ${props.font * 0.625}rem;
   font-weight: ${props.weight};
   line-height: ${props.font * 1.5}rem;
   color: ${props.color};

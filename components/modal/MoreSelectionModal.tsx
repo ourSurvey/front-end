@@ -4,19 +4,18 @@ import styled from '@emotion/styled';
 import Portal from 'components/common/Portal';
 import ModalTemplate from 'components/modal/ModalTemplate';
 import PartDeleteBody from 'components/modal/PartDeleteBody';
+import { qusetionListAtomFamily, templateSelector } from 'states/survey';
 import {
-  qusetionListAtomFamily,
-  MoreModalAtom,
+  MoreModalIDAtom,
   targetQuestionListIDAtom,
   qusetionIdListAtom,
   targetQuestionIDAtom,
   targetPartIdAtom,
   sectionIdListAtom,
-  templateSelector,
-} from 'states/survey';
+} from 'states/surveyIds';
 import { toastState } from 'states/modal';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { PartIDFormat } from 'utills/getDateSixth';
+
 interface IProps {
   setSideModal: (bool: boolean) => void;
 }
@@ -27,7 +26,7 @@ interface IStyle {
 
 const MoreSelectionModal = ({ setSideModal }: IProps) => {
   const [deleteModal, setdeleteModal] = useState(false);
-  const questionId = useRecoilValue(MoreModalAtom);
+  const questionId = useRecoilValue(MoreModalIDAtom);
   const [question, setQusetion] = useRecoilState(qusetionListAtomFamily(questionId));
   const targetQuestion = useRecoilValue(targetQuestionListIDAtom);
   const [questionIdList, setQuestionIdList] = useRecoilState(qusetionIdListAtom(targetQuestion));
@@ -48,7 +47,7 @@ const MoreSelectionModal = ({ setSideModal }: IProps) => {
   const onToggleNextPartFlag = () => {
     setQusetion({
       ...question,
-      hasNextPart: !question.hasNextPart,
+      nextFl: question.nextFl === 1 ? 0 : 1,
     });
   };
 
@@ -85,7 +84,7 @@ const MoreSelectionModal = ({ setSideModal }: IProps) => {
           <SelectableSpan className={question.randomShowFl === 1 ? 'active' : ''} onClick={onToggleRandomFlag}>
             선택지 순서 무작위로 섞기
           </SelectableSpan>
-          <SelectableSpan className={question.hasNextPart ? 'active' : ''} onClick={onToggleNextPartFlag}>
+          <SelectableSpan className={question.nextFl === 1 ? 'active' : ''} onClick={onToggleNextPartFlag}>
             답변을 기준으로 파트 이동
           </SelectableSpan>
         </Container>

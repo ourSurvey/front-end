@@ -3,15 +3,17 @@ import { Common, Pretendard } from 'styles/common';
 import MultipleSelection from './MultipleSelection';
 import Plus from 'public/icon/plus.svg';
 import { useRecoilCallback, useRecoilState } from 'recoil';
-import { qusetionItemIdListAtom, qusetionListAtomFamily, qusetionItemListAtomFamily } from 'states/survey';
+import { qusetionListAtomFamily, qusetionItemListAtomFamily } from 'states/survey';
+import { qusetionItemIdListAtom } from 'states/surveyIds';
 import { IQuestionItem, QuestionID, QuestionItemListID } from 'types/survey';
 import { getDateSixDigitsFormatToday, numberSet, QuestionItemIDFormat } from 'utills/getDateSixth';
 interface IProps {
   color: string;
   questionIndex: number;
   partIndex: number;
-  hasNextSectionFlag: boolean;
+  hasNextSectionFlag: 0 | 1;
   questionAtomFamilyID: QuestionID;
+  ListLength: number;
 }
 
 interface IStyle {
@@ -24,6 +26,7 @@ const SelectOptionContainer = ({
   partIndex,
   hasNextSectionFlag,
   questionAtomFamilyID,
+  ListLength,
 }: IProps) => {
   const PartFormat = `SCTN${getDateSixDigitsFormatToday()}${numberSet(partIndex)}`;
   const QuestionFormat = `QSTN${getDateSixDigitsFormatToday()}${numberSet(questionIndex)}`;
@@ -94,9 +97,11 @@ const SelectOptionContainer = ({
         <li onClick={onMultipleFlag} className={question.multiFl === 0 ? 'active' : ''}>
           주관식
         </li>
-        <li className={question.dupFl === 1 ? 'active' : ''} onClick={onDuplicatePossible}>
-          중복 선택 가능
-        </li>
+        {question.multiFl === 1 && (
+          <li className={question.dupFl === 1 ? 'active' : ''} onClick={onDuplicatePossible}>
+            중복 선택 가능
+          </li>
+        )}
       </SelectOption>
 
       {question.multiFl ? (
@@ -105,6 +110,7 @@ const SelectOptionContainer = ({
           sysCode={SyscodeFormat}
           partIndex={partIndex}
           questionIndex={questionIndex}
+          ListLength={ListLength}
         />
       ) : (
         <Input disabled placeholder="이곳에 답변이 입력될 예정입니다." />

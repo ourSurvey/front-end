@@ -13,6 +13,11 @@ export const global = css`
       Helvetica Neue, sans-serif, Pretendard;
   }
 
+  html {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    outline: none;
+  }
+
   a {
     color: inherit;
     text-decoration: none;

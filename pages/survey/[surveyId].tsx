@@ -77,13 +77,12 @@ const SurveyId = ({ dehydratedState }: IProps) => {
         />
         <Button isDisabled={false} textColor="#fff" btnText="설문 참여하기" color={Common.colors.BL500} />
       </BtnContainer>
-      {showShare && (
-        <Portal selector="#portal">
-          <ModalTemplate height={30} visibleState={showShare} setVisible={setshowShare}>
-            <ShareBody setVisible={setshowShare} />
-          </ModalTemplate>
-        </Portal>
-      )}
+
+      <Portal selector="#portal">
+        <ModalTemplate height={25} visibleState={showShare} setVisible={setshowShare}>
+          <ShareBody setVisible={setshowShare} />
+        </ModalTemplate>
+      </Portal>
     </Detail>
   );
 };

@@ -17,18 +17,43 @@ import { toastState } from 'states/modal';
 import { surveySelector } from 'states/survey';
 import { deleteIDproperty } from 'utills/deleteIdProperty';
 import { useHeaderScroll } from 'hooks/useHeaderScroll';
+import Portal from 'components/common/Portal';
+import SurveySkeleton from 'components/skeleton/SurveySkeleton';
+import ModalTemplate from 'components/modal/ModalTemplate';
+import SurveyUpLoadAlert from 'components/modal/SurveyUpLoadAlert';
+import LackPointModal from 'components/modal/LackPointModal';
+import { useQuery } from 'react-query';
+import { getMyPoint } from 'services/api/point';
 
 export const getServerSideProps: GetServerSideProps = withAuth(() => {
   return {
     props: {},
   };
 });
+
+const Placeholder: React.FC = () => (
+  <ItemContainer>
+    <DateContainer>
+      <SurveySkeleton width={200} height={25} rounded />
+    </DateContainer>
+    <DateContainer>
+      <SurveySkeleton width={100} wUnit="%" height={36} />
+    </DateContainer>
+    <SurveySkeleton width={100} wUnit="%" height={36} />
+  </ItemContainer>
+);
 export default function Setting() {
   const setToastState = useSetRecoilState(toastState);
   const [closinTitle, setClosinTitle] = useState('설문이 종료되었습니다');
   const [closingComment, setclosingComment] = useState('응답해주셔서 감사합니다.');
+  const [showModal, setShowModal] = useState(false);
   const state = useRecoilValue(surveySelector);
   const { hide, scrollDetectHandler } = useHeaderScroll();
+
+  const { isLoading, data } = useQuery(['point'], () => getMyPoint(), {
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+  });
 
   const createSurveyHandler = useMutation(createSurvey, {
     onSuccess: (data) => {
@@ -60,10 +85,28 @@ export default function Setting() {
     createSurveyHandler.mutate({ ...sendState, id: '', closingComment: `${closinTitle}|${closingComment}`, tempFl: 1 });
     console.log({ ...sendState, id: '', closingComment: `${closinTitle}|${closingComment}`, tempFl: 1 });
   };
+
+  if (isLoading) {
+    return (
+      <SettingPage>
+        <HeaderWrap className={!hide ? 'hide' : ''}>
+          <CreateSurveyHeader name="설정" hasUnderLine={true} step="03" />
+        </HeaderWrap>
+        <div css={{ marginTop: '64px' }}>
+          <Placeholder />
+          <Placeholder />
+          <Placeholder />
+          <Placeholder />
+          <Placeholder />
+        </div>
+      </SettingPage>
+    );
+  }
+
   return (
     <SettingPage>
       <HeaderWrap className={!hide ? 'hide' : ''}>
-        <CreateSurveyHeader name="설정" hasUnderLine={true} step="3" />
+        <CreateSurveyHeader name="설정" hasUnderLine={true} step="03" />
       </HeaderWrap>
       <SettingItemContainer onScroll={scrollDetectHandler}>
         <PeriodSetting />
@@ -80,11 +123,23 @@ export default function Setting() {
           <button className="temporary-storage" onClick={temporaryStorageHandler}>
             임시저장
           </button>
-          <button className="upload" onClick={createSurveyButton}>
+          <button className="upload" onClick={() => setShowModal(true)}>
             설문 업로드
           </button>
         </BtnContainer>
       </SettingItemContainer>
+
+      <Portal selector="#portal">
+        {data.data < 500 ? (
+          <ModalTemplate visibleState={showModal} setVisible={setShowModal} height={50}>
+            <LackPointModal setVisible={setShowModal} point={data.data} />
+          </ModalTemplate>
+        ) : (
+          <ModalTemplate visibleState={showModal} setVisible={setShowModal} height={25}>
+            <SurveyUpLoadAlert setVisible={setShowModal} point={data.data} upload={createSurveyButton} />
+          </ModalTemplate>
+        )}
+      </Portal>
     </SettingPage>
   );
 }
@@ -115,6 +170,7 @@ const SettingItemContainer = styled.div`
   display: block;
   height: calc(100% - 54px) !important;
   width: 100%;
+  padding-top: 61.5px;
 
   overflow-y: scroll;
   &::-webkit-scrollbar {
@@ -123,7 +179,11 @@ const SettingItemContainer = styled.div`
 `;
 
 const BtnContainer = styled.footer`
+  width: 100%;
+  position: fixed;
+  bottom: 0;
   ${SpaceBetween()};
+  border-top: 1px solid ${Common.colors.GY200};
   background-color: #fff;
   padding: 13px 20px 34px 20px;
   & button {
@@ -159,4 +219,16 @@ const HeaderWrap = styled.div`
   &.hide {
     transform: translateY(-60.5px);
   }
+`;
+
+const ItemContainer = styled.div`
+  background-color: #fff;
+  padding: 15px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.16);
+  border-radius: 5px;
+  margin-bottom: 24px;
+`;
+
+const DateContainer = styled.div`
+  margin-bottom: 10px;
 `;

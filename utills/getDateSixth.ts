@@ -3,15 +3,23 @@ import { QuestionListID, SectionID, QuestionID, QuestionItemID } from 'types/sur
 export const getDateSixDigitsFormatToday = (): number => {
   const date = new Date();
   const year = String(date.getFullYear()).substring(2);
-  let monthSet;
+  let monthSet: string;
+
   const month = date.getMonth() + 1;
   if (month < 10) {
     monthSet = `0${month}`;
+  } else {
+    monthSet = String(month);
+  }
+  let daySet: string;
+  const day = date.getDate();
+  if (day < 10) {
+    daySet = `0${day}`;
+  } else {
+    daySet = String(day);
   }
 
-  const day = date.getDate();
-
-  return Number(`${year}${monthSet}${day}`);
+  return Number(`${year}${monthSet}${daySet}`);
 };
 
 export const numberSet = (num: number) => {

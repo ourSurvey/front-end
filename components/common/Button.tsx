@@ -13,6 +13,7 @@ interface IProp {
   hUnit?: string;
   width?: number;
   height?: number;
+  className?: string;
   type?: 'button' | 'submit' | 'reset' | undefined;
   onClick?: (e?: any) => void;
   isDisabled: boolean;
@@ -43,6 +44,7 @@ export const Button = (props: IProp) => {
     onClick,
     btnText,
     type,
+    className,
     fontWeight = 700,
     fontSize = 1.4,
     fontFamily = 'pretendard',
@@ -72,14 +74,13 @@ export const Button = (props: IProp) => {
       isDisabled={isDisabled}
       type={type}
       disabled={isDisabled}
+      className={className && className}
       wUnit={wUnit}
       hUnit={hUnit}
       width={width}
       height={height}
       onClick={(e: any) => {
         const rect = e.target.getBoundingClientRect();
-        console.log(rect);
-
         setCoords({ x: e.clientX - rect.left, y: e.clientY - rect.top });
         onClick && onClick(e);
       }}

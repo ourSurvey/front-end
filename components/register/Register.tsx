@@ -177,13 +177,15 @@ const Register = () => {
         </div>
 
         <TosContainer setIsAllCheck={setisAllCheck} />
-        <Button
-          type="submit"
-          color={Common.colors.BL500}
-          btnText="가입하기"
-          textColor="#fff"
-          isDisabled={!registerOnButton}
-        />
+        <div className="btn-wraaper">
+          <Button
+            type="submit"
+            color={Common.colors.BL500}
+            btnText="가입하기"
+            textColor="#fff"
+            isDisabled={!registerOnButton}
+          />
+        </div>
       </Form>
     </>
   );
@@ -272,4 +274,11 @@ const AuthButton = styled.button`
 const Form = styled.form`
   height: calc(100% - 75px) !important;
   overflow-y: scroll;
+
+  & .btn-wraaper {
+    & button {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
 `;

@@ -30,10 +30,6 @@ interface IStyle {
 const AddTag: NextPage = () => {
   const router = useRouter();
   const [tag, setTag] = useState('');
-  const [visibleAlertState, setVisibleAlertState] = useState(false);
-  const [ToastState, setToastState] = useRecoilState(toastState);
-  const [destination, setDestination] = useState('');
-  const [leave, setLeave] = useState(false);
   const [inputFocus, setinputFocus] = useState(false);
   const refs = useRef<HTMLInputElement>(null);
   const [tagList, setTagList] = useRecoilState(tagState);
@@ -57,48 +53,6 @@ const AddTag: NextPage = () => {
     onReset();
   };
 
-  const handleRouteChange = (url: string) => {
-    console.log('얘가 실행되나');
-
-    setLeave(true);
-    setDestination(url);
-    throw `Route change to "${url}" was aborted (this error can be safely ignored).`;
-  };
-  const leavePage = () => {
-    setLeave(false);
-    setVisibleAlertState(true);
-  };
-
-  const onSave = () => {
-    setToastState({
-      ...ToastState,
-      text: '태그가 저장되었습니다.',
-      toastType: 'success',
-    });
-    setVisibleAlertState(true);
-    // setTimeout(() => {
-    //   leavePage();
-    // }, 500);
-  };
-
-  //뒤로가기 이벤트 감지
-  useEffect(() => {
-    //if (tagList.length === 0) return;  파일이 업로드되지 않은 상태에선 자유롭게 뒤로가도됨
-    router.events.on('routeChangeStart', handleRouteChange);
-    if (visibleAlertState) {
-      setVisibleAlertState(false);
-      router.replace('/write/setting');
-      router.events.off('routeChangeStart', handleRouteChange);
-    }
-
-    return () => {
-      console.log('종료');
-
-      router.events.off('routeChangeStart', handleRouteChange);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [destination, visibleAlertState]);
-
   return (
     <Container tag={tag}>
       <Header>
@@ -106,7 +60,7 @@ const AddTag: NextPage = () => {
           <Prev width="20" height="16" onClick={() => router.back()} />
         </SvgPosition>
         <PageTitle>태그 추가</PageTitle>
-        <Save onClick={onSave}>저장</Save>
+        <Save></Save>
       </Header>
 
       <InputContainer inputFocus={inputFocus} tag={tag}>
@@ -139,14 +93,6 @@ const AddTag: NextPage = () => {
       </CountContainer>
 
       {tag !== '' ? <SearchTagList inputValue={tag} onReset={onReset} /> : <ShowTagList />}
-
-      {leave && (
-        <Portal selector="#portal">
-          <ModalTemplate height={25} visibleState={leave} setVisible={setLeave}>
-            <LeavePageAlert setLeavePage={leavePage} setVisible={setLeave} />
-          </ModalTemplate>
-        </Portal>
-      )}
     </Container>
   );
 };
@@ -218,6 +164,9 @@ const InputContainer = styled.div<IStyle>`
   & input {
     border-top-right-radius: ${(props) => (props.tag !== '' ? 0 : 10)}px;
     border-bottom-right-radius: ${(props) => (props.tag !== '' ? 0 : 10)}px;
+    border-top: ${(props) => (props.tag !== '' ? `1px solid ${Common.colors.GY700}` : '')};
+    border-left: ${(props) => (props.tag !== '' ? `1px solid ${Common.colors.GY700}` : '')};
+    border-bottom: ${(props) => (props.tag !== '' ? `1px solid ${Common.colors.GY700}` : '')};
   }
   & .shapp {
     position: absolute;

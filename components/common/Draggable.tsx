@@ -35,7 +35,7 @@ const Draggable = ({ children, handleMove, index, id }: IProps) => {
 
     const dragIndex = item.index;
     const hoverIndex = index;
-    console.log('아이템 오기 전', item, hoverIndex);
+
     //항목이 자기 자신이면 바꾸지 않는다.
     if (dragIndex === hoverIndex) {
       return;

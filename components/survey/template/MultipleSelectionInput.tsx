@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback } from 'react';
 import SlideArrow from 'public/icon/slide-arrow.svg';
 import CloseCircle from 'public/icon/close-circle.svg';
 import styled from '@emotion/styled';
@@ -92,7 +92,7 @@ const MultipleSelectionInput = ({
 
 export default MultipleSelectionInput;
 
-const MultipleSelectionLi = styled.li`
+const MultipleSelectionLi = styled.div`
   ${SpaceBetween()}
   align-items: center;
   cursor: move;

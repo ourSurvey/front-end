@@ -70,7 +70,14 @@ const Index = () => {
           />
           <Link href="/write">
             <a>
-              <Button isDisabled={!btnDisable} textColor="#fff" btnText="다음" color={Common.colors.BL500} />
+              <Button
+                isDisabled={!btnDisable}
+                textColor="#fff"
+                height={36}
+                hUnit="px"
+                btnText="다음"
+                color={Common.colors.BL500}
+              />
             </a>
           </Link>
         </ButtonContainer>
@@ -121,7 +128,7 @@ const ButtonContainer = styled.div`
   & button {
     height: 36px;
     font-size: 0.75rem;
-    padding: 9px 15px;
+    padding: 0 15px;
     border-radius: 5px;
     line-height: 150%;
     width: auto;

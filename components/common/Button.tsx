@@ -7,7 +7,7 @@ interface IProp {
   fontFamily?: 'pretendard' | 'roboto';
   fontWeight?: number;
   fontSize?: number;
-  btnText: string;
+  btnText: string | JSX.Element;
   textColor: string;
   wUnit?: string;
   hUnit?: string;

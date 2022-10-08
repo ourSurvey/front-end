@@ -5,8 +5,8 @@ import ModalTemplate from 'components/modal/ModalTemplate';
 import NextPartSelectionInSelectionInput from 'components/modal/NextPartSelectionInSelectionInput';
 import { QuestionItemListID } from 'types/survey';
 import { useMotionValue, DragControls, useDragControls, Reorder } from 'framer-motion';
-import styled from '@emotion/styled';
 import { SpaceBetween } from 'styles/common';
+import { css } from '@emotion/react';
 interface IProps {
   selectionNumber: number;
   questionId: number;
@@ -48,18 +48,16 @@ const InputAndNextPartContainer = ({
   idName,
 }: IProps) => {
   const [showModalState, setshowModalState] = useState(false);
-
   const y = useMotionValue(0);
   const dragControls = useDragControls();
-
   const iRef = useRef<HTMLElement | null>(null);
-
+  const WrappStyle = css`
+    ${SpaceBetween()}
+    align-items: center;
+  `;
   useEffect(() => {
     const touchHandler: React.TouchEventHandler<HTMLElement> = (e) => e.preventDefault();
-
     const iTag = iRef.current;
-
-    console.log('iTag', iTag);
 
     if (iTag) {
       //@ts-ignore
@@ -75,7 +73,14 @@ const InputAndNextPartContainer = ({
   }, [iRef]);
 
   return (
-    <Reorder.Item value={idName} id={idName} style={{ y }} dragListener={false} dragControls={dragControls}>
+    <Reorder.Item
+      css={WrappStyle}
+      value={idName}
+      id={idName}
+      style={{ y }}
+      dragListener={false}
+      dragControls={dragControls}
+    >
       <SlideArrow ref={iRef} dragControls={dragControls} />
       <MultipleSelectionInput
         hasNextSectionFlag={hasNextSectionFlag}
@@ -103,8 +108,3 @@ const InputAndNextPartContainer = ({
 };
 
 export default memo(InputAndNextPartContainer);
-
-const Wrapper = styled.div`
-  ${SpaceBetween()}
-  align-items: center;
-`;

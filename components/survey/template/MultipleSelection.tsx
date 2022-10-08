@@ -50,26 +50,23 @@ const MultipleSelection = ({ questionIndex, partIndex, sysCode, hasNextSectionFl
   `;
 
   return (
-    <DndProvider backend={TouchBackend}>
-      <Reorder.Group values={questionItemIdList} onReorder={setQuestionItemIdList} css={ulStyle}>
+    <>
+      <Reorder.Group axis="y" values={questionItemIdList} onReorder={setQuestionItemIdList} css={ulStyle}>
         {questionItemIdList.map((id, idx, arr) => (
-          <Reorder.Item key={id} value={id}>
-            <InputAndNextPartContainer
-              key={id}
-              hasNextSectionFlag={hasNextSectionFlag}
-              hasDeleteBtn={arr.length > 1}
-              partId={partIndex}
-              questionId={questionIndex}
-              selectionNumber={idx + 1}
-              id={sysCode} //해당 선택지 리스트에 대한 id값
-              idName={id} //선택지 리스트 안에 있는 고유 id 값
-              ListLength={ListLength}
-              moveCard={onMove}
-            />
-          </Reorder.Item>
+          <InputAndNextPartContainer
+            key={id}
+            hasNextSectionFlag={hasNextSectionFlag}
+            hasDeleteBtn={arr.length > 1}
+            partId={partIndex}
+            questionId={questionIndex}
+            selectionNumber={idx + 1}
+            id={sysCode} //해당 선택지 리스트에 대한 id값
+            idName={id} //선택지 리스트 안에 있는 고유 id 값
+            ListLength={ListLength}
+          />
         ))}
       </Reorder.Group>
-    </DndProvider>
+    </>
   );
 };
 

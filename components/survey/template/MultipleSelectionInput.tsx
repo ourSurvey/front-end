@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import SlideArrow from 'public/icon/slide-arrow.svg';
 import CloseCircle from 'public/icon/close-circle.svg';
 import styled from '@emotion/styled';
 import { AlignAndJustifyCenter, Common, Pretendard, SpaceBetween } from 'styles/common';
@@ -19,12 +18,10 @@ interface IProps {
   idName: QuestionItemListID;
   hasNextSectionFlag: 0 | 1;
   setVisibleModal: (target: boolean) => void;
-  moveCard: (dragIndex: number, hoverIndex: number) => void;
 }
 
 const MultipleSelectionInput = ({
   hasDeleteBtn,
-
   hasNextSectionFlag,
   selectionNumber,
   questionId,
@@ -32,7 +29,6 @@ const MultipleSelectionInput = ({
   id,
   setVisibleModal,
   idName,
-  moveCard,
 }: IProps) => {
   const [inputContent, setInputContent] = useRecoilState(
     qusetionItemListAtomFamily(QuestionItemIDFormat(partId, questionId, selectionNumber))
@@ -57,8 +53,7 @@ const MultipleSelectionInput = ({
   };
   return (
     <>
-      <MultipleSelectionLi>
-        <SlideArrow />
+      <>
         {hasNextSectionFlag === 1 ? (
           <HaveNextPart>
             <input
@@ -86,18 +81,12 @@ const MultipleSelectionInput = ({
             {hasDeleteBtn ? <CloseCircle onClick={onRemove} /> : null}
           </InputContainer>
         )}
-      </MultipleSelectionLi>
+      </>
     </>
   );
 };
 
 export default MultipleSelectionInput;
-
-const MultipleSelectionLi = styled.div`
-  ${SpaceBetween()}
-  align-items: center;
-  cursor: move;
-`;
 
 const InputContainer = styled.div`
   position: relative;

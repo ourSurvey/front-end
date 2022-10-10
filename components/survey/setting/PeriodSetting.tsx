@@ -1,21 +1,33 @@
 import styled from '@emotion/styled';
+import Portal from 'components/common/Portal';
+import ModalTemplate from 'components/modal/ModalTemplate';
 import { Common, Pretendard, SpaceBetween } from 'styles/common';
+import { useState } from 'react';
+import DatePickerModal from 'components/modal/DatePickerModal';
 
 const PeriodSetting = () => {
+  const [showModalState, setshowModalState] = useState(false);
   return (
-    <Period>
-      <h1>설문의 진행 기간을 설정해주세요.</h1>
-      <div className="date-container">
-        <span>시작일</span>
-        <div className="date">2022.07.25</div>
-      </div>
-      <div className="date-container">
-        <span>종료일</span>
-        <div className="date" placeholder="선택해주세요">
-          2022.07.25
+    <>
+      <Period>
+        <h1>설문의 진행 기간을 설정해주세요.</h1>
+        <div className="date-container" onClick={() => setshowModalState(true)}>
+          <span>시작일</span>
+          <div className="date">2022.07.25</div>
         </div>
-      </div>
-    </Period>
+        <div className="date-container">
+          <span>종료일</span>
+          <div className="date" placeholder="선택해주세요">
+            2022.07.25
+          </div>
+        </div>
+      </Period>
+      <Portal selector="#portal">
+        <ModalTemplate height={50} visibleState={showModalState} setVisible={setshowModalState}>
+          <DatePickerModal />
+        </ModalTemplate>
+      </Portal>
+    </>
   );
 };
 

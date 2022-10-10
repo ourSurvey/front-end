@@ -12,6 +12,7 @@ import MoreSideModal from 'components/modal/MoreSideModal';
 import { GetServerSideProps } from 'next';
 import { withAuth } from 'utills/isLoggedIn';
 import { useHeaderScroll } from 'hooks/useHeaderScroll';
+import { Button } from 'components/common/Button';
 
 interface IHeader {
   isHide: boolean;
@@ -46,9 +47,34 @@ export default function Index() {
         })}
       </PartSectionContainer>
       <BtnContainer>
-        <button>임시저장</button>
+        <Button
+          isDisabled={false}
+          fontFamily="pretendard"
+          fontSize={1.2}
+          fontWeight={400}
+          textColor={Common.colors.GY900}
+          color="transparent"
+          btnText="임시저장"
+          wUnit="%"
+          width={20}
+        />
         <Link href="/write/setting">
-          <a>다음</a>
+          <a>
+            <Button
+              className="next-btn"
+              isDisabled={false}
+              textColor="#fff"
+              height={36}
+              width={100}
+              wUnit="%"
+              hUnit="px"
+              fontFamily="pretendard"
+              fontSize={1.2}
+              fontWeight={700}
+              btnText="다음"
+              color={Common.colors.BL500}
+            />
+          </a>
         </Link>
       </BtnContainer>
       <Portal selector="#portal">
@@ -99,22 +125,18 @@ const BtnContainer = styled.div`
   border-top: 1px solid ${Common.colors.GY200};
   & button {
     height: 36px;
-    border: 0;
-    outline: 0;
-    padding: 10px 15px;
-    ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY900 })};
     line-height: 150%;
-
     border: 1px solid ${Common.colors.GY700};
-    background-color: #fff;
     border-radius: 5px;
   }
 
   & a {
-    height: 36px;
-    padding: 10px 15px;
-    background-color: ${Common.colors.BL500};
-    ${Pretendard({ font: 1.2, weight: 700, color: '#fff' })};
+    min-width: 14%;
+  }
+
+  & .next-btn {
+    outline: 0;
+    border: 0;
     border-radius: 5px;
     line-height: 150%;
   }

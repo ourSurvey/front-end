@@ -4,6 +4,7 @@ import { IContent } from 'types/survey';
 import Lighting from 'public/icon/lighting.svg';
 import Link from 'next/link';
 import { useRef } from 'react';
+import { Button } from 'components/common/Button';
 
 interface IStyle {
   hashtagList: [] | null;
@@ -36,9 +37,24 @@ const SurveyItem = (props: IContent) => {
           </>
         </DateContainer>
         <Link href={`/survey/${id}`} key={id}>
-          <Button hashtagList={hashtagList}>설문 참여하기</Button>
+          <a>
+            <Button
+              fontSize={1.2}
+              fontWeight={700}
+              textColor="#fff"
+              color={Common.colors.BL500}
+              isDisabled={false}
+              btnText="설문 참여하기"
+              height={36}
+              hUnit="px"
+              fontFamily="pretendard"
+            />
+          </a>
+          {/* <Button hashtagList={hashtagList}>설문 참여하기</Button> */}
         </Link>
-        {hashtagList && hashtagList.length > 0 ? <Hashtag>{hashtagList?.map((item) => `#${item}`)}</Hashtag> : null}
+        {hashtagList && hashtagList.length > 0 ? (
+          <Hashtag hashtagList={hashtagList}>{hashtagList?.map((item) => `#${item}`)}</Hashtag>
+        ) : null}
       </>
     </ItemContainer>
   );
@@ -97,13 +113,15 @@ const Content = styled.p`
 `;
 
 const DateContainer = styled.span`
+  margin-bottom: 10px;
+  display: block;
   & span {
     ${Pretendard({ font: 1, weight: 700, color: Common.colors.GY500 })}
   }
   ${Pretendard({ font: 1, weight: 400, color: Common.colors.GY500 })}
 `;
 
-const Hashtag = styled.span`
+const Hashtag = styled.span<IStyle>`
   width: 100%;
   display: -webkit-box;
   ${Pretendard({ font: 1, weight: 700, color: Common.colors.GY500 })};
@@ -111,6 +129,7 @@ const Hashtag = styled.span`
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  margin-top: ${({ hashtagList }) => (hashtagList && hashtagList.length > 0 ? '10px' : '0')};
 `;
 
 const FastChip = styled.li`
@@ -121,25 +140,4 @@ const FastChip = styled.li`
   background-color: ${Common.colors.GY700} !important;
   ${Pretendard({ font: 1, weight: 700, color: '#fff' })}
   line-height: 150%;
-`;
-
-const Button = styled.a<IStyle>`
-  display: block;
-  text-align: center;
-  height: 36px;
-  width: 100%;
-  border-radius: 5px;
-  font-family: 'Pretendard';
-  font-weight: 700;
-  font-size: 0.75rem;
-  font-style: normal;
-  color: #fff;
-  outline: 0;
-  border: 0;
-
-  padding-top: 9px;
-  padding-bottom: 9px;
-  background-color: ${Common.colors.BL500};
-  margin-top: 10px;
-  margin-bottom: ${({ hashtagList }) => (hashtagList && hashtagList.length > 0 ? '10px' : '0')};
 `;

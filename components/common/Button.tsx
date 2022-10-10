@@ -1,7 +1,7 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
-import { Pretendard, Roboto } from 'styles/common';
+import { Common, Pretendard, Roboto } from 'styles/common';
 interface IProp {
   color: string;
   fontFamily?: 'pretendard' | 'roboto';
@@ -29,6 +29,9 @@ interface IBtnStyle {
   height?: number;
 }
 
+interface KeyframeProps {
+  color: string;
+}
 interface IBtnText {
   textColor: string;
   fontSize: number;
@@ -85,7 +88,7 @@ export const Button = (props: IProp) => {
         onClick && onClick(e);
       }}
     >
-      {isRippling ? <Ripple css={{ left: coords.x, top: coords.y }} /> : ''}
+      {isRippling ? <Ripple color={color} css={{ left: coords.x, top: coords.y }} /> : ''}
       <BtnText textColor={textColor} fontWeight={fontWeight} fontSize={fontSize} fontFamily={fontFamily}>
         {btnText}
       </BtnText>
@@ -101,8 +104,6 @@ const ButtonContainer = styled.button<IBtnStyle>`
   border: 0;
   overflow: hidden;
   position: relative;
-  padding-top: 16.5px;
-  padding-bottom: 16.5px;
   background-color: ${(props) => props.color};
   opacity: ${(props) => (!props.isDisabled ? 1 : 0.35)};
 `;
@@ -126,9 +127,9 @@ const rippleEffect = keyframes`
   }
 `;
 
-const Ripple = styled.span`
+const Ripple = styled.span<KeyframeProps>`
   position: absolute;
-  background: #fff;
+  background: ${({ color }) => (color === '#fff' || color === 'transparent' ? Common.colors.GY300 : '#fff')};
   display: block;
   border-radius: 9999px;
   content: '';

@@ -2,7 +2,6 @@ import surveyService from 'services/survey.service';
 import { QueryClient, dehydrate, DehydratedState } from 'react-query';
 import styled from '@emotion/styled';
 import { Pretendard, Common, SpaceBetween } from 'styles/common';
-import OutLineButton from 'components/common/OutLineButton';
 import { Button } from 'components/common/Button';
 import { useState } from 'react';
 import SearchHeader from 'components/common/SearchHeader';
@@ -68,12 +67,13 @@ const SurveyId = ({ dehydratedState }: IProps) => {
         <Hashtag>{data.data.data.hashtagList?.map((item: string) => `#${item}`)}</Hashtag>
       ) : null}
       <BtnContainer>
-        <OutLineButton
+        <Button
+          className="share-btn"
           onClick={() => setshowShare(true)}
           isDisabled={false}
           textColor={Common.colors.GY900}
           btnText="공유하기"
-          borderColor={Common.colors.GY900}
+          color="transparent"
         />
         <Button isDisabled={false} textColor="#fff" btnText="설문 참여하기" color={Common.colors.BL500} />
       </BtnContainer>
@@ -154,6 +154,7 @@ const BtnContainer = styled.div`
     &:first-of-type {
       width: 40%;
       margin-right: 10px;
+      border: 1px solid ${Common.colors.GY900};
     }
     &:last-child {
       box-shadow: 0px 6px 6px rgba(124, 113, 255, 0.25);

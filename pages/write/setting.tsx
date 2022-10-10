@@ -24,6 +24,7 @@ import SurveyUpLoadAlert from 'components/modal/SurveyUpLoadAlert';
 import LackPointModal from 'components/modal/LackPointModal';
 import { useQuery } from 'react-query';
 import { getMyPoint } from 'services/api/point';
+import { Button } from 'components/common/Button';
 
 export const getServerSideProps: GetServerSideProps = withAuth(() => {
   return {
@@ -120,12 +121,31 @@ export default function Setting() {
           setclosingComment={setclosingComment}
         />
         <BtnContainer>
-          <button className="temporary-storage" onClick={temporaryStorageHandler}>
-            임시저장
-          </button>
-          <button className="upload" onClick={() => setShowModal(true)}>
-            설문 업로드
-          </button>
+          <Button
+            fontFamily="pretendard"
+            fontSize={1.2}
+            fontWeight={400}
+            textColor={Common.colors.GY900}
+            isDisabled={false}
+            color="transparent"
+            wUnit="%"
+            width={33}
+            btnText="임시저장"
+            className="temporary-storage"
+            onClick={temporaryStorageHandler}
+          />
+
+          <Button
+            fontFamily="pretendard"
+            fontSize={1.2}
+            fontWeight={700}
+            textColor="#fff"
+            isDisabled={false}
+            color={Common.colors.BL500}
+            btnText="설문 업로드"
+            className="upload"
+            onClick={() => setShowModal(true)}
+          />
         </BtnContainer>
       </SettingItemContainer>
 
@@ -198,13 +218,10 @@ const BtnContainer = styled.footer`
   & .temporary-storage {
     width: 33%;
     border: 1px solid ${Common.colors.GY700};
-    ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY900 })}
-    background-color:#fff;
   }
   & .upload {
     width: calc(67% - 7px);
     background-color: ${Common.colors.BL500};
-    ${Pretendard({ font: 1.2, weight: 700, color: '#fff' })};
   }
 `;
 

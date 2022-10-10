@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { Common, Pretendard } from 'styles/common';
 
@@ -10,6 +10,30 @@ interface IProps {
 }
 
 const CommentRespondent = ({ setClosinTitle, setclosingComment, closingComment, closinTitle }: IProps) => {
+  const [titleLength, settitleLength] = useState(0);
+  const [subjectLength, setsubjectLength] = useState(0);
+
+  const fn_checkByte = (text: string) => {
+    const text_val = text; //입력한 문자
+    const text_len = text_val.length; //입력한 문자수
+
+    let totalByte = 0;
+
+    for (let i = 0; i < text_len; i++) {
+      const each_char = text_val.charAt(i);
+      const uni_char = escape(each_char); //유니코드 형식으로 변환
+      if (uni_char.length > 4) {
+        // 한글 : 2Byte
+        totalByte += 2;
+      } else {
+        // 영문,숫자,특수문자 : 1Byte
+        totalByte += 1;
+      }
+    }
+
+    return totalByte;
+  };
+
   const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setClosinTitle(e.target.value);
   };
@@ -17,6 +41,16 @@ const CommentRespondent = ({ setClosinTitle, setclosingComment, closingComment, 
   const onSubjectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setclosingComment(e.target.value);
   };
+
+  useEffect(() => {
+    let length = fn_checkByte(closinTitle);
+    settitleLength(length);
+  }, [closinTitle]);
+
+  useEffect(() => {
+    let length = fn_checkByte(closingComment);
+    setsubjectLength(length);
+  }, [closingComment]);
 
   return (
     <CommetContainer>
@@ -27,15 +61,15 @@ const CommentRespondent = ({ setClosinTitle, setclosingComment, closingComment, 
         <InputContainer>
           <TitleInput className="title" type="text" onChange={onTitleChange} defaultValue={closinTitle} />
           <div>
-            <span className="content-length">8&nbsp;</span>
-            <span> / 20자</span>
+            <span className="content-length">{titleLength}&nbsp;</span>
+            <span className="max-length"> / 20자</span>
           </div>
         </InputContainer>
         <InputContainer>
           <SubjectInput onChange={onSubjectChange} defaultValue={closingComment} className="subject" type="text" />
           <div>
-            <span className="content-length">8&nbsp;</span>
-            <span> / 20자</span>
+            <span className="content-length">{subjectLength}&nbsp;</span>
+            <span className="max-length"> / 20자</span>
           </div>
         </InputContainer>
       </div>
@@ -48,7 +82,7 @@ export default CommentRespondent;
 const CommetContainer = styled.section`
   background-color: #fff;
   padding: 0 20px;
-  padding-bottom: 32px;
+  padding-bottom: 72px;
 
   & h1 {
     padding-top: 32px;
@@ -74,7 +108,7 @@ const InputContainer = styled.div`
     margin-top: 5px;
     padding-right: 5px;
   }
-  & span {
+  & .max-length {
     ${Pretendard({ font: 1, weight: 400, color: Common.colors.GY500 })};
   }
   & .content-length {

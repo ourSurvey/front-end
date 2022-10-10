@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { toastState } from 'states/modal';
 import { useRecoilState } from 'recoil';
 import { useCallback } from 'react';
+import { Button } from 'components/common/Button';
 
 type Props = {
   setVisible: (bool: boolean) => void;
@@ -95,7 +96,18 @@ const ShareBody = ({ setVisible }: Props) => {
             <Kakao />
             <Insta />
           </div>
-          <CopyBtn onClick={handleCopy}>URL 복사</CopyBtn>
+          <Button
+            height={38}
+            fontFamily="pretendard"
+            fontSize={1.2}
+            fontWeight={700}
+            hUnit="px"
+            isDisabled={false}
+            textColor="#fff"
+            color={Common.colors.GY700}
+            btnText="URL 복사"
+            onClick={handleCopy}
+          />
         </div>
       </IconContainer>
     </>
@@ -125,6 +137,12 @@ const IconContainer = styled.div`
     display: inline;
     position: static;
   }
+
+  & button {
+    outline: none;
+    border: none;
+    border-radius: 3px;
+  }
 `;
 
 const Absolute = styled.div`
@@ -140,14 +158,4 @@ const ShareSpan = styled.span`
   line-height: 150%;
   display: block;
   text-align: center;
-`;
-
-const CopyBtn = styled.button`
-  height: 38px;
-  background-color: ${Common.colors.GY700};
-  outline: none;
-  border: none;
-  border-radius: 3px;
-  ${Pretendard({ font: 1.2, weight: 700, color: '#fff' })};
-  line-height: 150%;
 `;

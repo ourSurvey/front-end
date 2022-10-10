@@ -8,6 +8,7 @@ import NextPartSectionModal from 'components/modal/NextPartSectionModal';
 import { useRecoilValue } from 'recoil';
 import { PartIDFormat } from 'utills/getDateSixth';
 import { sectionTitleSelectorFamily } from 'states/survey';
+import { Button } from 'components/common/Button';
 interface IProps {
   partNum: number;
   color: string;
@@ -21,6 +22,16 @@ interface IStyle {
 const SpeechBubble = ({ partNum, color, partLength }: IProps) => {
   const title = useRecoilValue(sectionTitleSelectorFamily(PartIDFormat(partNum)));
   const [showModalState, setshowModalState] = useState(false);
+
+  const btnText = (): JSX.Element => {
+    return (
+      <>
+        <span className="bold">다음 파트</span>로 진행하기
+        <Arrow fill="white" />
+      </>
+    );
+  };
+
   return (
     <BubbleContiner color={color}>
       <div>
@@ -28,10 +39,21 @@ const SpeechBubble = ({ partNum, color, partLength }: IProps) => {
         <h1>{title === '' ? '(제목없음)' : title}</h1>
       </div>
       <h2>다음으로 어디로 이동할까요?</h2>
-      <button onClick={() => setshowModalState(true)}>
-        <span>다음 파트</span>로 진행하기
-        <Arrow fill="white" />
-      </button>
+      <Button
+        fontSize={1.2}
+        fontWeight={400}
+        fontFamily="roboto"
+        textColor={Common.colors.GY100}
+        isDisabled={false}
+        color={color === 'pink' ? Common.colors.PK500 : Common.colors.GR500}
+        width={75}
+        wUnit="%"
+        height={32}
+        hUnit="px"
+        btnText={btnText()}
+        onClick={() => setshowModalState(true)}
+      />
+
       <Portal selector="#portal">
         <ModalTemplate height={50} visibleState={showModalState} setVisible={setshowModalState}>
           <NextPartSectionModal partLength={partLength} partNum={partNum} setVisible={setshowModalState} />
@@ -85,24 +107,19 @@ const BubbleContiner = styled.div<IStyle>`
   }
   & button {
     ${AlignAndJustifyCenter()};
-
-    padding: 7px 10px;
-    background-color: ${(props) => (props.color === 'pink' ? Common.colors.PK500 : Common.colors.GR500)};
+    padding: 0;
     border-radius: 60px;
-    width: 100%;
-
-    ${Roboto({ font: 1.2, weight: 400, color: Common.colors.GY100 })};
     line-height: 150%;
     outline: none;
     border: none;
-    color: #fff;
 
-    & span {
+    & .bold {
       font-weight: 700;
     }
   }
 
   & svg {
     margin-left: 4px;
+    padding-top: 2px;
   }
 `;

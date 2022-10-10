@@ -16,6 +16,15 @@ const TImeTaken = () => {
     return ('00' + survey.minute).slice(-2);
   };
 
+  const decreaseMinute = () => {
+    if (survey.minute > 1) {
+      setSurvey({ ...survey, minute: survey.minute - 1 });
+    }
+  };
+  const increaseMinute = () => {
+    setSurvey({ ...survey, minute: survey.minute + 1 });
+  };
+
   useLayoutEffect(() => {
     //소요시간 계산
     const getTimeTaken = () => {
@@ -61,11 +70,11 @@ const TImeTaken = () => {
       <TimerContainer>
         약&nbsp;
         <div className="container">
-          <Minus onClick={() => setSurvey({ ...survey, minute: survey.minute - 1 })} />
+          <Minus onClick={decreaseMinute} />
 
           <span>{timeSetting()}</span>
 
-          <Plus onClick={() => setSurvey({ ...survey, minute: survey.minute + 1 })} />
+          <Plus onClick={increaseMinute} />
         </div>
         &nbsp;분 소요 예정
       </TimerContainer>
@@ -107,14 +116,16 @@ const TimerContainer = styled.div`
 
     border: 1px solid ${Common.colors.GY300};
     border-radius: 10px;
-    ${Pretendard({ font: 1.4, weight: 400, color: Common.colors.GY900 })};
+
     line-height: 150%;
   }
 
   & span {
     border-left: 1px solid ${Common.colors.GY300};
     border-right: 1px solid ${Common.colors.GY300};
-    padding: 12px 6.5px;
+    padding: 9.5px 10px;
+    min-width: 40px;
+    ${Pretendard({ font: 1.4, weight: 400, color: Common.colors.GY900 })};
   }
 
   & svg {

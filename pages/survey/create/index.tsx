@@ -1,7 +1,6 @@
 import CreateSurveyHeader from 'components/survey/CreateSurveyHeader';
 import styled from '@emotion/styled';
 import { Common, Pretendard } from 'styles/common';
-import OutLineButton from 'components/common/OutLineButton';
 import { Button } from 'components/common/Button';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -62,15 +61,25 @@ const Index = () => {
           ></textarea>
         </TextAreaContainder>
         <ButtonContainer>
-          <OutLineButton
+          <Button
             isDisabled={false}
             textColor={Common.colors.GY900}
             btnText="임시저장"
-            borderColor={Common.colors.GY900}
+            color="transparent"
+            fontFamily="pretendard"
+            fontSize={1.2}
+            fontWeight={400}
           />
           <Link href="/write">
             <a>
-              <Button isDisabled={!btnDisable} textColor="#fff" btnText="다음" color={Common.colors.BL500} />
+              <Button
+                isDisabled={!btnDisable}
+                textColor="#fff"
+                height={36}
+                hUnit="px"
+                btnText="다음"
+                color={Common.colors.BL500}
+              />
             </a>
           </Link>
         </ButtonContainer>
@@ -121,12 +130,14 @@ const ButtonContainer = styled.div`
   & button {
     height: 36px;
     font-size: 0.75rem;
-    padding: 9px 15px;
+    padding: 0 15px;
     border-radius: 5px;
     line-height: 150%;
     width: auto;
   }
   & button:not(:last-child) {
+    border: 1px solid ${Common.colors.GY900};
+
     margin-right: 15px;
   }
 `;

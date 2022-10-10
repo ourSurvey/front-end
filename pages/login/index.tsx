@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { Button } from 'components/common/Button';
 import Input from 'components/common/Input';
 import PasswordInput from 'components/common/PasswordInput';
-import OutLineButton from 'components/common/OutLineButton';
 import styled from '@emotion/styled';
 import { useMutation } from 'react-query';
 import { Common, Pretendard, SpaceBetween } from 'styles/common';
@@ -106,11 +105,12 @@ const Index = () => {
         </Center>
       </div>
 
-      <OutLineButton
+      <Button
+        className="sing-up-btn"
+        color="#fff"
         isDisabled={false}
-        borderColor="#0066d9"
         btnText="회원가입"
-        textColor="#363841"
+        textColor={Common.colors.GY900}
         onClick={() => router.push('/register')}
       />
     </FormContainer>
@@ -123,6 +123,13 @@ const FormContainer = styled.div`
 
   padding-bottom: 5px;
   height: 100%;
+
+  & .sing-up-btn {
+    border-color: ${Common.colors.BL500};
+    outline: 0;
+    border: 1px solid ${Common.colors.BL500};
+    line-height: 150%;
+  }
 `;
 const Center = styled.div`
   text-align: center;

@@ -3,6 +3,7 @@
 ## Contributor
 
 - @sunpl13 (김정수)
+- @greedysiru(전재민)
 
 ## Tech Requirement (Tech Stack)
 

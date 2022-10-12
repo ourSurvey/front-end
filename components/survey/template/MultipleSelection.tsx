@@ -1,14 +1,9 @@
-import { useCallback } from 'react';
-import { deleteIDproperty } from 'utills/deleteIdProperty';
-import update from 'immutability-helper';
-import { surveySelector } from 'states/survey';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { qusetionItemIdListAtom } from 'states/surveyIds';
 import { QuestionItemListID } from 'types/survey';
 import { Reorder } from 'framer-motion';
 import InputAndNextPartContainer from './InputAndNextPartContainer';
-import { DndProvider } from 'react-dnd';
-import { TouchBackend } from 'react-dnd-touch-backend';
+
 import { css } from '@emotion/react';
 interface IProps {
   questionIndex: number;
@@ -20,24 +15,6 @@ interface IProps {
 
 const MultipleSelection = ({ questionIndex, partIndex, sysCode, hasNextSectionFlag, ListLength }: IProps) => {
   const [questionItemIdList, setQuestionItemIdList] = useRecoilState(qusetionItemIdListAtom(sysCode));
-  const state = useRecoilValue(surveySelector);
-
-  console.log('survey', state.sections[0].questions[0].questionItems, questionItemIdList);
-
-  const onMove = useCallback(
-    (dragIndex: number, hoverIndex: number) => {
-      const dragInput = questionItemIdList[dragIndex];
-      setQuestionItemIdList(
-        update(questionItemIdList, {
-          $splice: [
-            [dragIndex, 1], // Delete
-            [hoverIndex, 0, dragInput], // Add
-          ],
-        })
-      );
-    },
-    [questionItemIdList]
-  );
 
   const ulStyle = css`
     padding: 0;

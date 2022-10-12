@@ -9,15 +9,19 @@ interface IProps {
   setVisible: (state: boolean) => void;
 }
 
+interface IStyle {
+  visible: boolean;
+}
+
 const MoreSideModal = ({ visibleState, setVisible }: IProps) => {
-  const [modalShow, setModalShow] = useState(visibleState);
+  const [open, setOpen] = useState(false);
   let touchMoveStartLocation: number;
   const refs = useRef<any>(null); //모달의 width 크기를 잡기 위한 ref
 
   const moveEndHandler = (e: React.TouchEvent<HTMLDivElement>) => {
     //이벤트 종료시 슬라이드 한 거리가 모달의 20%가 넘어가면 모달 종료
     if (e.changedTouches[0].clientX - touchMoveStartLocation >= refs.current.clientWidth * 0.2) {
-      setModalShow(false);
+      setVisible(false);
     }
   };
 
@@ -26,13 +30,19 @@ const MoreSideModal = ({ visibleState, setVisible }: IProps) => {
   };
 
   useEffect(() => {
-    if (!modalShow) {
-      setTimeout(() => {
-        setVisible(false);
-      }, 130);
+    let timeoutId: NodeJS.Timeout;
+    if (visibleState) {
+      setOpen(true);
+    } else {
+      timeoutId = setTimeout(() => setOpen(false), 130);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [modalShow]);
+
+    return () => {
+      if (timeoutId !== undefined) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [visibleState]);
 
   const fadein = keyframes`
   from {right: -55%; opacity: 0;}
@@ -43,11 +53,11 @@ const MoreSideModal = ({ visibleState, setVisible }: IProps) => {
   to {right: -55%; opacity: 0;}
 `;
 
-  const Modal = styled.div`
+  const Modal = styled.div<IStyle>`
     position: absolute;
     padding-top: 20px;
     display: block;
-    animation: ${modalShow ? fadein : fadeout} 0.2s ease-out;
+    animation: ${(props) => (props.visible ? fadein : fadeout)} 0.2s ease-out;
     height: calc(100% + 46.5px);
     margin: -21.5px 0 -35px 0;
     bottom: 0;
@@ -59,15 +69,19 @@ const MoreSideModal = ({ visibleState, setVisible }: IProps) => {
     z-index: 200;
   `;
 
+  if (!open) {
+    return null;
+  }
+
   return (
     <>
       <Dimmer
         onClick={() => {
-          setModalShow(false);
+          setVisible(false);
         }}
       />
-      <Modal ref={refs} onTouchStart={moveStartHandler} onTouchEnd={moveEndHandler}>
-        <MoreSelectionModal setSideModal={setModalShow} />
+      <Modal visible={visibleState} ref={refs} onTouchStart={moveStartHandler} onTouchEnd={moveEndHandler}>
+        <MoreSelectionModal setSideModal={setVisible} />
       </Modal>
     </>
   );

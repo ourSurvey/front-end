@@ -1,12 +1,13 @@
 import styled from '@emotion/styled';
 import ko from 'date-fns/locale/ko';
 import { addDays } from 'date-fns';
-import { Pretendard, Common, SpaceBetween, AlignAndJustifyCenter } from 'styles/common';
+import { Pretendard, Common, AlignAndJustifyCenter } from 'styles/common';
 import { DateRange } from 'react-date-range';
-import { createElement, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
-
+import { useRecoilState } from 'recoil';
+import { surveyState } from 'states/survey';
 export interface RangeWithKey extends Range {
   key: 'selection';
 }
@@ -18,10 +19,8 @@ interface IStyle {
 export type OnChangeProps = Range | { selection: RangeWithKey } | Date;
 
 const DatePickerModal = () => {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
   const [dayWidth, setdayWidth] = useState(0);
-
+  const [survey, setSurvey] = useRecoilState(surveyState);
   const compareTime = (startDate: Date, endDate: Date) => {
     const timeMs = endDate.getTime() - startDate.getTime();
     return timeMs / 1000 / 60 / 60 / 24; //일로 변경
@@ -44,17 +43,17 @@ const DatePickerModal = () => {
       rdrInRangeList[0].classList.toggle('leftRange');
       rdrInRangeList[rdrInRangeList.length - 1].classList.toggle('rightRange');
     }
-  }, [startDate, endDate]);
+  }, [survey.startDate, survey.endDate]);
 
   const selectRagne = {
-    startDate: startDate,
-    endDate: endDate,
+    startDate: survey.startDate,
+    endDate: survey.endDate,
     key: 'Selection',
   };
 
   const handleSelect = (ranges: any) => {
-    setStartDate(ranges.Selection.startDate);
-    setEndDate(ranges.Selection.endDate);
+    setSurvey({ ...survey, startDate: ranges.Selection.startDate });
+    setSurvey({ ...survey, endDate: ranges.Selection.endDate });
   };
 
   return (

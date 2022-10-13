@@ -46,3 +46,24 @@ export const QuestionItemIDFormat = (partId: number, questionId: number, idx: nu
 
 export const QuestionItemListIDFormat = (partIndex: number, questionIdx: number) =>
   `${PartIDFormat(partIndex)}${QuestionIDFormat(questionIdx, partIndex)}`;
+
+export const getDateFormat = (date: Date): string => {
+  const year = String(date.getFullYear());
+  let monthSet: string;
+
+  const month = date.getMonth() + 1;
+  if (month < 10) {
+    monthSet = `0${month}`;
+  } else {
+    monthSet = String(month);
+  }
+  let daySet: string;
+  const day = date.getDate();
+  if (day < 10) {
+    daySet = `0${day}`;
+  } else {
+    daySet = String(day);
+  }
+
+  return `${year}-${monthSet}-${daySet}`;
+};

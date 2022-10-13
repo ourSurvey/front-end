@@ -7,13 +7,15 @@ import DatePickerModal from 'components/modal/DatePickerModal';
 
 const PeriodSetting = () => {
   const [showModalState, setshowModalState] = useState(false);
+  console.log('리렌더링');
+
   return (
     <>
       <Period>
         <h1>설문의 진행 기간을 설정해주세요.</h1>
         <div className="date-container" onClick={() => setshowModalState(true)}>
           <span>시작일</span>
-          <div className="date">2022.07.25</div>
+          <div className="date"></div>
         </div>
         <div className="date-container">
           <span>종료일</span>

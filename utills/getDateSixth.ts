@@ -1,4 +1,4 @@
-import { QuestionListID, SectionID, QuestionID, QuestionItemID } from 'types/survey';
+import { QuestionListID, SectionID, QuestionID, QuestionItemID, QuestionItemListID } from 'types/survey';
 
 export const getDateSixDigitsFormatToday = (): number => {
   const date = new Date();
@@ -66,4 +66,9 @@ export const getDateFormat = (date: Date): string => {
   }
 
   return `${year}.${monthSet}.${daySet}`;
+};
+export const QuestionItemListUniqueNumber = (qustionItemListId: QuestionItemListID) => {
+  const splittedQuestionItemListId = qustionItemListId.split('A');
+  const uniqueNumber = splittedQuestionItemListId[splittedQuestionItemListId.length - 1];
+  return Number(uniqueNumber);
 };

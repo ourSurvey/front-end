@@ -1,34 +1,29 @@
 import styled from '@emotion/styled';
-import Portal from 'components/common/Portal';
-import ModalTemplate from 'components/modal/ModalTemplate';
 import { Common, Pretendard, SpaceBetween } from 'styles/common';
-import { useState } from 'react';
-import DatePickerModal from 'components/modal/DatePickerModal';
+import { useRecoilValue } from 'recoil';
+import { surveyState } from 'states/survey';
+import { getDateFormat } from 'utills/getDateSixth';
+interface IProps {
+  setshowModalState: (bool: boolean) => void;
+}
 
-const PeriodSetting = () => {
-  const [showModalState, setshowModalState] = useState(false);
-  console.log('리렌더링');
-
+const PeriodSetting = ({ setshowModalState }: IProps) => {
+  const { startDate, endDate } = useRecoilValue(surveyState);
   return (
     <>
       <Period>
         <h1>설문의 진행 기간을 설정해주세요.</h1>
         <div className="date-container" onClick={() => setshowModalState(true)}>
           <span>시작일</span>
-          <div className="date"></div>
+          <div className="date">{getDateFormat(startDate)}</div>
         </div>
-        <div className="date-container">
+        <div className="date-container" onClick={() => setshowModalState(true)}>
           <span>종료일</span>
           <div className="date" placeholder="선택해주세요">
-            2022.07.25
+            {getDateFormat(endDate)}
           </div>
         </div>
       </Period>
-      <Portal selector="#portal">
-        <ModalTemplate height={50} visibleState={showModalState} setVisible={setshowModalState}>
-          <DatePickerModal />
-        </ModalTemplate>
-      </Portal>
     </>
   );
 };

@@ -30,8 +30,8 @@ export interface ISurveyData {
   id?: number | ''; //임시저장한걸 실제저장하려고 할 때 보내주세요 default 0;
   subject: string; //제목,
   content: string; //서베이에 대한 설명,
-  startDate: string; //시작일(년월일),
-  endDate: string; //종료일(년월일),
+  startDate: Date; //시작일(년월일),
+  endDate: Date; //종료일(년월일),
   minute: number; //소요시간(Integer),
   openFl: 0 | 1; //공개여부(Integer|0:미공개,1:공개),
   tempFl: 0 | 1; //임시저장여부(Integer|0:임시, 1:임시X)

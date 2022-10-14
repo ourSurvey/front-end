@@ -1,5 +1,4 @@
 import CreateSurveyHeader from 'components/survey/CreateSurveyHeader';
-import PeriodSetting from 'components/survey/setting/PeriodSetting';
 import TImeTaken from 'components/survey/setting/TImeTaken';
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
@@ -25,6 +24,7 @@ import LackPointModal from 'components/modal/LackPointModal';
 import { useQuery } from 'react-query';
 import { getMyPoint } from 'services/api/point';
 import { Button } from 'components/common/Button';
+import PeriodSettingWrapper from 'components/survey/setting/PeriodSettingWrapper';
 
 export const getServerSideProps: GetServerSideProps = withAuth(() => {
   return {
@@ -110,7 +110,7 @@ export default function Setting() {
         <CreateSurveyHeader name="설정" hasUnderLine={true} step="03" />
       </HeaderWrap>
       <SettingItemContainer onScroll={scrollDetectHandler}>
-        <PeriodSetting />
+        <PeriodSettingWrapper />
         <TImeTaken />
         <AddTag />
         <ShareResult />

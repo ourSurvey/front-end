@@ -1,21 +1,30 @@
 import styled from '@emotion/styled';
 import { Common, Pretendard, SpaceBetween } from 'styles/common';
+import { useRecoilValue } from 'recoil';
+import { surveyState } from 'states/survey';
+import { getDateFormat } from 'utills/getDateSixth';
+interface IProps {
+  setshowModalState: (bool: boolean) => void;
+}
 
-const PeriodSetting = () => {
+const PeriodSetting = ({ setshowModalState }: IProps) => {
+  const { startDate, endDate } = useRecoilValue(surveyState);
   return (
-    <Period>
-      <h1>설문의 진행 기간을 설정해주세요.</h1>
-      <div className="date-container">
-        <span>시작일</span>
-        <div className="date">2022.07.25</div>
-      </div>
-      <div className="date-container">
-        <span>종료일</span>
-        <div className="date" placeholder="선택해주세요">
-          2022.07.25
+    <>
+      <Period>
+        <h1>설문의 진행 기간을 설정해주세요.</h1>
+        <div className="date-container" onClick={() => setshowModalState(true)}>
+          <span>시작일</span>
+          <div className="date">{getDateFormat(startDate)}</div>
         </div>
-      </div>
-    </Period>
+        <div className="date-container" onClick={() => setshowModalState(true)}>
+          <span>종료일</span>
+          <div className="date" placeholder="선택해주세요">
+            {getDateFormat(endDate)}
+          </div>
+        </div>
+      </Period>
+    </>
   );
 };
 

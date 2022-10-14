@@ -65,5 +65,5 @@ export const getDateFormat = (date: Date): string => {
     daySet = String(day);
   }
 
-  return `${year}-${monthSet}-${daySet}`;
+  return `${year}.${monthSet}.${daySet}`;
 };

@@ -3,7 +3,7 @@ import ko from 'date-fns/locale/ko';
 import { addDays } from 'date-fns';
 import { Pretendard, Common, AlignAndJustifyCenter } from 'styles/common';
 import { DateRange } from 'react-date-range';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { useRecoilState } from 'recoil';
@@ -21,6 +21,8 @@ export type OnChangeProps = Range | { selection: RangeWithKey } | Date;
 const DatePickerModal = () => {
   const [dayWidth, setdayWidth] = useState(0);
   const [survey, setSurvey] = useRecoilState(surveyState);
+  const { startDate, endDate } = survey;
+
   const compareTime = (startDate: Date, endDate: Date) => {
     const timeMs = endDate.getTime() - startDate.getTime();
     return timeMs / 1000 / 60 / 60 / 24; //일로 변경
@@ -31,6 +33,7 @@ const DatePickerModal = () => {
     setdayWidth(width);
 
     const rdrInRangeList = document.getElementsByClassName('rdrInRange');
+
     // if (compareTime(startDate, endDate) === 1) {
     //   const rdrStartEdge = document.getElementsByClassName('rdrStartEdge')[0];
     //   const rdrEndEdge = document.getElementsByClassName('rdrEndEdge')[0];
@@ -40,20 +43,19 @@ const DatePickerModal = () => {
     // }
 
     if (rdrInRangeList.length > 0) {
-      rdrInRangeList[0].classList.toggle('leftRange');
-      rdrInRangeList[rdrInRangeList.length - 1].classList.toggle('rightRange');
+      rdrInRangeList[0].classList.add('leftRange');
+      rdrInRangeList[rdrInRangeList.length - 1].classList.add('rightRange');
     }
-  }, [survey.startDate, survey.endDate]);
+  }, [startDate, endDate]);
 
   const selectRagne = {
-    startDate: survey.startDate,
-    endDate: survey.endDate,
+    startDate: startDate,
+    endDate: endDate,
     key: 'Selection',
   };
 
   const handleSelect = (ranges: any) => {
-    setSurvey({ ...survey, startDate: ranges.Selection.startDate });
-    setSurvey({ ...survey, endDate: ranges.Selection.endDate });
+    setSurvey({ ...survey, startDate: ranges.Selection.startDate, endDate: ranges.Selection.endDate });
   };
 
   return (

@@ -47,7 +47,7 @@ const SelectOptionContainer = ({
 
   const addQuestionItem = useRecoilCallback(({ snapshot, set }) => () => {
     const questionItemIds = snapshot.getLoadable(qusetionItemIdListAtom(SyscodeFormat)).getValue();
-    const lastNumber = questionItemIds[questionItemIds.length - 1].slice(-1);
+    const lastNumber = questionItemIds.length;
     set(qusetionItemIdListAtom(SyscodeFormat), [
       ...questionItemIds,
       `${SyscodeFormat}${Number(lastNumber) + 1}`,

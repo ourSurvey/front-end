@@ -5,7 +5,13 @@ import {
   targetQuestionListIDAtom,
 } from 'states/surveyIds';
 import { atom, atomFamily, selector, selectorFamily } from 'recoil';
-import { QuestionIDFormat, PartIDFormat, QuestionListIDFormat, QuestionItemIDFormat } from 'utills/getDateSixth';
+import {
+  QuestionIDFormat,
+  PartIDFormat,
+  QuestionListIDFormat,
+  QuestionItemIDFormat,
+  QuestionItemListUniqueNumber,
+} from 'utills/getDateSixth';
 import {
   IQuestionItem,
   IQuestion,
@@ -211,10 +217,12 @@ export const surveySelector = selector({
 
         //item의idList
         const questionItemIdList = get(qusetionItemIdListAtom(SyscodeFormat));
-        const questionItem = questionItemIdList.map((_, questionItemIdx) => {
+        const questionItem = questionItemIdList.map((questionItemIdx) => {
           //item 아톰 패밀리를 가져와서 리턴
           return get(
-            qusetionItemListAtomFamily(QuestionItemIDFormat(sectionIdx + 1, questionIdx + 1, questionItemIdx + 1))
+            qusetionItemListAtomFamily(
+              QuestionItemIDFormat(sectionIdx + 1, questionIdx + 1, QuestionItemListUniqueNumber(questionItemIdx))
+            )
           );
         });
         //question을 가져와서 questionItem을 담아서 리턴

@@ -6,7 +6,12 @@ import { useRecoilCallback, useRecoilState } from 'recoil';
 import { qusetionListAtomFamily, qusetionItemListAtomFamily } from 'states/survey';
 import { qusetionItemIdListAtom } from 'states/surveyIds';
 import { IQuestionItem, QuestionID, QuestionItemListID } from 'types/survey';
-import { getDateSixDigitsFormatToday, numberSet, QuestionItemIDFormat } from 'utills/getDateSixth';
+import {
+  getDateSixDigitsFormatToday,
+  numberSet,
+  QuestionItemIDFormat,
+  QuestionItemListUniqueNumber,
+} from 'utills/getDateSixth';
 interface IProps {
   color: string;
   questionIndex: number;
@@ -47,7 +52,7 @@ const SelectOptionContainer = ({
 
   const addQuestionItem = useRecoilCallback(({ snapshot, set }) => () => {
     const questionItemIds = snapshot.getLoadable(qusetionItemIdListAtom(SyscodeFormat)).getValue();
-    const lastNumber = questionItemIds.length;
+    const lastNumber = Math.max(...questionItemIds.map((id) => QuestionItemListUniqueNumber(id)));
     set(qusetionItemIdListAtom(SyscodeFormat), [
       ...questionItemIds,
       `${SyscodeFormat}${Number(lastNumber) + 1}`,
@@ -56,7 +61,7 @@ const SelectOptionContainer = ({
 
   const addEtcQuestionItem = useRecoilCallback(({ snapshot, set }) => () => {
     const questionItemIds = snapshot.getLoadable(qusetionItemIdListAtom(SyscodeFormat)).getValue();
-    const lastNumber = questionItemIds[questionItemIds.length - 1].slice(-1);
+    const lastNumber = Math.max(...questionItemIds.map((id) => QuestionItemListUniqueNumber(id)));
     set(qusetionItemIdListAtom(SyscodeFormat), [
       ...questionItemIds,
       `${SyscodeFormat}${Number(lastNumber) + 1}`,

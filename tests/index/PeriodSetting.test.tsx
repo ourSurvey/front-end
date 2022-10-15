@@ -16,4 +16,21 @@ describe('설문 진행 기간', () => {
 
     expect(text).toBeInTheDocument();
   });
+
+  test('시작일과 종료일에는 기본적으로 오늘 날짜가 디폴트 값이어야 한다', () => {
+    render(<PeriodSetting />);
+    const startDate = screen.getByTestId('startDate').textContent;
+    const endDate = screen.getByTestId('endDate').textContent;
+
+    function getToday() {
+      const date = new Date();
+      const year = date.getFullYear();
+      const month = ('0' + (1 + date.getMonth())).slice(-2);
+      const day = ('0' + date.getDate()).slice(-2);
+
+      return `${year}.${month}.${day}`;
+    }
+
+    expect(startDate).toEqual(getToday());
+  });
 });

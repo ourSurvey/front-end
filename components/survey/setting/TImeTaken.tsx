@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { Common, Pretendard, AlignAndJustifyCenter } from 'styles/common';
 import Minus from 'public/icon/minus.svg';
@@ -12,18 +12,23 @@ const TImeTaken = () => {
   const [totalCount, settotalCount] = useState(0);
   const [totalMinute, settotalMinute] = useState(0);
   const questionsData = useRecoilValue(surveySelector);
+  let totalTime = 0;
   const timeSetting = (): string => {
-    return ('00' + survey.minute).slice(-2);
+    return ('00' + totalMinute).slice(-2);
   };
 
   const decreaseMinute = () => {
-    if (survey.minute > 1) {
-      setSurvey({ ...survey, minute: survey.minute - 1 });
+    if (totalMinute > 1) {
+      settotalMinute((prev) => prev - 1);
     }
   };
   const increaseMinute = () => {
-    setSurvey({ ...survey, minute: survey.minute + 1 });
+    settotalMinute((prev) => prev + 1);
   };
+
+  useEffect(() => {
+    setSurvey({ ...survey, minute: totalMinute });
+  }, [totalMinute]);
 
   useLayoutEffect(() => {
     //소요시간 계산
@@ -55,6 +60,7 @@ const TImeTaken = () => {
       }
     };
     getTimeTaken();
+    totalTime = totalMinute;
     setSurvey({
       ...survey,
       minute: totalMinute,
@@ -81,7 +87,8 @@ const TImeTaken = () => {
       <Tip>
         <span className="tip">TIP</span>
         <div className="des">
-          지금 작성하신 설문은 대략 <span className="bold">{totalMinute}분</span> 정도 소요돼요. <br />
+          지금 작성하신 설문은 대략 <span className="bold">{totalTime < 1 ? 1 : totalTime}분</span> 정도 소요돼요.{' '}
+          <br />
           질문 구성 : 객관식 {multipleSelectionCount}문항 & 주관식 {totalCount - multipleSelectionCount}문항
         </div>
       </Tip>

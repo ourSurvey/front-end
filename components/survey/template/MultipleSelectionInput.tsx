@@ -5,7 +5,7 @@ import { AlignAndJustifyCenter, Common, Pretendard, SpaceBetween } from 'styles/
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { qusetionItemListAtomFamily } from 'states/survey';
 import { qusetionItemIdListAtom } from 'states/surveyIds';
-import { QuestionItemIDFormat } from 'utills/getDateSixth';
+import { QuestionItemIDFormat, QuestionItemListUniqueNumber } from 'utills/getDateSixth';
 import { QuestionItemListID } from 'types/survey';
 import Arrow from 'public/icon/underArrow.svg';
 
@@ -31,9 +31,8 @@ const MultipleSelectionInput = ({
   idName,
 }: IProps) => {
   const [inputContent, setInputContent] = useRecoilState(
-    qusetionItemListAtomFamily(QuestionItemIDFormat(partId, questionId, selectionNumber))
+    qusetionItemListAtomFamily(QuestionItemIDFormat(partId, questionId, QuestionItemListUniqueNumber(idName)))
   );
-
   const setSelectionList = useSetRecoilState(qusetionItemIdListAtom(id));
 
   const onChangeHandler = useCallback(

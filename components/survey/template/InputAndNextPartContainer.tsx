@@ -96,7 +96,7 @@ const InputAndNextPartContainer = ({
         <ModalTemplate height={30} visibleState={showModalState} setVisible={setshowModalState}>
           <NextPartSelectionInSelectionInput
             questionNum={questionId}
-            selectionNumber={selectionNumber}
+            selectionNumber={idName}
             partLength={ListLength}
             partNum={partId}
             setVisible={setshowModalState}

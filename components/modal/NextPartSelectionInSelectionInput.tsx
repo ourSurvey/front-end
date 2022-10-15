@@ -2,9 +2,9 @@ import Close from 'public/icon/close.svg';
 import styled from '@emotion/styled';
 import { Pretendard, Common } from 'styles/common';
 import { useRecoilValue, useRecoilState } from 'recoil';
-import { PartIDFormat } from 'utills/getDateSixth';
+import { PartIDFormat, QuestionItemListUniqueNumber } from 'utills/getDateSixth';
 import { sectionListAtomFamily, qusetionItemListAtomFamily } from 'states/survey';
-import { IQuestionItem } from 'types/survey';
+import { QuestionItemListID } from 'types/survey';
 import { QuestionItemIDFormat } from 'utills/getDateSixth';
 
 interface IProps {
@@ -12,7 +12,7 @@ interface IProps {
   partNum: number;
   partLength: number;
   questionNum: number;
-  selectionNumber: number;
+  selectionNumber: QuestionItemListID;
 }
 
 const NextPartSelectionInSelectionInput = ({
@@ -23,7 +23,9 @@ const NextPartSelectionInSelectionInput = ({
   selectionNumber,
 }: IProps) => {
   const [inputContent, setInputContent] = useRecoilState(
-    qusetionItemListAtomFamily(QuestionItemIDFormat(partNum, questionNum, selectionNumber))
+    qusetionItemListAtomFamily(
+      QuestionItemIDFormat(partNum, questionNum, QuestionItemListUniqueNumber(selectionNumber))
+    )
   );
   const partIndexArray = Array.from({ length: partLength }, (_, index) => index + 1).filter((item) => item !== partNum);
   return (

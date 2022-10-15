@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { Button } from 'components/common/Button';
 import Portal from 'components/common/Portal';
 import MoreSideModal from 'components/modal/MoreSideModal';
-
+import { disableNextButtonState } from 'states/survey';
 interface IProps {
   scrollDetectHandler: (e: any) => void;
 }
@@ -16,6 +16,8 @@ interface IProps {
 const WriteWrapper = ({ scrollDetectHandler }: IProps) => {
   const [visibleMore, setVisibleMore] = useState(false);
   const partIdList = useRecoilValue(sectionIdListAtom);
+  const survey = useRecoilValue(disableNextButtonState);
+
   return (
     <>
       <PartSectionContainer onScroll={scrollDetectHandler} id="section2">
@@ -47,7 +49,7 @@ const WriteWrapper = ({ scrollDetectHandler }: IProps) => {
           <a>
             <Button
               className="next-btn"
-              isDisabled={false}
+              isDisabled={survey}
               textColor="#fff"
               height={36}
               width={100}

@@ -10,12 +10,18 @@ interface IProps {
 const PeriodSetting = ({ setshowModalState }: IProps) => {
   const { startDate, endDate } = useRecoilValue(surveyState);
   return (
-    <>
-      <Period>
-        <h1>설문의 진행 기간을 설정해주세요.</h1>
-        <div className="date-container" onClick={() => setshowModalState(true)}>
-          <span>시작일</span>
-          <div className="date">{getDateFormat(startDate)}</div>
+    <Period>
+      <h1>설문의 진행 기간을 설정해주세요.</h1>
+      <div className="date-container">
+        <span>시작일</span>
+        <div className="date" data-testid="startDate">
+          2022.07.25
+        </div>
+      </div>
+      <div className="date-container">
+        <span>종료일</span>
+        <div className="date" data-testid="endDate" placeholder="선택해주세요">
+          2022.07.25
         </div>
         <div className="date-container" onClick={() => setshowModalState(true)}>
           <span>종료일</span>
@@ -23,8 +29,8 @@ const PeriodSetting = ({ setshowModalState }: IProps) => {
             {getDateFormat(endDate)}
           </div>
         </div>
-      </Period>
-    </>
+      </div>
+    </Period>
   );
 };
 

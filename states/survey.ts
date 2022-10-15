@@ -1,3 +1,4 @@
+import { isHaveBlankColumn } from 'utills/blankColumnCheck';
 import {
   sectionIdListAtom,
   qusetionIdListAtom,
@@ -62,6 +63,14 @@ export const surveyState = atom<ISurveyData>({
     closingComment: '',
     hashtag: [],
     sections: [],
+  },
+});
+
+export const disableNextButtonState = selector({
+  key: 'disableNextButtonState',
+  get: ({ get }) => {
+    const state = get(surveySelector);
+    return isHaveBlankColumn(state);
   },
 });
 

@@ -2,11 +2,16 @@ import styled from '@emotion/styled';
 import { Common, Pretendard } from 'styles/common';
 import MultipleSelection from './MultipleSelection';
 import Plus from 'public/icon/plus.svg';
-import { useRecoilCallback, useRecoilState } from 'recoil';
-import { qusetionListAtomFamily, qusetionItemListAtomFamily } from 'states/survey';
+import { useRecoilCallback, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { qusetionListAtomFamily, qusetionItemListAtomFamily, etcUpdateSelector } from 'states/survey';
 import { qusetionItemIdListAtom } from 'states/surveyIds';
 import { IQuestionItem, QuestionID, QuestionItemListID } from 'types/survey';
-import { getDateSixDigitsFormatToday, numberSet, QuestionItemIDFormat } from 'utills/getDateSixth';
+import {
+  getDateSixDigitsFormatToday,
+  numberSet,
+  QuestionItemIDFormat,
+  QuestionItemListUniqueNumber,
+} from 'utills/getDateSixth';
 interface IProps {
   color: string;
   questionIndex: number;
@@ -32,12 +37,15 @@ const SelectOptionContainer = ({
   const QuestionFormat = `QSTN${getDateSixDigitsFormatToday()}${numberSet(questionIndex)}`;
   const [question, setQuestion] = useRecoilState(qusetionListAtomFamily(questionAtomFamilyID));
   const SyscodeFormat = `${PartFormat}${QuestionFormat}` as QuestionItemListID;
-
+  const array = useRecoilValue(qusetionItemIdListAtom(SyscodeFormat));
+  console.log(array);
   const getNewQuestionItemState = useRecoilCallback(
     ({ snapshot }) =>
-      (partIndex: number, questionIndex: number, selectionNumber: number) => {
+      (partIndex: number, questionIndex: number, selectionNumber: QuestionItemListID) => {
         let loadable = snapshot.getLoadable(
-          qusetionItemListAtomFamily(QuestionItemIDFormat(partIndex, questionIndex, selectionNumber))
+          qusetionItemListAtomFamily(
+            QuestionItemIDFormat(partIndex, questionIndex, QuestionItemListUniqueNumber(selectionNumber))
+          )
         );
 
         return loadable.valueMaybe();
@@ -48,25 +56,23 @@ const SelectOptionContainer = ({
   const addQuestionItem = useRecoilCallback(({ snapshot, set }) => () => {
     const questionItemIds = snapshot.getLoadable(qusetionItemIdListAtom(SyscodeFormat)).getValue();
     const lastNumber = questionItemIds.length;
-    set(qusetionItemIdListAtom(SyscodeFormat), [
-      ...questionItemIds,
-      `${SyscodeFormat}${Number(lastNumber) + 1}`,
-    ] as QuestionItemListID[]);
+
+    set(qusetionItemIdListAtom(SyscodeFormat), (prevState) => [
+      ...prevState,
+      `${SyscodeFormat}${Number(lastNumber) + 1}` as QuestionItemListID,
+    ]);
   });
 
-  const addEtcQuestionItem = useRecoilCallback(({ snapshot, set }) => () => {
-    const questionItemIds = snapshot.getLoadable(qusetionItemIdListAtom(SyscodeFormat)).getValue();
-    const lastNumber = questionItemIds[questionItemIds.length - 1].slice(-1);
-    set(qusetionItemIdListAtom(SyscodeFormat), [
-      ...questionItemIds,
-      `${SyscodeFormat}${Number(lastNumber) + 1}`,
-    ] as QuestionItemListID[]);
+  const addEtcQuestionItem = useRecoilCallback(({ snapshot, set }) => async () => {
+    addQuestionItem();
 
-    const newData = getNewQuestionItemState(partIndex, questionIndex, questionItemIds.length + 1);
-    set(qusetionItemListAtomFamily(QuestionItemIDFormat(partIndex, questionIndex, questionItemIds.length + 1)), {
-      ...newData,
-      content: '기타',
-    } as IQuestionItem);
+    while (array)
+      set(
+        qusetionItemListAtomFamily(
+          QuestionItemIDFormat(partIndex, questionIndex, QuestionItemListUniqueNumber(array[array.length - 1]))
+        ),
+        (prevData) => ({ ...prevData, content: '기타' })
+      );
   });
 
   //중복 가능여부 설정

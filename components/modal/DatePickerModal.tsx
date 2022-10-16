@@ -1,13 +1,14 @@
 import styled from '@emotion/styled';
 import ko from 'date-fns/locale/ko';
 import { addDays } from 'date-fns';
-import { Pretendard, Common, AlignAndJustifyCenter } from 'styles/common';
+import { Pretendard, Common, AlignAndJustifyCenter, SpaceBetween } from 'styles/common';
 import { DateRange } from 'react-date-range';
-import { useEffect, useState, memo } from 'react';
+import { useEffect, useState } from 'react';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { useRecoilState } from 'recoil';
 import { surveyState } from 'states/survey';
+import { Button } from 'components/common/Button';
 export interface RangeWithKey extends Range {
   key: 'selection';
 }
@@ -81,6 +82,35 @@ const DatePickerModal = () => {
           monthDisplayFormat={'yyyy.MM'}
         />
       </DateWrapper>
+      <BtnContainer>
+        <div className="wrapper">
+          <Button
+            isDisabled={false}
+            fontFamily="pretendard"
+            fontSize={1.2}
+            fontWeight={400}
+            textColor={Common.colors.GY900}
+            color="transparent"
+            btnText="임시저장"
+            wUnit="%"
+            width={20}
+          />
+          <Button
+            className="next-btn"
+            isDisabled={false}
+            textColor="#fff"
+            height={36}
+            width={30.5}
+            wUnit="%"
+            hUnit="px"
+            fontFamily="pretendard"
+            fontSize={1.2}
+            fontWeight={700}
+            btnText="다음"
+            color={Common.colors.BL500}
+          />
+        </div>
+      </BtnContainer>
     </DatePickerContainer>
   );
 };
@@ -187,4 +217,36 @@ const DateWrapper = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
+`;
+
+const BtnContainer = styled.div`
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  height: 84px;
+  background-color: #fff;
+  display: flex;
+  border-top: 1px solid ${Common.colors.GY200};
+  & button {
+    height: 36px;
+    line-height: 150%;
+    border: 1px solid ${Common.colors.GY700};
+    border-radius: 5px;
+  }
+
+  & .next-btn {
+    outline: 0;
+    border: 0;
+    border-radius: 5px;
+    line-height: 150%;
+    margin-left: 10px;
+  }
+
+  & .wrapper {
+    width: calc(100% - 25px);
+    padding-right: 25px;
+    padding-top: 13px;
+    display: flex;
+    justify-content: flex-end;
+  }
 `;

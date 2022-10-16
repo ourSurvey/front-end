@@ -5,7 +5,7 @@ import {
   qusetionItemIdListAtom,
   targetQuestionListIDAtom,
 } from 'states/surveyIds';
-import { atom, atomFamily, selector, selectorFamily } from 'recoil';
+import { atom, atomFamily, DefaultValue, selector, selectorFamily, SerializableParam } from 'recoil';
 import {
   QuestionIDFormat,
   PartIDFormat,
@@ -268,4 +268,54 @@ export const surveySelector = selector({
     });
     return { ...surveyData, sections: nextSectionPropertySet, hashtag: [...tagList] } as ISurveyData;
   },
+});
+
+type IContentProps = {
+  partNum: number;
+  questionNumber: number;
+  SyscodeFormat: QuestionItemListID;
+};
+
+export const etcUpdateSelector = selectorFamily<IQuestionItem, IContentProps>({
+  key: 'etcUpdateSelector',
+  get:
+    ({ partNum, questionNumber, SyscodeFormat }: IContentProps) =>
+    ({ get }) => {
+      return get(
+        qusetionItemListAtomFamily(
+          QuestionItemIDFormat(partNum, questionNumber, QuestionItemListUniqueNumber(SyscodeFormat))
+        )
+      );
+    },
+  set:
+    ({ partNum, questionNumber, SyscodeFormat }: IContentProps) =>
+    ({ get, set, reset }, newVal) => {
+      if (newVal instanceof DefaultValue) {
+        reset(
+          qusetionItemListAtomFamily(
+            QuestionItemIDFormat(partNum, questionNumber, QuestionItemListUniqueNumber(SyscodeFormat))
+          )
+        );
+
+        return;
+      }
+
+      // const lastNumber = questionItemListIds.length;
+
+      set(
+        qusetionItemIdListAtom(SyscodeFormat),
+        (prevState) => [...prevState, `${SyscodeFormat}${Number(prevState.length) + 1}`] as QuestionItemListID[]
+      );
+      const questionItemListIds = get(qusetionItemIdListAtom(SyscodeFormat));
+      set(
+        qusetionItemListAtomFamily(
+          QuestionItemIDFormat(
+            partNum,
+            questionNumber,
+            QuestionItemListUniqueNumber(questionItemListIds[questionItemListIds.length - 1])
+          )
+        ),
+        (prevState) => ({ ...prevState, content: newVal.content })
+      );
+    },
 });

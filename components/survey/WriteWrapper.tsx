@@ -1,14 +1,14 @@
 import styled from '@emotion/styled';
 import { Common, SpaceBetween } from 'styles/common';
 import PartSpeechContainer from 'components/survey/template/PartSpeechContainer';
-import { memo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { sectionIdListAtom } from 'states/surveyIds';
 import { useRecoilValue } from 'recoil';
 import Link from 'next/link';
 import { Button } from 'components/common/Button';
 import Portal from 'components/common/Portal';
 import MoreSideModal from 'components/modal/MoreSideModal';
-
+import useScroll from 'hooks/useScroll';
 interface IProps {
   scrollDetectHandler: (e: any) => void;
 }
@@ -16,6 +16,12 @@ interface IProps {
 const WriteWrapper = ({ scrollDetectHandler }: IProps) => {
   const [visibleMore, setVisibleMore] = useState(false);
   const partIdList = useRecoilValue(sectionIdListAtom);
+  const { scrollPoint, moveScrollPoint } = useScroll();
+
+  useEffect(() => {
+    moveScrollPoint();
+  }, [partIdList]);
+
   return (
     <>
       <PartSectionContainer onScroll={scrollDetectHandler} id="section2">
@@ -30,6 +36,7 @@ const WriteWrapper = ({ scrollDetectHandler }: IProps) => {
             />
           );
         })}
+        {scrollPoint}
       </PartSectionContainer>
       <BtnContainer>
         <Button

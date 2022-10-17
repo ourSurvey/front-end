@@ -5,7 +5,7 @@ import {
   qusetionItemIdListAtom,
   targetQuestionListIDAtom,
 } from 'states/surveyIds';
-import { atom, atomFamily, DefaultValue, selector, selectorFamily, SerializableParam } from 'recoil';
+import { atom, atomFamily, DefaultValue, selector, selectorFamily } from 'recoil';
 import {
   QuestionIDFormat,
   PartIDFormat,
@@ -70,6 +70,7 @@ export const disableNextButtonState = selector({
   key: 'disableNextButtonState',
   get: ({ get }) => {
     const state = get(surveySelector);
+
     return isHaveBlankColumn(state);
   },
 });
@@ -215,6 +216,7 @@ export const surveySelector = selector({
   get: ({ get }) => {
     const sectionList = get(sectionIdListAtom);
     const surveyData = get(surveyState);
+
     //파트의 ID리스트
     const sections = sectionList.map((_, sectionIdx) => {
       const qusetionList = get(qusetionIdListAtom(QuestionListIDFormat(sectionIdx + 1)));
@@ -254,6 +256,7 @@ export const surveySelector = selector({
       //part를 가져와서 question을 담아서 리턴
       return { ...part, questions: questionLit };
     });
+
     const tagList = get(tagState);
     const arrLength = sections.length;
     //다음 섹션 세팅
@@ -262,10 +265,9 @@ export const surveySelector = selector({
       if (idx + 1 === arrLength) {
         return { ...item, nextSection: -1 };
       }
-      if (item.nextSection === -2) {
-        return { ...item, nextSection: idx };
-      }
+      return { ...item, nextSection: idx };
     });
+
     return { ...surveyData, sections: nextSectionPropertySet, hashtag: [...tagList] } as ISurveyData;
   },
 });
@@ -299,8 +301,6 @@ export const etcUpdateSelector = selectorFamily<IQuestionItem, IContentProps>({
 
         return;
       }
-
-      // const lastNumber = questionItemListIds.length;
 
       set(
         qusetionItemIdListAtom(SyscodeFormat),

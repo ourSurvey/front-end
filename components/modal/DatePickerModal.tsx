@@ -227,3 +227,35 @@ const DateWrapper = styled.div`
   justify-content: center;
   width: 100%;
 `;
+
+const BtnContainer = styled.div`
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  height: 84px;
+  background-color: #fff;
+  display: flex;
+  border-top: 1px solid ${Common.colors.GY200};
+  & button {
+    height: 36px;
+    line-height: 150%;
+    border: 1px solid ${Common.colors.GY700};
+    border-radius: 5px;
+  }
+
+  & .next-btn {
+    outline: 0;
+    border: 0;
+    border-radius: 5px;
+    line-height: 150%;
+    margin-left: 10px;
+  }
+
+  & .wrapper {
+    width: calc(100% - 25px);
+    padding-right: 25px;
+    padding-top: 13px;
+    display: flex;
+    justify-content: flex-end;
+  }
+`;

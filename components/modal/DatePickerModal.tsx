@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import ko from 'date-fns/locale/ko';
 import { addDays } from 'date-fns';
-import { Pretendard, Common, AlignAndJustifyCenter, SpaceBetween } from 'styles/common';
+import { Pretendard, Common, AlignAndJustifyCenter } from 'styles/common';
 import { DateRange } from 'react-date-range';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useLayoutEffect } from 'react';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { useRecoilState } from 'recoil';
@@ -12,6 +12,17 @@ import { Button } from 'components/common/Button';
 export interface RangeWithKey extends Range {
   key: 'selection';
 }
+interface IProps {
+  setVisible: (bool: boolean) => void;
+}
+
+interface IProps {
+  setVisible: (bool: boolean) => void;
+}
+
+interface IProps {
+  setVisible: (bool: boolean) => void;
+}
 
 interface IStyle {
   width: number;
@@ -19,29 +30,22 @@ interface IStyle {
 
 export type OnChangeProps = Range | { selection: RangeWithKey } | Date;
 
-const DatePickerModal = () => {
+const DatePickerModal = ({ setVisible }: IProps) => {
   const [dayWidth, setdayWidth] = useState(0);
   const [survey, setSurvey] = useRecoilState(surveyState);
-  const { startDate, endDate } = survey;
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
 
-  const compareTime = (startDate: Date, endDate: Date) => {
-    const timeMs = endDate.getTime() - startDate.getTime();
-    return timeMs / 1000 / 60 / 60 / 24; //일로 변경
-  };
+  useLayoutEffect(() => {
+    setStartDate(survey.startDate);
+    setEndDate(survey.endDate);
+  }, []);
 
   useEffect(() => {
-    const width = document.getElementsByClassName('rdrDay rdrDayToday')[0].clientWidth;
+    const width = document.getElementsByClassName('rdrDay')[0].clientWidth;
     setdayWidth(width);
 
     const rdrInRangeList = document.getElementsByClassName('rdrInRange');
-
-    // if (compareTime(startDate, endDate) === 1) {
-    //   const rdrStartEdge = document.getElementsByClassName('rdrStartEdge')[0];
-    //   const rdrEndEdge = document.getElementsByClassName('rdrEndEdge')[0];
-
-    //   // rdrStartEdge.classList.toggle('rightRange');
-    //   rdrEndEdge.classList.toggle('leftRange');
-    // }
 
     if (rdrInRangeList.length > 0) {
       rdrInRangeList[0].classList.add('leftRange');
@@ -55,8 +59,14 @@ const DatePickerModal = () => {
     key: 'Selection',
   };
 
+  const onChange = () => {
+    setSurvey({ ...survey, startDate: startDate, endDate: endDate });
+    setVisible(false);
+  };
+
   const handleSelect = (ranges: any) => {
-    setSurvey({ ...survey, startDate: ranges.Selection.startDate, endDate: ranges.Selection.endDate });
+    setStartDate(ranges.Selection.startDate);
+    setEndDate(ranges.Selection.endDate);
   };
 
   return (
@@ -64,7 +74,7 @@ const DatePickerModal = () => {
       <h1>설문 진행기간을 선택해주세요</h1>
       <DateWrapper>
         <DateRange
-          minDate={addDays(new Date(), 0)}
+          minDate={addDays(new Date(), -30)}
           maxDate={addDays(new Date(), 120)}
           direction="vertical"
           ranges={[selectRagne]}
@@ -91,8 +101,9 @@ const DatePickerModal = () => {
             fontWeight={400}
             textColor={Common.colors.GY900}
             color="transparent"
-            btnText="임시저장"
+            btnText="취소"
             wUnit="%"
+            onClick={() => setVisible(false)}
             width={20}
           />
           <Button
@@ -108,6 +119,7 @@ const DatePickerModal = () => {
             fontWeight={700}
             btnText="다음"
             color={Common.colors.BL500}
+            onClick={onChange}
           />
         </div>
       </BtnContainer>
@@ -210,6 +222,10 @@ const DatePickerContainer = styled.div<IStyle>`
   & .rdrDay:not(.rdrDayPassive) .rdrInRange ~ .rdrDayNumber span,
   .rdrDay:not(.rdrDayPassive) .rdrSelected ~ .rdrDayNumber span {
     color: ${Common.colors.GY700};
+  }
+
+  & .rdrMonthsVertical {
+    padding-bottom: 84px;
   }
 `;
 

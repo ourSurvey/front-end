@@ -11,4 +11,15 @@ const customJestConfig = {
   snapshotSerializers: ['@emotion/jest/serializer'],
 };
 
-module.exports = createJestConfig(customJestConfig);
+const jestConfig = async () => {
+  const nextJestConfig = await createJestConfig(customJestConfig)();
+  return {
+    ...nextJestConfig,
+    moduleNameMapper: {
+      '\\.svg': '<rootDir>/__mocks__/svg.js',
+      ...nextJestConfig.moduleNameMapper,
+    },
+  };
+};
+
+module.exports = jestConfig;

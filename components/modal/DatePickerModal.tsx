@@ -16,6 +16,10 @@ interface IProps {
   setVisible: (bool: boolean) => void;
 }
 
+interface IProps {
+  setVisible: (bool: boolean) => void;
+}
+
 interface IStyle {
   width: number;
 }

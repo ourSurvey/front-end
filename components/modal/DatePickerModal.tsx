@@ -117,7 +117,7 @@ const DatePickerModal = ({ setVisible }: IProps) => {
             fontFamily="pretendard"
             fontSize={1.2}
             fontWeight={700}
-            btnText="다음"
+            btnText="적용"
             color={Common.colors.BL500}
             onClick={onChange}
           />

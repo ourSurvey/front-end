@@ -8,10 +8,10 @@ import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { useRecoilState } from 'recoil';
 import { surveyState } from 'states/survey';
+import { Button } from 'components/common/Button';
 export interface RangeWithKey extends Range {
   key: 'selection';
 }
-
 interface IProps {
   setVisible: (bool: boolean) => void;
 }

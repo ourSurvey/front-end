@@ -1,3 +1,4 @@
+import { getDateFormat } from './getDateSixth';
 import { ISurveyData } from 'types/survey';
 export const deleteIDproperty = (object: ISurveyData) => {
   const sectionArr = [...object.sections];
@@ -15,5 +16,7 @@ export const deleteIDproperty = (object: ISurveyData) => {
     const { id, ...sectionProperties } = item;
     return { ...sectionProperties, questions: questionList };
   });
-  return { ...object, sections: newArr };
+  const start = getDateFormat(object.startDate).replaceAll('.', '-');
+  const end = getDateFormat(object.endDate).replaceAll('.', '-');
+  return { ...object, startDate: start, endDate: end, sections: newArr };
 };

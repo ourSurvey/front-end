@@ -8,6 +8,7 @@ interface IProps {
   setVisible: (state: boolean) => void;
   children: JSX.Element;
   height: number;
+  className?: string;
 }
 
 interface IStyle {
@@ -15,7 +16,7 @@ interface IStyle {
   visible: boolean;
 }
 
-const ModalTemplate = ({ visibleState, setVisible, children, height }: IProps) => {
+const ModalTemplate = ({ visibleState, setVisible, children, height, className }: IProps) => {
   const [open, setOpen] = useState(false);
 
   const onClose = () => {
@@ -49,13 +50,18 @@ const ModalTemplate = ({ visibleState, setVisible, children, height }: IProps) =
     position: absolute;
     padding: 23px 25px;
     display: block;
-    animation: ${(props) => (props.visible ? fadein : fadeout)} 0.2s ease-out;
+    animation: ${({ visible }) => (visible ? fadein : fadeout)} 0.2s ease-out;
     width: 100%;
     bottom: 0;
-    height: ${(props) => props.height}%;
+    height: ${({ height, className }) =>
+      className === 'date-picker-modal' ? `calc(${height}% + 84px)` : `${height}%`};
     border-radius: 30px 30px 0px 0px;
     background-color: #fff;
     z-index: 202;
+
+    & .date-picker-modal {
+      height: ${({ height }) => `calc(${height}% + 84px)`};
+    }
   `;
 
   if (!open) {
@@ -65,7 +71,7 @@ const ModalTemplate = ({ visibleState, setVisible, children, height }: IProps) =
   return (
     <>
       <Dimmer zIndex={201} onClick={onClose} />
-      <Modal visible={visibleState} height={height}>
+      <Modal className={className && className} visible={visibleState} height={height}>
         {children}
       </Modal>
     </>

@@ -21,8 +21,10 @@ export type OnChangeProps = Range | { selection: RangeWithKey } | Date;
 
 const DatePickerModal = () => {
   const [dayWidth, setdayWidth] = useState(0);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
   const [survey, setSurvey] = useRecoilState(surveyState);
-  const { startDate, endDate } = survey;
+  // const { startDate, endDate } = survey;
 
   const compareTime = (startDate: Date, endDate: Date) => {
     const timeMs = endDate.getTime() - startDate.getTime();
@@ -55,8 +57,12 @@ const DatePickerModal = () => {
     key: 'Selection',
   };
 
+  const onChange = () => {};
+
   const handleSelect = (ranges: any) => {
-    setSurvey({ ...survey, startDate: ranges.Selection.startDate, endDate: ranges.Selection.endDate });
+    // setSurvey({ ...survey, startDate: ranges.Selection.startDate, endDate: ranges.Selection.endDate });
+    setStartDate(ranges.Selection.startDate);
+    setEndDate(ranges.Selection.endDate);
   };
 
   return (

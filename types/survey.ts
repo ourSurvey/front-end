@@ -20,8 +20,8 @@ export interface IContent {
   id: number;
   openFl: 1 | 0;
   minute: number;
-  startDate: Date;
-  endDate: Date;
+  startDate: Date | string;
+  endDate: Date | string;
   createdDt?: Date;
   hashtagList: null | [];
 }
@@ -39,6 +39,12 @@ export interface ISurveyData {
   hashtag: string[]; //[해시태그 리스트,String 배열],
   sections: ISection[];
 }
+
+export interface CreateSurveyData extends Omit<ISurveyData, 'startDate' | 'endDate'> {
+  startDate: string;
+  endDate: string;
+}
+
 export type SurveyID = `SUVY${number}${string}`;
 export type SectionID = `SCTN${number}${string}`;
 export type QuestionID = `QSTN${number}${string}`;

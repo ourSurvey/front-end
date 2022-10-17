@@ -1,3 +1,4 @@
+import { CreateSurveyData } from './../../types/survey';
 import { ISurveyData } from 'types/survey';
 import gql from 'graphql-tag';
 import ApiClient from 'services/ApiClient';
@@ -31,4 +32,4 @@ export const GET_SURVEY = gql`
 
 export const getTagList = (tagString: string) => api.get(`/hashtag/${tagString}`);
 
-export const createSurvey = (surveyData: ISurveyData) => api.post('/survey', surveyData);
+export const createSurvey = (surveyData: CreateSurveyData) => api.post('/survey', surveyData);

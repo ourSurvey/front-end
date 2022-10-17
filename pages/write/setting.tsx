@@ -75,16 +75,38 @@ export default function Setting() {
     },
   });
 
+  const temporarySurveyHandler = useMutation(createSurvey, {
+    onSuccess: (data) => {
+      if (data.status === 200) {
+        setToastState({
+          text: '임시저장 되었습니다.',
+          toastType: 'success',
+          visible: true,
+        });
+      }
+    },
+    onError: (data: any) => {
+      setToastState({
+        text: data.response?.data.message,
+        toastType: 'error',
+        visible: true,
+      });
+    },
+  });
+
   const createSurveyButton = () => {
     const sendState = deleteIDproperty(state);
     createSurveyHandler.mutate({ ...sendState, id: '', closingComment: `${closinTitle}|${closingComment}`, tempFl: 0 });
-    console.log({ ...sendState, id: '', closingComment: `${closinTitle}|${closingComment}`, tempFl: 0 });
   };
 
   const temporaryStorageHandler = () => {
     const sendState = deleteIDproperty(state);
-    createSurveyHandler.mutate({ ...sendState, id: '', closingComment: `${closinTitle}|${closingComment}`, tempFl: 1 });
-    console.log({ ...sendState, id: '', closingComment: `${closinTitle}|${closingComment}`, tempFl: 1 });
+    temporarySurveyHandler.mutate({
+      ...sendState,
+      id: '',
+      closingComment: `${closinTitle}|${closingComment}`,
+      tempFl: 1,
+    });
   };
 
   if (isLoading) {

@@ -38,7 +38,6 @@ const DatePickerModal = ({ setVisible }: IProps) => {
     setdayWidth(width);
 
     const rdrInRangeList = document.getElementsByClassName('rdrInRange');
-    console.log(rdrInRangeList);
 
     if (rdrInRangeList.length > 0) {
       rdrInRangeList[0].classList.add('leftRange');
@@ -94,7 +93,7 @@ const DatePickerModal = ({ setVisible }: IProps) => {
             fontWeight={400}
             textColor={Common.colors.GY900}
             color="transparent"
-            btnText="임시저장"
+            btnText="취소"
             wUnit="%"
             onClick={() => setVisible(false)}
             width={20}

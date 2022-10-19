@@ -46,6 +46,8 @@ const Index: NextPage = () => {
           text: '입력하신 이메일로 발송된 인증번호를 입력해주세요.',
           toastType: 'error',
           visible: true,
+          marginPosition: 0,
+          hUnit: 'px',
         });
       }
     },
@@ -63,6 +65,8 @@ const Index: NextPage = () => {
         text: '인증번호를 다시 확인해주세요.',
         toastType: 'error',
         visible: true,
+        marginPosition: 0,
+        hUnit: 'px',
       });
     },
   });
@@ -73,6 +77,8 @@ const Index: NextPage = () => {
         text: '회원가입이 완료되었습니다!',
         toastType: 'success',
         visible: true,
+        marginPosition: 0,
+        hUnit: 'px',
       });
       if (data.code === 200) {
         router.push('/onBoarding');

@@ -26,6 +26,7 @@ const Reset = () => {
         visible: true,
         text: '비밀번호가 재설정 되었습니다.',
         toastType: 'success',
+        marginPosition: 0,
       });
       setTimeout(() => {
         router.push('/login');
@@ -37,6 +38,7 @@ const Reset = () => {
         visible: true,
         text: '비밀번호 설정에 실패 했습니다.',
         toastType: 'error',
+        marginPosition: 0,
       });
     },
   });

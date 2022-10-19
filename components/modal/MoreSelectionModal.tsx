@@ -67,6 +67,7 @@ const MoreSelectionModal = ({ setSideModal }: IProps) => {
         text: '질문이 삭제 되었습니다.',
         visible: true,
         toastType: 'success',
+        marginPosition: 0,
       });
     }, 1000);
   };

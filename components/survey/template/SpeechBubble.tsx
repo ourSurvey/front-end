@@ -85,8 +85,8 @@ const BubbleContiner = styled.div<IStyle>`
     position: absolute;
     top: -10px;
     left: calc(50% - 14.5px);
-    border-left: 14.5px solid transparent;
-    border-right: 14.5px solid transparent;
+    border-left: 14.5px solid ${Common.colors.GY900};
+    border-right: 14.5px solid ${Common.colors.GY900};
     border-bottom: 10px solid ${Common.colors.GY900};
   }
 

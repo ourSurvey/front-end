@@ -11,6 +11,8 @@ import { sectionIdListAtom, qusetionIdListAtom } from 'states/surveyIds';
 import { useRecoilCallback, useRecoilState, useRecoilValue } from 'recoil';
 import { QuestionListID, SectionID } from 'types/survey';
 import { PartIDFormat, QuestionListIDFormat } from 'utills/getDateSixth';
+import useAutoScroll from 'hooks/useScroll';
+import useScroll from 'hooks/useScroll';
 
 interface IProps {
   PartNum: number;
@@ -29,6 +31,7 @@ const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
   const lastPart = useRecoilValue(sectionListAtomFamily(PartIDFormat(ListLength)));
   const questionIdList = useRecoilValue(qusetionIdListAtom(SyscodeFormat)); //질문들의 IDList
   const [hideList, setHideList] = useState(true);
+  const { scrollPoint, moveScrollPoint } = useScroll();
   const listRef = useRef<HTMLDivElement>(null);
   const addPart = useRecoilCallback(({ snapshot, set }) => () => {
     const partIds = snapshot.getLoadable(sectionIdListAtom).getValue();
@@ -45,6 +48,7 @@ const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
       ...questionIds,
       QuestionListIDFormat(Number(lastNumber) + 1),
     ] as QuestionListID[]);
+    moveScrollPoint();
   });
 
   const foldList = () => {
@@ -108,6 +112,7 @@ const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
           질문 추가
         </button>
       </PartButtonContainer>
+      {scrollPoint}
     </PartContainer>
   );
 };

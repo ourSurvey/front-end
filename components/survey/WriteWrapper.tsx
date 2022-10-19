@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Common, SpaceBetween } from 'styles/common';
 import PartSpeechContainer from 'components/survey/template/PartSpeechContainer';
-import { memo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { sectionIdListAtom } from 'states/surveyIds';
 import { useRecoilValue } from 'recoil';
 import Link from 'next/link';
@@ -9,6 +9,7 @@ import { Button } from 'components/common/Button';
 import Portal from 'components/common/Portal';
 import MoreSideModal from 'components/modal/MoreSideModal';
 import { disableNextButtonState } from 'states/survey';
+import useScroll from 'hooks/useScroll';
 interface IProps {
   scrollDetectHandler: (e: any) => void;
 }
@@ -17,6 +18,11 @@ const WriteWrapper = ({ scrollDetectHandler }: IProps) => {
   const [visibleMore, setVisibleMore] = useState(false);
   const partIdList = useRecoilValue(sectionIdListAtom);
   const survey = useRecoilValue(disableNextButtonState);
+  const { scrollPoint, moveScrollPoint } = useScroll();
+
+  useEffect(() => {
+    moveScrollPoint();
+  }, [partIdList]);
 
   return (
     <>
@@ -32,6 +38,7 @@ const WriteWrapper = ({ scrollDetectHandler }: IProps) => {
             />
           );
         })}
+        {scrollPoint}
       </PartSectionContainer>
       <BtnContainer>
         <Button

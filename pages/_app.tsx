@@ -26,15 +26,15 @@ declare global {
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const [queryClient] = useState(() => new QueryClient());
 
-  // useEffect(() => {
-  //   if (window.Kakao) {
-  //     const kakao = window.Kakao;
+  useEffect(() => {
+    if (window.Kakao) {
+      const kakao = window.Kakao;
 
-  //     if (!kakao.isInitialized()) {
-  //       window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO);
-  //     }
-  //   }
-  // }, []);
+      if (!kakao.isInitialized()) {
+        window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO);
+      }
+    }
+  }, []);
 
   const getLayout = Component.getLayout || ((page) => <Layout>{page}</Layout>);
 

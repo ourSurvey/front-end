@@ -89,10 +89,10 @@ const ShareBody = ({ setVisible }: Props) => {
   const onShareButton = () => {
     console.log(window.Kakao.Share);
 
-    // // window.Kakao.Share.sendScrap({
-    // //   requestUrl: 'https://developers.kakao.com',
-    // //   templateId: 84445,
-    // // });
+    window.Kakao.Share.sendScrap({
+      requestUrl: 'https://developers.kakao.com',
+      templateId: 84445,
+    });
     // window.Kakao.Share.createScrapButton({
     //   container: '#kakaotalk-sharing-btn',
     //   requestUrl: 'https://developers.kakao.com',

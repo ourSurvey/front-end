@@ -3,7 +3,6 @@ import { ISurveyData } from 'types/survey';
 //빈칸이 있으면 true
 export const isHaveBlankColumn = (survey: ISurveyData) => {
   let bool = false;
-  console.log(survey);
 
   for (let i = 0; i < survey.sections.length; i++) {
     for (let j = 0; j < survey.sections[i].questions.length; j++) {

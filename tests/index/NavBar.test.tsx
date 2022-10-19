@@ -10,8 +10,6 @@ describe('네브바 테스트', () => {
   test('네브바에는 홈, 서베이, 나의 서베이, 더보기가 있어야 한다.', () => {
     render(<NavBar />);
     const { result } = renderHook(() => useRouter());
-    console.log(result);
-
     const home = screen.getByText('홈');
     const survey = screen.getByText('서베이');
     const mySurvey = screen.getByText('나의 서베이');

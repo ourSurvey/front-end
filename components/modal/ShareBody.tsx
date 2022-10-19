@@ -86,6 +86,20 @@ const ShareBody = ({ setVisible }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const onShareButton = () => {
+    console.log(window.Kakao.Share);
+
+    // // window.Kakao.Share.sendScrap({
+    // //   requestUrl: 'https://developers.kakao.com',
+    // //   templateId: 84445,
+    // // });
+    // window.Kakao.Share.createScrapButton({
+    //   container: '#kakaotalk-sharing-btn',
+    //   requestUrl: 'https://developers.kakao.com',
+    //   templateId: 84445,
+    // });
+  };
+
   return (
     <>
       <Absolute>
@@ -95,7 +109,7 @@ const ShareBody = ({ setVisible }: Props) => {
       <IconContainer>
         <div className="center">
           <div className="icons">
-            <Kakao />
+            <Kakao onClick={onShareButton} />
             <Insta />
           </div>
           <Button

@@ -8,7 +8,7 @@ import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { NextPage } from 'next';
 import DebugObserver from 'components/common/DebugObserver';
 import Head from 'next/head';
-
+import { useEffect } from 'react';
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
@@ -17,8 +17,24 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
+
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const [queryClient] = useState(() => new QueryClient());
+
+  useEffect(() => {
+    if (window.Kakao) {
+      const kakao = window.Kakao;
+
+      if (!kakao.isInitialized()) {
+        window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO);
+      }
+    }
+  }, []);
 
   const getLayout = Component.getLayout || ((page) => <Layout>{page}</Layout>);
 

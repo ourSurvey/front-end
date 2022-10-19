@@ -27,6 +27,7 @@ const Index = () => {
         visible: true,
         text: '로그인에 성공했습니다!',
         toastType: 'success',
+        marginPosition: 55,
       });
       setTimeout(() => {
         router.push('/');
@@ -41,6 +42,7 @@ const Index = () => {
           visible: true,
           text: '등록되지 않은 아이디입니다.',
           toastType: 'error',
+          marginPosition: 55,
         });
       } else if (data.response.data.code === 403) {
         setToastState({
@@ -48,6 +50,7 @@ const Index = () => {
           visible: true,
           text: '비밀번호를 잘못 입력했습니다.',
           toastType: 'error',
+          marginPosition: 55,
         });
       } else {
         setToastState({
@@ -55,6 +58,7 @@ const Index = () => {
           visible: true,
           text: '일시적인 오류로 로그인을 할 수 없습니다. 잠시 후 다시 이용해주세요.',
           toastType: 'error',
+          marginPosition: 55,
         });
       }
     },

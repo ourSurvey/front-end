@@ -63,6 +63,8 @@ export default function Setting() {
           text: '설문이 정상적으로 생성되었습니다!',
           toastType: 'success',
           visible: true,
+          marginPosition: 35,
+          hUnit: 'px',
         });
       }
     },
@@ -71,6 +73,8 @@ export default function Setting() {
         text: data.response?.data.message,
         toastType: 'error',
         visible: true,
+        marginPosition: 35,
+        hUnit: 'px',
       });
     },
   });

@@ -30,7 +30,7 @@ const Alert = () => {
     visibility: ${visible ? `visible` : 'hidden'};
     animation: ${visible ? fadein : fadeout} 0.2s ease-out;
     transition: visibility 0.2s ease-out;
-    margin-bottom: ${hasNavbar(router.asPath) ? '27px' : ''}; //nav바가 있다면 알럿 위치 위로 올림
+    margin-bottom: ${ToastState.marginPosition}${ToastState.hUnit}; //nav바가 있다면 알럿 위치 위로 올림
     padding: 21.5px 20px 35px 20px;
     left: 0;
     right: 0;

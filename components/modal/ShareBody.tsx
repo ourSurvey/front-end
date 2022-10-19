@@ -19,8 +19,6 @@ const ShareBody = ({ setVisible }: Props) => {
   const surveyUrl: string = `${process.env.NEXT_PUBLIC_URL}${router.asPath}`;
 
   const handleCopy = useCallback(() => {
-    console.log('버튼클릭');
-
     if (navigator.clipboard) {
       // (IE는 사용 못하고, 크롬은 66버전 이상일때 사용 가능합니다.)
       navigator.clipboard
@@ -33,6 +31,7 @@ const ShareBody = ({ setVisible }: Props) => {
             visible: true,
             text: '클립보드에 복사되었습니다.',
             toastType: 'success',
+            marginPosition: 0,
           });
         })
         .catch(() => {
@@ -42,6 +41,7 @@ const ShareBody = ({ setVisible }: Props) => {
             visible: true,
             text: '복사를 다시 시도해주세요.',
             toastType: 'error',
+            marginPosition: 0,
           });
         });
     } else {
@@ -53,6 +53,7 @@ const ShareBody = ({ setVisible }: Props) => {
           visible: true,
           text: '복사하기가 지원되지 않는 브라우저입니다.',
           toastType: 'error',
+          marginPosition: 0,
         });
       }
 
@@ -79,6 +80,7 @@ const ShareBody = ({ setVisible }: Props) => {
         visible: true,
         text: '클립보드에 복사되었습니다.',
         toastType: 'success',
+        marginPosition: 0,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

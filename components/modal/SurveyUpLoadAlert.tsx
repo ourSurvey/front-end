@@ -1,14 +1,58 @@
 import styled from '@emotion/styled';
-
+import { useMutation } from 'react-query';
 import { Pretendard, Common, SpaceBetween, AlignAndJustifyCenter } from 'styles/common';
+import { deleteIDproperty } from 'utills/deleteIdProperty';
+import { createSurvey } from 'services/api/survey';
 import Coin from 'public/icon/gold-coin.svg';
+import { ISurveyData } from 'types/survey';
 type Props = {
   setVisible: (bool: boolean) => void;
-  upload: () => void;
   point: number;
+  setToastState: (data: any) => void;
+  state: ISurveyData;
+  setShowModal: (bool: boolean) => void;
+  closinTitle: string;
+  closingComment: string;
 };
 
-const SurveyUpLoadAlert = ({ setVisible, upload, point }: Props) => {
+const SurveyUpLoadAlert = ({
+  setVisible,
+  point,
+  setToastState,
+  state,
+  setShowModal,
+  closinTitle,
+  closingComment,
+}: Props) => {
+  const createSurveyHandler = useMutation(createSurvey, {
+    onSuccess: (data) => {
+      if (data.status === 200) {
+        setShowModal(false);
+        setToastState({
+          text: '설문이 정상적으로 생성되었습니다!',
+          toastType: 'success',
+          visible: true,
+          marginPosition: 55,
+          hUnit: 'px',
+        });
+      }
+    },
+    onError: (data: any) => {
+      setToastState({
+        text: data.response?.data.message,
+        toastType: 'error',
+        visible: true,
+        marginPosition: 0,
+        hUnit: 'px',
+      });
+    },
+  });
+
+  const createSurveyButton = () => {
+    const sendState = deleteIDproperty(state);
+    createSurveyHandler.mutate({ ...sendState, id: '', closingComment: `${closinTitle}|${closingComment}`, tempFl: 0 });
+  };
+
   return (
     <Confirm>
       <h1>설문을 업로드하시겠어요?</h1>
@@ -21,7 +65,7 @@ const SurveyUpLoadAlert = ({ setVisible, upload, point }: Props) => {
       </Container>
       <div className="btn-container">
         <button onClick={() => setVisible(false)}>취소</button>
-        <button className="del" onClick={upload}>
+        <button className="del" onClick={createSurveyButton}>
           업로드
         </button>
       </div>

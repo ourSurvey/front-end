@@ -46,6 +46,8 @@ const SettingWrapper = () => {
           text: '설문이 정상적으로 생성되었습니다!',
           toastType: 'success',
           visible: true,
+          marginPosition: 0,
+          hUnit: 'px',
         });
       }
     },
@@ -54,6 +56,8 @@ const SettingWrapper = () => {
         text: data.response?.data.message,
         toastType: 'error',
         visible: true,
+        marginPosition: 0,
+        hUnit: 'px',
       });
     },
   });
@@ -70,6 +74,8 @@ const SettingWrapper = () => {
           text: '임시저장 되었습니다.',
           toastType: 'success',
           visible: true,
+          marginPosition: 0,
+          hUnit: 'px',
         });
       }
     },
@@ -78,6 +84,8 @@ const SettingWrapper = () => {
         text: data.response?.data.message,
         toastType: 'error',
         visible: true,
+        marginPosition: 0,
+        hUnit: 'px',
       });
     },
   });

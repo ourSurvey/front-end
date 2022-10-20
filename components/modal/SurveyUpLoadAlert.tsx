@@ -4,26 +4,19 @@ import { Pretendard, Common, SpaceBetween, AlignAndJustifyCenter } from 'styles/
 import { deleteIDproperty } from 'utills/deleteIdProperty';
 import { createSurvey } from 'services/api/survey';
 import Coin from 'public/icon/gold-coin.svg';
-import { ISurveyData } from 'types/survey';
+import { surveySelector } from 'states/survey';
+import { useRecoilValue } from 'recoil';
 type Props = {
   setVisible: (bool: boolean) => void;
   point: number;
   setToastState: (data: any) => void;
-  state: ISurveyData;
   setShowModal: (bool: boolean) => void;
   closinTitle: string;
   closingComment: string;
 };
 
-const SurveyUpLoadAlert = ({
-  setVisible,
-  point,
-  setToastState,
-  state,
-  setShowModal,
-  closinTitle,
-  closingComment,
-}: Props) => {
+const SurveyUpLoadAlert = ({ setVisible, point, setToastState, setShowModal, closinTitle, closingComment }: Props) => {
+  const state = useRecoilValue(surveySelector);
   const createSurveyHandler = useMutation(createSurvey, {
     onSuccess: (data) => {
       if (data.status === 200) {

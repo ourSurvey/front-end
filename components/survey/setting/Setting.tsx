@@ -7,26 +7,59 @@ import TImeTaken from 'components/survey/setting/TImeTaken';
 import AddTag from 'components/survey/setting/AddTag';
 import ShareResult from 'components/survey/setting/ShareResult';
 import CommentRespondent from 'components/survey/setting/CommentRespondent';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
+import { toastState } from 'states/modal';
 import CreateSurveyHeader from 'components/survey/CreateSurveyHeader';
 import { useHeaderScroll } from 'hooks/useHeaderScroll';
+import { createSurvey } from 'services/api/survey';
+import { deleteIDproperty } from 'utills/deleteIdProperty';
+import { useMutation } from 'react-query';
+import { surveySelector } from 'states/survey';
+
 interface IProps {
   setShowModal: (bool: boolean) => void;
   closinTitle: string;
   setClosinTitle: (text: string) => void;
   closingComment: string;
   setclosingComment: (text: string) => void;
-  temporaryStorageHandler: () => void;
 }
 
-const Setting = ({
-  setShowModal,
-  closinTitle,
-  setClosinTitle,
-  setclosingComment,
-  closingComment,
-  temporaryStorageHandler,
-}: IProps) => {
+const Setting = ({ setShowModal, closinTitle, setClosinTitle, setclosingComment, closingComment }: IProps) => {
   const { hide, scrollDetectHandler } = useHeaderScroll();
+  const setToastState = useSetRecoilState(toastState);
+  const state = useRecoilValue(surveySelector);
+  const temporarySurveyHandler = useMutation(createSurvey, {
+    onSuccess: (data) => {
+      if (data.status === 200) {
+        setToastState({
+          text: '임시저장 되었습니다.',
+          toastType: 'success',
+          visible: true,
+          marginPosition: 55,
+          hUnit: 'px',
+        });
+      }
+    },
+    onError: (data: any) => {
+      setToastState({
+        text: data.response?.data.message,
+        toastType: 'error',
+        visible: true,
+        marginPosition: 0,
+        hUnit: 'px',
+      });
+    },
+  });
+
+  const temporaryStorageHandler = () => {
+    const sendState = deleteIDproperty(state);
+    temporarySurveyHandler.mutate({
+      ...sendState,
+      id: '',
+      closingComment: `${closinTitle}|${closingComment}`,
+      tempFl: 1,
+    });
+  };
 
   return (
     <SettingPage>

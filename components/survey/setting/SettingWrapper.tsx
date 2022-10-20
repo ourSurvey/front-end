@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { getMyPoint } from 'services/api/point';
-import { useMutation } from 'react-query';
 import { Common, Pretendard } from 'styles/common';
-import { createSurvey } from 'services/api/survey';
-import { deleteIDproperty } from 'utills/deleteIdProperty';
-import { useSetRecoilState, useRecoilValue } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { toastState } from 'states/modal';
-import { surveySelector } from 'states/survey';
 import styled from '@emotion/styled';
 import Setting from './Setting';
 import Portal from 'components/common/Portal';
@@ -33,44 +29,10 @@ const SettingWrapper = () => {
   const [closinTitle, setClosinTitle] = useState('설문이 종료되었습니다');
   const [closingComment, setclosingComment] = useState('응답해주셔서 감사합니다.');
   const setToastState = useSetRecoilState(toastState);
-  const state = useRecoilValue(surveySelector);
   const { isLoading, data } = useQuery(['point'], () => getMyPoint(), {
     refetchOnWindowFocus: false,
     staleTime: Infinity,
   });
-
-  const temporarySurveyHandler = useMutation(createSurvey, {
-    onSuccess: (data) => {
-      if (data.status === 200) {
-        setToastState({
-          text: '임시저장 되었습니다.',
-          toastType: 'success',
-          visible: true,
-          marginPosition: 0,
-          hUnit: 'px',
-        });
-      }
-    },
-    onError: (data: any) => {
-      setToastState({
-        text: data.response?.data.message,
-        toastType: 'error',
-        visible: true,
-        marginPosition: 0,
-        hUnit: 'px',
-      });
-    },
-  });
-
-  const temporaryStorageHandler = () => {
-    const sendState = deleteIDproperty(state);
-    temporarySurveyHandler.mutate({
-      ...sendState,
-      id: '',
-      closingComment: `${closinTitle}|${closingComment}`,
-      tempFl: 1,
-    });
-  };
 
   if (isLoading) {
     return (
@@ -92,7 +54,6 @@ const SettingWrapper = () => {
         setShowModal={setShowModal}
         closinTitle={closinTitle}
         closingComment={closingComment}
-        temporaryStorageHandler={temporaryStorageHandler}
         setclosingComment={setclosingComment}
         setClosinTitle={setClosinTitle}
       />
@@ -104,7 +65,6 @@ const SettingWrapper = () => {
         ) : (
           <ModalTemplate visibleState={showModal} setVisible={setShowModal} height={25}>
             <SurveyUpLoadAlert
-              state={state}
               setToastState={setToastState}
               setShowModal={setShowModal}
               setVisible={setShowModal}

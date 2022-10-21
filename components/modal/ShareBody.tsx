@@ -11,9 +11,11 @@ import { Button } from 'components/common/Button';
 
 type Props = {
   setVisible: (bool: boolean) => void;
+  title: string;
+  content: string;
 };
 
-const ShareBody = ({ setVisible }: Props) => {
+const ShareBody = ({ setVisible, title, content }: Props) => {
   const [ToastState, setToastState] = useRecoilState(toastState);
   const router = useRouter();
   const surveyUrl: string = `${process.env.NEXT_PUBLIC_URL}${router.asPath}`;
@@ -89,9 +91,13 @@ const ShareBody = ({ setVisible }: Props) => {
   const onShareButton = () => {
     console.log(window.Kakao.Share);
 
-    window.Kakao.Share.sendScrap({
-      requestUrl: 'https://developers.kakao.com',
+    window.Kakao.Share.sendCustom({
       templateId: 84445,
+      templateArgs: {
+        title: title,
+        description: content,
+        url: window.location.href,
+      },
     });
     // window.Kakao.Share.createScrapButton({
     //   container: '#kakaotalk-sharing-btn',

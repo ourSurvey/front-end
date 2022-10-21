@@ -80,7 +80,7 @@ const SurveyId = ({ dehydratedState }: IProps) => {
 
       <Portal selector="#portal">
         <ModalTemplate height={25} visibleState={showShare} setVisible={setshowShare}>
-          <ShareBody setVisible={setshowShare} />
+          <ShareBody title={data.data.data.subject} content={data.data.data.content} setVisible={setshowShare} />
         </ModalTemplate>
       </Portal>
     </Detail>

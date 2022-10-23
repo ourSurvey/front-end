@@ -88,7 +88,7 @@ const NavBar = () => {
             <PhoneSurvey
               width={25}
               height={27}
-              selected={router.asPath === '/mypage' ? Common.colors.BL500 : Common.colors.GY900}
+              selected={router.asPath === '/mySurvey' ? Common.colors.BL500 : Common.colors.GY900}
             />
             {/* <PhoneSurvey width="30" height="27" stroke="blue" /> */}
             <Span>나의 서베이</Span>

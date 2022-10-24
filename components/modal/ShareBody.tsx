@@ -31,7 +31,8 @@ const ShareBody = ({ setVisible }: Props) => {
             visible: true,
             text: '클립보드에 복사되었습니다.',
             toastType: 'success',
-            marginPosition: 0,
+            marginPosition: 50,
+            hUnit: '%',
           });
         })
         .catch(() => {
@@ -41,7 +42,8 @@ const ShareBody = ({ setVisible }: Props) => {
             visible: true,
             text: '복사를 다시 시도해주세요.',
             toastType: 'error',
-            marginPosition: 0,
+            marginPosition: 50,
+            hUnit: '%',
           });
         });
     } else {
@@ -53,7 +55,8 @@ const ShareBody = ({ setVisible }: Props) => {
           visible: true,
           text: '복사하기가 지원되지 않는 브라우저입니다.',
           toastType: 'error',
-          marginPosition: 0,
+          marginPosition: 50,
+          hUnit: '%',
         });
       }
 
@@ -80,7 +83,8 @@ const ShareBody = ({ setVisible }: Props) => {
         visible: true,
         text: '클립보드에 복사되었습니다.',
         toastType: 'success',
-        marginPosition: 0,
+        marginPosition: 50,
+        hUnit: '%',
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -92,6 +96,11 @@ const ShareBody = ({ setVisible }: Props) => {
     window.Kakao.Share.sendScrap({
       requestUrl: 'https://developers.kakao.com',
       templateId: 84445,
+      templateArgs: {
+        title: '카카오 공유 API에서 title,description 동적으로 설정하는 방법',
+        desc: 'templateArgs에서 설정한 값을 템플릿에 ${title} 형태로 입력합니다.',
+        url: window.location.href,
+      },
     });
     // window.Kakao.Share.createScrapButton({
     //   container: '#kakaotalk-sharing-btn',

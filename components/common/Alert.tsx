@@ -82,6 +82,7 @@ const Error = styled.div`
   box-shadow: 0px 4px 8px rgba(94, 93, 139, 0.14);
   border-radius: 30px;
   ${Pretendard({ font: 1.3, weight: 700, color: Common.colors.GY900 })}
+  background-color: #fff
 `;
 
 const Success = styled.div`
@@ -92,4 +93,5 @@ const Success = styled.div`
   box-shadow: 0px 4px 8px rgba(94, 93, 139, 0.14);
   border-radius: 30px;
   ${Pretendard({ font: 1.3, weight: 700, color: Common.colors.GY900 })}
+  background-color: #fff
 `;

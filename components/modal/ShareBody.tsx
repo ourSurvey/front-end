@@ -33,7 +33,8 @@ const ShareBody = ({ setVisible, title, content }: Props) => {
             visible: true,
             text: '클립보드에 복사되었습니다.',
             toastType: 'success',
-            marginPosition: 0,
+            marginPosition: 50,
+            hUnit: '%',
           });
         })
         .catch(() => {
@@ -43,7 +44,8 @@ const ShareBody = ({ setVisible, title, content }: Props) => {
             visible: true,
             text: '복사를 다시 시도해주세요.',
             toastType: 'error',
-            marginPosition: 0,
+            marginPosition: 50,
+            hUnit: '%',
           });
         });
     } else {
@@ -55,7 +57,8 @@ const ShareBody = ({ setVisible, title, content }: Props) => {
           visible: true,
           text: '복사하기가 지원되지 않는 브라우저입니다.',
           toastType: 'error',
-          marginPosition: 0,
+          marginPosition: 50,
+          hUnit: '%',
         });
       }
 
@@ -82,7 +85,8 @@ const ShareBody = ({ setVisible, title, content }: Props) => {
         visible: true,
         text: '클립보드에 복사되었습니다.',
         toastType: 'success',
-        marginPosition: 0,
+        marginPosition: 50,
+        hUnit: '%',
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

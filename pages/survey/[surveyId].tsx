@@ -25,6 +25,7 @@ export const getServerSideProps = async (context: any) => {
 
 const SurveyId = ({ dehydratedState }: IProps) => {
   const data: any = dehydratedState.queries[0].state.data;
+
   const [showShare, setshowShare] = useState(false);
   const returnDate = (): string => {
     const today = new Date();
@@ -80,7 +81,12 @@ const SurveyId = ({ dehydratedState }: IProps) => {
 
       <Portal selector="#portal">
         <ModalTemplate height={25} visibleState={showShare} setVisible={setshowShare}>
-          <ShareBody title={data.data.data.subject} content={data.data.data.content} setVisible={setshowShare} />
+          <ShareBody
+            id={data.data.data.id}
+            title={data.data.data.subject}
+            content={data.data.data.content}
+            setVisible={setshowShare}
+          />
         </ModalTemplate>
       </Portal>
     </Detail>

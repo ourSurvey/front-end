@@ -13,9 +13,10 @@ type Props = {
   setVisible: (bool: boolean) => void;
   title: string;
   content: string;
+  id: any;
 };
 
-const ShareBody = ({ setVisible, title, content }: Props) => {
+const ShareBody = ({ setVisible, title, content, id }: Props) => {
   const [ToastState, setToastState] = useRecoilState(toastState);
   const router = useRouter();
   const surveyUrl: string = `${process.env.NEXT_PUBLIC_URL}${router.asPath}`;
@@ -93,21 +94,14 @@ const ShareBody = ({ setVisible, title, content }: Props) => {
   }, []);
 
   const onShareButton = () => {
-    console.log(window.Kakao.Share);
-
     window.Kakao.Share.sendCustom({
       templateId: 84445,
       templateArgs: {
         title: title,
-        description: content,
-        url: window.location.href,
+        desc: content,
+        url: `/survey/${id}`,
       },
     });
-    // window.Kakao.Share.createScrapButton({
-    //   container: '#kakaotalk-sharing-btn',
-    //   requestUrl: 'https://developers.kakao.com',
-    //   templateId: 84445,
-    // });
   };
 
   return (

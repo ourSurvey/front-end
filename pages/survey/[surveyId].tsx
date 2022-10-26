@@ -1,14 +1,14 @@
 import surveyService from 'services/survey.service';
 import { QueryClient, dehydrate, DehydratedState } from 'react-query';
 import styled from '@emotion/styled';
-import { Pretendard, Common, SpaceBetween } from 'styles/common';
+import { Pretendard, Common, SpaceBetween, AlignAndJustifyCenter } from 'styles/common';
 import { Button } from 'components/common/Button';
 import { useState } from 'react';
 import SearchHeader from 'components/common/SearchHeader';
 import Portal from 'components/common/Portal';
 import ModalTemplate from 'components/modal/ModalTemplate';
 import ShareBody from 'components/modal/ShareBody';
-
+import Share from 'public/icon/share.svg';
 interface IProps {
   dehydratedState: DehydratedState;
 }
@@ -72,8 +72,10 @@ const SurveyId = ({ dehydratedState }: IProps) => {
           className="share-btn"
           onClick={() => setshowShare(true)}
           isDisabled={false}
+          wUnit="%"
+          width={20}
           textColor={Common.colors.GY900}
-          btnText="공유하기"
+          btnText={<Share />}
           color="transparent"
         />
         <Button isDisabled={false} textColor="#fff" btnText="설문 참여하기" color={Common.colors.BL500} />
@@ -158,9 +160,13 @@ const BtnContainer = styled.div`
   bottom: 0;
   & button {
     &:first-of-type {
-      width: 40%;
       margin-right: 10px;
+      ${AlignAndJustifyCenter()};
       border: 1px solid ${Common.colors.GY900};
+
+      & span {
+        ${AlignAndJustifyCenter()};
+      }
     }
     &:last-child {
       box-shadow: 0px 6px 6px rgba(124, 113, 255, 0.25);

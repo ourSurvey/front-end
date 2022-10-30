@@ -26,7 +26,7 @@ const SearchHeader = (props: Props) => {
       <Span hasBack={hasBack} hasSearch={hasSearch}>
         {name}
       </Span>
-      <SvgPosition>{hasSearch ? <Search /> : null}</SvgPosition>
+      <SvgPosition>{hasSearch ? <Search onClick={() => router.push('/survey/search')} /> : null}</SvgPosition>
     </Header>
   );
 };

@@ -20,11 +20,30 @@ export default class RecentSearch extends Storage<Search> {
   }
 
   public getSearches() {
+    const list = this.get(Search.RECENT_SEARCH);
+    if (!list) {
+      return JSON.stringify([]);
+    }
     return this.get(Search.RECENT_SEARCH);
   }
 
   public setSearches(value: string) {
-    this.set(Search.RECENT_SEARCH, value);
+    const localData = this.getSearches();
+    const searchData = localData ? JSON.parse(localData as string) : [];
+    const newList = [...new Set([value, ...searchData])]; //중복 값 제거
+    if (searchData.length > 30) {
+      searchData.pop();
+      this.set(Search.RECENT_SEARCH, JSON.stringify([value, ...searchData]));
+    } else {
+      this.set(Search.RECENT_SEARCH, JSON.stringify(newList));
+    }
+  }
+
+  public deleteSearch(value: string) {
+    const localData = this.getSearches();
+    const searchData = localData ? JSON.parse(localData as string) : [];
+    const newList = searchData.filter((item: string) => item !== value);
+    this.set(Search.RECENT_SEARCH, JSON.stringify(newList));
   }
 
   public clear() {

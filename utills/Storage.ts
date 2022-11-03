@@ -1,5 +1,5 @@
 interface IStorage {
-  getItem(key: string): string | null;
+  getItem(key: string): string | string[] | null;
   setItem(key: string, value: string): void;
   removeItem(key: string): void;
 }
@@ -11,7 +11,7 @@ export default abstract class Storage<T extends string> {
     this.storage = getStorage();
   }
 
-  protected get(key: T): string | [] | null {
+  protected get(key: T): string | string[] | null {
     return this.storage.getItem(key);
   }
 

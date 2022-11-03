@@ -3,17 +3,16 @@ import { useRecoilState } from 'recoil';
 import { tagState } from 'states/tag';
 import { Common, Pretendard } from 'styles/common';
 import styled from '@emotion/styled';
-
 interface Iprops {
   text: string;
 }
 
 const Chip = ({ text }: Iprops) => {
   const [TagState, setTagState] = useRecoilState(tagState);
-
   const deleteTagHandler = () => {
     setTagState(TagState.filter((item) => item !== text));
   };
+
   return (
     <ChipStyle>
       #&nbsp;{text}

@@ -32,7 +32,15 @@ const Search = () => {
     if (e.key === 'Enter') {
       research.setSearches(searchText);
       onReset();
+      onSendSearchText();
     }
+  };
+
+  const onSendSearchText = () => {
+    router.push({
+      pathname: '/survey',
+      query: { searchText: searchText },
+    });
   };
 
   return (

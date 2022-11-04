@@ -30,7 +30,11 @@ const Placeholder: React.FC = () => (
   </ItemContainer>
 );
 
-const SurveyContainer = () => {
+interface IProps {
+  searchText: string;
+}
+
+const SurveyContainer = ({ searchText = '' }: IProps) => {
   const bottom = useRef(null);
   const {
     data, //data.pages를 갖고 있는 배열
@@ -46,6 +50,7 @@ const SurveyContainer = () => {
       return {
         page: pageParam,
         size: 5,
+        searchText: searchText,
       };
     },
     {

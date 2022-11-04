@@ -5,8 +5,8 @@ import ApiClient from 'services/ApiClient';
 
 const api = new ApiClient();
 export const GET_SURVEY = gql`
-  query ($page: Int!, $size: Int!) {
-    getSurveyToPage(page: $page, size: $size) {
+  query ($page: Int!, $size: Int!, $searchText: String) {
+    getSurveyToPage(page: $page, size: $size, searchText: $searchText) {
       code
       message
       data {

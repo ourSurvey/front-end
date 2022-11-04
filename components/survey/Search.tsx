@@ -10,33 +10,33 @@ import ShowSearchList from 'components/survey/template/ShowSearchList';
 
 interface IStyle {
   inputFocus?: boolean;
-  tag: string;
+  searchText: string;
 }
 
 const Search = () => {
   const router = useRouter();
   const research = RecentSearch.getInstance();
-  const [tag, setTag] = useState('');
+  const [searchText, setSearchText] = useState('');
   const [inputFocus, setinputFocus] = useState(false);
   const refs = useRef<HTMLInputElement>(null);
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTag(e.target.value);
+    setSearchText(e.target.value);
   };
 
   const onReset = () => {
-    setTag('');
+    setSearchText('');
     refs.current && refs.current.focus();
   };
 
   const addTagHandler = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      research.setSearches(tag);
+      research.setSearches(searchText);
       onReset();
     }
   };
 
   return (
-    <Container tag={tag}>
+    <Container searchText={searchText}>
       <Header>
         <SvgPosition>
           <Prev width="20" height="16" onClick={() => router.back()} />
@@ -45,26 +45,26 @@ const Search = () => {
         <Save></Save>
       </Header>
 
-      <InputContainer inputFocus={inputFocus} tag={tag}>
+      <InputContainer inputFocus={inputFocus} searchText={searchText}>
         <input
           onKeyUp={addTagHandler}
           ref={refs}
-          id="tag-input"
+          id="searchText-input"
           type="text"
           placeholder="검색어를 입력해주세요"
           onChange={(e) => onChangeHandler(e)}
           onBlur={() => setinputFocus(false)}
           onFocus={() => setinputFocus(true)}
-          value={tag}
+          value={searchText}
         />
-        <SearchSvg onClick={onReset} />
+        <SearchSvg onClick={onSendSearchText} />
       </InputContainer>
 
       <CountContainer>
         <span className="maximun">최근 검색</span>
       </CountContainer>
 
-      {tag !== '' ? <RecentSearchList inputValue={tag} onReset={onReset} /> : <ShowSearchList />}
+      {searchText !== '' ? <RecentSearchList inputValue={searchText} onReset={onReset} /> : <ShowSearchList />}
     </Container>
   );
 };
@@ -78,8 +78,8 @@ const Container = styled.main<IStyle>`
     border: 1px solid ${Common.colors.GY300};
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
-    border-top-right-radius: ${(props) => (props.tag !== '' ? 0 : 10)}px;
-    border-bottom-right-radius: ${(props) => (props.tag !== '' ? 0 : 10)}px;
+    border-top-right-radius: ${(props) => (props.searchText !== '' ? 0 : 10)}px;
+    border-bottom-right-radius: ${(props) => (props.searchText !== '' ? 0 : 10)}px;
     height: 46px;
     width: 100%;
     ${Pretendard({ font: 1.4, weight: 400, color: Common.colors.GY900 })}
@@ -145,7 +145,7 @@ const InputContainer = styled.div<IStyle>`
     transform: translateY(-50%);
   }
   & button {
-    display: ${(props) => (props.tag !== '' ? 'block' : 'none')};
+    display: ${(props) => (props.searchText !== '' ? 'block' : 'none')};
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
 
@@ -156,8 +156,4 @@ const InputContainer = styled.div<IStyle>`
     ${Pretendard({ font: 1.4, weight: 700, color: Common.colors.BL500 })};
     line-height: 150%;
   }
-`;
-
-const ErrorMessage = styled.span`
-  ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.alert500 })}
 `;

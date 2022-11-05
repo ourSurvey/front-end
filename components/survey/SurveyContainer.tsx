@@ -31,7 +31,7 @@ const Placeholder: React.FC = () => (
 );
 
 interface IProps {
-  searchText: string;
+  searchText?: string;
 }
 
 const SurveyContainer = ({ searchText = '' }: IProps) => {

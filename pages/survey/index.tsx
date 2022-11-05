@@ -3,11 +3,10 @@ import SearchHeader from 'components/common/SearchHeader';
 import { Common, Pretendard } from 'styles/common';
 import SurveyContainer from 'components/survey/SurveyContainer';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 
 const Index = () => {
   const [sectionHeight, setSectionHeight] = useState<number | undefined>(0);
-  const router = useRouter();
+
   useEffect(() => {
     const height = document.getElementById('section1')?.getBoundingClientRect().top;
     setSectionHeight(height);
@@ -16,8 +15,6 @@ const Index = () => {
   const Section = styled.section`
     height: calc(100% - ${sectionHeight}px);
   `;
-
-  console.log(router.query);
 
   return (
     <SurContainer>
@@ -29,7 +26,7 @@ const Index = () => {
       </Title>
 
       <Section id="section1">
-        <SurveyContainer searchText={router.query?.searchText as string} />
+        <SurveyContainer />
       </Section>
     </SurContainer>
   );

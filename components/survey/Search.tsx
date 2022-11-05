@@ -32,15 +32,7 @@ const Search = () => {
     if (e.key === 'Enter') {
       research.setSearches(searchText);
       onReset();
-      onSendSearchText();
     }
-  };
-
-  const onSendSearchText = () => {
-    router.push({
-      pathname: '/survey',
-      query: { searchText: searchText },
-    });
   };
 
   return (
@@ -65,14 +57,19 @@ const Search = () => {
           onFocus={() => setinputFocus(true)}
           value={searchText}
         />
-        <SearchSvg onClick={onSendSearchText} />
+        <SearchSvg />
       </InputContainer>
 
-      <CountContainer>
-        <span className="maximun">최근 검색</span>
-      </CountContainer>
-
-      {searchText !== '' ? <RecentSearchList inputValue={searchText} onReset={onReset} /> : <ShowSearchList />}
+      {searchText !== '' ? (
+        <RecentSearchList inputValue={searchText} onReset={onReset} />
+      ) : (
+        <>
+          <CountContainer>
+            <span className="maximun">최근 검색</span>
+          </CountContainer>
+          <ShowSearchList />
+        </>
+      )}
     </Container>
   );
 };
@@ -126,7 +123,6 @@ const SvgPosition = styled.div`
 `;
 
 const CountContainer = styled.div`
-  margin-top: 14px;
   margin-bottom: 24px;
   & .current {
     ${Pretendard({ font: 1.2, weight: 700, color: Common.colors.GY900 })}
@@ -140,6 +136,7 @@ const InputContainer = styled.div<IStyle>`
   position: relative;
   width: 100%;
   display: flex;
+  margin-bottom: 14px;
 
   & input {
     border: 1px solid ${Common.colors.GY300};

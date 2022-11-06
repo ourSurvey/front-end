@@ -1,18 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styled from '@emotion/styled';
 import RecentSearch from 'utills/RecentSearches';
 import SearchedChip from '../setting/SearchedChip';
+import { Common, Pretendard } from 'styles/common';
 const ShowSearchList = () => {
   const research = RecentSearch.getInstance();
   const [listState, setlistState] = useState(() => JSON.parse(research.getSearches() as string) || []);
 
-  useEffect(() => {}, [listState]);
   return (
-    <TagListContainer>
-      {listState.map((item: string) => (
-        <SearchedChip setState={setlistState} key={item} text={item} />
-      ))}
-    </TagListContainer>
+    <>
+      {listState.length === 0 ? (
+        <NoSearchListDesc>최근 검색어가 없어요</NoSearchListDesc>
+      ) : (
+        <TagListContainer>
+          {listState.map((item: string) => (
+            <SearchedChip setState={setlistState} key={item} text={item} />
+          ))}
+        </TagListContainer>
+      )}
+    </>
   );
 };
 
@@ -29,4 +35,8 @@ const TagListContainer = styled.ul`
   }
   margin: 0;
   padding-left: 0;
+`;
+
+const NoSearchListDesc = styled.span`
+  ${Pretendard({ weight: 400, font: 1.4, color: Common.colors.GY500 })}
 `;

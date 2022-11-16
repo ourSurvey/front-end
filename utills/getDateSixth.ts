@@ -69,6 +69,6 @@ export const getDateFormat = (date: Date): string => {
 };
 export const QuestionItemListUniqueNumber = (qustionItemListId: QuestionItemListID) => {
   const splittedQuestionItemListId = qustionItemListId.split('A');
-  const uniqueNumber = splittedQuestionItemListId[splittedQuestionItemListId.length - 1];
+  const uniqueNumber = splittedQuestionItemListId[splittedQuestionItemListId.length - 1].slice(3);
   return Number(uniqueNumber);
 };

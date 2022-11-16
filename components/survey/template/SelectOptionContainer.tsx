@@ -52,23 +52,23 @@ const SelectOptionContainer = ({
 
   const addQuestionItem = useRecoilCallback(({ snapshot, set }) => () => {
     const questionItemIds = snapshot.getLoadable(qusetionItemIdListAtom(SyscodeFormat)).getValue();
-    const lastNumber = Math.max(...questionItemIds.map((id) => QuestionItemListUniqueNumber(id)));
+    const lastNumber = Math.max(...questionItemIds.map((id) => QuestionItemListUniqueNumber(id))) + 1;
     set(qusetionItemIdListAtom(SyscodeFormat), [
       ...questionItemIds,
-      `${SyscodeFormat}${Number(lastNumber) + 1}`,
+      `${SyscodeFormat}${lastNumber}`,
     ] as QuestionItemListID[]);
   });
 
   const addEtcQuestionItem = useRecoilCallback(({ snapshot, set }) => () => {
     const questionItemIds = snapshot.getLoadable(qusetionItemIdListAtom(SyscodeFormat)).getValue();
-    const lastNumber = Math.max(...questionItemIds.map((id) => QuestionItemListUniqueNumber(id)));
+    const lastNumber = Math.max(...questionItemIds.map((id) => QuestionItemListUniqueNumber(id))) + 1;
     set(qusetionItemIdListAtom(SyscodeFormat), [
       ...questionItemIds,
-      `${SyscodeFormat}${Number(lastNumber) + 1}`,
+      `${SyscodeFormat}${lastNumber}`,
     ] as QuestionItemListID[]);
-
-    const newData = getNewQuestionItemState(partIndex, questionIndex, questionItemIds.length + 1);
-    set(qusetionItemListAtomFamily(QuestionItemIDFormat(partIndex, questionIndex, questionItemIds.length + 1)), {
+    const newData = getNewQuestionItemState(partIndex, questionIndex, lastNumber);
+    const { id: newId } = newData as IQuestionItem;
+    set(qusetionItemListAtomFamily(newId!), {
       ...newData,
       content: '기타',
     } as IQuestionItem);

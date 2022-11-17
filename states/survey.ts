@@ -22,6 +22,7 @@ import {
   QuestionID,
   SectionID,
   QuestionItemListID,
+  QuestionListID,
 } from 'types/survey';
 import { getDateSixDigitsFormatToday, numberSet } from 'utills/getDateSixth';
 import { tagState } from 'states/tag';
@@ -178,17 +179,22 @@ export const templateSelector = selector({
         } as IQuestion);
         const PartFormat = `SCTN${getDateSixDigitsFormatToday()}${numberSet(partIdx)}`;
         const QuestionFormat = `QSTN${getDateSixDigitsFormatToday()}${numberSet(newQuestionIdx)}`;
-        const SyscodeFormat = `${PartFormat}${QuestionFormat}` as QuestionItemListID;
-        const questionItemIds = get(qusetionItemIdListAtom(SyscodeFormat));
-        const newQuestionItemIdx = questionItemIds.length + 1;
-        const lastNumber = questionItemIds[questionItemIds.length - 1].slice(-1);
-        set(qusetionItemIdListAtom(SyscodeFormat), [
-          ...questionItemIds,
-          `${SyscodeFormat}${Number(lastNumber) + 1}`,
-          `${SyscodeFormat}${Number(lastNumber) + 2}`,
-          `${SyscodeFormat}${Number(lastNumber) + 3}`,
-        ] as QuestionItemListID[]); //questionItem ID 리스트 새로 생성
-
+        const QuestionItemListIdSyscodeFormat = `${PartFormat}${QuestionFormat}` as QuestionItemListID;
+        const SyscodeFormat: QuestionListID = QuestionListIDFormat(partIdx);
+        const questionItemIds = get(qusetionItemIdListAtom(QuestionItemListIdSyscodeFormat));
+        const questionIdList = get(qusetionIdListAtom(SyscodeFormat));
+        const newQuestionItemIdx = questionIdList.length + 1;
+        const lastNumber = Number(questionItemIds[questionItemIds.length - 1].slice(-1));
+        set(
+          qusetionItemIdListAtom(QuestionItemListIdSyscodeFormat),
+          (prevState) =>
+            [
+              ...prevState,
+              `${QuestionItemListIdSyscodeFormat}${lastNumber + 1}`,
+              `${QuestionItemListIdSyscodeFormat}${lastNumber + 2}`,
+              `${QuestionItemListIdSyscodeFormat}${lastNumber + 3}`,
+            ] as QuestionItemListID[]
+        ); //questionItem ID 리스트 새로 생성
         GENDER_ITEM_DATA.forEach((item) => {
           const data = get(qusetionItemListAtomFamily(QuestionItemIDFormat(partIdx, newQuestionItemIdx, item.oder)));
           set(qusetionItemListAtomFamily(QuestionItemIDFormat(partIdx, newQuestionItemIdx, item.oder)), {

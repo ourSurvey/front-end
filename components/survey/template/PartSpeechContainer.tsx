@@ -23,5 +23,4 @@ export default PartSpeechContainer;
 const PartSpeech = styled.div`
   background-color: #fff;
   padding-bottom: 24px;
-  margin-bottom: 10px;
 `;

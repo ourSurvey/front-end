@@ -13,7 +13,7 @@ const PartSpeechContainer = ({ PartNum, ListLength, setVisibleMore, partID }: IP
   return (
     <PartSpeech>
       <Part partID={partID} setVisibleMore={setVisibleMore} ListLength={ListLength} PartNum={PartNum} />
-      <SpeechBubble partLength={ListLength} partNum={PartNum + 1} color={(PartNum + 1) % 2 === 0 ? 'pink' : 'green'} />
+      <SpeechBubble partLength={ListLength} partNum={PartNum + 1} color={(PartNum + 1) % 2 === 0 ? 'blue' : 'green'} />
     </PartSpeech>
   );
 };

@@ -45,7 +45,7 @@ const SpeechBubble = ({ partNum, color, partLength }: IProps) => {
         fontFamily="roboto"
         textColor={Common.colors.GY100}
         isDisabled={false}
-        color={color === 'pink' ? Common.colors.PK500 : Common.colors.GR500}
+        color={color === 'blue' ? Common.colors.BL500 : Common.colors.GR500}
         width={75}
         wUnit="%"
         height={32}

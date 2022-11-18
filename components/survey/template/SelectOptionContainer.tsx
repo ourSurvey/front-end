@@ -183,7 +183,7 @@ const SelectOption = styled.ul<IStyle>`
   }
 
   & .active {
-    background-color: ${(props) => (props.color === 'pink' ? Common.colors.PK500 : Common.colors.GR500)};
+    background-color: ${(props) => (props.color === 'blue' ? Common.colors.BL500 : Common.colors.GR500)};
     ${Pretendard({ font: 1.2, weight: 700, color: '#fff' })};
 
     line-height: 150%;

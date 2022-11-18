@@ -54,13 +54,13 @@ const ToggleSwitch = styled.div<ColorProps>`
     display: none;
     &:checked + div {
       border: ${(props) =>
-        props.mainColor === 'pink' ? `1px solid ${Common.colors.PK500}` : `1px solid ${Common.colors.GR500}`};
+        props.mainColor === 'blue' ? `1px solid ${Common.colors.BL500}` : `1px solid ${Common.colors.GR500}`};
     }
     &:checked + div:after {
       right: calc(100% - 35px);
     }
     &:checked + .toggle-label-handle::after {
-      background-color: ${(props) => (props.mainColor === 'pink' ? Common.colors.PK500 : Common.colors.GR500)};
+      background-color: ${(props) => (props.mainColor === 'blue' ? Common.colors.BL500 : Common.colors.GR500)};
     }
   }
 

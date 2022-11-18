@@ -96,9 +96,9 @@ const Container = styled.div`
 const Title = styled.div<IStyle>`
   & .part {
     ${(props) =>
-      Pretendard({ font: 1, weight: 700, color: props.color === 'pink' ? Common.colors.PK500 : Common.colors.GR500 })};
+      Pretendard({ font: 1, weight: 700, color: props.color === 'blue' ? Common.colors.BL500 : Common.colors.GR500 })};
     line-height: 150%;
-    background-color: ${(props) => (props.color === 'pink' ? Common.colors.PK50 : Common.colors.GR50)};
+    background-color: ${(props) => (props.color === 'blue' ? Common.colors.BL50 : Common.colors.GR50)};
     border-radius: 4px;
     padding: 1px 4px;
     margin-right: 4px;

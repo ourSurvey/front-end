@@ -12,6 +12,10 @@ interface IProps {
   placeHolder: string;
 }
 
+interface IStyle {
+  textType: string;
+}
+
 const QusetionTitle = ({ hasImageInput, setValue, value, placeHolder }: IProps) => {
   const ImageInputState = css`
     display: ${hasImageInput ? 'inline' : 'none'};
@@ -55,7 +59,7 @@ const QusetionTitle = ({ hasImageInput, setValue, value, placeHolder }: IProps) 
 
   return (
     <TitleAndSubTitle>
-      <InputContainer>
+      <InputContainer textType={'title' in value ? 'part' : 'question'}>
         <input
           defaultValue={'title' in value ? value.title : value.ask}
           type="text"
@@ -78,6 +82,7 @@ const QusetionTitle = ({ hasImageInput, setValue, value, placeHolder }: IProps) 
         </div>
       </InputContainer>
       <SubTitle
+        textType={'title' in value ? 'part' : 'question'}
         type="text"
         placeholder={`${placeHolder}설명(선택사항)`}
         onChange={(e) => ContentChangeHandler(e)}
@@ -94,9 +99,10 @@ const TitleAndSubTitle = styled.div`
   padding-bottom: 24px;
 `;
 
-const InputContainer = styled.div`
+const InputContainer = styled.div<IStyle>`
   position: relative;
   flex: 1;
+  background-color: ${({ textType }) => (textType === 'part' ? Common.colors.GY50 : 'transparent')};
 
   & input[type='text'] {
     border: 0;
@@ -104,6 +110,7 @@ const InputContainer = styled.div`
     width: 100%;
     height: 46px;
     border-bottom: 1px solid ${Common.colors.GY100};
+    background-color: ${({ textType }) => (textType === 'part' ? Common.colors.GY50 : 'transparent')};
 
     &::placeholder {
       ${Pretendard({ font: 1.4, weight: 400, color: Common.colors.GY500 })};
@@ -120,6 +127,7 @@ const InputContainer = styled.div`
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
+    background-color: ${Common.colors.GY50};
   }
 
   & svg {
@@ -137,13 +145,13 @@ const InputContainer = styled.div`
   }
 `;
 
-const SubTitle = styled.input`
+const SubTitle = styled.input<IStyle>`
   border: 0;
 
   width: 100%;
   height: 46px;
   border-bottom: 1px solid ${Common.colors.GY100};
-
+  background-color: ${({ textType }) => (textType === 'part' ? Common.colors.GY50 : 'transparent')};
   &::placeholder {
     ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY500 })};
     line-height: 150%;

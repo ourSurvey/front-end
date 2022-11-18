@@ -1,7 +1,5 @@
 import styled from '@emotion/styled';
 import { Common, Pretendard, AlignAndJustifyCenter, SpaceBetween } from 'styles/common';
-import QusetionTitle from './QusetionTitle';
-import InvertedTriangle from 'public/icon/inverted-triangle.svg';
 import Question from './Question';
 import { memo, useRef, useState } from 'react';
 import Copy from 'public/icon/copy.svg';
@@ -11,8 +9,9 @@ import { sectionIdListAtom, qusetionIdListAtom } from 'states/surveyIds';
 import { useRecoilCallback, useRecoilState, useRecoilValue } from 'recoil';
 import { QuestionListID, SectionID } from 'types/survey';
 import { PartIDFormat, QuestionListIDFormat } from 'utills/getDateSixth';
-import useAutoScroll from 'hooks/useScroll';
+
 import useScroll from 'hooks/useScroll';
+import PartHeader from './PartHeader';
 
 interface IProps {
   PartNum: number;
@@ -20,14 +19,8 @@ interface IProps {
   setVisibleMore: (bool: boolean) => void;
   partID: SectionID;
 }
-
-interface IStyle {
-  PartNum: number;
-}
-
 const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
   const SyscodeFormat: QuestionListID = QuestionListIDFormat(PartNum + 1);
-  const [partData, setPartData] = useRecoilState(sectionListAtomFamily(PartIDFormat(PartNum + 1)));
   const lastPart = useRecoilValue(sectionListAtomFamily(PartIDFormat(ListLength)));
   const questionIdList = useRecoilValue(qusetionIdListAtom(SyscodeFormat)); //질문들의 IDList
   const [hideList, setHideList] = useState(true);
@@ -68,22 +61,13 @@ const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
 
   return (
     <PartContainer>
-      <header>
-        <SubjectContainer>
-          <PartTitle PartNum={PartNum}>
-            <h1>PART {PartNum + 1}</h1>
-            <span className="total-step">/{ListLength}</span>
-          </PartTitle>
-          <QusetionCount>
-            <span>총 {questionIdList.length}개 질문</span>
-            <InvertedTriangle transform={hideList ? 'rotate(180)' : 'rotate(0)'} onClick={foldList} />
-          </QusetionCount>
-        </SubjectContainer>
-      </header>
-      <div className="qustion-title">
-        <QusetionTitle setValue={setPartData} value={partData} placeHolder="파트" hasImageInput={false} />
-      </div>
-      <Line></Line>
+      <PartHeader
+        PartNum={PartNum}
+        questionIdList={questionIdList}
+        ListLength={ListLength}
+        hideList={hideList}
+        foldList={foldList}
+      />
       <QusetionContainer className="content" ref={listRef}>
         {questionIdList.map((id, idx) => {
           return (
@@ -92,7 +76,7 @@ const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
               setVisibleMore={setVisibleMore}
               partNumber={PartNum + 1}
               questionId={idx}
-              color={(PartNum + 1) % 2 === 0 ? 'pink' : 'green'}
+              color={(PartNum + 1) % 2 === 0 ? 'blue' : 'green'}
               key={id}
               id={id}
               targetQuestionList={SyscodeFormat}
@@ -121,15 +105,8 @@ export default memo(Part);
 
 const PartContainer = styled.section`
   width: 100%;
-
-  padding-top: 30px;
   padding-bottom: 10px;
   background-color: #fff;
-
-  & header,
-  .qustion-title {
-    padding: 0 20px;
-  }
 
   & .content {
     overflow: hidden;
@@ -137,41 +114,10 @@ const PartContainer = styled.section`
   }
 `;
 
-const PartTitle = styled.div<IStyle>`
-  & h1 {
-    display: inline;
-    ${(props) =>
-      Pretendard({
-        font: 1.6,
-        weight: 700,
-        color: (props.PartNum + 1) % 2 === 0 ? Common.colors.PK500 : Common.colors.GR500,
-      })};
-    line-height: 150%;
-  }
-  & .total-step {
-    ${Pretendard({ font: 1.2, weight: 400, color: Common.colors.GY300 })};
-    line-height: 150%;
-  }
-`;
-
 const Line = styled.div`
   width: 100%;
   height: 10px;
   background-color: ${Common.colors.GY50};
-`;
-
-const SubjectContainer = styled.div`
-  ${SpaceBetween()}
-`;
-
-const QusetionCount = styled.div`
-  & span {
-    ${Pretendard({ font: 1, weight: 700, color: Common.colors.GY700 })};
-    line-height: 150%;
-  }
-  & svg {
-    margin-left: 6px;
-  }
 `;
 
 const QusetionContainer = styled.div`

@@ -99,7 +99,7 @@ const ShareBody = ({ setVisible, title, content, id }: Props) => {
       templateArgs: {
         title: title,
         desc: content,
-        url: `/survey/${id}`,
+        url: `/survey/${id}/summary`,
       },
     });
   };

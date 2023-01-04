@@ -36,7 +36,7 @@ const SurveyItem = (props: IContent) => {
             {startDate} ~ {endDate}
           </>
         </DateContainer>
-        <Link href={`/survey/${id}`} key={id}>
+        <Link href={`/survey/${id}/summary`} key={id}>
           <a>
             <Button
               fontSize={1.2}

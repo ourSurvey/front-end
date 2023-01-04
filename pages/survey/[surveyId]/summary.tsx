@@ -9,6 +9,7 @@ import Portal from 'components/common/Portal';
 import ModalTemplate from 'components/modal/ModalTemplate';
 import ShareBody from 'components/modal/ShareBody';
 import Share from 'public/icon/share.svg';
+import Link from 'next/link';
 interface IProps {
   dehydratedState: DehydratedState;
 }
@@ -23,9 +24,8 @@ export const getServerSideProps = async (context: any) => {
   return { props: { dehydratedState: dehydrate(queryClient) } };
 };
 
-const SurveyId = ({ dehydratedState }: IProps) => {
+const Summary = ({ dehydratedState }: IProps) => {
   const data: any = dehydratedState.queries[0].state.data;
-
   const [showShare, setshowShare] = useState(false);
   const returnDate = (): string => {
     const today = new Date();
@@ -78,7 +78,9 @@ const SurveyId = ({ dehydratedState }: IProps) => {
           btnText={<Share />}
           color="transparent"
         />
-        <Button isDisabled={false} textColor="#fff" btnText="설문 참여하기" color={Common.colors.BL500} />
+        <Link href={`/survey/${data.data.data.id}/detail`}>
+          <Button isDisabled={false} textColor="#fff" btnText="설문 참여하기" color={Common.colors.BL500} />
+        </Link>
       </BtnContainer>
 
       <Portal selector="#portal">
@@ -95,7 +97,7 @@ const SurveyId = ({ dehydratedState }: IProps) => {
   );
 };
 
-export default SurveyId;
+export default Summary;
 
 const DateContainer = styled.span`
   display: block;

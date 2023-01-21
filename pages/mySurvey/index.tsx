@@ -28,11 +28,15 @@ const Index = () => {
 
   return (
     <MySurveyLayout>
-      <SearchHeader name="나의 서베이" hasBack={false} hasSearch={false} />
+      <SearchHeader name="나의 서베이" hasBack={false} hasSearch={false} marginBottom={21.5} />
       <div className="nav">
         {menu.map((item, idx) => {
           return (
-            <div className="nav-list" key={item} onClick={() => onClickPage(idx)}>
+            <div
+              className={'nav-list ' + (idx === navigationIdx ? 'active' : '')}
+              key={item}
+              onClick={() => onClickPage(idx)}
+            >
               {item}
               {idx === navigationIdx ? <UnderLine layoutId="underline" /> : null}
             </div>
@@ -63,9 +67,11 @@ const MySurveyLayout = styled(motion.div)`
   & .nav {
     ${SpaceBetween()};
     border-bottom: 1px solid ${Common.colors.GY300};
+    border-top: 1px solid ${Common.colors.GY100};
     margin: 0 -20px 12px -20px;
     width: 100vw;
-
+    height: 40px;
+    ${Pretendard({ weight: 400, font: 1.4, color: Common.colors.GY700 })};
     & .nav-list {
       transition: 0.5s;
       position: relative;
@@ -73,8 +79,12 @@ const MySurveyLayout = styled(motion.div)`
       text-align: center;
       list-style-type: none;
       padding: 8px 0px;
-      ${Pretendard({ weight: 700, font: 1.4, color: Common.colors.GY900 })};
+      line-height: 150%;
     }
+  }
+
+  & .active {
+    ${Pretendard({ weight: 700, font: 1.4, color: Common.colors.GY900 })};
   }
 `;
 

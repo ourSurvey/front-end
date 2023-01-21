@@ -33,3 +33,7 @@ export const GET_SURVEY = gql`
 export const getTagList = (tagString: string) => api.get(`/hashtag/${tagString}`);
 
 export const createSurvey = (surveyData: CreateSurveyData) => api.post('/survey', surveyData);
+
+export const isHaveSurveyTemp = () => api.get('/my/survey/temp');
+
+export const getMySurveies = () => api.get('/my/survey');

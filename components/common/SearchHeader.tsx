@@ -9,6 +9,7 @@ type Props = {
   name: string;
   hasBack: boolean;
   hasSearch: boolean;
+  marginBottom?: number;
 };
 
 interface IStyle {
@@ -16,12 +17,16 @@ interface IStyle {
   hasSearch: boolean;
 }
 
+interface IBottomMargin {
+  marginBottom: number;
+}
+
 const SearchHeader = (props: Props) => {
-  const { name, hasBack, hasSearch } = props;
+  const { name, hasBack, hasSearch, marginBottom = 41 } = props;
   const router = useRouter();
 
   return (
-    <Header role="heading">
+    <Header role="heading" marginBottom={marginBottom}>
       <SvgPosition onClick={() => router.back()}>{hasBack ? <Prev width="20" height="16" /> : null}</SvgPosition>
       <Span hasBack={hasBack} hasSearch={hasSearch}>
         {name}
@@ -33,9 +38,9 @@ const SearchHeader = (props: Props) => {
 
 export default memo(SearchHeader);
 
-const Header = styled.header`
+const Header = styled.header<IBottomMargin>`
   ${SpaceBetween()}
-  margin-bottom: 41px;
+  margin-bottom: ${({ marginBottom }) => marginBottom}px;
 
   & .name {
     ${Pretendard({ font: 1.4, weight: 700, color: Common.colors.GY900 })}

@@ -83,7 +83,7 @@ const NavBar = () => {
         </Link>
       </li>
       <li>
-        <Link href="/mypage">
+        <Link href="/mySurvey">
           <a>
             <PhoneSurvey
               width={25}

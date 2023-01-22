@@ -72,3 +72,17 @@ export const QuestionItemListUniqueNumber = (qustionItemListId: QuestionItemList
   const uniqueNumber = splittedQuestionItemListId[splittedQuestionItemListId.length - 1].slice(3);
   return Number(uniqueNumber);
 };
+
+//오늘 날짜가 진행중인지, 종료인지, 예정인지를 출력
+export const compareToday = (startDate: string, endDate: string): '예정' | '진행 중' | '종료' => {
+  const startDay = new Date(+startDate.substring(0, 4), +startDate.substring(5, 7), +startDate.substring(8, 9));
+  const endDay = new Date(+endDate.substring(0, 4), +endDate.substring(5, 7), +endDate.substring(8, 9));
+  const today = new Date();
+  if (today < startDay) {
+    return '예정';
+  } else if (startDay <= today && today > endDay) {
+    return '진행 중';
+  } else {
+    return '종료';
+  }
+};

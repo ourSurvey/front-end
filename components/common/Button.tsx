@@ -17,6 +17,7 @@ interface IProp {
   type?: 'button' | 'submit' | 'reset' | undefined;
   onClick?: (e?: any) => void;
   isDisabled: boolean;
+  id?: string;
 }
 
 interface IBtnStyle {
@@ -55,6 +56,7 @@ export const Button = (props: IProp) => {
     hUnit = 'px',
     width = 100,
     height = 50,
+    id,
   } = props;
   const [coords, setCoords] = useState({ x: -1, y: -1 });
   const [isRippling, setIsRippling] = useState(false);
@@ -82,6 +84,7 @@ export const Button = (props: IProp) => {
       hUnit={hUnit}
       width={width}
       height={height}
+      id={id}
       onClick={(e: any) => {
         const rect = e.target.getBoundingClientRect();
         setCoords({ x: e.clientX - rect.left, y: e.clientY - rect.top });

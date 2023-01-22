@@ -1,8 +1,19 @@
-import { useQueries, useQuery } from 'react-query';
+import { useQueries } from 'react-query';
 import { getMySurveies, isHaveSurveyTemp } from 'services/api/survey';
 import SurveySkeleton from 'components/skeleton/SurveySkeleton';
 import styled from '@emotion/styled';
-import { AlignAndJustifyCenter } from 'styles/common';
+import SurveyBox from './SurveyBox';
+
+interface IMySurveyData {
+  id: string;
+  subject: string;
+  startDate: string;
+  endDate: string;
+  tempFl: number;
+  replyCount: number;
+  status: number;
+}
+
 const Placeholder: React.FC = () => (
   <ItemContainer className="survey-items">
     <UlContainer>
@@ -57,13 +68,31 @@ const Written = (props: Props) => {
   }
 
   return (
-    <article className="written" role="tabpanel">
-      Written
-    </article>
+    <WrittenContainer className="written" role="tabpanel">
+      {result[1].data.data.list.map((item: IMySurveyData) => {
+        return (
+          <SurveyBox
+            key={item.id}
+            startDate={item.startDate}
+            endDate={item.endDate}
+            subject={item.subject}
+            replyCount={item.replyCount}
+          />
+        );
+      })}
+    </WrittenContainer>
   );
 };
 
 export default Written;
+
+const WrittenContainer = styled.article`
+  padding: 5px;
+  overflow-y: scroll;
+  & .survey-box:not(:last-of-type) {
+    margin-bottom: 1.5rem;
+  }
+`;
 
 const SkeletonContainer = styled.div`
   padding: 0 5px;

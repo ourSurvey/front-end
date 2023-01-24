@@ -2,19 +2,9 @@ import styled from '@emotion/styled';
 import SearchHeader from 'components/common/SearchHeader';
 import { Common, Pretendard } from 'styles/common';
 import SurveyContainer from 'components/survey/SurveyContainer';
-import { useEffect, useState } from 'react';
-
+import useScrollHeight from 'hooks/useScrollHeight';
 const Index = () => {
-  const [sectionHeight, setSectionHeight] = useState<number | undefined>(0);
-
-  useEffect(() => {
-    const height = document.getElementById('section1')?.getBoundingClientRect().top;
-    setSectionHeight(height);
-  }, []);
-
-  const Section = styled.section`
-    height: calc(100% - ${sectionHeight}px);
-  `;
+  const Section = useScrollHeight({ id: 'section1' });
 
   return (
     <SurContainer>

@@ -3,6 +3,7 @@ import { getMySurveies, isHaveSurveyTemp } from 'services/api/survey';
 import SurveySkeleton from 'components/skeleton/SurveySkeleton';
 import styled from '@emotion/styled';
 import SurveyBox from './SurveyBox';
+import useScrollHeight from 'hooks/useScrollHeight';
 
 interface IMySurveyData {
   id: string;
@@ -49,6 +50,7 @@ const Buttons: React.FC = () => (
 type Props = {};
 
 const Written = (props: Props) => {
+  const ScrollSection = useScrollHeight({ id: 'wrttenSection' });
   const result = useQueries([
     { queryKey: ['temps'], queryFn: () => isHaveSurveyTemp(), suspense: true },
     { queryKey: ['mySurveies'], queryFn: () => getMySurveies(), suspense: true },
@@ -69,17 +71,19 @@ const Written = (props: Props) => {
 
   return (
     <WrittenContainer className="written" role="tabpanel">
-      {result[1].data.data.list.map((item: IMySurveyData) => {
-        return (
-          <SurveyBox
-            key={item.id}
-            startDate={item.startDate}
-            endDate={item.endDate}
-            subject={item.subject}
-            replyCount={item.replyCount}
-          />
-        );
-      })}
+      <ScrollSection id="wrttenSection">
+        {result[1].data.data.list.map((item: IMySurveyData) => {
+          return (
+            <SurveyBox
+              key={item.id}
+              startDate={item.startDate}
+              endDate={item.endDate}
+              subject={item.subject}
+              replyCount={item.replyCount}
+            />
+          );
+        })}
+      </ScrollSection>
     </WrittenContainer>
   );
 };
@@ -89,6 +93,7 @@ export default Written;
 const WrittenContainer = styled.article`
   padding: 5px;
   overflow-y: scroll;
+  height: 100%;
   & .survey-box:not(:last-of-type) {
     margin-bottom: 1.5rem;
   }

@@ -76,6 +76,12 @@ const ItemContainer = styled.div`
   & h1 {
     ${Pretendard({ font: 1.6, weight: 700, color: Common.colors.GY900 })}
     line-height: 150%;
+    overflow: hidden;
+    white-space: normal;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
   }
 `;
 

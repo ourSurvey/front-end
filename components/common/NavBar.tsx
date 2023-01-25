@@ -114,6 +114,7 @@ const NavBar = () => {
 export default NavBar;
 
 const NavBarContainer = styled.ul`
+  z-index: 100;
   ${SpaceBetween()}
   position: fixed;
   background-color: #fff;

@@ -32,6 +32,13 @@ const SurveyBox = ({
 
   return (
     <BoxContainer className="survey-box">
+      <DueDateBalloon>
+        종료까지 D-3
+        <div className="ribon-container">
+          <div className="triangle1"></div>
+          <div className="triangle2"></div>
+        </div>
+      </DueDateBalloon>
       <BoxHeader>
         <span className="dates">
           {startDate}~{endDate}
@@ -78,6 +85,7 @@ const BoxContainer = styled.div`
   padding: 15px;
   border-radius: 0.875rem;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.16);
+  position: relative;
 `;
 
 const BoxHeader = styled.div`
@@ -93,6 +101,12 @@ const Subject = styled.p`
   ${Pretendard({ weight: 700, font: 1.6, color: Common.colors.GY900 })};
   line-height: 150%;
   margin-bottom: 5px;
+  overflow: hidden;
+  white-space: normal;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 `;
 
 const ReplyCount = styled.span`
@@ -114,6 +128,7 @@ const Status = styled.span<IStyle>`
 `;
 
 const ButtonContainer = styled.div<IButtonContainer>`
+  display: ${({ replyCount }) => (replyCount === 0 ? 'none' : 'block')};
   margin-top: 10px;
   & button:first-of-type {
     border: 1px solid ${Common.colors.BL500};
@@ -123,5 +138,45 @@ const ButtonContainer = styled.div<IButtonContainer>`
   & #result-btn {
     border: 1px solid ${Common.colors.GY900};
     border-radius: 5px;
+  }
+`;
+
+const DueDateBalloon = styled.div`
+  height: 24px;
+  display: flex;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)), #0066d9;
+  position: absolute;
+  top: -12px;
+  left: 0;
+  border-radius: 10px 0px 0px 0px;
+  padding: 4px 10px 4px 15px;
+  ${Pretendard({ weight: 700, font: 1, color: '#fff' })};
+  line-height: 150%;
+
+  & .ribon-container {
+    position: relative;
+  }
+
+  & .triangle1 {
+    position: absolute;
+    width: 0;
+    height: 0;
+    right: -22px;
+    top: 8px;
+    border-bottom: 6px solid #599be6;
+    border-top: 6px solid transparent;
+    border-left: 6px solid #599be6;
+    border-right: 6px solid transparent;
+  }
+  & .triangle2 {
+    position: absolute;
+    width: 0;
+    height: 0;
+    right: -22px;
+    top: -4px;
+    border-bottom: 6px solid transparent;
+    border-top: 6px solid #599be6;
+    border-left: 6px solid #599be6;
+    border-right: 6px solid transparent;
   }
 `;

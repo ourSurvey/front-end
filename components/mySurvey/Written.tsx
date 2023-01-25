@@ -50,12 +50,11 @@ const Buttons: React.FC = () => (
 type Props = {};
 
 const Written = (props: Props) => {
-  const ScrollSection = useScrollHeight({ id: 'wrttenSection' });
   const result = useQueries([
     { queryKey: ['temps'], queryFn: () => isHaveSurveyTemp(), suspense: true },
     { queryKey: ['mySurveies'], queryFn: () => getMySurveies(), suspense: true },
   ]);
-
+  const Section = useScrollHeight({ id: 'wrttenSection' });
   console.log(result);
 
   if (result[0].isLoading || result[1].isLoading) {
@@ -70,8 +69,8 @@ const Written = (props: Props) => {
   }
 
   return (
-    <WrittenContainer className="written" role="tabpanel">
-      <ScrollSection id="wrttenSection">
+    <Section id="wrttenSection">
+      <WrittenContainer className="written" role="tabpanel">
         {result[1].data.data.list.map((item: IMySurveyData) => {
           return (
             <SurveyBox
@@ -83,19 +82,22 @@ const Written = (props: Props) => {
             />
           );
         })}
-      </ScrollSection>
-    </WrittenContainer>
+      </WrittenContainer>
+    </Section>
   );
 };
 
 export default Written;
 
 const WrittenContainer = styled.article`
-  padding: 5px;
+  padding: 12px 5px 5px 5px;
   overflow-y: scroll;
   height: 100%;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   & .survey-box:not(:last-of-type) {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
   }
 `;
 

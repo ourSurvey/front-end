@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 
 interface IProps {
@@ -7,19 +7,21 @@ interface IProps {
 
 const useScrollHeight = ({ id }: IProps) => {
   const [sectionHeight, setSectionHeight] = useState<number | undefined>(0);
+  const targetElement = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const height = document.getElementById(id)?.getBoundingClientRect().top;
+    if (targetElement.current === null) return;
+    const height = targetElement.current.getBoundingClientRect().top;
     console.log('height', height);
 
     setSectionHeight(height);
-  }, []);
+  }, [targetElement.current]);
 
   const Section = styled.section`
     height: calc(100% - ${sectionHeight}px);
   `;
 
-  return Section;
+  return [targetElement, Section];
 };
 
 export default useScrollHeight;

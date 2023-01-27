@@ -75,12 +75,13 @@ export const QuestionItemListUniqueNumber = (qustionItemListId: QuestionItemList
 
 //오늘 날짜가 진행중인지, 종료인지, 예정인지를 출력
 export const compareToday = (startDate: string, endDate: string): 'expectation' | 'proceed' | 'end' => {
-  const startDay = new Date(+startDate.substring(0, 4), +startDate.substring(5, 7), +startDate.substring(8, 9));
-  const endDay = new Date(+endDate.substring(0, 4), +endDate.substring(5, 7), +endDate.substring(8, 9));
+  const startDay = new Date(+startDate.substring(0, 4), +startDate.substring(5, 7) - 1, +startDate.substring(8, 10));
+  const endDay = new Date(+endDate.substring(0, 4), +endDate.substring(5, 7) - 1, +endDate.substring(8, 10));
   const today = new Date();
+
   if (today < startDay) {
     return 'expectation';
-  } else if (startDay <= today && today > endDay) {
+  } else if (startDay <= today && today <= endDay) {
     return 'proceed';
   } else {
     return 'end';

@@ -54,7 +54,7 @@ const Written = (props: Props) => {
     { queryKey: ['temps'], queryFn: () => isHaveSurveyTemp(), suspense: true },
     { queryKey: ['mySurveies'], queryFn: () => getMySurveies(), suspense: true },
   ]);
-  const Section = useScrollHeight({ id: 'wrttenSection' });
+  const { targetElement, Section } = useScrollHeight();
   console.log(result);
 
   if (result[0].isLoading || result[1].isLoading) {
@@ -69,7 +69,7 @@ const Written = (props: Props) => {
   }
 
   return (
-    <Section id="wrttenSection">
+    <Section ref={targetElement} id="wrttenSection">
       <WrittenContainer className="written" role="tabpanel">
         {result[1].data.data.list.map((item: IMySurveyData) => {
           return (

@@ -4,7 +4,7 @@ import { Common, Pretendard } from 'styles/common';
 import SurveyContainer from 'components/survey/SurveyContainer';
 import useScrollHeight from 'hooks/useScrollHeight';
 const Index = () => {
-  const Section = useScrollHeight({ id: 'section1' });
+  const { targetElement, Section } = useScrollHeight();
 
   return (
     <SurContainer>
@@ -15,7 +15,7 @@ const Index = () => {
         <span>300포인트</span> 받아가세요!
       </Title>
 
-      <Section id="section1">
+      <Section ref={targetElement} id="section1">
         <SurveyContainer />
       </Section>
     </SurContainer>

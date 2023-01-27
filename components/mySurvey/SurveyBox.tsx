@@ -18,6 +18,10 @@ interface IButtonContainer extends IStyle {
   replyCount: number;
 }
 
+interface IDueDate {
+  date: number;
+}
+
 const SurveyBox = ({
   startDate = '2023.01.22',
   endDate = '2023.01.31',
@@ -30,10 +34,20 @@ const SurveyBox = ({
     end: '종료',
   };
 
+  //남은 종료일을 계산해서 계산일 리턴
+  const endDateCalculation = (endDate: string): number => {
+    const startDay = new Date();
+    const endDay = new Date(+endDate.substring(0, 4), +endDate.substring(5, 7) - 1, +endDate.substring(8, 10));
+
+    const diffDate = endDay.getTime() - startDay.getTime();
+    const diffDay = Math.floor(diffDate / (1000 * 60 * 60 * 24)); //일로 변경
+    return diffDay;
+  };
+
   return (
     <BoxContainer className="survey-box">
-      <DueDateBalloon>
-        종료까지 D-3
+      <DueDateBalloon date={endDateCalculation(endDate)}>
+        종료까지 D-{endDateCalculation(endDate) === 0 ? 'DAY' : endDateCalculation(endDate)}
         <div className="ribon-container">
           <div className="triangle1"></div>
           <div className="triangle2"></div>
@@ -63,7 +77,7 @@ const SurveyBox = ({
         />
         <Button
           id="result-btn"
-          isDisabled={false}
+          isDisabled={replyCount === 0}
           fontFamily="pretendard"
           fontSize={1.2}
           fontWeight={400}
@@ -128,22 +142,25 @@ const Status = styled.span<IStyle>`
 `;
 
 const ButtonContainer = styled.div<IButtonContainer>`
-  display: ${({ replyCount }) => (replyCount === 0 ? 'none' : 'block')};
+  display: ${({ type }) => (type === 'expectation' ? 'none' : 'flex')};
   margin-top: 10px;
   & button:first-of-type {
+    display: ${({ type }) => (type === 'proceed' ? 'block' : 'none')};
     border: 1px solid ${Common.colors.BL500};
     border-radius: 5px;
     margin-right: 10px;
   }
   & #result-btn {
-    border: 1px solid ${Common.colors.GY900};
+    border: ${({ replyCount }) => (replyCount === 0 ? 'none' : `1px solid ${Common.colors.GY900}`)};
     border-radius: 5px;
+    background-color: ${({ replyCount }) => (replyCount === 0 ? Common.colors.GY50 : 'transparent')};
+    color: ${({ replyCount }) => (replyCount === 0 ? Common.colors.GY500 : Common.colors.GY900)};
   }
 `;
 
-const DueDateBalloon = styled.div`
+const DueDateBalloon = styled.div<IDueDate>`
   height: 24px;
-  display: flex;
+  display: ${({ date }) => (date >= 0 && date <= 3 ? 'flex' : 'none')};
   background: linear-gradient(0deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.35)), #0066d9;
   position: absolute;
   top: -12px;

@@ -99,6 +99,10 @@ const WrittenContainer = styled.article`
   & .survey-box:not(:last-of-type) {
     margin-bottom: 2rem;
   }
+
+  & .survey-box:last-of-type {
+    margin-bottom: 30px;
+  }
 `;
 
 const SkeletonContainer = styled.div`

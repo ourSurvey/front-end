@@ -23,7 +23,6 @@ declare global {
   }
 }
 
-
 if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
   import('../__mocks__');
 }

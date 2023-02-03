@@ -4,6 +4,9 @@ import SurveySkeleton from 'components/skeleton/SurveySkeleton';
 import styled from '@emotion/styled';
 import SurveyBox from './SurveyBox';
 import useScrollHeight from 'hooks/useScrollHeight';
+import { useEffect, useState } from 'react';
+import { log } from 'console';
+import { IMockTemp } from '__mocks__/types';
 
 interface IMySurveyData {
   id: string;
@@ -50,14 +53,23 @@ const Buttons: React.FC = () => (
 type Props = {};
 
 const Written = (props: Props) => {
+  const [temps, setTemps] = useState<IMockTemp>();
   const result = useQueries([
     { queryKey: ['temps'], queryFn: () => isHaveSurveyTemp(), suspense: true },
     { queryKey: ['mySurveies'], queryFn: () => getMySurveies(), suspense: true },
   ]);
   const { targetElement, Section } = useScrollHeight();
-  console.log(result);
 
-  if (result[0].isLoading || result[1].isLoading) {
+  useEffect(() => {
+    const handleGetTemp = () => {
+      fetch('/getTemp')
+        .then((res) => res.json())
+        .then(setTemps);
+    };
+    handleGetTemp();
+  }, []);
+
+  if (result[0].isLoading || result[1].isLoading || !temps) {
     return (
       <SkeletonContainer>
         <Buttons />
@@ -68,10 +80,23 @@ const Written = (props: Props) => {
     );
   }
 
+  console.log(temps);
+
   return (
     <Section ref={targetElement} id="wrttenSection">
       <WrittenContainer className="written" role="tabpanel">
-        {result[1].data.data.list.map((item: IMySurveyData) => {
+        {/* {result[1].data.data.list.map((item: IMySurveyData) => {
+          return (
+            <SurveyBox
+              key={item.id}
+              startDate={item.startDate}
+              endDate={item.endDate}
+              subject={item.subject}
+              replyCount={item.replyCount}
+            />
+          );
+        })} */}
+        {temps.data.list.map((item: IMySurveyData) => {
           return (
             <SurveyBox
               key={item.id}

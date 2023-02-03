@@ -80,7 +80,7 @@ const Written = (props: Props) => {
     );
   }
 
-  console.log(temps);
+  console.log(temps, '추가');
 
   return (
     <Section ref={targetElement} id="wrttenSection">

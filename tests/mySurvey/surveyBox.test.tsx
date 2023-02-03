@@ -55,7 +55,7 @@ describe('나의 서베이 리스트 컴포넌트', () => {
       render(
         <SurveyBox
           startDate="2023.01.01"
-          endDate="2023.01.31"
+          endDate="2023.03.31"
           subject="편의점 라면 소비 패턴 조사를 위한 설문"
           replyCount={123}
         />
@@ -72,7 +72,7 @@ describe('나의 서베이 리스트 컴포넌트', () => {
       render(
         <SurveyBox
           startDate="2023.01.01"
-          endDate="2023.01.31"
+          endDate="2023.03.31"
           subject="편의점 라면 소비 패턴 조사를 위한 설문"
           replyCount={0}
         />

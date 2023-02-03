@@ -23,6 +23,11 @@ declare global {
   }
 }
 
+
+if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
+  import('../__mocks__');
+}
+
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const [queryClient] = useState(() => new QueryClient());
 

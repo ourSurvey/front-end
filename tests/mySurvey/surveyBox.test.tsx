@@ -21,7 +21,7 @@ describe('나의 서베이 리스트 컴포넌트', () => {
       <SurveyBox
         startDate="2023.01.01"
         endDate="2023.01.31"
-        subject="편의점 라면 소비 패턴 조사를 위한 설문1"
+        subject="편의점 라면 소비 패턴 조사를 위한 설문2"
         replyCount={0}
       />
     );
@@ -36,7 +36,7 @@ describe('나의 서베이 리스트 컴포넌트', () => {
         <SurveyBox
           startDate="2023.02.01"
           endDate="2023.02.10"
-          subject="편의점 라면 소비 패턴 조사를 위한 설문1"
+          subject="편의점 라면 소비 패턴 조사를 위한 설문3"
           replyCount={123}
         />
       );
@@ -56,7 +56,7 @@ describe('나의 서베이 리스트 컴포넌트', () => {
         <SurveyBox
           startDate="2023.01.01"
           endDate="2023.03.31"
-          subject="편의점 라면 소비 패턴 조사를 위한 설문"
+          subject="편의점 라면 소비 패턴 조사를 위한 설문4"
           replyCount={123}
         />
       );
@@ -73,7 +73,7 @@ describe('나의 서베이 리스트 컴포넌트', () => {
         <SurveyBox
           startDate="2023.01.01"
           endDate="2023.03.31"
-          subject="편의점 라면 소비 패턴 조사를 위한 설문"
+          subject="편의점 라면 소비 패턴 조사를 위한 설문5"
           replyCount={0}
         />
       );
@@ -90,7 +90,7 @@ describe('나의 서베이 리스트 컴포넌트', () => {
         <SurveyBox
           startDate="2022.12.01"
           endDate="2023.01.27"
-          subject="편의점 라면 소비 패턴 조사를 위한 설문"
+          subject="편의점 라면 소비 패턴 조사를 위한 설문6"
           replyCount={123}
         />
       );

@@ -64,6 +64,7 @@ const SurveyBox = ({
       <ButtonContainer type={compareToday(startDate, endDate)} replyCount={replyCount}>
         <Button
           id="pull-up"
+          testId="pull-up"
           isDisabled={false}
           fontFamily="pretendard"
           fontSize={1.2}
@@ -77,8 +78,9 @@ const SurveyBox = ({
         />
         <Button
           id="result-btn"
-          isDisabled={replyCount === 0}
+          testId="result-btn"
           fontFamily="pretendard"
+          isDisabled={replyCount === 0}
           fontSize={1.2}
           fontWeight={400}
           textColor={Common.colors.GY900}

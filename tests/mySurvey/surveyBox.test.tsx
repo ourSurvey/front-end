@@ -34,19 +34,19 @@ describe('나의 서베이 리스트 컴포넌트', () => {
     test('노출되는 버튼이 없어야 한다.', () => {
       render(
         <SurveyBox
-          startDate="2023.02.01"
-          endDate="2023.02.10"
+          startDate="2023.10.01"
+          endDate="2023.10.31"
           subject="편의점 라면 소비 패턴 조사를 위한 설문3"
           replyCount={123}
         />
       );
       const status = screen.getByText('예정');
       const pullUpButton = screen.getByText('끌어올리기');
-      const resultButton = screen.getByText('결과 보기');
+      const resultButton = screen.getByText('결과보기');
 
       expect(status).toBeInTheDocument();
-      expect(pullUpButton).not.toBeInTheDocument();
-      expect(resultButton).not.toBeInTheDocument();
+      expect(pullUpButton).not.toBeVisible();
+      expect(resultButton).not.toBeVisible();
     });
   });
 
@@ -78,7 +78,7 @@ describe('나의 서베이 리스트 컴포넌트', () => {
         />
       );
 
-      const resultButton = screen.getByText('결과 보기');
+      const resultButton = screen.getByTestId('result-btn');
 
       expect(resultButton).toBeDisabled();
     });
@@ -98,7 +98,7 @@ describe('나의 서베이 리스트 컴포넌트', () => {
       const status = screen.getByText('종료');
       const pullUpButton = screen.getByText('끌어올리기');
       expect(status).toBeInTheDocument();
-      expect(pullUpButton).not.toBeInTheDocument();
+      expect(pullUpButton).not.toBeVisible();
     });
   });
 });

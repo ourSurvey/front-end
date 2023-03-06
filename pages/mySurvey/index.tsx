@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import styled from '@emotion/styled';
 import { Common, Pretendard, SpaceBetween } from 'styles/common';
 import { Navigation } from 'swiper';
@@ -43,12 +43,7 @@ const Index = () => {
           );
         })}
       </div>
-      <TempAlert>
-        <span className="alim">임시 저장한 설문이 2개 있어요!</span>{' '}
-        <span className="write-next" role="button">
-          이어서 작성하기
-        </span>
-      </TempAlert>
+
       <Swiper
         onSwiper={setSwiper}
         navigation={false}
@@ -108,22 +103,4 @@ const UnderLine = styled(motion.div)`
   right: 0;
   height: 4px;
   background-color: ${Common.colors.BL500};
-`;
-
-const TempAlert = styled.div`
-  ${SpaceBetween()};
-  background-color: ${Common.colors.GY50};
-  border-radius: 90px;
-  padding: 10px 20px;
-  margin-bottom: 1rem;
-
-  & .alim {
-    ${Pretendard({ font: 1.2, color: '#000', weight: 700 })};
-    line-height: 150%;
-  }
-
-  & .write-next {
-    ${Pretendard({ font: 1.2, color: '#000', weight: 400 })};
-    line-height: 150%;
-  }
 `;

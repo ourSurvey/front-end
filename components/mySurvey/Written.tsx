@@ -1,11 +1,14 @@
-import { useQueries } from 'react-query';
-import { getMySurveies, isHaveSurveyTemp } from 'services/api/survey';
+import { useQuery } from 'react-query';
+import { useState } from 'react';
+import { getMySurveies } from 'services/api/survey';
 import styled from '@emotion/styled';
-import SurveyBox from './SurveyBox';
 import useScrollHeight from 'hooks/useScrollHeight';
 import { MySurveySkeleton, Buttons } from 'components/skeleton/MySurveySkeletons';
+import SelectboxWrapper from './SelectboxWrapper';
+import SelectMySurveyOption from './SelectMySurveyOption';
+import TempAlert from './TempAlert';
 
-interface IMySurveyData {
+export interface IMySurveyData {
   id: string;
   subject: string;
   startDate: string;
@@ -14,17 +17,12 @@ interface IMySurveyData {
   replyCount: number;
   status: number;
 }
-
-type Props = {};
-
-const Written = (props: Props) => {
-  const result = useQueries([
-    { queryKey: ['temps'], queryFn: () => isHaveSurveyTemp(), suspense: true },
-    { queryKey: ['mySurveies'], queryFn: () => getMySurveies(), suspense: true },
-  ]);
+//{ queryKey: ['temps'], queryFn: () => isHaveSurveyTemp(), suspense: true },
+const Written = () => {
+  const [status, setStatus] = useState<null | -1 | 0 | 1>(null);
+  const result = useQuery(['mySurveies', status], () => getMySurveies(status), { staleTime: 5 * 60 * 1000 });
   const { targetElement, Section } = useScrollHeight();
-
-  if (result[0].isLoading || result[1].isLoading) {
+  if (result.isLoading) {
     return (
       <SkeletonContainer>
         <Buttons />
@@ -34,43 +32,26 @@ const Written = (props: Props) => {
       </SkeletonContainer>
     );
   }
+  const { willCount, ingCount, finCount, tempCount } = result.data.data;
 
   return (
-    <Section ref={targetElement} id="wrttenSection">
-      <WrittenContainer className="written" role="tabpanel">
-        {result[1].data.data.list.map((item: IMySurveyData) => {
-          return (
-            <SurveyBox
-              key={item.id}
-              startDate={item.startDate}
-              endDate={item.endDate}
-              subject={item.subject}
-              replyCount={item.replyCount}
-            />
-          );
-        })}
-      </WrittenContainer>
-    </Section>
+    <>
+      {tempCount > 0 && <TempAlert tempCount={tempCount} />}
+      <SelectMySurveyOption
+        status={status}
+        setStatus={setStatus}
+        willCount={willCount}
+        ingCount={ingCount}
+        finCount={finCount}
+      />
+      <Section ref={targetElement} id="wrttenSection">
+        <SelectboxWrapper surveies={result.data.data.list} />
+      </Section>
+    </>
   );
 };
 
 export default Written;
-
-const WrittenContainer = styled.article`
-  padding: 12px 5px 5px 5px;
-  overflow-y: scroll;
-  height: 100%;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  & .survey-box:not(:last-of-type) {
-    margin-bottom: 2rem;
-  }
-
-  & .survey-box:last-of-type {
-    margin-bottom: 30px;
-  }
-`;
 
 const SkeletonContainer = styled.div`
   padding: 0 5px;

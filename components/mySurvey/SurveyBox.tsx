@@ -44,6 +44,8 @@ const SurveyBox = ({
     return diffDay;
   };
 
+  const onPullUp = () => {};
+
   return (
     <BoxContainer className="survey-box">
       <DueDateBalloon date={endDateCalculation(endDate)}>
@@ -64,7 +66,6 @@ const SurveyBox = ({
       <ButtonContainer type={compareToday(startDate, endDate)} replyCount={replyCount}>
         <Button
           id="pull-up"
-          testId="pull-up"
           isDisabled={false}
           fontFamily="pretendard"
           fontSize={1.2}
@@ -78,9 +79,8 @@ const SurveyBox = ({
         />
         <Button
           id="result-btn"
-          testId="result-btn"
-          fontFamily="pretendard"
           isDisabled={replyCount === 0}
+          fontFamily="pretendard"
           fontSize={1.2}
           fontWeight={400}
           textColor={Common.colors.GY900}

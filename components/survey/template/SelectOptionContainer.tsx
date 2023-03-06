@@ -158,7 +158,7 @@ const Input = styled.input`
   }
 `;
 
-const SelectOption = styled.ul<IStyle>`
+export const SelectOption = styled.ul<IStyle>`
   display: flex;
   list-style-type: none;
   position: relative;

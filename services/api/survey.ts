@@ -1,5 +1,4 @@
 import { CreateSurveyData } from './../../types/survey';
-import { ISurveyData } from 'types/survey';
 import gql from 'graphql-tag';
 import ApiClient from 'services/ApiClient';
 
@@ -36,4 +35,5 @@ export const createSurvey = (surveyData: CreateSurveyData) => api.post('/survey'
 
 export const isHaveSurveyTemp = () => api.get('/my/survey/temp');
 
-export const getMySurveies = () => api.get('/my/survey');
+export const getMySurveies = (status: null | -1 | 0 | 1) =>
+  api.get(`/my/survey?status=${status === null ? '' : status}`);

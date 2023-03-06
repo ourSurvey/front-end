@@ -1,8 +1,3 @@
-import React from 'react';
-import Layout from './Layout';
-
-type Props = {};
-
 const Participated = (props: Props) => {
   return (
     <article className="participated" role="tabpanel">

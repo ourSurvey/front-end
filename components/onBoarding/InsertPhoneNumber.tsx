@@ -8,7 +8,7 @@ import { addtionState } from 'states/onBoard';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
 
-const InsertPhoneNumber = (props: any) => {
+const InsertPhoneNumber = () => {
   const [pNum, setPNum] = useState('');
   const [touched, setTouched] = useState(false);
   const errorMessage = getFieldError(pNum, '휴대폰 번호');

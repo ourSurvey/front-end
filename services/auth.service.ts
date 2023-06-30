@@ -57,7 +57,7 @@ class AuthService extends ApiClient {
 
   // 아직 요청 url 을 모름
   async logout() {
-    const { data } = await super.post('logoutUrl', null);
+    // const { data } = await super.post('logoutUrl', null);
     TokenProvider.clear();
   }
 }

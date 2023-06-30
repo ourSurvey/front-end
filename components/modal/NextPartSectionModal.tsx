@@ -2,11 +2,9 @@ import Close from 'public/icon/close.svg';
 
 import styled from '@emotion/styled';
 import { Pretendard, Common, SpaceBetween } from 'styles/common';
-import { useCallback, useEffect, useState } from 'react';
-import { useRecoilValue, useRecoilState, useRecoilCallback } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import { PartIDFormat } from 'utills/getDateSixth';
 import { sectionListAtomFamily } from 'states/survey';
-import { ISection } from 'types/survey';
 interface IProps {
   setVisible: (bool: boolean) => void;
   partNum: number;

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Common } from 'styles/common';
 import CreateSurveyHeader from 'components/survey/CreateSurveyHeader';
-import React, { useState } from 'react';
+import React from 'react';
 import SubLayout from 'components/SubLayout';
 
 import { GetServerSideProps } from 'next';

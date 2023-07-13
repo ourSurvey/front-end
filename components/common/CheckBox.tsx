@@ -5,14 +5,14 @@ interface IProps {
   children: JSX.Element;
   checked: boolean;
   disabled?: boolean;
-  data: string; //input에 데이터 담아놓기
+  data: string; // input에 데이터 담아놓기
   checkItems: string[];
   checkedItemHandler: (code: string, ischecked: boolean) => void;
-  onchange?: (e: React.ChangeEvent<HTMLInputElement>) => void; //다른 체크박스에 사용시 사용하기 위함
+  onchange?: (e: React.ChangeEvent<HTMLInputElement>) => void; // 다른 체크박스에 사용시 사용하기 위함
 }
 
 const CheckBox = ({ checkedItemHandler, checkItems, data, children, checked, disabled = false, onchange }: IProps) => {
-  const defaultChecked = checked ? checked : false;
+  const defaultChecked = checked || false;
   const [isChecked, setIsChecked] = useState(defaultChecked);
 
   const onCheck = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +35,13 @@ const CheckBox = ({ checkedItemHandler, checkItems, data, children, checked, dis
           type="checkbox"
           value={data}
           checked={isChecked}
-          onChange={onchange !== undefined ? onchange : (e) => onCheck(e)}
+          onChange={
+            onchange !== undefined
+              ? onchange
+              : (e) => {
+                  onCheck(e);
+                }
+          }
           disabled={disabled}
         />
         {children}
@@ -56,7 +62,7 @@ const CheckboxWrapper = styled.div`
     width: 1.375rem;
     height: 1.375rem;
     border-radius: 0.375rem;
-    background-image: url('images/check.svg');
+    background-image: url('/images/check.svg');
     background-size: 50% 50%;
     background-position: 50%;
     background-repeat: no-repeat;
@@ -65,7 +71,7 @@ const CheckboxWrapper = styled.div`
     cursor: pointer;
 
     &:checked {
-      background-image: url('images/checkedCheck.svg');
+      background-image: url('/images/checkedCheck.svg');
       background-size: 50% 50%;
       background-position: 50%;
       background-repeat: no-repeat;

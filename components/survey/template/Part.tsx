@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
-import { Common, Pretendard, AlignAndJustifyCenter, SpaceBetween } from 'styles/common';
+import { Common, Pretendard, AlignAndJustifyCenter } from 'styles/common';
 import Question from './Question';
 import { memo, useRef, useState } from 'react';
 import Copy from 'public/icon/copy.svg';
 import Plus from 'public/icon/plus-two.svg';
 import { sectionListAtomFamily } from 'states/survey';
 import { sectionIdListAtom, qusetionIdListAtom } from 'states/surveyIds';
-import { useRecoilCallback, useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilCallback, useRecoilValue } from 'recoil';
 import { QuestionListID, SectionID } from 'types/survey';
 import { PartIDFormat, QuestionListIDFormat } from 'utills/getDateSixth';
 
@@ -112,12 +112,6 @@ const PartContainer = styled.section`
     overflow: hidden;
     transition: max-height 0.3s ease-out;
   }
-`;
-
-const Line = styled.div`
-  width: 100%;
-  height: 10px;
-  background-color: ${Common.colors.GY50};
 `;
 
 const QusetionContainer = styled.div`

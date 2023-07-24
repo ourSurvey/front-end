@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from '@emotion/styled';
 import { Common, Pretendard } from 'styles/common';
 import { IQuestion } from 'types/survey';

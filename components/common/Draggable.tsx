@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { useDrag, useDrop, XYCoord, DropTargetMonitor } from 'react-dnd';
+import { useDrag, useDrop, DropTargetMonitor } from 'react-dnd';
 import styled from '@emotion/styled';
 import type { Identifier } from 'dnd-core';
 import _ from 'lodash';

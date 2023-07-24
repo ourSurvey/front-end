@@ -8,12 +8,9 @@ import { useRecoilState } from 'recoil';
 import { css, keyframes } from '@emotion/react';
 import { showToastState } from 'states/modal';
 import { useRecoilValue } from 'recoil';
-import { hasNavbar } from 'utills/hasNavbar';
-import { useRouter } from 'next/router';
 const Alert = () => {
   const [ToastState, setToastState] = useRecoilState(toastState);
   const visible = useRecoilValue(showToastState);
-  const router = useRouter();
 
   const fadein = keyframes`
   from {bottom: -35px; opacity: 0;}

@@ -8,12 +8,7 @@ import { useRef, useState } from 'react';
 import SearchTagList from 'components/survey/setting/SearchTagList';
 import ShowTagList from 'components/survey/setting/ShowTagList';
 import { tagState } from 'states/tag';
-import { toastState } from 'states/modal';
 import { useRecoilState } from 'recoil';
-import Portal from 'components/common/Portal';
-import ModalTemplate from 'components/modal/ModalTemplate';
-import LeavePageAlert from 'components/modal/LeavePageAlert';
-import { useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import { withAuth } from 'utills/isLoggedIn';
 

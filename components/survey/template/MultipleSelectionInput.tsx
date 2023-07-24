@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import CloseCircle from 'public/icon/close-circle.svg';
 import styled from '@emotion/styled';
-import { AlignAndJustifyCenter, Common, Pretendard, SpaceBetween } from 'styles/common';
+import { AlignAndJustifyCenter, Common, Pretendard } from 'styles/common';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { qusetionItemListAtomFamily } from 'states/survey';
 import { qusetionItemIdListAtom } from 'states/surveyIds';
@@ -23,7 +23,6 @@ interface IProps {
 const MultipleSelectionInput = ({
   hasDeleteBtn,
   hasNextSectionFlag,
-  selectionNumber,
   questionId,
   partId,
   id,

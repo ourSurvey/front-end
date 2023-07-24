@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { useRouter } from 'next/router';
 import { Pretendard, Common, SpaceBetween } from 'styles/common';
 
 type Props = {
@@ -8,7 +7,6 @@ type Props = {
 };
 
 const LeavePageAlert = ({ setVisible, setLeavePage }: Props) => {
-  const router = useRouter();
   return (
     <Confirm>
       <span>페이지를 나가시겠습니까?</span>

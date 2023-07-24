@@ -3,7 +3,6 @@ import Portal from 'components/common/Portal';
 import ModalTemplate from 'components/modal/ModalTemplate';
 import DatePickerModal from 'components/modal/DatePickerModal';
 import PeriodSetting from './PeriodSetting';
-import styled from '@emotion/styled';
 const PeriodSettingWrapper = () => {
   const [showModalState, setshowModalState] = useState(false);
 

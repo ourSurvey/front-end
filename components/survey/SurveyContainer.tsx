@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import styled from '@emotion/styled';
-import SurveyItem from './SurveyItem';
+import SurveyListItem from './SurveyListItem';
 import { useInfiniteGQLQuery } from 'hooks/useGQLQuery';
 import { GET_SURVEY } from 'services/api/survey';
 import { IContent } from 'types/survey';
@@ -76,7 +76,7 @@ const SurveyContainer = () => {
           {data?.pages.map((item, idx) => (
             <React.Fragment key={idx}>
               {item.getSurveyToPage.data.content.map((survey: IContent) => (
-                <SurveyItem
+                <SurveyListItem
                   id={survey.id}
                   key={survey.id}
                   hashtagList={survey.hashtagList}

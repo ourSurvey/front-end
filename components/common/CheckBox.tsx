@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { Common, Pretendard } from 'styles/common';
+import { Common } from 'styles/common';
 interface IProps {
   children: JSX.Element;
   checked: boolean;

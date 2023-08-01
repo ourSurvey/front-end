@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { useState, useEffect, memo } from 'react';
-import CheckBox from 'components/common/CheckBox';
-import TosItem from './TosItem';
-import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+import CheckBox from 'components/common/CheckBox';
 import { Common, Pretendard } from 'styles/common';
+import TosItem from './TosItem';
 
 interface ITos {
   title: string;
@@ -23,7 +23,7 @@ const TosContainer = ({ setIsAllCheck }: Iprops) => {
     { title: '서비스 이용약관 동의', isRequired: true, hasContent: true },
   ];
 
-  //체크박스 핸들러
+  // 체크박스 핸들러
   const checkedItemHandler = (code: string, isChecked: boolean): void => {
     if (isChecked) {
       if ([...checkedItems, code].length === 3) {
@@ -39,16 +39,16 @@ const TosContainer = ({ setIsAllCheck }: Iprops) => {
     }
   };
 
-  //전체 체크 or 전체 체크 해제
+  // 전체 체크 or 전체 체크 해제
   const onCheckAll = (checked: boolean) => {
     if (checked) {
-      //전체 체크
+      // 전체 체크
       const checkedItemsArray: string[] = [];
       termsAndConditions.forEach((data) => checkedItemsArray.push(data.title));
       checkedItemsArray.push('전체 동의합니다.');
       setCheckedItems(checkedItemsArray);
     } else {
-      //전체 해제
+      // 전체 해제
       setCheckedItems([]);
     }
   };
@@ -73,8 +73,11 @@ const TosContainer = ({ setIsAllCheck }: Iprops) => {
         checkItems={checkedItems}
         data="전체 동의합니다."
         checked={false}
-        onchange={(e) => onCheckAll(e.target.checked)}
+        onchange={(e) => {
+          onCheckAll(e.target.checked);
+        }}
         disabled={false}
+        isHighlightCheckedText={false}
       >
         <TosItem title="전체 동의합니다." isRequired={false} hasContent={false} />
       </CheckBox>
@@ -87,6 +90,7 @@ const TosContainer = ({ setIsAllCheck }: Iprops) => {
             data={item.title}
             checked={false}
             disabled={false}
+            isHighlightCheckedText={false}
           >
             <TosItem title={item.title} isRequired={item.isRequired} hasContent={item.hasContent} />
           </CheckBox>

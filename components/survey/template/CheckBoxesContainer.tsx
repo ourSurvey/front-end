@@ -35,8 +35,9 @@ const CheckBoxesContainer = ({ values, dupFl, onChange }: IProps): ReactElement 
             data={value}
             checkItems={checkedValues}
             checkedItemHandler={handleCheck}
+            isHighlightCheckedText={true}
           >
-            <span>{value}</span>
+            <>{value}</>
           </CheckBox>
         );
       })}

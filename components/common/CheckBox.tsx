@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { Common } from 'styles/common';
+import { Common, Pretendard } from 'styles/common';
 interface IProps {
   children: JSX.Element;
   checked: boolean;
@@ -9,9 +9,19 @@ interface IProps {
   checkItems: string[];
   checkedItemHandler: (code: string, ischecked: boolean) => void;
   onchange?: (e: React.ChangeEvent<HTMLInputElement>) => void; // 다른 체크박스에 사용시 사용하기 위함
+  isHighlightCheckedText: boolean;
 }
 
-const CheckBox = ({ checkedItemHandler, checkItems, data, children, checked, disabled = false, onchange }: IProps) => {
+const CheckBox = ({
+  checkedItemHandler,
+  checkItems,
+  data,
+  children,
+  checked,
+  disabled = false,
+  onchange,
+  isHighlightCheckedText,
+}: IProps) => {
   const defaultChecked = checked || false;
   const [isChecked, setIsChecked] = useState(defaultChecked);
 
@@ -44,11 +54,20 @@ const CheckBox = ({ checkedItemHandler, checkItems, data, children, checked, dis
           }
           disabled={disabled}
         />
-        {children}
+        {isHighlightCheckedText ? <Text className={isChecked ? 'is-checked' : ''}>{children}</Text> : children}
       </label>
     </CheckboxWrapper>
   );
 };
+
+const Text = styled.div`
+  ${Pretendard({ font: 1.4, weight: 400, color: Common.colors.GY900 })}
+
+  &.is-checked {
+    color: ${Common.colors.BL500};
+    font-weight: 700;
+  }
+`;
 
 export default CheckBox;
 

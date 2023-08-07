@@ -1,7 +1,7 @@
 import { atom, selector } from 'recoil';
 
 interface IProps {
-  toastType: 'error' | 'success'; //알럿의 색깔을 표시
+  toastType: 'error' | 'success'; // 알럿의 색깔을 표시
   text: string;
   visible: boolean;
   marginPosition: number;

@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import PasswordInput from 'components/common/PasswordInput';
-import { Common, Pretendard } from 'styles/common';
-import ConfirmPassword from 'components/common/ConfirmPassword';
-import { Button } from 'components/common/Button';
 import styled from '@emotion/styled';
-import { resetPassword } from 'services/api/auth';
 import { useRouter } from 'next/router';
 import { useMutation } from 'react-query';
-import { toastState } from 'states/modal';
 import { useRecoilState } from 'recoil';
+import { Button } from 'components/common/Button';
+import ConfirmPassword from 'components/common/ConfirmPassword';
+import PasswordInput from 'components/common/PasswordInput';
 import SearchHeader from 'components/common/SearchHeader';
+import { resetPassword } from 'services/api/auth';
+import { toastState } from 'states/modal';
+import { Common, Pretendard } from 'styles/common';
 
 const Reset = () => {
   const [wasSubmitted, setwasSubmitted] = useState(false);
@@ -49,7 +49,7 @@ const Reset = () => {
     const fieldValues = Object.fromEntries(formData.entries());
     const pwd = fieldValues['비밀번호'] as string;
     setwasSubmitted(true);
-    resetPasswordHandler.mutate({ pwd: pwd, token: router.query.token as string });
+    resetPasswordHandler.mutate({ pwd, token: router.query.token as string });
   };
 
   return (

@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import { Pretendard, Common, SpaceBetween } from 'styles/common';
 
-type Props = {
+interface Props {
   setVisible: (bool: boolean) => void;
   setLeavePage: () => void;
-};
+}
 
 const LeavePageAlert = ({ setVisible, setLeavePage }: Props) => {
   return (
@@ -16,7 +16,13 @@ const LeavePageAlert = ({ setVisible, setLeavePage }: Props) => {
         입력한 태그들이 저장되지 않습니다.
       </p>
       <div className="btn-container">
-        <button onClick={() => setVisible(false)}>취소</button>
+        <button
+          onClick={() => {
+            setVisible(false);
+          }}
+        >
+          취소
+        </button>
         <button className="del" onClick={setLeavePage}>
           나가기
         </button>

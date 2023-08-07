@@ -1,17 +1,16 @@
-import styled from '@emotion/styled';
-import { Common, Pretendard, AlignAndJustifyCenter } from 'styles/common';
-import Question from './Question';
 import { memo, useRef, useState } from 'react';
+import styled from '@emotion/styled';
+import { useRecoilCallback, useRecoilValue } from 'recoil';
+import useScroll from 'hooks/useScroll';
 import Copy from 'public/icon/copy.svg';
 import Plus from 'public/icon/plus-two.svg';
 import { sectionListAtomFamily } from 'states/survey';
 import { sectionIdListAtom, qusetionIdListAtom } from 'states/surveyIds';
-import { useRecoilCallback, useRecoilValue } from 'recoil';
-import { QuestionListID, SectionID } from 'types/survey';
+import { Common, Pretendard, AlignAndJustifyCenter } from 'styles/common';
+import { type QuestionListID, type SectionID } from 'types/survey';
 import { PartIDFormat, QuestionListIDFormat } from 'utills/getDateSixth';
-
-import useScroll from 'hooks/useScroll';
 import PartHeader from './PartHeader';
+import Question from './Question';
 
 interface IProps {
   PartNum: number;
@@ -22,13 +21,13 @@ interface IProps {
 const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
   const SyscodeFormat: QuestionListID = QuestionListIDFormat(PartNum + 1);
   const lastPart = useRecoilValue(sectionListAtomFamily(PartIDFormat(ListLength)));
-  const questionIdList = useRecoilValue(qusetionIdListAtom(SyscodeFormat)); //질문들의 IDList
+  const questionIdList = useRecoilValue(qusetionIdListAtom(SyscodeFormat)); // 질문들의 IDList
   const [hideList, setHideList] = useState(true);
   const { scrollPoint, moveScrollPoint } = useScroll();
   const listRef = useRef<HTMLDivElement>(null);
   const addPart = useRecoilCallback(({ snapshot, set }) => () => {
     const partIds = snapshot.getLoadable(sectionIdListAtom).getValue();
-    //Syscode에서 마지막 숫자 가져오기
+    // Syscode에서 마지막 숫자 가져오기
     const lastNumber = partIds[partIds.length - 1].slice(-1);
     set(sectionIdListAtom, [...partIds, PartIDFormat(Number(lastNumber) + 1)]);
   });
@@ -45,7 +44,7 @@ const Part = ({ PartNum, ListLength, setVisibleMore, partID }: IProps) => {
   });
 
   const foldList = () => {
-    if (!listRef || !listRef.current) {
+    if (!listRef || listRef.current == null) {
       return;
     }
 

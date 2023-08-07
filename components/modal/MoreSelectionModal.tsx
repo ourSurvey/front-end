@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Common, Pretendard } from 'styles/common';
 import styled from '@emotion/styled';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import Portal from 'components/common/Portal';
 import ModalTemplate from 'components/modal/ModalTemplate';
 import PartDeleteBody from 'components/modal/PartDeleteBody';
+import { toastState } from 'states/modal';
 import { qusetionListAtomFamily, templateSelector } from 'states/survey';
 import {
   MoreModalIDAtom,
@@ -13,8 +14,7 @@ import {
   targetPartIdAtom,
   sectionIdListAtom,
 } from 'states/surveyIds';
-import { toastState } from 'states/modal';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { Common, Pretendard } from 'styles/common';
 
 interface IProps {
   setSideModal: (bool: boolean) => void;
@@ -52,8 +52,8 @@ const MoreSelectionModal = ({ setSideModal }: IProps) => {
   };
 
   const onDeleteQuestion = () => {
-    //리스트의 개수가 1이라면 파트 삭제
-    //아니라면 질문 삭제
+    // 리스트의 개수가 1이라면 파트 삭제
+    // 아니라면 질문 삭제
     if (questionIdList.length === 1) {
       setPartList((arr) => arr.filter((item) => item !== targetPartID));
     } else {
@@ -93,15 +93,45 @@ const MoreSelectionModal = ({ setSideModal }: IProps) => {
         <Container>
           <h6>질문 설정</h6>
           <span>이 질문 복사</span>
-          <span onClick={() => setdeleteModal(true)}>삭제</span>
+          <span
+            onClick={() => {
+              setdeleteModal(true);
+            }}
+          >
+            삭제
+          </span>
         </Container>
         <Line></Line>
         <Container>
           <h6>템플릿 사용</h6>
-          <span onClick={() => setTemplate('gender')}>성별 질문</span>
-          <span onClick={() => setTemplate('birth')}>나이 질문</span>
-          <span onClick={() => setTemplate('phone')}>연락처 질문</span>
-          <span onClick={() => setTemplate('email')}>이메일 질문</span>
+          <span
+            onClick={() => {
+              setTemplate('gender');
+            }}
+          >
+            성별 질문
+          </span>
+          <span
+            onClick={() => {
+              setTemplate('birth');
+            }}
+          >
+            나이 질문
+          </span>
+          <span
+            onClick={() => {
+              setTemplate('phone');
+            }}
+          >
+            연락처 질문
+          </span>
+          <span
+            onClick={() => {
+              setTemplate('email');
+            }}
+          >
+            이메일 질문
+          </span>
         </Container>
       </div>
       {deleteModal && (

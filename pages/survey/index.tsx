@@ -1,8 +1,8 @@
+import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import SearchHeader from 'components/common/SearchHeader';
-import { Common, Pretendard } from 'styles/common';
 import SurveyContainer from 'components/survey/SurveyContainer';
-import { useEffect, useState } from 'react';
+import { Common, Pretendard } from 'styles/common';
 
 const Index = () => {
   const [sectionHeight, setSectionHeight] = useState<number | undefined>(0);

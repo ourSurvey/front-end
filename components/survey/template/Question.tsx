@@ -1,22 +1,22 @@
 import { memo } from 'react';
 import styled from '@emotion/styled';
-import More from 'public/icon/vertical-three-dots.svg';
-import { Common, Pretendard, SpaceBetween } from 'styles/common';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import Toggle from 'components/common/Toggle';
-import QusetionTitle from './QusetionTitle';
-import SelectOptionContainer from './SelectOptionContainer';
-import { QuestionListID, SectionID } from 'types/survey';
+import More from 'public/icon/vertical-three-dots.svg';
 import { qusetionListAtomFamily, targetAtom } from 'states/survey';
 import { MoreModalIDAtom, targetQuestionListIDAtom, targetQuestionIDAtom, targetPartIdAtom } from 'states/surveyIds';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { Common, Pretendard, SpaceBetween } from 'styles/common';
+import { type QuestionListID, type SectionID } from 'types/survey';
 import { QuestionIDFormat } from 'utills/getDateSixth';
+import QusetionTitle from './QusetionTitle';
+import SelectOptionContainer from './SelectOptionContainer';
 interface IProps {
   questionId: number;
   color: string;
   partNumber: number;
   setVisibleMore: (bool: boolean) => void;
-  id: QuestionListID; //질문의 고유 ID
-  targetQuestionList: QuestionListID; //해당 질문들이 있는 배열의 ID값
+  id: QuestionListID; // 질문의 고유 ID
+  targetQuestionList: QuestionListID; // 해당 질문들이 있는 배열의 ID값
   partId: SectionID;
   ListLength: number;
 }
@@ -43,11 +43,11 @@ const Question = ({
   const setMoreModal = () => {
     setTarget({ part: partNumber, question: questionId + 1 });
     setQusetionId(QuestionIDFormat(questionId + 1, partNumber));
-    //해당 질문이 있는 배열의 값을 저장
+    // 해당 질문이 있는 배열의 값을 저장
     setQuestionListID(targetQuestionList);
-    //질문의 고유 ID 값을 저장
+    // 질문의 고유 ID 값을 저장
     setQuestiontID(id);
-    //해당 파트의 ID값 설정
+    // 해당 파트의 ID값 설정
     setTargetPartID(partId);
     setVisibleMore(true);
   };

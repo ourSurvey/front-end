@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
+import styled from '@emotion/styled';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useMutation } from 'react-query';
+import { useRecoilState } from 'recoil';
 import { Button } from 'components/common/Button';
 import Input from 'components/common/Input';
 import PasswordInput from 'components/common/PasswordInput';
-import styled from '@emotion/styled';
-import { useMutation } from 'react-query';
-import { Common, Pretendard, SpaceBetween } from 'styles/common';
-import { login } from 'services/api/auth';
-import Link from 'next/link';
-import { toastState } from 'states/modal';
-import { useRecoilState } from 'recoil';
 import SearchHeader from 'components/common/SearchHeader';
+import { login } from 'services/api/auth';
+import { toastState } from 'states/modal';
+import { Common, Pretendard, SpaceBetween } from 'styles/common';
 
 const Index = () => {
   const router = useRouter();
@@ -21,7 +21,7 @@ const Index = () => {
 
   const loginHandler = useMutation(login, {
     onSuccess: () => {
-      //성공 시
+      // 성공 시
       setToastState({
         ...ToastState,
         visible: true,
@@ -34,7 +34,7 @@ const Index = () => {
       }, 1000);
     },
     onError: (data: any) => {
-      //실패 시
+      // 실패 시
 
       if (data.response.data.code === 402) {
         setToastState({
@@ -70,7 +70,7 @@ const Index = () => {
     const fieldValues = Object.fromEntries(formData.entries());
     const loginEmail = fieldValues['이메일'] as string;
     const pwd = fieldValues['비밀번호'] as string;
-    loginHandler.mutate({ email: loginEmail, pwd: pwd });
+    loginHandler.mutate({ email: loginEmail, pwd });
     setwasSubmitted(true);
   };
   const ckBtn = email && pwd;
@@ -115,7 +115,7 @@ const Index = () => {
         isDisabled={false}
         btnText="회원가입"
         textColor={Common.colors.GY900}
-        onClick={() => router.push('/register')}
+        onClick={async () => await router.push('/register')}
       />
     </FormContainer>
   );

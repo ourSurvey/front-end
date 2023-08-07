@@ -1,5 +1,5 @@
+import axios, { type AxiosRequestConfig } from 'axios';
 import TokenProvider from 'services/TokenProvider';
-import axios, { AxiosRequestConfig } from 'axios';
 
 class ApiClient {
   #instance;
@@ -26,16 +26,16 @@ class ApiClient {
     return data;
   }
 
-  post(url: string, data: any, option?: AxiosRequestConfig) {
-    return this.#instance.post(url, data, this.requsetConfig(option));
+  async post(url: string, data: any, option?: AxiosRequestConfig) {
+    return await this.#instance.post(url, data, this.requsetConfig(option));
   }
 
-  put(url: string, data: any, option?: AxiosRequestConfig) {
-    return this.#instance.put(url, data, this.requsetConfig(option));
+  async put(url: string, data: any, option?: AxiosRequestConfig) {
+    return await this.#instance.put(url, data, this.requsetConfig(option));
   }
 
-  delete(url: string, option?: AxiosRequestConfig) {
-    return this.#instance.delete(url, this.requsetConfig(option));
+  async delete(url: string, option?: AxiosRequestConfig) {
+    return await this.#instance.delete(url, this.requsetConfig(option));
   }
 }
 

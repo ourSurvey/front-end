@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
+import styled from '@emotion/styled';
 import usePasswordValue from 'hooks/usePasswordValue';
 import UnVisibleEye from 'public/images/unVisibleEye.svg';
 import VisibleEye from 'public/images/visibleEye.svg';
 import { Common, Pretendard } from 'styles/common';
-import styled from '@emotion/styled';
 
 interface IProps {
   name: string;
@@ -18,7 +18,7 @@ const ConfirmPassword = (props: IProps) => {
   const passwordValue = usePasswordValue(ref, passwordInputName);
   const [value, setValue] = useState('');
   const [touched, setTouched] = useState(false);
-  const [inputType, setinputType] = useState('text'); //패스워드 버튼 눌렀을 때 변경 토글
+  const [inputType, setinputType] = useState('text'); // 패스워드 버튼 눌렀을 때 변경 토글
   const [isVisiblePassword, setisVisiblePassword] = useState(false);
   const errorMessage = passwordValue !== value ? '비밀번호가 일치하지 않습니다.' : null;
   const displayErrorMessage = (wasSubmitted || touched) && errorMessage;
@@ -57,8 +57,12 @@ const ConfirmPassword = (props: IProps) => {
           id={`${name}-input`}
           name={name}
           type={inputType}
-          onChange={(event) => setValue(event.currentTarget.value)}
-          onBlur={() => setTouched(true)}
+          onChange={(event) => {
+            setValue(event.currentTarget.value);
+          }}
+          onBlur={() => {
+            setTouched(true);
+          }}
           aria-describedby={displayErrorMessage ? `${name}-error` : undefined}
           placeholder={placeHolder}
         />

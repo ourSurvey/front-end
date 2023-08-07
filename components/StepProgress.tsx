@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
+import { css, type SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
-import { css, SerializedStyles } from '@emotion/react';
-import { Common, SpaceBetween } from 'styles/common';
-import { stepState } from 'states/stepProgress';
 import { useRecoilValue } from 'recoil';
 import bg from 'public/images/whiteCheck.png';
+import { stepState } from 'states/stepProgress';
+import { Common, SpaceBetween } from 'styles/common';
 const StepProgress = () => {
   const onBoardingStep = useRecoilValue(stepState);
   const liStyle = css`

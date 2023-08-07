@@ -1,11 +1,11 @@
 import { useRef, useState, useCallback, useLayoutEffect } from 'react';
-import useThrottle from 'hooks/useThrottle';
 import { debounce } from 'lodash';
+import useThrottle from 'hooks/useThrottle';
 
 export const useHeaderScroll = () => {
-  //scroll이 일어나는 container. 현재 scroll 내린 만큼의 값을 구하기 위해
+  // scroll이 일어나는 container. 현재 scroll 내린 만큼의 값을 구하기 위해
   const scrollContainerRef = useRef<any>(null);
-  //과거 스크롤 값 저장
+  // 과거 스크롤 값 저장
   const [prevY, setPrevY] = useState(0);
   const [hide, setHide] = useState(true);
 
@@ -14,11 +14,11 @@ export const useHeaderScroll = () => {
       // 현재위치와 이전 위치의 차를 계산한다.
       const diff = e.target.scrollTop - prevY;
       if (diff > 0) {
-        //내려가는 중
+        // 내려가는 중
         // 헤더를 보여줄지 말지 set
         setHide(false);
       } else if (diff < 0) {
-        //올라가는 중
+        // 올라가는 중
         setHide(true);
       }
       setPrevY(e.target.scrollTop);

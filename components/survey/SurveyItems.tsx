@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { Common, Pretendard } from 'styles/common';
@@ -33,7 +33,7 @@ export const LinkButton = ({ children, url }: ILink) => (
 );
 export const HashTags = ({ hashtagList }: IHashTags) => (
   <>
-    {hashtagList && hashtagList.length > 0 ? (
+    {hashtagList != null && hashtagList.length > 0 ? (
       <Hashtag hashtagList={hashtagList}>{hashtagList?.map((item) => `#${item}`)}</Hashtag>
     ) : null}
   </>
@@ -111,5 +111,5 @@ const Hashtag = styled.span<IStyle>`
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  margin-top: ${({ hashtagList }) => (hashtagList && hashtagList.length > 0 ? '10px' : '0')};
+  margin-top: ${({ hashtagList }) => (hashtagList != null && hashtagList.length > 0 ? '10px' : '0')};
 `;

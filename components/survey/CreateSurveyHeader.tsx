@@ -1,15 +1,15 @@
-import Prev from 'public/icon/prevArrow.svg';
-import styled from '@emotion/styled';
-import { Common, Pretendard, SpaceBetween } from 'styles/common';
-import { useRouter } from 'next/router';
 import { memo } from 'react';
+import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
+import Prev from 'public/icon/prevArrow.svg';
 import { surveySelector } from 'states/survey';
-type Props = {
+import { Common, Pretendard, SpaceBetween } from 'styles/common';
+interface Props {
   step: string;
   name: string;
   hasUnderLine: boolean;
-};
+}
 
 const CreateSurveyHeader = ({ step, name, hasUnderLine }: Props) => {
   const state = useRecoilValue(surveySelector);
@@ -40,9 +40,21 @@ const CreateSurveyHeader = ({ step, name, hasUnderLine }: Props) => {
 
   return (
     <Header>
-      <Prev width="20" height="16" onClick={() => router.back()} />
+      <Prev
+        width="20"
+        height="16"
+        onClick={() => {
+          router.back();
+        }}
+      />
 
-      <Span onClick={() => console.log(state)}>{name}</Span>
+      <Span
+        onClick={() => {
+          console.log(state);
+        }}
+      >
+        {name}
+      </Span>
       <StepPosition>
         STEP {step}
         <span className="total">/03</span>

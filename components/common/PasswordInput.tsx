@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
+import styled from '@emotion/styled';
 import UnVisibleEye from 'public/images/unVisibleEye.svg';
 import VisibleEye from 'public/images/visibleEye.svg';
-import styled from '@emotion/styled';
-import { getFieldError } from 'utills/validate';
 import { Common, Pretendard } from 'styles/common';
+import { getFieldError } from 'utills/validate';
 
 interface IProps {
-  name: string; //폼이 제출되었을 때 form.element에서 필드값을 찾는데 사용
+  name: string; // 폼이 제출되었을 때 form.element에서 필드값을 찾는데 사용
   wasSubmitted: boolean; // 필드가 터치되지 않았더라도 에러 메시지를 표시해야 하는지 판단
   placeHolder?: string;
   setValidate: (flag: boolean) => void;
@@ -16,7 +16,7 @@ const PasswordInput = (props: IProps) => {
   const { name, wasSubmitted, setValidate, placeHolder } = props;
   const [value, setValue] = useState('');
   const [touched, setTouched] = useState(false);
-  const [inputType, setinputType] = useState('text'); //패스워드 버튼 눌렀을 때 변경 토글
+  const [inputType, setinputType] = useState('text'); // 패스워드 버튼 눌렀을 때 변경 토글
   const [isVisiblePassword, setisVisiblePassword] = useState(false);
   const errorMessage = getFieldError(value, name);
   const displayErrorMessage = (wasSubmitted || touched) && errorMessage;
@@ -56,8 +56,12 @@ const PasswordInput = (props: IProps) => {
           id={`${name}-input`}
           name={name}
           type={inputType}
-          onChange={(event) => setValue(event.currentTarget.value)}
-          onBlur={() => setTouched(true)}
+          onChange={(event) => {
+            setValue(event.currentTarget.value);
+          }}
+          onBlur={() => {
+            setTouched(true);
+          }}
           aria-describedby={displayErrorMessage ? `${name}-error` : undefined}
           placeholder={placeHolder !== undefined ? placeHolder : ''}
         />

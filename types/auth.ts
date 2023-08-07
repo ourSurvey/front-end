@@ -1,4 +1,4 @@
-export type SignupAgreements = {
+export interface SignupAgreements {
   privacy: boolean;
   ad:
     | {
@@ -7,7 +7,7 @@ export type SignupAgreements = {
         app: boolean;
       }
     | false;
-};
+}
 
 export interface ILoginData {
   email: string;
@@ -31,7 +31,7 @@ export interface ICookieData {
   refresh: string;
 }
 
-//회원가입
+// 회원가입
 export interface IEmail {
   email: string;
 }

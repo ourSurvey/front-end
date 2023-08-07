@@ -1,13 +1,13 @@
 import React, { useCallback } from 'react';
-import CloseCircle from 'public/icon/close-circle.svg';
 import styled from '@emotion/styled';
-import { AlignAndJustifyCenter, Common, Pretendard } from 'styles/common';
 import { useRecoilState, useSetRecoilState } from 'recoil';
+import CloseCircle from 'public/icon/close-circle.svg';
+import Arrow from 'public/icon/underArrow.svg';
 import { qusetionItemListAtomFamily } from 'states/survey';
 import { qusetionItemIdListAtom } from 'states/surveyIds';
+import { AlignAndJustifyCenter, Common, Pretendard } from 'styles/common';
+import { type QuestionItemListID } from 'types/survey';
 import { QuestionItemIDFormat, QuestionItemListUniqueNumber } from 'utills/getDateSixth';
-import { QuestionItemListID } from 'types/survey';
-import Arrow from 'public/icon/underArrow.svg';
 
 interface IProps {
   selectionNumber: number;
@@ -59,10 +59,17 @@ const MultipleSelectionInput = ({
               defaultValue={inputContent.content}
               type="text"
               name="multiple-select-input"
-              onChange={(e) => onChangeHandler(e)}
+              onChange={(e) => {
+                onChangeHandler(e);
+              }}
             />
             {hasDeleteBtn ? <CloseCircle className="close-svg" onClick={onRemove} /> : null}
-            <div onClick={() => setVisibleModal(true)} className="nexts">
+            <div
+              onClick={() => {
+                setVisibleModal(true);
+              }}
+              className="nexts"
+            >
               <strong>다음 파트</strong>로 진행하기
               <Arrow fill={Common.colors.GY700} />
             </div>
@@ -74,7 +81,9 @@ const MultipleSelectionInput = ({
               defaultValue={inputContent.content}
               type="text"
               name="multiple-select-input"
-              onChange={(e) => onChangeHandler(e)}
+              onChange={(e) => {
+                onChangeHandler(e);
+              }}
             />
             {hasDeleteBtn ? <CloseCircle onClick={onRemove} /> : null}
           </InputContainer>

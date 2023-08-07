@@ -1,14 +1,14 @@
-import surveyService from 'services/survey.service';
-import { QueryClient, dehydrate, DehydratedState } from 'react-query';
-import styled from '@emotion/styled';
-import { Pretendard, Common, SpaceBetween, AlignAndJustifyCenter } from 'styles/common';
-import { Button } from 'components/common/Button';
 import { useState } from 'react';
-import SearchHeader from 'components/common/SearchHeader';
+import styled from '@emotion/styled';
+import { QueryClient, dehydrate, type DehydratedState } from 'react-query';
+import { Button } from 'components/common/Button';
 import Portal from 'components/common/Portal';
+import SearchHeader from 'components/common/SearchHeader';
 import ModalTemplate from 'components/modal/ModalTemplate';
 import ShareBody from 'components/modal/ShareBody';
 import Share from 'public/icon/share.svg';
+import surveyService from 'services/survey.service';
+import { Pretendard, Common, SpaceBetween, AlignAndJustifyCenter } from 'styles/common';
 interface IProps {
   dehydratedState: DehydratedState;
 }
@@ -16,8 +16,10 @@ interface IProps {
 export const getServerSideProps = async (context: any) => {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(['surveyDetail', context.params.surveyId], () =>
-    surveyService.surveyDetail(context.params.surveyId, context.req.headers.cookie.split(';')[0].substr(12))
+  await queryClient.prefetchQuery(
+    ['surveyDetail', context.params.surveyId],
+    async () =>
+      await surveyService.surveyDetail(context.params.surveyId, context.req.headers.cookie.split(';')[0].substr(12))
   );
 
   return { props: { dehydratedState: dehydrate(queryClient) } };
@@ -70,7 +72,9 @@ const SurveyId = ({ dehydratedState }: IProps) => {
       <BtnContainer>
         <Button
           className="share-btn"
-          onClick={() => setshowShare(true)}
+          onClick={() => {
+            setshowShare(true);
+          }}
           isDisabled={false}
           wUnit="%"
           width={20}

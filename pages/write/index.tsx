@@ -1,13 +1,12 @@
-import styled from '@emotion/styled';
-import { Common } from 'styles/common';
-import CreateSurveyHeader from 'components/survey/CreateSurveyHeader';
 import React from 'react';
+import styled from '@emotion/styled';
+import { type GetServerSideProps } from 'next';
 import SubLayout from 'components/SubLayout';
-
-import { GetServerSideProps } from 'next';
-import { withAuth } from 'utills/isLoggedIn';
-import { useHeaderScroll } from 'hooks/useHeaderScroll';
+import CreateSurveyHeader from 'components/survey/CreateSurveyHeader';
 import WriteWrapper from 'components/survey/WriteWrapper';
+import { useHeaderScroll } from 'hooks/useHeaderScroll';
+import { Common } from 'styles/common';
+import { withAuth } from 'utills/isLoggedIn';
 
 export const getServerSideProps: GetServerSideProps = withAuth(() => {
   return {

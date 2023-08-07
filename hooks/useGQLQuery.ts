@@ -1,14 +1,14 @@
-import TokenProvider from 'services/TokenProvider';
-import {
-  UseInfiniteQueryResult,
-  useQuery,
-  QueryKey,
-  UseQueryOptions,
-  useInfiniteQuery,
-  UseInfiniteQueryOptions,
-} from 'react-query';
-import { RequestDocument } from 'graphql-request/dist/types';
 import { GraphQLClient } from 'graphql-request';
+import { type RequestDocument } from 'graphql-request/dist/types';
+import {
+  type UseInfiniteQueryResult,
+  useQuery,
+  type QueryKey,
+  type UseQueryOptions,
+  useInfiniteQuery,
+  type UseInfiniteQueryOptions,
+} from 'react-query';
+import TokenProvider from 'services/TokenProvider';
 
 interface UseQueryFn<TData extends Record<string, any>, TVariables extends Record<string, any>> {
   (variables: TVariables, options?: UseQueryOptions<TData>): unknown;
@@ -17,10 +17,10 @@ interface UseQueryFn<TData extends Record<string, any>, TVariables extends Recor
 }
 
 export const useGQLQuery = (key: QueryKey, query: RequestDocument, variables: any, config?: UseQueryOptions) => {
-  //엔드포인트 설정
+  // 엔드포인트 설정
   const endpoint = `${process.env.NEXT_PUBLIC_API}/graphql`;
 
-  //헤더 값 가져오기
+  // 헤더 값 가져오기
   const headers = {
     headers: {
       Authorization: `Bearer ${TokenProvider.get('accessToken')}`,
@@ -40,10 +40,10 @@ export const useInfiniteGQLQuery = (
   getVariables: ({ pageParam }: { pageParam?: number }) => any,
   config?: UseInfiniteQueryOptions
 ) => {
-  //엔드포인트 설정
+  // 엔드포인트 설정
   const endpoint = `${process.env.NEXT_PUBLIC_API}/graphql`;
 
-  //헤더 값 가져오기
+  // 헤더 값 가져오기
   const headers = {
     headers: {
       Authorization: `Bearer ${TokenProvider.get('accessToken')}`,
@@ -54,8 +54,8 @@ export const useInfiniteGQLQuery = (
 
   return useInfiniteQuery<any, any, any, QueryKey>(
     key,
-    ({ pageParam }) => {
-      return graphQLClient.request(query, getVariables({ pageParam }));
+    async ({ pageParam }) => {
+      return await graphQLClient.request(query, getVariables({ pageParam }));
     },
     config
   );
@@ -68,7 +68,7 @@ export function useInfiniteGraphQLQuery<TData extends Record<string, any>, TVari
 ): UseInfiniteQueryResult<TData, Error> {
   const endpoint = `${process.env.NEXT_PUBLIC_API}/graphql`;
 
-  //헤더 값 가져오기
+  // 헤더 값 가져오기
   const headers = {
     headers: {
       Authorization: `Bearer ${TokenProvider.get('accessToken')}`,
@@ -79,8 +79,8 @@ export function useInfiniteGraphQLQuery<TData extends Record<string, any>, TVari
 
   return useInfiniteQuery<TData, Error>(
     useQuery.getKey(getVariables({})),
-    ({ pageParam }) => {
-      return graphQLClient.request(useQuery.document, getVariables({ pageParam }));
+    async ({ pageParam }) => {
+      return await graphQLClient.request(useQuery.document, getVariables({ pageParam }));
     },
     options
   );

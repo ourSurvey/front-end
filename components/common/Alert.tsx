@@ -1,13 +1,12 @@
 import { useEffect } from 'react';
+import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import GreenCheck from 'public/images/greenCheck.svg';
 import PinkExcalmationMark from 'public/images/pinkExclamationMark.svg';
+import { toastState, showToastState } from 'states/modal';
 import { Common, Pretendard, AlignAndJustifyCenter } from 'styles/common';
-import { toastState } from 'states/modal';
-import { useRecoilState } from 'recoil';
-import { css, keyframes } from '@emotion/react';
-import { showToastState } from 'states/modal';
-import { useRecoilValue } from 'recoil';
+
 const Alert = () => {
   const [ToastState, setToastState] = useRecoilState(toastState);
   const visible = useRecoilValue(showToastState);

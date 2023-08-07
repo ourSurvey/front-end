@@ -1,25 +1,25 @@
+import { useCallback } from 'react';
+import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
+import { useRecoilState } from 'recoil';
+import { Button } from 'components/common/Button';
 import Close from 'public/icon/close.svg';
 import Insta from 'public/icon/insta.svg';
 import Kakao from 'public/icon/kakao.svg';
-import styled from '@emotion/styled';
-import { Pretendard, Common, SpaceBetween } from 'styles/common';
-import { useRouter } from 'next/router';
 import { toastState } from 'states/modal';
-import { useRecoilState } from 'recoil';
-import { useCallback } from 'react';
-import { Button } from 'components/common/Button';
+import { Pretendard, Common, SpaceBetween } from 'styles/common';
 
-type Props = {
+interface Props {
   setVisible: (bool: boolean) => void;
   title: string;
   content: string;
   id: any;
-};
+}
 
 const ShareBody = ({ setVisible, title, content, id }: Props) => {
   const [ToastState, setToastState] = useRecoilState(toastState);
   const router = useRouter();
-  const surveyUrl: string = `${process.env.NEXT_PUBLIC_URL}${router.asPath}`;
+  const surveyUrl = `${process.env.NEXT_PUBLIC_URL}${router.asPath}`;
 
   const handleCopy = useCallback(() => {
     if (navigator.clipboard) {
@@ -53,7 +53,7 @@ const ShareBody = ({ setVisible, title, content, id }: Props) => {
       // 흐름 2.
       if (!document.queryCommandSupported('copy')) {
         alert('복사하기가 지원되지 않는 브라우저입니다.');
-        return setToastState({
+        setToastState({
           ...ToastState,
           visible: true,
           text: '복사하기가 지원되지 않는 브라우저입니다.',
@@ -61,6 +61,7 @@ const ShareBody = ({ setVisible, title, content, id }: Props) => {
           marginPosition: 50,
           hUnit: '%',
         });
+        return;
       }
 
       // 흐름 3.
@@ -97,7 +98,7 @@ const ShareBody = ({ setVisible, title, content, id }: Props) => {
     window.Kakao.Share.sendCustom({
       templateId: 84445,
       templateArgs: {
-        title: title,
+        title,
         desc: content,
         url: `/survey/${id}`,
       },
@@ -107,7 +108,14 @@ const ShareBody = ({ setVisible, title, content, id }: Props) => {
   return (
     <>
       <Absolute>
-        <Close width="14" height="14" fill={Common.colors.GY900} onClick={() => setVisible(false)} />
+        <Close
+          width="14"
+          height="14"
+          fill={Common.colors.GY900}
+          onClick={() => {
+            setVisible(false);
+          }}
+        />
       </Absolute>
       <ShareSpan>공유하기</ShareSpan>
       <IconContainer>

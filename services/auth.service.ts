@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ILoginData, ISignupData, IAddtionData } from '../types/auth';
+import { type ILoginData, type ISignupData, type IAddtionData } from '../types/auth';
 import ApiClient from './ApiClient';
 import TokenProvider from './TokenProvider';
 
@@ -27,7 +27,7 @@ class AuthService extends ApiClient {
   async login(loginData: ILoginData) {
     const { data } = await super.post('/auth/login', loginData);
 
-    const refreshExpire: number = data.data.refreshExpire / 60 / 60 / 24; //초로 오는 시간 일로 변환
+    const refreshExpire: number = data.data.refreshExpire / 60 / 60 / 24; // 초로 오는 시간 일로 변환
 
     TokenProvider.set('accessToken', data.data.access, 1);
     TokenProvider.set('refreshToken', data.data.refresh, refreshExpire);

@@ -1,14 +1,14 @@
 import styled from '@emotion/styled';
 import { Common } from 'styles/common';
 
-type IStyle = {
+interface IStyle {
   zIndex: number;
-};
+}
 
-type Props = {
+interface Props {
   onClick: () => void;
   zIndex?: number;
-};
+}
 
 const Dimmer = ({ onClick, zIndex = 100 }: Props) => {
   return <DimmerContainer zIndex={zIndex} onClick={onClick}></DimmerContainer>;

@@ -1,31 +1,32 @@
-import { isHaveBlankColumn } from 'utills/blankColumnCheck';
+import { atom, atomFamily, DefaultValue, selector, selectorFamily } from 'recoil';
 import {
   sectionIdListAtom,
   qusetionIdListAtom,
   qusetionItemIdListAtom,
   targetQuestionListIDAtom,
 } from 'states/surveyIds';
-import { atom, atomFamily, DefaultValue, selector, selectorFamily } from 'recoil';
+import { tagState } from 'states/tag';
+import {
+  type IQuestionItem,
+  type IQuestion,
+  type ISurveyData,
+  type ISection,
+  type QuestionItemID,
+  type QuestionID,
+  type SectionID,
+  type QuestionItemListID,
+  type QuestionListID,
+} from 'types/survey';
+import { isHaveBlankColumn } from 'utills/blankColumnCheck';
 import {
   QuestionIDFormat,
   PartIDFormat,
   QuestionListIDFormat,
   QuestionItemIDFormat,
   QuestionItemListUniqueNumber,
+  getDateSixDigitsFormatToday,
+  numberSet,
 } from 'utills/getDateSixth';
-import {
-  IQuestionItem,
-  IQuestion,
-  ISurveyData,
-  ISection,
-  QuestionItemID,
-  QuestionID,
-  SectionID,
-  QuestionItemListID,
-  QuestionListID,
-} from 'types/survey';
-import { getDateSixDigitsFormatToday, numberSet } from 'utills/getDateSixth';
-import { tagState } from 'states/tag';
 interface ITarget {
   part: number;
   question: number;
@@ -100,7 +101,7 @@ export const qusetionListAtomFamily = atomFamily<IQuestion, QuestionID>({
       randomShowFl: 0,
       dupFl: 0,
       oder: 0,
-      nextFl: 0, //다음 파트로 진행하기 버튼 토글
+      nextFl: 0, // 다음 파트로 진행하기 버튼 토글
       questionItems: [],
     };
   },
@@ -119,7 +120,7 @@ export const sectionListAtomFamily = atomFamily<ISection, SectionID>({
   },
 });
 
-export const sectionTitleSelectorFamily = selectorFamily<String, SectionID>({
+export const sectionTitleSelectorFamily = selectorFamily<string, SectionID>({
   key: 'sectionTitleSelectorFamily',
   get:
     (id) =>
@@ -138,7 +139,7 @@ export const templateAtom = atom<'email' | '' | 'gender' | 'birth' | 'phone'>({
   default: '',
 });
 
-//템플릿 생성해주는 selector
+// 템플릿 생성해주는 selector
 export const templateSelector = selector({
   key: 'templateSelector',
   get: ({ get }) => {
@@ -153,25 +154,27 @@ export const templateSelector = selector({
     set(qusetionIdListAtom(targetQuestionListID), [
       ...qusetionIdList,
       QuestionListIDFormat(Number(questionListlastNumber) + 1),
-    ]); //새로운 question을 만듬
+    ]); // 새로운 question을 만듬
     const partIdx = get(targetAtom).part;
     const question = get(qusetionListAtomFamily(QuestionIDFormat(newQuestionIdx, partIdx)));
     switch (newValue) {
-      case 'birth':
+      case 'birth': {
         set(qusetionListAtomFamily(QuestionIDFormat(newQuestionIdx, partIdx)), {
           ...question,
           ask: '출생 년도를 알려주세요.',
           multiFl: 0,
         } as IQuestion);
         break;
-      case 'phone':
+      }
+      case 'phone': {
         set(qusetionListAtomFamily(QuestionIDFormat(newQuestionIdx, partIdx)), {
           ...question,
           ask: '연락이 가능한 휴대폰 번호를 알려주세요',
           multiFl: 0,
         } as IQuestion);
         break;
-      case 'gender':
+      }
+      case 'gender': {
         set(qusetionListAtomFamily(QuestionIDFormat(newQuestionIdx, partIdx)), {
           ...question,
           ask: '성별을 알려주세요.',
@@ -194,7 +197,7 @@ export const templateSelector = selector({
               `${QuestionItemListIdSyscodeFormat}${lastNumber + 2}`,
               `${QuestionItemListIdSyscodeFormat}${lastNumber + 3}`,
             ] as QuestionItemListID[]
-        ); //questionItem ID 리스트 새로 생성
+        ); // questionItem ID 리스트 새로 생성
         GENDER_ITEM_DATA.forEach((item) => {
           const data = get(qusetionItemListAtomFamily(QuestionItemIDFormat(partIdx, newQuestionItemIdx, item.oder)));
           set(qusetionItemListAtomFamily(QuestionItemIDFormat(partIdx, newQuestionItemIdx, item.oder)), {
@@ -204,13 +207,15 @@ export const templateSelector = selector({
         });
 
         break;
-      case 'email':
+      }
+      case 'email': {
         set(qusetionListAtomFamily(QuestionIDFormat(newQuestionIdx, partIdx)), {
           ...question,
           ask: '연락이 가능한 이메일을 알려주세요.',
           multiFl: 0,
         } as IQuestion);
         break;
+      }
       default:
         reset(templateAtom);
     }
@@ -223,51 +228,52 @@ export const surveySelector = selector({
     const sectionList = get(sectionIdListAtom);
     const surveyData = get(surveyState);
 
-    //파트의 ID리스트
+    // 파트의 ID리스트
     const sections = sectionList.map((_, sectionIdx) => {
       const qusetionList = get(qusetionIdListAtom(QuestionListIDFormat(sectionIdx + 1)));
-      //질문의 ID리스트
+      // 질문의 ID리스트
       const questionLit = qusetionList.map((_, questionIdx) => {
         const PartFormat = `SCTN${getDateSixDigitsFormatToday()}${numberSet(sectionIdx + 1)}`;
         const QuestionFormat = `QSTN${getDateSixDigitsFormatToday()}${numberSet(questionIdx + 1)}`;
         const SyscodeFormat = `${PartFormat}${QuestionFormat}` as QuestionItemListID;
 
-        //item의idList
+        // item의idList
         const questionItemIdList = get(qusetionItemIdListAtom(SyscodeFormat));
         const questionItem = questionItemIdList.map((questionItemIdx) => {
-          //item 아톰 패밀리를 가져와서 리턴
+          // item 아톰 패밀리를 가져와서 리턴
           return get(
             qusetionItemListAtomFamily(
               QuestionItemIDFormat(sectionIdx + 1, questionIdx + 1, QuestionItemListUniqueNumber(questionItemIdx))
             )
           );
         });
-        //question을 가져와서 questionItem을 담아서 리턴
+        // question을 가져와서 questionItem을 담아서 리턴
         const question = get(qusetionListAtomFamily(QuestionIDFormat(questionIdx + 1, sectionIdx + 1)));
         const questionItemsLength = questionItem.length;
         const nextSectionSetting = questionItem.map((item, idx) => {
-          //마지막 인덱스라면
+          // 마지막 인덱스라면
           if (idx + 1 === questionItemsLength) {
             return { ...item, nextSection: -1 };
           }
           if (item.nextSection === -2) {
             return { ...item, nextSection: 0 };
           }
+          return item;
         });
 
         return { ...question, questionItems: nextSectionSetting };
       });
 
       const part = get(sectionListAtomFamily(PartIDFormat(sectionIdx + 1)));
-      //part를 가져와서 question을 담아서 리턴
+      // part를 가져와서 question을 담아서 리턴
       return { ...part, questions: questionLit };
     });
 
     const tagList = get(tagState);
     const arrLength = sections.length;
-    //다음 섹션 세팅
+    // 다음 섹션 세팅
     const nextSectionPropertySet = sections.map((item, idx) => {
-      //마지막 인덱스라면
+      // 마지막 인덱스라면
       if (idx + 1 === arrLength) {
         return { ...item, nextSection: -1 };
       }
@@ -278,13 +284,20 @@ export const surveySelector = selector({
   },
 });
 
-type IContentProps = {
+interface IContentProps {
   partNum: number;
   questionNumber: number;
   SyscodeFormat: QuestionItemListID;
-};
+}
 
-export const etcUpdateSelector = selectorFamily<IQuestionItem, IContentProps>({
+export const etcUpdateSelector = selectorFamily<
+  IQuestionItem,
+  {
+    partNum: number;
+    questionNumber: number;
+    SyscodeFormat: QuestionItemListID;
+  }
+>({
   key: 'etcUpdateSelector',
   get:
     ({ partNum, questionNumber, SyscodeFormat }: IContentProps) =>

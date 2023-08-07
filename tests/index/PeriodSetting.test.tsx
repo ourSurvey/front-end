@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import PeriodSettingWrapper from 'components/survey/setting/PeriodSettingWrapper';
 import { RecoilRoot } from 'recoil';
+import PeriodSettingWrapper from 'components/survey/setting/PeriodSettingWrapper';
 
 describe('설문 진행 기간', () => {
   test("설문 제목에는 '설문의 진행 기간을 설정해주세요'라는 문구가 출력되어야 한다.", () => {
@@ -33,13 +33,12 @@ describe('설문 진행 기간', () => {
       </RecoilRoot>
     );
     const startDate = screen.getByTestId('startDate').textContent;
-    const endDate = screen.getByTestId('endDate').textContent;
 
     function getToday() {
       const date = new Date();
       const year = date.getFullYear();
-      const month = ('0' + (1 + date.getMonth())).slice(-2);
-      const day = ('0' + date.getDate()).slice(-2);
+      const month = `0 ${1 + date.getMonth()}`.slice(-2);
+      const day = `0${date.getDate()}`.slice(-2);
 
       return `${year}.${month}.${day}`;
     }

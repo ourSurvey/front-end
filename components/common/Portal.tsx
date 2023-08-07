@@ -12,7 +12,9 @@ const Portal = ({ children, selector }: IProps) => {
   useEffect(() => {
     setMounted(true);
 
-    return () => setMounted(false);
+    return () => {
+      setMounted(false);
+    };
   }, [selector]);
 
   return mounted ? createPortal(children, document.querySelector(selector) as HTMLParagraphElement) : null;

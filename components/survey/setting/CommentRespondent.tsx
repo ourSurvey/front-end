@@ -14,14 +14,14 @@ const CommentRespondent = ({ setClosinTitle, setclosingComment, closingComment, 
   const [subjectLength, setsubjectLength] = useState(0);
 
   const fn_checkByte = (text: string) => {
-    const text_val = text; //입력한 문자
-    const text_len = text_val.length; //입력한 문자수
+    const text_val = text; // 입력한 문자
+    const text_len = text_val.length; // 입력한 문자수
 
     let totalByte = 0;
 
     for (let i = 0; i < text_len; i++) {
       const each_char = text_val.charAt(i);
-      const uni_char = escape(each_char); //유니코드 형식으로 변환
+      const uni_char = escape(each_char); // 유니코드 형식으로 변환
 
       // 공백 제외 : 1Byte
       if (uni_char !== '%20') {
@@ -38,10 +38,9 @@ const CommentRespondent = ({ setClosinTitle, setclosingComment, closingComment, 
     setState: (text: string) => void
   ) => {
     if (targetLength >= 20) {
-      const space = e.target.value.split(' ')?.length; //공백 개수 세기
+      const space = e.target.value.split(' ')?.length; // 공백 개수 세기
       e.target.value = e.target.value.substr(0, 20 + (space - 1 || 0));
       setState(e.target.value);
-      return;
     } else {
       setState(e.target.value);
     }
@@ -56,12 +55,12 @@ const CommentRespondent = ({ setClosinTitle, setclosingComment, closingComment, 
   };
 
   useEffect(() => {
-    let length = fn_checkByte(closinTitle);
+    const length = fn_checkByte(closinTitle);
     settitleLength(length);
   }, [closinTitle]);
 
   useEffect(() => {
-    let length = fn_checkByte(closingComment);
+    const length = fn_checkByte(closingComment);
     setsubjectLength(length);
   }, [closingComment]);
 

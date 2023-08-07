@@ -1,15 +1,15 @@
-import styled from '@emotion/styled';
-import { Common, SpaceBetween } from 'styles/common';
-import PartSpeechContainer from 'components/survey/template/PartSpeechContainer';
 import { memo, useEffect, useState } from 'react';
-import { sectionIdListAtom } from 'states/surveyIds';
-import { useRecoilValue } from 'recoil';
+import styled from '@emotion/styled';
 import Link from 'next/link';
+import { useRecoilValue } from 'recoil';
 import { Button } from 'components/common/Button';
 import Portal from 'components/common/Portal';
 import MoreSideModal from 'components/modal/MoreSideModal';
-import { disableNextButtonState } from 'states/survey';
+import PartSpeechContainer from 'components/survey/template/PartSpeechContainer';
 import useScroll from 'hooks/useScroll';
+import { disableNextButtonState } from 'states/survey';
+import { sectionIdListAtom } from 'states/surveyIds';
+import { Common, SpaceBetween } from 'styles/common';
 interface IProps {
   scrollDetectHandler: (e: any) => void;
 }

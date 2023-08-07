@@ -34,6 +34,6 @@
     "incremental": true,
     "types": ["jest", "@testing-library/jest-dom"]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "styles.d.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "styles.d.ts", ".eslintrc.js", "global.d.ts"],
   "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"]
 }

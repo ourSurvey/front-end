@@ -1,12 +1,13 @@
 import { useState, memo, useRef, useEffect, forwardRef } from 'react';
-import MultipleSelectionInput from './MultipleSelectionInput';
+import { css } from '@emotion/react';
+import { useMotionValue, type DragControls, useDragControls, Reorder } from 'framer-motion';
 import Portal from 'components/common/Portal';
 import ModalTemplate from 'components/modal/ModalTemplate';
 import NextPartSelectionInSelectionInput from 'components/modal/NextPartSelectionInSelectionInput';
-import { QuestionItemListID } from 'types/survey';
-import { useMotionValue, DragControls, useDragControls, Reorder } from 'framer-motion';
 import { SpaceBetween } from 'styles/common';
-import { css } from '@emotion/react';
+import { type QuestionItemListID } from 'types/survey';
+import MultipleSelectionInput from './MultipleSelectionInput';
+
 interface IProps {
   selectionNumber: number;
   questionId: number;
@@ -28,7 +29,9 @@ const SlideArrow = forwardRef<any, ComponentProps>(({ dragControls }, ref) => (
     height="16"
     viewBox="0 0 15 16"
     fill="none"
-    onPointerDown={(event) => dragControls.start(event)}
+    onPointerDown={(event) => {
+      dragControls.start(event);
+    }}
     xmlns="http://www.w3.org/2000/svg"
     ref={ref}
   >
@@ -56,15 +59,17 @@ const InputAndNextPartContainer = ({
     align-items: center;
   `;
   useEffect(() => {
-    const touchHandler: React.TouchEventHandler<HTMLElement> = (e) => e.preventDefault();
+    const touchHandler: React.TouchEventHandler<HTMLElement> = (e) => {
+      e.preventDefault();
+    };
     const iTag = iRef.current;
 
-    if (iTag) {
-      //@ts-ignore
+    if (iTag != null) {
+      // @ts-expect-error
       iTag.addEventListener('touchstart', touchHandler, { passive: false });
 
       return () => {
-        //@ts-ignore
+        // @ts-expect-error
         iTag.removeEventListener('touchstart', touchHandler, {
           passive: false,
         });
@@ -88,8 +93,8 @@ const InputAndNextPartContainer = ({
         partId={partId}
         questionId={questionId}
         selectionNumber={selectionNumber}
-        id={id} //해당 선택지 리스트에 대한 id값
-        idName={idName} //선택지 리스트 안에 있는 고유 id 값
+        id={id} // 해당 선택지 리스트에 대한 id값
+        idName={idName} // 선택지 리스트 안에 있는 고유 id 값
         setVisibleModal={setshowModalState}
       />
       <Portal selector="#portal">

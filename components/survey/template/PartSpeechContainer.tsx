@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
+import { type SectionID } from 'types/survey';
 import Part from './Part';
 import SpeechBubble from './SpeechBubble';
-import { SectionID } from 'types/survey';
 interface IProps {
   PartNum: number;
   ListLength: number;

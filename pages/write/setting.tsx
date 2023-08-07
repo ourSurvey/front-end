@@ -1,8 +1,8 @@
 import React from 'react';
+import { type GetServerSideProps } from 'next';
 import SubLayout from 'components/SubLayout';
-import { GetServerSideProps } from 'next';
-import { withAuth } from 'utills/isLoggedIn';
 import SettingWrapper from 'components/survey/setting/SettingWrapper';
+import { withAuth } from 'utills/isLoggedIn';
 
 export const getServerSideProps: GetServerSideProps = withAuth(() => {
   return {

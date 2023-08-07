@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
+import { type GetServerSideProps } from 'next';
 import Head from 'next/head';
-import { GetServerSideProps } from 'next';
 import { withAuth } from 'utills/isLoggedIn';
 
 export const getServerSideProps: GetServerSideProps = withAuth(() => {

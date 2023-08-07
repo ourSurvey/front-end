@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 
-type Props = {
+interface Props {
   borderColor: string;
   btnText: string;
   textColor: string;
   onClick?: () => void;
   isDisabled: boolean;
-};
+}
 
 interface IStyle {
   borderColor: string;

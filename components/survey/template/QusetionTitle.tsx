@@ -1,9 +1,9 @@
-import styled from '@emotion/styled';
-import { Common, Pretendard } from 'styles/common';
-import ImageUpLoadSvg from 'public/icon/img.svg';
 import React, { useCallback, memo } from 'react';
 import { css } from '@emotion/react';
-import { ISection, IQuestion } from 'types/survey';
+import styled from '@emotion/styled';
+import ImageUpLoadSvg from 'public/icon/img.svg';
+import { Common, Pretendard } from 'styles/common';
+import { type ISection, type IQuestion } from 'types/survey';
 
 interface IProps {
   hasImageInput: boolean;
@@ -65,7 +65,9 @@ const QusetionTitle = ({ hasImageInput, setValue, value, placeHolder }: IProps) 
           type="text"
           required
           placeholder={`${placeHolder} 제목을 입력해주세요.`}
-          onChange={(e) => TitleOnChangeHandler(e)}
+          onChange={(e) => {
+            TitleOnChangeHandler(e);
+          }}
         />
         <div css={ImageInputState}>
           <input
@@ -85,7 +87,9 @@ const QusetionTitle = ({ hasImageInput, setValue, value, placeHolder }: IProps) 
         textType={'title' in value ? 'part' : 'question'}
         type="text"
         placeholder={`${placeHolder}설명(선택사항)`}
-        onChange={(e) => ContentChangeHandler(e)}
+        onChange={(e) => {
+          ContentChangeHandler(e);
+        }}
         name="sub-title"
       />
     </TitleAndSubTitle>

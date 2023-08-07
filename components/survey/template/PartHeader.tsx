@@ -1,11 +1,11 @@
-import QusetionTitle from './QusetionTitle';
-import InvertedTriangle from 'public/icon/inverted-triangle.svg';
 import styled from '@emotion/styled';
-import { Common, Pretendard, AlignAndJustifyCenter, SpaceBetween } from 'styles/common';
-import { QuestionListID } from 'types/survey';
 import { useRecoilState } from 'recoil';
-import { PartIDFormat } from 'utills/getDateSixth';
+import InvertedTriangle from 'public/icon/inverted-triangle.svg';
 import { sectionListAtomFamily } from 'states/survey';
+import { Common, Pretendard, AlignAndJustifyCenter, SpaceBetween } from 'styles/common';
+import { type QuestionListID } from 'types/survey';
+import { PartIDFormat } from 'utills/getDateSixth';
+import QusetionTitle from './QusetionTitle';
 
 interface IProps {
   PartNum: number;

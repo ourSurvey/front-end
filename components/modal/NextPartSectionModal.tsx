@@ -1,10 +1,9 @@
-import Close from 'public/icon/close.svg';
-
 import styled from '@emotion/styled';
-import { Pretendard, Common, SpaceBetween } from 'styles/common';
 import { useRecoilValue, useRecoilState } from 'recoil';
-import { PartIDFormat } from 'utills/getDateSixth';
+import Close from 'public/icon/close.svg';
 import { sectionListAtomFamily } from 'states/survey';
+import { Pretendard, Common, SpaceBetween } from 'styles/common';
+import { PartIDFormat } from 'utills/getDateSixth';
 interface IProps {
   setVisible: (bool: boolean) => void;
   partNum: number;
@@ -13,7 +12,7 @@ interface IProps {
 
 const NextPartSectionModal = ({ setVisible, partNum, partLength }: IProps) => {
   const [partData, setPartData] = useRecoilState(sectionListAtomFamily(PartIDFormat(partNum)));
-  //클릭한 파트 번호를 제외한 배열 생성
+  // 클릭한 파트 번호를 제외한 배열 생성
   const partIndexArray = Array.from({ length: partLength }, (_, index) => index + 1).filter((item) => item !== partNum);
 
   return (
@@ -27,14 +26,23 @@ const NextPartSectionModal = ({ setVisible, partNum, partLength }: IProps) => {
           <Description>다음으로 어디로 이동할까요?</Description>
         </div>
 
-        <Close width="14" height="14" onClick={() => setVisible(false)} fill={Common.colors.GY900} />
+        <Close
+          width="14"
+          height="14"
+          onClick={() => {
+            setVisible(false);
+          }}
+          fill={Common.colors.GY900}
+        />
       </Absolute>
 
       <Line />
 
       <UlContainer>
         <li
-          onClick={() => setPartData({ ...partData, nextSection: -2 })}
+          onClick={() => {
+            setPartData({ ...partData, nextSection: -2 });
+          }}
           className={partData.nextSection === -2 ? 'active' : ''}
         >
           다음 파트로 진행하기
@@ -44,7 +52,9 @@ const NextPartSectionModal = ({ setVisible, partNum, partLength }: IProps) => {
           return (
             <li
               key={part.id}
-              onClick={() => setPartData({ ...partData, nextSection: item - 1 })}
+              onClick={() => {
+                setPartData({ ...partData, nextSection: item - 1 });
+              }}
               className={partData.nextSection === item - 1 ? 'active' : ''}
             >
               Part{item}. {part.title === '' ? '(제목없음)' : part.title}
@@ -52,7 +62,9 @@ const NextPartSectionModal = ({ setVisible, partNum, partLength }: IProps) => {
           );
         })}
         <li
-          onClick={() => setPartData({ ...partData, nextSection: -1 })}
+          onClick={() => {
+            setPartData({ ...partData, nextSection: -1 });
+          }}
           className={partData.nextSection === -1 ? 'active' : ''}
         >
           설문 제출하기

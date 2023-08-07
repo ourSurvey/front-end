@@ -1,9 +1,10 @@
-import useDebounce from 'hooks/useDebouce';
-import { useResults } from 'utills/autoCompleteSecarch';
-import { Pretendard, Common } from 'styles/common';
 import styled from '@emotion/styled';
-import { tagState } from 'states/tag';
 import { useRecoilState } from 'recoil';
+import useDebounce from 'hooks/useDebouce';
+import { tagState } from 'states/tag';
+import { Pretendard, Common } from 'styles/common';
+import { useResults } from 'utills/autoCompleteSecarch';
+
 interface IProps {
   inputValue: string;
   onReset: () => void;
@@ -23,7 +24,12 @@ const SearchTagList = ({ inputValue, onReset }: IProps) => {
     <SearchTagListContainer>
       {data?.data.map((item: string) => {
         return (
-          <li key={item} onClick={() => addTagHandler(item)}>
+          <li
+            key={item}
+            onClick={() => {
+              addTagHandler(item);
+            }}
+          >
             #&nbsp;{item}
           </li>
         );

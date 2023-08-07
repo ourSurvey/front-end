@@ -1,17 +1,17 @@
 import styled from '@emotion/styled';
-import { Common, Pretendard } from 'styles/common';
-import MultipleSelection from './MultipleSelection';
-import Plus from 'public/icon/plus.svg';
 import { useRecoilCallback, useRecoilState } from 'recoil';
+import Plus from 'public/icon/plus.svg';
 import { qusetionListAtomFamily, qusetionItemListAtomFamily } from 'states/survey';
 import { qusetionItemIdListAtom } from 'states/surveyIds';
-import { IQuestionItem, QuestionID, QuestionItemListID } from 'types/survey';
+import { Common, Pretendard } from 'styles/common';
+import { type IQuestionItem, type QuestionID, type QuestionItemListID } from 'types/survey';
 import {
   getDateSixDigitsFormatToday,
   numberSet,
   QuestionItemIDFormat,
   QuestionItemListUniqueNumber,
 } from 'utills/getDateSixth';
+import MultipleSelection from './MultipleSelection';
 interface IProps {
   color: string;
   questionIndex: number;
@@ -41,7 +41,7 @@ const SelectOptionContainer = ({
   const getNewQuestionItemState = useRecoilCallback(
     ({ snapshot }) =>
       (partIndex: number, questionIndex: number, selectionNumber: number) => {
-        let loadable = snapshot.getLoadable(
+        const loadable = snapshot.getLoadable(
           qusetionItemListAtomFamily(QuestionItemIDFormat(partIndex, questionIndex, selectionNumber))
         );
 
@@ -74,7 +74,7 @@ const SelectOptionContainer = ({
     } as IQuestionItem);
   });
 
-  //중복 가능여부 설정
+  // 중복 가능여부 설정
   const onDuplicatePossible = () => {
     const flag = question.dupFl === 1 ? 0 : 1;
     setQuestion({
@@ -83,7 +83,7 @@ const SelectOptionContainer = ({
     });
   };
 
-  //객관식 주관식 설정
+  // 객관식 주관식 설정
   const onMultipleFlag = () => {
     const flag = question.multiFl === 1 ? 0 : 1;
     setQuestion({

@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { Button } from 'components/common/Button';
 import CustomRadio from 'components/common/CustomRadio';
-import { Common, Pretendard } from 'styles/common';
-import { stepState } from 'states/stepProgress';
 import { addtionState } from 'states/onBoard';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { useRouter } from 'next/router';
+import { stepState } from 'states/stepProgress';
+import { Common, Pretendard } from 'styles/common';
 
 const SelectGengder = () => {
   const gender = [

@@ -1,12 +1,12 @@
-import CreateSurveyHeader from 'components/survey/CreateSurveyHeader';
-import styled from '@emotion/styled';
-import { Common, Pretendard } from 'styles/common';
-import { Button } from 'components/common/Button';
 import React, { useEffect, useState } from 'react';
+import styled from '@emotion/styled';
+import { type GetServerSideProps } from 'next';
 import Link from 'next/link';
-import { surveyState } from 'states/survey';
 import { useRecoilState } from 'recoil';
-import { GetServerSideProps } from 'next';
+import { Button } from 'components/common/Button';
+import CreateSurveyHeader from 'components/survey/CreateSurveyHeader';
+import { surveyState } from 'states/survey';
+import { Common, Pretendard } from 'styles/common';
 import { withAuth } from 'utills/isLoggedIn';
 
 export const getServerSideProps: GetServerSideProps = withAuth(() => {
@@ -45,17 +45,17 @@ const Index = () => {
           defaultValue={surVeyData.content}
           placeholder="제목"
           required
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setSurveyData({ ...surVeyData, content: e.target.value })
-          }
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setSurveyData({ ...surVeyData, content: e.target.value });
+          }}
         />
         <TextAreaContainder>
           <Title>설문에 대한 설명을 적어주세요</Title>
           <textarea
             defaultValue={surVeyData.subject}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-              setSurveyData({ ...surVeyData, subject: e.target.value })
-            }
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+              setSurveyData({ ...surVeyData, subject: e.target.value });
+            }}
             placeholder="&#13;&#10;ex) 모집 계기, 참여시 리워드 등"
             name="survey-summary"
           ></textarea>

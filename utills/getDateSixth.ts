@@ -1,4 +1,10 @@
-import { QuestionListID, SectionID, QuestionID, QuestionItemID, QuestionItemListID } from 'types/survey';
+import {
+  type QuestionListID,
+  type SectionID,
+  type QuestionID,
+  type QuestionItemID,
+  type QuestionItemListID,
+} from 'types/survey';
 
 export const getDateSixDigitsFormatToday = (): number => {
   const date = new Date();
@@ -23,11 +29,11 @@ export const getDateSixDigitsFormatToday = (): number => {
 };
 
 export const numberSet = (num: number) => {
-  let ASCCode = 65; //아스키코드 대문자 A;
+  let ASCCode = 65; // 아스키코드 대문자 A;
   if (num > 999) ASCCode++;
-  if (ASCCode > 90) return;
+  if (ASCCode > 90) return '';
 
-  return `${String.fromCharCode(ASCCode)}${('000' + num).slice(-3)}`;
+  return `${String.fromCharCode(ASCCode)}${`000${num}`.slice(-3)}`;
 };
 
 export const PartIDFormat = (idx: number): SectionID => {

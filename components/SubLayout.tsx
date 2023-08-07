@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import styled from '@emotion/styled';
-import Alert from './common/Alert';
 import { useRouter } from 'next/router';
-import NavBar from './common/NavBar';
 import { hasNavbar } from 'utills/hasNavbar';
+import Alert from './common/Alert';
+import NavBar from './common/NavBar';
 import Portal from './common/Portal';
-type IProps = {
+interface IProps {
   children: JSX.Element;
-};
+}
 
 const SubLayout = ({ children }: IProps) => {
   const handleResize = () => {
@@ -21,7 +21,9 @@ const SubLayout = ({ children }: IProps) => {
     handleResize();
     window.addEventListener('resize', handleResize);
 
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   const SubLayoutContainer = styled.div`

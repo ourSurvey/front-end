@@ -1,6 +1,6 @@
+import React, { useMemo } from 'react';
 import { keyframes, css } from '@emotion/react';
 import styled from '@emotion/styled';
-import React, { useMemo } from 'react';
 
 interface Props {
   width?: number;

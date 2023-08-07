@@ -1,10 +1,10 @@
+import { css } from '@emotion/react';
+import { Reorder } from 'framer-motion';
 import { useRecoilState } from 'recoil';
 import { qusetionItemIdListAtom } from 'states/surveyIds';
-import { QuestionItemListID } from 'types/survey';
-import { Reorder } from 'framer-motion';
+import { type QuestionItemListID } from 'types/survey';
 import InputAndNextPartContainer from './InputAndNextPartContainer';
 
-import { css } from '@emotion/react';
 interface IProps {
   questionIndex: number;
   partIndex: number;
@@ -37,8 +37,8 @@ const MultipleSelection = ({ questionIndex, partIndex, sysCode, hasNextSectionFl
             partId={partIndex}
             questionId={questionIndex}
             selectionNumber={idx + 1}
-            id={sysCode} //해당 선택지 리스트에 대한 id값
-            idName={id} //선택지 리스트 안에 있는 고유 id 값
+            id={sysCode} // 해당 선택지 리스트에 대한 id값
+            idName={id} // 선택지 리스트 안에 있는 고유 id 값
             ListLength={ListLength}
           />
         ))}

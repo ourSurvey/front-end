@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import { Common, SpaceBetween } from 'styles/common';
-import SlideArrow from 'public/icon/slide-arrow.svg';
 import ImageUpLoadSvg from 'public/icon/img.svg';
+import SlideArrow from 'public/icon/slide-arrow.svg';
+import { Common, SpaceBetween } from 'styles/common';
 
 const ImageUpload = () => {
   return (

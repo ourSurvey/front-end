@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { Common, Pretendard } from 'styles/common';
 import ColorCustomRadio from 'components/common/ColorCustomRadio';
+import { Common, Pretendard } from 'styles/common';
 const ShareResult = () => {
   const [share, setShare] = useState('1');
 

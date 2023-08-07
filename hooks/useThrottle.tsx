@@ -4,7 +4,7 @@ function useThrottle<T extends any[]>(callback: (...params: T) => void, time: nu
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   return (...params: T) => {
-    if (!timer.current) {
+    if (timer.current == null) {
       timer.current = setTimeout(() => {
         callback(...params);
         timer.current = null;

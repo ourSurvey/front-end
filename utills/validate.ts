@@ -1,6 +1,6 @@
-//이메일 정규식
+// 이메일 정규식
 const emailValidate = (text: string): boolean => {
-  const email: RegExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+  const email = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 
   if (email.test(text)) {
     return true;
@@ -9,9 +9,9 @@ const emailValidate = (text: string): boolean => {
   }
 };
 
-//폰번호 정규식
+// 폰번호 정규식
 const pNumValidate = (phoneNumber: string): boolean => {
-  const regPhone: RegExp = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+  const regPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
   if (regPhone.test(phoneNumber)) {
     return true;
   } else {
@@ -19,9 +19,9 @@ const pNumValidate = (phoneNumber: string): boolean => {
   }
 };
 
-//비밀번호 정규식
+// 비밀번호 정규식
 const passwordValidate = (password: string): boolean => {
-  const regPassword: RegExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
+  const regPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
   if (regPassword.test(password)) {
     return true;
   } else {
@@ -30,7 +30,7 @@ const passwordValidate = (password: string): boolean => {
 };
 
 const birthValidate = (bithYear: string): boolean => {
-  const regBirthYear: RegExp = /^(19[0-9][0-9]|20\d{2})$/;
+  const regBirthYear = /^(19[0-9][0-9]|20\d{2})$/;
   if (regBirthYear.test(bithYear)) {
     return true;
   } else {
@@ -38,12 +38,12 @@ const birthValidate = (bithYear: string): boolean => {
   }
 };
 
-//터치 호버 풀었을 때 유효성검사 메시지 출력
+// 터치 호버 풀었을 때 유효성검사 메시지 출력
 function getFieldError(value: string | undefined, name: string) {
   if (!value && name === '휴대폰 번호') return '';
   if (!value && name === '출생년도') return '';
   if (!value) return '필수 입력 값 입니다!';
-  let check: boolean = false;
+  let check = false;
   switch (name) {
     case '이메일':
       check = emailValidate(value);

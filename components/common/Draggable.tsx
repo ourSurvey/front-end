@@ -1,8 +1,8 @@
 import { useRef } from 'react';
-import { useDrag, useDrop, DropTargetMonitor } from 'react-dnd';
 import styled from '@emotion/styled';
 import type { Identifier } from 'dnd-core';
 import _ from 'lodash';
+import { useDrag, useDrop, type DropTargetMonitor } from 'react-dnd';
 const ItemTypes = {
   QUESTION_ITEM: 'questionItem',
 };
@@ -27,7 +27,7 @@ const Draggable = ({ children, handleMove, index, id }: IProps) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const debounceHoverItem = _.debounce((item: DragItem, monitor: DropTargetMonitor) => {
-    if (!ref.current) {
+    if (ref.current == null) {
       return;
     }
 
@@ -36,18 +36,18 @@ const Draggable = ({ children, handleMove, index, id }: IProps) => {
     const dragIndex = item.index;
     const hoverIndex = index;
 
-    //항목이 자기 자신이면 바꾸지 않는다.
+    // 항목이 자기 자신이면 바꾸지 않는다.
     if (dragIndex === hoverIndex) {
       return;
     }
 
-    //화면에서 사각형 결정
+    // 화면에서 사각형 결정
     const hoverBoundingRect = ref.current?.getBoundingClientRect();
-    //수직 중간 가져오기
+    // 수직 중간 가져오기
     const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-    //마우스 위치 결정
+    // 마우스 위치 결정
     const clientOffset = monitor.getClientOffset();
-    //픽셀을 맨 위로 가져오기
+    // 픽셀을 맨 위로 가져오기
     if (clientOffset === null) return;
     const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
@@ -55,11 +55,11 @@ const Draggable = ({ children, handleMove, index, id }: IProps) => {
     // 아래로 드래그할 때 커서가 50% 미만일 때만 이동
     // 위로 드래그할 때 커서가 50% 이상일 때만 이동
 
-    //아래로 드래그
+    // 아래로 드래그
     if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
       return;
     }
-    //위로 드래그
+    // 위로 드래그
     if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
       return;
     }

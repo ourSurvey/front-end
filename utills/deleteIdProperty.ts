@@ -1,5 +1,5 @@
+import { type ISurveyData } from 'types/survey';
 import { getDateFormat } from './getDateSixth';
-import { ISurveyData } from 'types/survey';
 export const deleteIDproperty = (object: ISurveyData) => {
   const sectionArr = [...object.sections];
   const newArr = sectionArr.map((item) => {

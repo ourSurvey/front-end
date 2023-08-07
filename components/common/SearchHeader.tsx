@@ -1,15 +1,15 @@
+import { memo } from 'react';
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 import Prev from 'public/icon/prevArrow.svg';
 import Search from 'public/icon/search.svg';
 import { Common, Pretendard, SpaceBetween } from 'styles/common';
-import { useRouter } from 'next/router';
-import { memo } from 'react';
 
-type Props = {
+interface Props {
   name: string;
   hasBack: boolean;
   hasSearch: boolean;
-};
+}
 
 interface IStyle {
   hasBack: boolean;
@@ -22,7 +22,13 @@ const SearchHeader = (props: Props) => {
 
   return (
     <Header>
-      <SvgPosition onClick={() => router.back()}>{hasBack ? <Prev width="20" height="16" /> : null}</SvgPosition>
+      <SvgPosition
+        onClick={() => {
+          router.back();
+        }}
+      >
+        {hasBack ? <Prev width="20" height="16" /> : null}
+      </SvgPosition>
       <Span hasBack={hasBack} hasSearch={hasSearch}>
         {name}
       </Span>

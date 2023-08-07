@@ -1,6 +1,6 @@
+import { useState, useEffect } from 'react';
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useState, useEffect } from 'react';
 import { Common, Pretendard, Roboto } from 'styles/common';
 interface IProp {
   color: string;
@@ -62,7 +62,9 @@ export const Button = (props: IProp) => {
   useEffect(() => {
     if (coords.x !== -1 && coords.y !== -1) {
       setIsRippling(true);
-      setTimeout(() => setIsRippling(false), 300);
+      setTimeout(() => {
+        setIsRippling(false);
+      }, 300);
     } else setIsRippling(false);
   }, [coords]);
 
@@ -85,7 +87,7 @@ export const Button = (props: IProp) => {
       onClick={(e: any) => {
         const rect = e.target.getBoundingClientRect();
         setCoords({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-        onClick && onClick(e);
+        onClick != null && onClick(e);
       }}
     >
       {isRippling ? <Ripple color={color} css={{ left: coords.x, top: coords.y }} /> : ''}

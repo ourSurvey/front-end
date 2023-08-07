@@ -1,19 +1,20 @@
 import styled from '@emotion/styled';
 import { useMutation } from 'react-query';
+import { useRecoilValue } from 'recoil';
+import Coin from 'public/icon/gold-coin.svg';
+import { createSurvey } from 'services/api/survey';
+import { surveySelector } from 'states/survey';
 import { Pretendard, Common, SpaceBetween, AlignAndJustifyCenter } from 'styles/common';
 import { deleteIDproperty } from 'utills/deleteIdProperty';
-import { createSurvey } from 'services/api/survey';
-import Coin from 'public/icon/gold-coin.svg';
-import { surveySelector } from 'states/survey';
-import { useRecoilValue } from 'recoil';
-type Props = {
+
+interface Props {
   setVisible: (bool: boolean) => void;
   point: number;
   setToastState: (data: any) => void;
   setShowModal: (bool: boolean) => void;
   closinTitle: string;
   closingComment: string;
-};
+}
 
 const SurveyUpLoadAlert = ({ setVisible, point, setToastState, setShowModal, closinTitle, closingComment }: Props) => {
   const state = useRecoilValue(surveySelector);
@@ -57,7 +58,13 @@ const SurveyUpLoadAlert = ({ setVisible, point, setToastState, setShowModal, clo
         <CurrentPoint>현재 포인트 : {point}P</CurrentPoint>
       </Container>
       <div className="btn-container">
-        <button onClick={() => setVisible(false)}>취소</button>
+        <button
+          onClick={() => {
+            setVisible(false);
+          }}
+        >
+          취소
+        </button>
         <button className="del" onClick={createSurveyButton}>
           업로드
         </button>

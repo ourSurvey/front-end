@@ -1,9 +1,9 @@
-import styled from '@emotion/styled';
-import { Common, Pretendard, AlignAndJustifyCenter } from 'styles/common';
-import { IContent } from 'types/survey';
-import Lighting from 'public/icon/lighting.svg';
 import { useRef } from 'react';
+import styled from '@emotion/styled';
 import { Button } from 'components/common/Button';
+import Lighting from 'public/icon/lighting.svg';
+import { Common, Pretendard, AlignAndJustifyCenter } from 'styles/common';
+import { type IContent } from 'types/survey';
 import { SurveyItem } from './SurveyItems';
 
 const SurveyListItem = (props: IContent) => {

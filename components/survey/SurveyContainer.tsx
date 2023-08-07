@@ -1,12 +1,13 @@
 import React, { useRef } from 'react';
 import styled from '@emotion/styled';
-import SurveyListItem from './SurveyListItem';
-import { useInfiniteGQLQuery } from 'hooks/useGQLQuery';
-import { GET_SURVEY } from 'services/api/survey';
-import { IContent } from 'types/survey';
-import { useObserver } from 'hooks/useObserver';
-import SurveySkeleton from 'components/skeleton/SurveySkeleton';
 import { ClipLoader } from 'react-spinners';
+import SurveySkeleton from 'components/skeleton/SurveySkeleton';
+import { useInfiniteGQLQuery } from 'hooks/useGQLQuery';
+import { useObserver } from 'hooks/useObserver';
+import { GET_SURVEY } from 'services/api/survey';
+import { type IContent } from 'types/survey';
+import SurveyListItem from './SurveyListItem';
+
 const Placeholder: React.FC = () => (
   <ItemContainer>
     <UlContainer>
@@ -33,12 +34,12 @@ const Placeholder: React.FC = () => (
 const SurveyContainer = () => {
   const bottom = useRef(null);
   const {
-    data, //data.pages를 갖고 있는 배열
-    error, //error 객체
-    fetchNextPage, //다음 페이지를 불러오는 함수
-    isFetching, //첫 페이지 fetching 여부, Boolean, 잘 안쓰인다
-    isFetchingNextPage, //추가 페이지 fetching 여부, Boolean
-    status, //loading, error, success 중 하나의 상태, string
+    data, // data.pages를 갖고 있는 배열
+    error, // error 객체
+    fetchNextPage, // 다음 페이지를 불러오는 함수
+    isFetching, // 첫 페이지 fetching 여부, Boolean, 잘 안쓰인다
+    isFetchingNextPage, // 추가 페이지 fetching 여부, Boolean
+    status, // loading, error, success 중 하나의 상태, string
   } = useInfiniteGQLQuery(
     'surveyList',
     GET_SURVEY,
@@ -59,7 +60,7 @@ const SurveyContainer = () => {
       },
     }
   );
-  const onIntersect = ([entry]: IntersectionObserverEntry[]) => entry.isIntersecting && fetchNextPage();
+  const onIntersect = async ([entry]: IntersectionObserverEntry[]) => await (entry.isIntersecting && fetchNextPage());
 
   useObserver({
     target: bottom,

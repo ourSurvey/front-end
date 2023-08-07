@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 
-type Props = {
+interface Props {
   minute: number;
   second: number;
-};
+}
 
 const Timmer = (props: Props) => {
   const { minute, second } = props;
@@ -23,7 +23,9 @@ const Timmer = (props: Props) => {
         }
       }
     }, 1000);
-    return () => clearInterval(countdown);
+    return () => {
+      clearInterval(countdown);
+    };
   }, [minutes, seconds]);
 
   return (

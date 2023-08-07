@@ -5,10 +5,10 @@ interface IObject {
   value: any;
 }
 
-type Props = {
+interface Props {
   items: IObject[];
   handleRadio: (e: null | 'M' | 'F' | string) => void;
-};
+}
 
 const CustomRadio = ({ items, handleRadio }: Props) => {
   return (
@@ -22,7 +22,9 @@ const CustomRadio = ({ items, handleRadio }: Props) => {
               value={item.value || ''}
               name="radioBoxes"
               key={item.key}
-              onChange={(e) => handleRadio(e.target.value)}
+              onChange={(e) => {
+                handleRadio(e.target.value);
+              }}
             />
             <FormCheckText>{item.key}</FormCheckText>
           </Mylabel>

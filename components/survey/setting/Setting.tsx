@@ -1,20 +1,20 @@
 import { memo } from 'react';
 import styled from '@emotion/styled';
-import { Common, Pretendard, SpaceBetween } from 'styles/common';
-import { Button } from 'components/common/Button';
-import PeriodSettingWrapper from 'components/survey/setting/PeriodSettingWrapper';
-import TImeTaken from 'components/survey/setting/TImeTaken';
-import AddTag from 'components/survey/setting/AddTag';
-import ShareResult from 'components/survey/setting/ShareResult';
-import CommentRespondent from 'components/survey/setting/CommentRespondent';
+import { useMutation } from 'react-query';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
-import { toastState } from 'states/modal';
+import { Button } from 'components/common/Button';
 import CreateSurveyHeader from 'components/survey/CreateSurveyHeader';
+import AddTag from 'components/survey/setting/AddTag';
+import CommentRespondent from 'components/survey/setting/CommentRespondent';
+import PeriodSettingWrapper from 'components/survey/setting/PeriodSettingWrapper';
+import ShareResult from 'components/survey/setting/ShareResult';
+import TImeTaken from 'components/survey/setting/TImeTaken';
 import { useHeaderScroll } from 'hooks/useHeaderScroll';
 import { createSurvey } from 'services/api/survey';
-import { deleteIDproperty } from 'utills/deleteIdProperty';
-import { useMutation } from 'react-query';
+import { toastState } from 'states/modal';
 import { surveySelector } from 'states/survey';
+import { Common, Pretendard, SpaceBetween } from 'styles/common';
+import { deleteIDproperty } from 'utills/deleteIdProperty';
 
 interface IProps {
   setShowModal: (bool: boolean) => void;
@@ -101,7 +101,9 @@ const Setting = ({ setShowModal, closinTitle, setClosinTitle, setclosingComment,
             color={Common.colors.BL500}
             btnText="설문 업로드"
             className="upload"
-            onClick={() => setShowModal(true)}
+            onClick={() => {
+              setShowModal(true);
+            }}
           />
         </BtnContainer>
       </SettingItemContainer>

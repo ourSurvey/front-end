@@ -1,7 +1,7 @@
-import Dimmer from 'components/common/Dimmer';
-import styled from '@emotion/styled';
-import { keyframes } from '@emotion/react';
 import { useEffect, useState } from 'react';
+import { keyframes } from '@emotion/react';
+import styled from '@emotion/styled';
+import Dimmer from 'components/common/Dimmer';
 
 interface IProps {
   visibleState: boolean;
@@ -28,7 +28,9 @@ const ModalTemplate = ({ visibleState, setVisible, children, height, className }
     if (visibleState) {
       setOpen(true);
     } else {
-      timeoutId = setTimeout(() => setOpen(false), 130);
+      timeoutId = setTimeout(() => {
+        setOpen(false);
+      }, 130);
     }
 
     return () => {

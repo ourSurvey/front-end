@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
-import { useMutation } from 'react-query';
 import styled from '@emotion/styled';
-import { Common, Pretendard, AlignAndJustifyCenter, SpaceBetween } from 'styles/common';
-import { getFieldError } from 'utills/validate';
+import { useRouter } from 'next/router';
+import { useMutation } from 'react-query';
+import SearchHeader from 'components/common/SearchHeader';
 import Timmer from 'components/common/Timmer';
 import GreenCheck from 'public/images/greenCheck.svg';
 import { emailAuthCheckNum, findPwd } from 'services/api/auth';
-import { useRouter } from 'next/router';
-import SearchHeader from 'components/common/SearchHeader';
+import { Common, Pretendard, AlignAndJustifyCenter, SpaceBetween } from 'styles/common';
+import { getFieldError } from 'utills/validate';
 
 const Index = () => {
-  const [touched, setTouched] = useState(false); //터치에 대한 state
-  const [buttonNameState, setbuttonNameState] = useState(false); //이메일 인증 메일 보내고 난 후 버튼 이름 변경 state
+  const [touched, setTouched] = useState(false); // 터치에 대한 state
+  const [buttonNameState, setbuttonNameState] = useState(false); // 이메일 인증 메일 보내고 난 후 버튼 이름 변경 state
   const [authNumber, setAuthNumber] = useState('');
-  const [visibleAuthInput, setVisibleAuthInput] = useState(false); //이메일 인증 보내지면 인증번호 입력할 input 컴포넌트 토글
-  const [isAuthedEmail, setIsAuthedEmail] = useState(false); //정상적으로 인증 완료되면 인증완료 표시 나오게 하기
-  const [timerMinute, setTimerMinute] = useState(0); //타이머 컴포넌트를 위한 state
+  const [visibleAuthInput, setVisibleAuthInput] = useState(false); // 이메일 인증 보내지면 인증번호 입력할 input 컴포넌트 토글
+  const [isAuthedEmail, setIsAuthedEmail] = useState(false); // 정상적으로 인증 완료되면 인증완료 표시 나오게 하기
+  const [timerMinute, setTimerMinute] = useState(0); // 타이머 컴포넌트를 위한 state
   const [email, setemail] = useState('');
-  const errorMessage = getFieldError(email, '이메일'); //에러 메시지
+  const errorMessage = getFieldError(email, '이메일'); // 에러 메시지
   const displayErrorMessage = touched && errorMessage;
   const [token, setToken] = useState('');
   const router = useRouter();
@@ -38,7 +38,7 @@ const Index = () => {
       setIsAuthedEmail(true);
       router.push({
         pathname: '/findpwd/reset',
-        query: { token: token },
+        query: { token },
       });
     },
     onError: (data) => {
@@ -54,7 +54,7 @@ const Index = () => {
 
   const checkAuth = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    emailAuthCheck.mutate({ email: email, code: authNumber });
+    emailAuthCheck.mutate({ email, code: authNumber });
   };
 
   return (
@@ -68,15 +68,25 @@ const Index = () => {
           <EmailContainer>
             <input
               id={`email-input`}
-              onChange={(e) => setemail(e.currentTarget.value)}
-              onBlur={() => setTouched(true)}
+              onChange={(e) => {
+                setemail(e.currentTarget.value);
+              }}
+              onBlur={() => {
+                setTouched(true);
+              }}
               type="email"
               placeholder="abc@gmail.com"
               disabled={isAuthedEmail}
             />
             {/* 이메일 인증 완료 표시 */}
             {!isAuthedEmail ? (
-              <AuthButton type="button" onClick={(e) => emailAuthHandler(e)} disabled={errorMessage !== null}>
+              <AuthButton
+                type="button"
+                onClick={(e) => {
+                  emailAuthHandler(e);
+                }}
+                disabled={errorMessage !== null}
+              >
                 {!buttonNameState ? '인증하기' : '재발송'}
               </AuthButton>
             ) : (
@@ -100,12 +110,22 @@ const Index = () => {
               <EmailContainer>
                 <input
                   id={`auth-input`}
-                  onChange={(e) => setAuthNumber(e.currentTarget.value)}
-                  onBlur={() => setTouched(true)}
+                  onChange={(e) => {
+                    setAuthNumber(e.currentTarget.value);
+                  }}
+                  onBlur={() => {
+                    setTouched(true);
+                  }}
                   type="number"
                 />
                 <Timmer minute={timerMinute} second={0} />
-                <AuthCheckButton type="button" onClick={(e) => checkAuth(e)} disabled={errorMessage !== null}>
+                <AuthCheckButton
+                  type="button"
+                  onClick={(e) => {
+                    checkAuth(e);
+                  }}
+                  disabled={errorMessage !== null}
+                >
                   인증확인
                 </AuthCheckButton>
               </EmailContainer>

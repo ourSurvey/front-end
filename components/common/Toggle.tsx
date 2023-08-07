@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Common, Pretendard } from 'styles/common';
-import { IQuestion } from 'types/survey';
+import { type IQuestion } from 'types/survey';
 
 interface IProps {
   name?: string;
@@ -10,9 +10,9 @@ interface IProps {
   id: any;
 }
 
-type ColorProps = {
+interface ColorProps {
   mainColor: string;
-};
+}
 
 const Toggle = ({ name, question, setQuestion, color, id }: IProps) => {
   const onToggleHanler = () => {

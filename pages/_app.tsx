@@ -1,13 +1,14 @@
-import { global } from 'styles/global';
+import type { ReactElement, ReactNode } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Global } from '@emotion/react';
-import { RecoilRoot } from 'recoil';
-import { ReactElement, ReactNode, useState } from 'react';
+import { type NextPage } from 'next';
 import type { AppProps } from 'next/app';
-import Layout from 'components/Layout';
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
-import { NextPage } from 'next';
 import Head from 'next/head';
-import { useEffect } from 'react';
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
+import { RecoilRoot } from 'recoil';
+import Layout from 'components/Layout';
+import { global } from 'styles/global';
+
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
@@ -16,26 +17,22 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
-declare global {
-  interface Window {
-    Kakao: any;
-  }
-}
-
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const [queryClient] = useState(() => new QueryClient());
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (window.Kakao) {
       const kakao = window.Kakao;
 
+      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       if (!kakao.isInitialized()) {
         window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO);
       }
     }
   }, []);
 
-  const getLayout = Component.getLayout || ((page) => <Layout>{page}</Layout>);
+  const getLayout = Component.getLayout ?? ((page: React.ReactElement) => <Layout>{page}</Layout>);
 
   return (
     <QueryClientProvider client={queryClient}>

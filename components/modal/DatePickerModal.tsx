@@ -1,14 +1,14 @@
-import styled from '@emotion/styled';
-import ko from 'date-fns/locale/ko';
-import { addDays } from 'date-fns';
-import { Pretendard, Common, AlignAndJustifyCenter } from 'styles/common';
-import { DateRange } from 'react-date-range';
 import { useEffect, useState, useLayoutEffect } from 'react';
+import styled from '@emotion/styled';
+import { addDays } from 'date-fns';
+import ko from 'date-fns/locale/ko';
+import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { useRecoilState } from 'recoil';
-import { surveyState } from 'states/survey';
 import { Button } from 'components/common/Button';
+import { surveyState } from 'states/survey';
+import { Pretendard, Common, AlignAndJustifyCenter } from 'styles/common';
 export interface RangeWithKey extends Range {
   key: 'selection';
 }
@@ -54,13 +54,13 @@ const DatePickerModal = ({ setVisible }: IProps) => {
   }, [startDate, endDate]);
 
   const selectRagne = {
-    startDate: startDate,
-    endDate: endDate,
+    startDate,
+    endDate,
     key: 'Selection',
   };
 
   const onChange = () => {
-    setSurvey({ ...survey, startDate: startDate, endDate: endDate });
+    setSurvey({ ...survey, startDate, endDate });
     setVisible(false);
   };
 
@@ -83,8 +83,8 @@ const DatePickerModal = ({ setVisible }: IProps) => {
           color={Common.colors.GY900}
           locale={ko}
           rangeColors={[Common.colors.BL50]}
-          showMonthArrow={false} //다음달로 이동하는 화살표 없애기
-          showDateDisplay={false} //위 날짜 디스플레이 없애기
+          showMonthArrow={false} // 다음달로 이동하는 화살표 없애기
+          showDateDisplay={false} // 위 날짜 디스플레이 없애기
           scroll={{ enabled: true }}
           months={3}
           dateDisplayFormat={'yyyy.mm'}
@@ -103,7 +103,9 @@ const DatePickerModal = ({ setVisible }: IProps) => {
             color="transparent"
             btnText="취소"
             wUnit="%"
-            onClick={() => setVisible(false)}
+            onClick={() => {
+              setVisible(false);
+            }}
             width={20}
           />
           <Button

@@ -2,22 +2,22 @@ import styled from '@emotion/styled';
 import { Common, Pretendard, AlignCenter } from 'styles/common';
 
 interface IProps {
-  id: string; //id
-  label: string; //라벨 명
-  value: number; //input에 들어갈 값
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; //onChange event
+  id: string; // id
+  label: string; // 라벨 명
+  value: number; // input에 들어갈 값
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; // onChange event
   isSelected: boolean;
-  radioSize: number; //라디오 크기
-  radioCheckedSize: number; //라디오 체크되었을 때 크기
-  checkedColor: string; //라디오 체크 되었을 때 색상
-  borderColor: string; //라디오 테두리 색상
+  radioSize: number; // 라디오 크기
+  radioCheckedSize: number; // 라디오 체크되었을 때 크기
+  checkedColor: string; // 라디오 체크 되었을 때 색상
+  borderColor: string; // 라디오 테두리 색상
 }
 
 interface IStyle {
-  radioSize: number; //라디오 크기
-  radioCheckedSize: number; //라디오 체크되었을 때 크기
-  checkedColor: string; //라디오 체크 되었을 때 색상
-  borderColor: string; //라디오 테두리 색상
+  radioSize: number; // 라디오 크기
+  radioCheckedSize: number; // 라디오 체크되었을 때 크기
+  checkedColor: string; // 라디오 체크 되었을 때 색상
+  borderColor: string; // 라디오 테두리 색상
 }
 
 const ColorCustomRadio = ({

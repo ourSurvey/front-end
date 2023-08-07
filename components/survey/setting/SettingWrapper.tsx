@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { useQuery } from 'react-query';
-import { getMyPoint } from 'services/api/point';
-import { Common, Pretendard } from 'styles/common';
-import { useSetRecoilState } from 'recoil';
-import { toastState } from 'states/modal';
 import styled from '@emotion/styled';
-import Setting from './Setting';
+import { useQuery } from 'react-query';
+import { useSetRecoilState } from 'recoil';
 import Portal from 'components/common/Portal';
+import LackPointModal from 'components/modal/LackPointModal';
 import ModalTemplate from 'components/modal/ModalTemplate';
 import SurveyUpLoadAlert from 'components/modal/SurveyUpLoadAlert';
-import LackPointModal from 'components/modal/LackPointModal';
 import SurveySkeleton from 'components/skeleton/SurveySkeleton';
+import { getMyPoint } from 'services/api/point';
+import { toastState } from 'states/modal';
+import { Common, Pretendard } from 'styles/common';
+import Setting from './Setting';
 
 const Placeholder: React.FC = () => (
   <ItemContainer>
@@ -29,7 +29,7 @@ const SettingWrapper = () => {
   const [closinTitle, setClosinTitle] = useState('설문이 종료되었습니다');
   const [closingComment, setclosingComment] = useState('응답해주셔서 감사합니다.');
   const setToastState = useSetRecoilState(toastState);
-  const { isLoading, data } = useQuery(['point'], () => getMyPoint(), {
+  const { isLoading, data } = useQuery(['point'], async () => await getMyPoint(), {
     refetchOnWindowFocus: false,
     staleTime: Infinity,
   });

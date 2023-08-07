@@ -1,13 +1,13 @@
+import styled from '@emotion/styled';
 import type { NextPage } from 'next';
 import Link from 'next/link';
-import { Common, Pretendard, AlignAndJustifyCenter } from 'styles/common';
-import styled from '@emotion/styled';
-import OurSurveyLogo from 'public/icon/our-survey.svg';
 import { useMutation } from 'react-query';
-import { postAddition } from 'services/api/auth';
 import { useRecoilValue } from 'recoil';
-import { nullDeleteAdttionState } from 'states/onBoard';
 import { Button } from 'components/common/Button';
+import OurSurveyLogo from 'public/icon/our-survey.svg';
+import { postAddition } from 'services/api/auth';
+import { nullDeleteAdttionState } from 'states/onBoard';
+import { Common, Pretendard, AlignAndJustifyCenter } from 'styles/common';
 const Start: NextPage = () => {
   const additionState = useRecoilValue(nullDeleteAdttionState);
 

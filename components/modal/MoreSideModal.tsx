@@ -1,8 +1,8 @@
-import Dimmer from 'components/common/Dimmer';
 import React, { useRef, useEffect, useState } from 'react';
-import MoreSelectionModal from 'components/modal/MoreSelectionModal';
-import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
+import styled from '@emotion/styled';
+import Dimmer from 'components/common/Dimmer';
+import MoreSelectionModal from 'components/modal/MoreSelectionModal';
 
 interface IProps {
   visibleState: boolean;
@@ -16,17 +16,17 @@ interface IStyle {
 const MoreSideModal = ({ visibleState, setVisible }: IProps) => {
   const [open, setOpen] = useState(false);
   let touchMoveStartLocation: number;
-  const refs = useRef<any>(null); //모달의 width 크기를 잡기 위한 ref
+  const refs = useRef<any>(null); // 모달의 width 크기를 잡기 위한 ref
 
   const moveEndHandler = (e: React.TouchEvent<HTMLDivElement>) => {
-    //이벤트 종료시 슬라이드 한 거리가 모달의 20%가 넘어가면 모달 종료
+    // 이벤트 종료시 슬라이드 한 거리가 모달의 20%가 넘어가면 모달 종료
     if (e.changedTouches[0].clientX - touchMoveStartLocation >= refs.current.clientWidth * 0.2) {
       setVisible(false);
     }
   };
 
   const moveStartHandler = (e: React.TouchEvent<HTMLDivElement>) => {
-    touchMoveStartLocation = e.targetTouches[0].clientX; //터치 시작 width 잡기
+    touchMoveStartLocation = e.targetTouches[0].clientX; // 터치 시작 width 잡기
   };
 
   useEffect(() => {
@@ -34,7 +34,9 @@ const MoreSideModal = ({ visibleState, setVisible }: IProps) => {
     if (visibleState) {
       setOpen(true);
     } else {
-      timeoutId = setTimeout(() => setOpen(false), 130);
+      timeoutId = setTimeout(() => {
+        setOpen(false);
+      }, 130);
     }
 
     return () => {

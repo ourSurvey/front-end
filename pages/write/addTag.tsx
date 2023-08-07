@@ -1,15 +1,14 @@
-import { NextPage } from 'next';
-import Prev from 'public/icon/prevArrow.svg';
-import { Common, Pretendard, SpaceBetween } from 'styles/common';
-import styled from '@emotion/styled';
-import { useRouter } from 'next/router';
-import CloseCircle from 'public/icon/close-circle.svg';
 import { useRef, useState } from 'react';
+import styled from '@emotion/styled';
+import { type NextPage, type GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
+import { useRecoilState } from 'recoil';
 import SearchTagList from 'components/survey/setting/SearchTagList';
 import ShowTagList from 'components/survey/setting/ShowTagList';
+import CloseCircle from 'public/icon/close-circle.svg';
+import Prev from 'public/icon/prevArrow.svg';
 import { tagState } from 'states/tag';
-import { useRecoilState } from 'recoil';
-import { GetServerSideProps } from 'next';
+import { Common, Pretendard, SpaceBetween } from 'styles/common';
 import { withAuth } from 'utills/isLoggedIn';
 
 export const getServerSideProps: GetServerSideProps = withAuth(() => {
@@ -34,7 +33,7 @@ const AddTag: NextPage = () => {
 
   const onReset = () => {
     setTag('');
-    refs.current && refs.current.focus();
+    refs.current != null && refs.current.focus();
   };
 
   const addTagHandler = (e: React.KeyboardEvent) => {
@@ -52,7 +51,13 @@ const AddTag: NextPage = () => {
     <Container tag={tag}>
       <Header>
         <SvgPosition>
-          <Prev width="20" height="16" onClick={() => router.back()} />
+          <Prev
+            width="20"
+            height="16"
+            onClick={() => {
+              router.back();
+            }}
+          />
         </SvgPosition>
         <PageTitle>태그 추가</PageTitle>
         <Save></Save>
@@ -66,9 +71,15 @@ const AddTag: NextPage = () => {
           id="tag-input"
           type="text"
           placeholder="태그를 입력해주세요."
-          onChange={(e) => onChangeHandler(e)}
-          onBlur={() => setinputFocus(false)}
-          onFocus={() => setinputFocus(true)}
+          onChange={(e) => {
+            onChangeHandler(e);
+          }}
+          onBlur={() => {
+            setinputFocus(false);
+          }}
+          onFocus={() => {
+            setinputFocus(true);
+          }}
           value={tag}
         />
         <button onClick={addTagClick}>추가</button>

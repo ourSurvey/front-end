@@ -1,14 +1,14 @@
+import { useState } from 'react';
 import styled from '@emotion/styled';
-import { Common, Pretendard, Roboto, AlignAndJustifyCenter } from 'styles/common';
-import Arrow from 'public/icon/underArrow.svg';
+import { useRecoilValue } from 'recoil';
+import { Button } from 'components/common/Button';
 import Portal from 'components/common/Portal';
 import ModalTemplate from 'components/modal/ModalTemplate';
-import { useState } from 'react';
 import NextPartSectionModal from 'components/modal/NextPartSectionModal';
-import { useRecoilValue } from 'recoil';
-import { PartIDFormat } from 'utills/getDateSixth';
+import Arrow from 'public/icon/underArrow.svg';
 import { sectionTitleSelectorFamily } from 'states/survey';
-import { Button } from 'components/common/Button';
+import { Common, Pretendard, Roboto, AlignAndJustifyCenter } from 'styles/common';
+import { PartIDFormat } from 'utills/getDateSixth';
 interface IProps {
   partNum: number;
   color: string;
@@ -51,7 +51,9 @@ const SpeechBubble = ({ partNum, color, partLength }: IProps) => {
         height={32}
         hUnit="px"
         btnText={btnText()}
-        onClick={() => setshowModalState(true)}
+        onClick={() => {
+          setshowModalState(true);
+        }}
       />
 
       <Portal selector="#portal">

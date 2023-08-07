@@ -1,12 +1,12 @@
-import styled from '@emotion/styled';
-import { Button } from 'components/common/Button';
-import { getFieldError } from 'utills/validate';
-import { Common, Pretendard } from 'styles/common';
 import React, { useState, useEffect } from 'react';
-import { stepState } from 'states/stepProgress';
-import { addtionState } from 'states/onBoard';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { Button } from 'components/common/Button';
+import { addtionState } from 'states/onBoard';
+import { stepState } from 'states/stepProgress';
+import { Common, Pretendard } from 'styles/common';
+import { getFieldError } from 'utills/validate';
 
 const InsertBitrhYear = () => {
   const [birthYear, setbirthYear] = useState('');
@@ -47,8 +47,12 @@ const InsertBitrhYear = () => {
         <input
           name="birthYear"
           type="number"
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => setbirthYear(event.currentTarget.value)}
-          onBlur={() => setTouched(true)}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            setbirthYear(event.currentTarget.value);
+          }}
+          onBlur={() => {
+            setTouched(true);
+          }}
           aria-describedby={displayErrorMessage ? `pNum-error` : undefined}
           placeholder="숫자만 입력해주세요. (4자리)"
         />

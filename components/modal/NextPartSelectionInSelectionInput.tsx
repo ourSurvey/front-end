@@ -1,11 +1,10 @@
-import Close from 'public/icon/close.svg';
 import styled from '@emotion/styled';
-import { Pretendard, Common } from 'styles/common';
 import { useRecoilValue, useRecoilState } from 'recoil';
-import { PartIDFormat, QuestionItemListUniqueNumber } from 'utills/getDateSixth';
+import Close from 'public/icon/close.svg';
 import { sectionListAtomFamily, qusetionItemListAtomFamily } from 'states/survey';
-import { QuestionItemListID } from 'types/survey';
-import { QuestionItemIDFormat } from 'utills/getDateSixth';
+import { Pretendard, Common } from 'styles/common';
+import { type QuestionItemListID } from 'types/survey';
+import { PartIDFormat, QuestionItemListUniqueNumber, QuestionItemIDFormat } from 'utills/getDateSixth';
 
 interface IProps {
   setVisible: (bool: boolean) => void;
@@ -30,10 +29,19 @@ const NextPartSelectionInSelectionInput = ({
   const partIndexArray = Array.from({ length: partLength }, (_, index) => index + 1).filter((item) => item !== partNum);
   return (
     <Container>
-      <Close width="14" height="14" onClick={() => setVisible(false)} fill={Common.colors.GY900} />
+      <Close
+        width="14"
+        height="14"
+        onClick={() => {
+          setVisible(false);
+        }}
+        fill={Common.colors.GY900}
+      />
       <UlContainer>
         <li
-          onClick={() => setInputContent({ ...inputContent, nextSection: -2 })}
+          onClick={() => {
+            setInputContent({ ...inputContent, nextSection: -2 });
+          }}
           className={inputContent.nextSection === -2 ? 'active' : ''}
         >
           다음 파트로 진행하기
@@ -43,7 +51,9 @@ const NextPartSelectionInSelectionInput = ({
           return (
             <li
               key={part.id}
-              onClick={() => setInputContent({ ...inputContent, nextSection: item - 1 })}
+              onClick={() => {
+                setInputContent({ ...inputContent, nextSection: item - 1 });
+              }}
               className={inputContent.nextSection === item - 1 ? 'active' : ''}
             >
               Part{item}. {part.title === '' ? '(제목없음)' : part.title}
@@ -51,7 +61,9 @@ const NextPartSelectionInSelectionInput = ({
           );
         })}
         <li
-          onClick={() => setInputContent({ ...inputContent, nextSection: -1 })}
+          onClick={() => {
+            setInputContent({ ...inputContent, nextSection: -1 });
+          }}
           className={inputContent.nextSection === -1 ? 'active' : ''}
         >
           설문 제출하기

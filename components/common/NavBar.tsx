@@ -1,14 +1,14 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import Home from 'public/icon/home.svg';
 import Survey from 'public/icon/survey.svg';
 import { Common, Pretendard, SpaceBetween } from 'styles/common';
-import { useRouter } from 'next/router';
-type ComponentProps = {
+interface ComponentProps {
   width: number;
   height: number;
   selected?: string;
-};
+}
 
 const Add: React.FC<ComponentProps> = ({ width, height }) => (
   <svg width={width} height={height} viewBox="0 0 40 38" fill="none" xmlns="http://www.w3.org/2000/svg">

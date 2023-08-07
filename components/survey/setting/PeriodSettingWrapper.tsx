@@ -1,7 +1,7 @@
 import { useState, memo } from 'react';
 import Portal from 'components/common/Portal';
-import ModalTemplate from 'components/modal/ModalTemplate';
 import DatePickerModal from 'components/modal/DatePickerModal';
+import ModalTemplate from 'components/modal/ModalTemplate';
 import PeriodSetting from './PeriodSetting';
 const PeriodSettingWrapper = () => {
   const [showModalState, setshowModalState] = useState(false);

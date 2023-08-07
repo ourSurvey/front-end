@@ -6,9 +6,7 @@ interface IonBoard {
   tel: string | null;
 }
 
-interface LooseObject {
-  [key: string]: any;
-}
+type LooseObject = Record<string, any>;
 
 export const addtionState = atom<IonBoard>({
   key: 'addtionState',
@@ -20,8 +18,8 @@ export const nullDeleteAdttionState = selector({
   get: ({ get }) => {
     const addtionData = get(addtionState);
     const newObj: LooseObject = {};
-    for (let [key, value] of Object.entries(addtionData)) {
-      //값이 null이 아닌 값만 넣어서 리턴
+    for (const [key, value] of Object.entries(addtionData)) {
+      // 값이 null이 아닌 값만 넣어서 리턴
       if (value !== null) {
         newObj[key] = value;
       }

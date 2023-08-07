@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
-import { Pretendard, Common, SpaceBetween, AlignAndJustifyCenter, Roboto } from 'styles/common';
 import Coin from 'public/icon/gold-coin.svg';
-type Props = {
+import { Pretendard, Common, SpaceBetween, AlignAndJustifyCenter, Roboto } from 'styles/common';
+interface Props {
   setVisible: (bool: boolean) => void;
   point: number;
-};
+}
 
 const LackPointModal = ({ setVisible, point }: Props) => {
   return (
@@ -28,7 +28,12 @@ const LackPointModal = ({ setVisible, point }: Props) => {
           다른 설문 참여하기&nbsp;&nbsp; |&nbsp;&nbsp; <Coin /> <span className="point">300P</span>
         </Button>
       </SelectBox>
-      <span className="cancel" onClick={() => setVisible(false)}>
+      <span
+        className="cancel"
+        onClick={() => {
+          setVisible(false);
+        }}
+      >
         취소
       </span>
     </Confirm>

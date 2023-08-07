@@ -1,12 +1,12 @@
-import { isAuthed, getRefresh } from 'services/api/auth';
 import cookie from 'cookie';
+import { isAuthed, getRefresh } from 'services/api/auth';
 export const withAuth = (GetServerSidePropsFunction: any) => {
   return async (ctx: any) => {
     // 1. 쿠키에 토큰이 있는지 확인
     const accessToken = ctx.req.cookies?.accessToken || null;
     const refreshToken = ctx.req.cookies?.refreshToken || null;
 
-    //둘 다 없다면 login 페이지로 이동시키기
+    // 둘 다 없다면 login 페이지로 이동시키기
     if (!accessToken && !refreshToken) {
       return {
         redirect: {
@@ -19,13 +19,13 @@ export const withAuth = (GetServerSidePropsFunction: any) => {
     // 2. HTTP GET 요청을 수행하여 사용자가 인증된 사용자인지 확인
     const data: any = await isAuthed(accessToken);
 
-    //토큰이 만료되었다면
+    // 토큰이 만료되었다면
     if (data.code === 480) {
-      //리프레시 토큰으로 재인증
+      // 리프레시 토큰으로 재인증
       const refreshData: any = await getRefresh(refreshToken);
 
       if (refreshData.code === 200) {
-        //access 토큰 다시 저장
+        // access 토큰 다시 저장
         ctx.res.setHeader('set-cookie', [
           cookie.serialize('accessToken', refreshData.data.access, { maxAge: 60 * 60 * 24 }),
         ]);

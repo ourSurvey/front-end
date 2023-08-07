@@ -1,40 +1,40 @@
 import React, { useState, memo } from 'react';
+import styled from '@emotion/styled';
+import { type NextPage } from 'next';
+import { useRouter } from 'next/router';
 import { useMutation } from 'react-query';
+import { ClipLoader } from 'react-spinners';
+import { useSetRecoilState } from 'recoil';
+import { Button } from 'components/common/Button';
 import ConfirmPassword from 'components/common/ConfirmPassword';
 import PasswordInput from 'components/common/PasswordInput';
-import TosContainer from 'components/register/TosContainer';
-import styled from '@emotion/styled';
-import { Common, Pretendard, AlignAndJustifyCenter, SpaceBetween } from 'styles/common';
-import { getFieldError } from 'utills/validate';
-import { Button } from 'components/common/Button';
+import SearchHeader from 'components/common/SearchHeader';
 import Timmer from 'components/common/Timmer';
+import TosContainer from 'components/register/TosContainer';
 import GreenCheck from 'public/images/greenCheck.svg';
 import { emailAuth, emailAuthCheckNum, register } from 'services/api/auth';
-import { useRouter } from 'next/router';
-import { ClipLoader } from 'react-spinners';
-import SearchHeader from 'components/common/SearchHeader';
-import randomNickName from 'utills/getRandomNickName';
-import { useSetRecoilState } from 'recoil';
 import { toastState } from 'states/modal';
-import { NextPage } from 'next';
+import { Common, Pretendard, AlignAndJustifyCenter, SpaceBetween } from 'styles/common';
+import randomNickName from 'utills/getRandomNickName';
+import { getFieldError } from 'utills/validate';
 
 const Index: NextPage = () => {
   const [wasSubmitted, setwasSubmitted] = useState(false);
   const [validatePassword, setvalidatePassword] = useState(false);
-  const [touched, setTouched] = useState(false); //터치에 대한 state
-  const [buttonNameState, setbuttonNameState] = useState(false); //이메일 인증 메일 보내고 난 후 버튼 이름 변경 state
+  const [touched, setTouched] = useState(false); // 터치에 대한 state
+  const [buttonNameState, setbuttonNameState] = useState(false); // 이메일 인증 메일 보내고 난 후 버튼 이름 변경 state
   const [authNumber, setAuthNumber] = useState('');
-  const [visibleAuthInput, setVisibleAuthInput] = useState(false); //이메일 인증 보내지면 인증번호 입력할 input 컴포넌트 토글
-  const [isAuthedEmail, setIsAuthedEmail] = useState(false); //정상적으로 인증 완료되면 인증완료 표시 나오게 하기
-  const [timerMinute, setTimerMinute] = useState(0); //타이머 컴포넌트를 위한 state
+  const [visibleAuthInput, setVisibleAuthInput] = useState(false); // 이메일 인증 보내지면 인증번호 입력할 input 컴포넌트 토글
+  const [isAuthedEmail, setIsAuthedEmail] = useState(false); // 정상적으로 인증 완료되면 인증완료 표시 나오게 하기
+  const [timerMinute, setTimerMinute] = useState(0); // 타이머 컴포넌트를 위한 state
   const [email, setemail] = useState('');
-  const errorMessage = getFieldError(email, '이메일'); //에러 메시지
-  const [isAllCheck, setisAllCheck] = useState(false); //체크 토글
+  const errorMessage = getFieldError(email, '이메일'); // 에러 메시지
+  const [isAllCheck, setisAllCheck] = useState(false); // 체크 토글
   const displayErrorMessage = (wasSubmitted || touched) && errorMessage;
   const [isSame, setIsSame] = useState(false);
   const router = useRouter();
   const setModalState = useSetRecoilState(toastState);
-  const registerOnButton = isAllCheck && isSame && isAuthedEmail && validatePassword; //버튼 활성화 토글
+  const registerOnButton = isAllCheck && isSame && isAuthedEmail && validatePassword; // 버튼 활성화 토글
 
   const postEmailAuth = useMutation(emailAuth, {
     onSuccess: (data) => {
@@ -105,7 +105,7 @@ const Index: NextPage = () => {
 
   const checkAuth = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    emailAuthCheck.mutate({ email: email, code: authNumber });
+    emailAuthCheck.mutate({ email, code: authNumber });
   };
 
   const registerHandler = (e: React.FormEvent<HTMLFormElement>) => {
@@ -114,7 +114,7 @@ const Index: NextPage = () => {
     const fieldValues = Object.fromEntries(formData.entries());
     setwasSubmitted(true);
     const nickName = randomNickName();
-    registerApi.mutate({ email: email, pwd: fieldValues['비밀번호'] as string, nickname: nickName });
+    registerApi.mutate({ email, pwd: fieldValues['비밀번호'] as string, nickname: nickName });
   };
 
   return (
@@ -127,8 +127,12 @@ const Index: NextPage = () => {
           <EmailContainer>
             <input
               id={`email-input`}
-              onChange={(e) => setemail(e.currentTarget.value)}
-              onBlur={() => setTouched(true)}
+              onChange={(e) => {
+                setemail(e.currentTarget.value);
+              }}
+              onBlur={() => {
+                setTouched(true);
+              }}
               type="email"
               placeholder="abc@gmail.com"
               disabled={isAuthedEmail}
@@ -159,12 +163,22 @@ const Index: NextPage = () => {
               <EmailContainer>
                 <input
                   id={`auth-input`}
-                  onChange={(e) => setAuthNumber(e.currentTarget.value)}
-                  onBlur={() => setTouched(true)}
+                  onChange={(e) => {
+                    setAuthNumber(e.currentTarget.value);
+                  }}
+                  onBlur={() => {
+                    setTouched(true);
+                  }}
                   type="number"
                 />
                 <Timmer minute={timerMinute} second={0} />
-                <AuthCheckButton type="button" onClick={(e) => checkAuth(e)} disabled={errorMessage !== null}>
+                <AuthCheckButton
+                  type="button"
+                  onClick={(e) => {
+                    checkAuth(e);
+                  }}
+                  disabled={errorMessage !== null}
+                >
                   인증확인
                 </AuthCheckButton>
               </EmailContainer>

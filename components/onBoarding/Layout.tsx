@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Common, Pretendard } from 'styles/common';
 import dynamic from 'next/dynamic';
-const StepProgress = dynamic(() => import('components/StepProgress'), { ssr: false });
+import { Common, Pretendard } from 'styles/common';
+const StepProgress = dynamic(async () => await import('components/StepProgress'), { ssr: false });
 
-type Props = {
+interface Props {
   children: React.ReactNode;
-};
+}
 
 const Layout = (props: Props) => {
   return (

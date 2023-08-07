@@ -1,14 +1,14 @@
 import { useLayoutEffect, useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { Common, Pretendard, AlignAndJustifyCenter } from 'styles/common';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import Minus from 'public/icon/minus.svg';
 import Plus from 'public/icon/plus-not-cicle.svg';
-import { useRecoilState, useRecoilValue } from 'recoil';
 import { surveyState, surveySelector } from 'states/survey';
+import { Common, Pretendard, AlignAndJustifyCenter } from 'styles/common';
 
 const TImeTaken = () => {
   const [survey, setSurvey] = useRecoilState(surveyState);
-  const [multipleSelectionCount, setmultipleSelectionCount] = useState(0); //객관식 숫자
+  const [multipleSelectionCount, setmultipleSelectionCount] = useState(0); // 객관식 숫자
   const [totalCount, settotalCount] = useState(0);
   const [totalMinute, settotalMinute] = useState(0);
   const questionsData = useRecoilValue(surveySelector);
@@ -31,7 +31,7 @@ const TImeTaken = () => {
   }, [totalMinute]);
 
   useLayoutEffect(() => {
-    //소요시간 계산
+    // 소요시간 계산
     const getTimeTaken = () => {
       let time = 0;
       let totalSelectionCount = 0;

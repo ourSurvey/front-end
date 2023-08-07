@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import { Pretendard, Common, SpaceBetween } from 'styles/common';
-type Props = {
+interface Props {
   setVisible: (bool: boolean) => void;
   onDelete: () => void;
   length: number;
-};
+}
 
 const PartDeleteBody = ({ setVisible, onDelete, length }: Props) => {
   return (
@@ -19,7 +19,13 @@ const PartDeleteBody = ({ setVisible, onDelete, length }: Props) => {
       )}
 
       <div className="btn-container">
-        <button onClick={() => setVisible(false)}>취소</button>
+        <button
+          onClick={() => {
+            setVisible(false);
+          }}
+        >
+          취소
+        </button>
         <button className="del" onClick={onDelete}>
           {length > 1 ? '삭제' : '모두 삭제'}
         </button>

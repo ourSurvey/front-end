@@ -5,6 +5,7 @@ module.exports = {
     node: true,
   },
   extends: [
+    'eslint:recommended',
     'plugin:react/recommended',
     'standard-with-typescript',
     'plugin:@typescript-eslint/recommended',
@@ -15,10 +16,36 @@ module.exports = {
     'plugin:import/typescript',
     'plugin:jsx-a11y/recommended',
   ],
-  overrides: [],
-  parser: '@typescript-eslint/parser' /* code를 위한 parser */,
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      parser: '@typescript-eslint/parser',
+      parserOptions: {
+        project: './tsconfig.json',
+        ecmaFeatures: {
+          jsx: true,
+        },
+        ecmaVersion: 12,
+        sourceType: 'module',
+      },
+    },
+  ],
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        moduleDirectory: ['node_modules', './'],
+      },
+      next: {
+        rootDir: './',
+      },
+    },
+    react: {
+      version: 'detect',
+    },
+  },
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    /* parser를 지원하기 위한 js 옵션 */
     project: './tsconfig.json',
     ecmaFeatures: {
       jsx: true,
@@ -57,5 +84,7 @@ module.exports = {
       { devDependencies: ['jest.setup.ts', '**/*.test.tsx', '**/*.spec.tsx', '**/*.test.ts', '**/*.spec.ts'] },
     ],
     '@typescript-eslint/no-explicit-any': 'error',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/consistent-type-assertions': 'off',
   },
 };

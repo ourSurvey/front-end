@@ -1,8 +1,8 @@
-import Close from 'public/icon/close.svg';
+import styled from '@emotion/styled';
 import { useRecoilState } from 'recoil';
+import Close from 'public/icon/close.svg';
 import { tagState } from 'states/tag';
 import { Common, Pretendard } from 'styles/common';
-import styled from '@emotion/styled';
 
 interface Iprops {
   text: string;
